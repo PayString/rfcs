@@ -2,6 +2,8 @@ package org.payid;
 
 import static java.lang.String.format;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.common.base.Preconditions;
 import org.immutables.value.Value;
 import org.immutables.value.Value.Check;
@@ -13,6 +15,8 @@ import java.util.regex.Pattern;
  * An abstract implementation of {@link PayId} for use by Immutables.
  */
 @Value.Immutable
+@JsonSerialize(as = ImmutablePayId.class)
+@JsonDeserialize(as = ImmutablePayId.class)
 abstract class AbstractPayId implements PayId {
 
   private static final String ALPHA = "a-zA-Z";

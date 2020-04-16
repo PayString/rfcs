@@ -3,14 +3,26 @@ package org.payid;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.payid.AbstractPayId.upperCasePercentEncoded;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableList.Builder;
+import org.immutables.value.Value;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
+import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Unit tests for {@link PayId}.
@@ -18,111 +30,59 @@ import java.util.Objects;
 @RunWith(Parameterized.class)
 public class PayIdValidValuesTest {
 
-  private String sourcePayId;
-  private String expectedAccountPart;
-  private String expectedHost;
-  private String expectedPayIdToString;
+  private ValidPayIdTestVector validPayIdTestVector;
 
-  public PayIdValidValuesTest(
-    String sourcePayId,
-    String expectedAccountPart,
-    String expectedHost,
-    String expectedPayIdToString
-  ) {
-    this.sourcePayId = Objects.requireNonNull(sourcePayId);
-    this.expectedAccountPart = Objects.requireNonNull(expectedAccountPart);
-    this.expectedHost = Objects.requireNonNull(expectedHost);
-    this.expectedPayIdToString = Objects.requireNonNull(expectedPayIdToString);
+  public PayIdValidValuesTest(final ValidPayIdTestVector validPayIdTestVector) {
+    this.validPayIdTestVector = Objects.requireNonNull(validPayIdTestVector);
   }
 
   /**
    * The data for this test...
    */
   @Parameters
-  public static Collection<Object[]> data() {
+  public static Collection<ValidPayIdTestVector> data() throws URISyntaxException {
+    final URI baseUri = PayIdValidValuesTest.class.getResource(
+      PayIdValidValuesTest.class.getSimpleName() + ".class"
+    ).toURI();
+    final File baseDirectoryFile = new File(baseUri).getParentFile();
+    final File validTestVectorDir = new File(baseDirectoryFile, "");
+    final Builder<ValidPayIdTestVector> vectors = ImmutableList.builder();
+    final ObjectMapper mapper = new ObjectMapper();
 
-    return Arrays.asList(new Object[][]{
-      //0
-      {
-        "payid:alice$example.com", // input
-        "alice", // accountPart
-        "example.com", // host
-        "payid:alice$example.com", // expectedToString
-      },
-      //1 (unreserved chars)
-      {
-        "payid:abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._~$example.net", // input
-        "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz0123456789-._~", // accountPart
-        "example.net", // host
-        "payid:abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz0123456789-._~$example.net", // expectedToString
-      },
-      //2 (sub-delims)
-      {
-        "payid:!&'()*+,;=$example.net", // input
-        "!&'()*+,;=", // accountPart
-        "example.net", // host
-        "payid:!&'()*+,;=$example.net", // expectedToString
-      },
-      //3 (sub-delims first, then unreserved)
-      {
-        "payid:!alice$example.net", // input
-        "!alice", // accountPart
-        "example.net", // host
-        "payid:!alice$example.net", // expectedToString
-      },
-      //4 (unreserved first, then sub-delims)
-      {
-        "payid:aliCE$!example.net", // input
-        "alice", // accountPart
-        "!example.net", // host
-        "payid:alice$!example.net", // expectedToString
-      },
-      //5 (percent-encoded $)
-      {
-        "payid:alice%24wallet.example$bank.example.net", // input
-        "alice%24wallet.example", // accountPart
-        "bank.example.net", // host
-        "payid:alice%24wallet.example$bank.example.net", // expectedToString
-      },
-      //6 (encoded IDN)
-      {
-        "payid:alice$nic.xn--rovu88b", // input
-        "alice", // accountPart
-        "nic.xn--rovu88b", // host
-        "payid:alice$nic.xn--rovu88b", // expectedToString
-      },
-      //7 (host with port)
-      {
-        "payid:alice$example.com:8080", // input
-        "alice", // accountPart
-        "example.com:8080", // host
-        "payid:alice$example.com:8080", // expectedToString
-      },
-      //8 (Capitalized PAYID)
-      {
-        "PAYID:alice$example.com:8080", // input
-        "alice", // accountPart
-        "example.com:8080", // host
-        "payid:alice$example.com:8080", // expectedToString
-      },
-      //9 (accept ":" in host)
-      {
-        "payid:alice$:example.com", // input
-        "alice", // accountPart
-        ":example.com", // host
-        "payid:alice$:example.com", // expectedToString
+    Arrays.stream(validTestVectorDir.listFiles()).forEach(file -> {
+      try {
+        if (file.getName().endsWith("valid-payids.json")) {
+          final List<ValidPayIdTestVector> testVectors = mapper.readValue(file,
+            new TypeReference<List<ValidPayIdTestVector>>() {
+            });
+
+          vectors.addAll(testVectors.stream()
+            .map(tv -> ValidPayIdTestVector.builder()
+              .description(tv.description())
+              .payIdInput(tv.payIdInput())
+              .expectedAccountId(tv.expectedAccountId())
+              .expectedHost(tv.expectedHost())
+              .expectedStringValue(tv.expectedStringValue())
+              .build()
+            )
+            .collect(Collectors.toList()));
+        }
+      } catch (Exception e) {
+        throw new RuntimeException(e);
       }
     });
+
+    return vectors.build();
   }
 
   @Test
   public void testValidValues() {
-    final PayId payId = PayId.of(sourcePayId);
+    final PayId payId = PayId.of(validPayIdTestVector.payIdInput());
 
     assertThat(payId).isNotNull();
-    assertThat(payId.account()).isEqualTo(expectedAccountPart);
-    assertThat(payId.host()).isEqualTo(expectedHost);
-    assertThat(payId.toString()).isEqualTo(expectedPayIdToString);
+    assertThat(payId.account()).isEqualTo(validPayIdTestVector.expectedAccountId());
+    assertThat(payId.host()).isEqualTo(validPayIdTestVector.expectedHost());
+    assertThat(payId.toString()).isEqualTo(validPayIdTestVector.expectedStringValue());
   }
 
   @Test
@@ -142,11 +102,25 @@ public class PayIdValidValuesTest {
     assertThat(upperCasePercentEncoded("Foo$%af%2eBAR")).isEqualTo("Foo$%AF%2EBAR");
     assertThat(upperCasePercentEncoded("foo$%af%2ebar")).isEqualTo("foo$%AF%2Ebar");
   }
-}
 
-// TODO: Ensure no $ in sub-delims?
-// TODO: Ensure that payid always starts with (unreserved / sub-delims)
-// TODO: pct-encoded
-// TODO: Invalid (gen-delims like hash)
-// TODO: normalization (caps, etc).
-// TODO: I18N?
+  @Value.Immutable
+  @JsonSerialize(as = ImmutableValidPayIdTestVector.class)
+  @JsonDeserialize(as = ImmutableValidPayIdTestVector.class)
+  public interface ValidPayIdTestVector {
+
+    static ImmutableValidPayIdTestVector.Builder builder() {
+      return ImmutableValidPayIdTestVector.builder();
+    }
+
+    String description();
+
+    String payIdInput();
+
+    String expectedAccountId();
+
+    String expectedHost();
+
+    String expectedStringValue();
+
+  }
+}

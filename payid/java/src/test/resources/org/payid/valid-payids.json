@@ -1,0 +1,72 @@
+[
+  {
+    "description": "0. PayID Happy path",
+    "payIdInput": "payid:alice$example.com",
+    "expectedAccountId": "alice",
+    "expectedHost": "example.com",
+    "expectedStringValue": "payid:alice$example.com"
+  },
+  {
+    "description": "1. `unreserved` account characters",
+    "payIdInput": "payid:abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._~$example.net",
+    "expectedAccountId": "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz0123456789-._~",
+    "expectedHost": "example.net",
+    "expectedStringValue": "payid:abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz0123456789-._~$example.net"
+  },
+  {
+    "description": "2. (sub-delims)",
+    "payIdInput": "payid:!&'()*+,;=$example.net",
+    "expectedAccountId": "!&'()*+,;=",
+    "expectedHost": "example.net",
+    "expectedStringValue": "payid:!&'()*+,;=$example.net"
+  },
+  {
+    "description": "3. (sub-delims first, then unreserved)",
+    "payIdInput": "payid:!alice$example.net",
+    "expectedAccountId": "!alice",
+    "expectedHost": "example.net",
+    "expectedStringValue": "payid:!alice$example.net"
+  },
+  {
+    "description": "4. (unreserved first, then sub-delims)",
+    "payIdInput": "payid:aliCE$!example.net",
+    "expectedAccountId": "alice",
+    "expectedHost": "!example.net",
+    "expectedStringValue": "payid:alice$!example.net"
+  },
+  {
+    "description": "5. (percent-encoded $)",
+    "payIdInput": "payid:alice%24wallet.example$bank.example.net",
+    "expectedAccountId": "alice%24wallet.example",
+    "expectedHost": "bank.example.net",
+    "expectedStringValue": "payid:alice%24wallet.example$bank.example.net"
+  },
+  {
+    "description": "6 (encoded IDN)",
+    "payIdInput": "payid:alice$nic.xn--rovu88b",
+    "expectedAccountId": "alice",
+    "expectedHost": "nic.xn--rovu88b",
+    "expectedStringValue": "payid:alice$nic.xn--rovu88b"
+  },
+  {
+    "description": "7 (host with port)",
+    "payIdInput": "payid:alice$example.com:8080",
+    "expectedAccountId": "alice",
+    "expectedHost": "example.com:8080",
+    "expectedStringValue": "payid:alice$example.com:8080"
+  },
+  {
+    "description": "8. (Capitalized PAYID)",
+    "payIdInput": "PAYID:alice$example.com:8080",
+    "expectedAccountId": "alice",
+    "expectedHost": "example.com:8080",
+    "expectedStringValue": "payid:alice$example.com:8080"
+  },
+  {
+    "description": "9. (accept \":\" in host)",
+    "payIdInput": "payid:alice$:example.com",
+    "expectedAccountId": "alice",
+    "expectedHost": ":example.com",
+    "expectedStringValue": "payid:alice$:example.com"
+  }
+]
