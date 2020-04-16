@@ -1,0 +1,51 @@
+{
+  "name": "payid-meta",
+  "version": "1.0.0",
+  "description": "payid specs and tests",
+  "main": "index.js",
+  "scripts": {
+    "build": "rm -f test-vectors/valid/*; node scripts/generate_test_vectors.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "spec": "rm -f dist/spec/payid.*; grunt kramdown_rfc2629"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xpring-eng/rfcs.git"
+  },
+  "keywords": [
+    "payid",
+    "spec",
+    "test",
+    "vectors",
+    "testsuite",
+    "suite",
+    "unit",
+    "cases",
+    "crypto",
+    "verify"
+  ],
+  "author": "David Fuelling <fuelling@ripple.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/xpring-eng/rfcs/issues"
+  },
+  "homepage": "https://github.com/xpring-eng/rfcs#readme",
+  "devDependencies": {
+    "base64url": "^2.0.0",
+    "eslint": "^3.12.2",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-promise": "^3.4.0",
+    "eslint-plugin-standard": "^2.0.1",
+    "grunt": "^1.0.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-kramdown-rfc2629": "0.0.2",
+    "lodash": "^4.17.2",
+    "mustache": "^2.3.0",
+    "sinon": "^1.17.6",
+    "tmp": "0.0.31",
+    "xmldoc": "^0.5.1"
+  },
+  "dependencies": {
+    "grunt-cli": "^1.3.2"
+  }
+}
