@@ -32,13 +32,19 @@ normative:
     RFC5890:
     RFC5892:
     RFC7564:
+    PAYID-DISCOVERY: 
+      title: "The PayID Discovery Protocol"
+      target: https://tbd.example.com/
+      author:
+        ins: D. Fuelling
+        fullname: David Fuelling
     UNICODE:
       title: "The Unicode Standard"
       target: http://www.unicode.org/versions/latest/
       author:
         surname: The Unicode Consortium
         fullname: The Unicode Consortium
-
+ 
 informative:
     RFC0020: 
     RFC4395:
@@ -261,9 +267,9 @@ to register the 'payid' URI scheme.
    **Encoding Considerations**:  See Section 6 of this document.
 
    **Applications/Protocols That Use This URI Scheme Name**: At the time of
-      this writing, only the WebFinger protocol uses the 'payid' URI
-      scheme.  However, use is not restricted to the WebFinger protocol,
-      and the scheme might be considered for use in other protocols.
+     this writing, only the [payid-uri][] protocol uses the 'payid' URI
+     scheme.  However, use is not restricted to this protocol, and the
+     scheme might be considered for use in other protocols.
 
    **Interoperability Considerations**:  There are no known interoperability
       concerns related to use of the 'payid' URI scheme.
