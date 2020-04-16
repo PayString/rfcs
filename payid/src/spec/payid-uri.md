@@ -267,7 +267,7 @@ to register the 'payid' URI scheme.
    **Encoding Considerations**:  See Section 6 of this document.
 
    **Applications/Protocols That Use This URI Scheme Name**: At the time of
-     this writing, only the [payid-uri][] protocol uses the 'payid' URI
+     this writing, only the [PAYID-DISCOVERY][] protocol uses the 'payid' URI
      scheme.  However, use is not restricted to this protocol, and the
      scheme might be considered for use in other protocols.
 
@@ -283,7 +283,10 @@ to register the 'payid' URI scheme.
 
    **References**:  None.
 
-
 # Acknowledgements
-The author would like to acknowledge the contributions of everyone who
- provided feedback and use cases for this specification.
+This document was heavily influenced RFC-7565, adapted for a payments use
+-case. The author would like to acknowledge the contributions of everyone who
+worked on that and related specifications. 
+
+In addition, the author would like to acknowledge everyone who provided
+feedback and use-cases for this derivative specification.

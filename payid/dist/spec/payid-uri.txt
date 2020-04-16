@@ -321,9 +321,9 @@ Internet-Draft           The 'payid' URI Scheme               April 2020
    *Encoding Considerations*: See Section 6 of this document.
 
    *Applications/Protocols That Use This URI Scheme Name*: At the time
-   of this writing, only the WebFinger protocol uses the 'payid' URI
-   scheme.  However, use is not restricted to the WebFinger protocol,
-   and the scheme might be considered for use in other protocols.
+   of this writing, only the [PAYID-DISCOVERY] protocol uses the 'payid'
+   URI scheme.  However, use is not restricted to this protocol, and the
+   scheme might be considered for use in other protocols.
 
    *Interoperability Considerations*: There are no known
    interoperability concerns related to use of the 'payid' URI scheme.
@@ -347,12 +347,20 @@ Internet-Draft           The 'payid' URI Scheme               April 2020
 
 8.  Acknowledgements
 
-   The author would like to acknowledge the contributions of everyone
-   who provided feedback and use cases for this specification.
+   This document was heavily influenced RFC-7565, adapted for a payments
+   use -case.  The author would like to acknowledge the contributions of
+   everyone who worked on that and related specifications.
+
+   In addition, the author would like to acknowledge everyone who
+   provided feedback and use-cases for this derivative specification.
 
 9.  References
 
 9.1.  Normative References
+
+   [PAYID-DISCOVERY]
+              Fuelling, D., "The PayID Discovery Protocol", n.d.,
+              <https://tbd.example.com/>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -378,14 +386,6 @@ Internet-Draft           The 'payid' URI Scheme               April 2020
               RFC 5890, DOI 10.17487/RFC5890, August 2010,
               <https://www.rfc-editor.org/info/rfc5890>.
 
-   [RFC5892]  Faltstrom, P., Ed., "The Unicode Code Points and
-              Internationalized Domain Names for Applications (IDNA)",
-              RFC 5892, DOI 10.17487/RFC5892, August 2010,
-              <https://www.rfc-editor.org/info/rfc5892>.
-
-
-
-
 
 
 
@@ -393,6 +393,11 @@ Fuelling                Expires October 18, 2020                [Page 7]
 
 Internet-Draft           The 'payid' URI Scheme               April 2020
 
+
+   [RFC5892]  Faltstrom, P., Ed., "The Unicode Code Points and
+              Internationalized Domain Names for Applications (IDNA)",
+              RFC 5892, DOI 10.17487/RFC5892, August 2010,
+              <https://www.rfc-editor.org/info/rfc5892>.
 
    [RFC7564]  Saint-Andre, P. and M. Blanchet, "PRECIS Framework:
               Preparation, Enforcement, and Comparison of
@@ -433,11 +438,6 @@ Internet-Draft           The 'payid' URI Scheme               April 2020
    [2] mailto:payid@ripple.com
 
 Author's Address
-
-
-
-
-
 
 
 

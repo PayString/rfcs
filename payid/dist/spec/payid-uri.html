@@ -543,7 +543,7 @@
 <p id="rfc.section.7.p.5">Note that additional rules regarding the strings that are used as input to construction of 'payid' URIs further limit the characters that can be percent-encoded; see the Encoding Considerations as well as Section 6 of this document.</p>
 <p><strong>URI Scheme Semantics</strong>:  The 'payid' URI scheme identifies payment accounts hosted at payment service providers.  It is used only for identification, not interaction.  A protocol that employs the 'payid' URI scheme is responsible for specifying how a 'payid' URI is dereferenced in the context of that protocol.  There is no media type associated with the 'payid' URI scheme.</p>
 <p><strong>Encoding Considerations</strong>:  See Section 6 of this document.</p>
-<p><strong>Applications/Protocols That Use This URI Scheme Name</strong>: At the time of this writing, only the WebFinger protocol uses the 'payid' URI scheme.  However, use is not restricted to the WebFinger protocol, and the scheme might be considered for use in other protocols.</p>
+<p><strong>Applications/Protocols That Use This URI Scheme Name</strong>: At the time of this writing, only the <a href="#PAYID-DISCOVERY" class="xref">[PAYID-DISCOVERY]</a> protocol uses the 'payid' URI scheme.  However, use is not restricted to this protocol, and the scheme might be considered for use in other protocols.</p>
 <p><strong>Interoperability Considerations</strong>:  There are no known interoperability concerns related to use of the 'payid' URI scheme.</p>
 <p><strong>Security Considerations</strong>:  See Section 5 of this document.</p>
 <p><strong>Contact</strong>:  fuelling@ripple.com</p>
@@ -552,12 +552,18 @@
 <h1 id="rfc.section.8">
 <a href="#rfc.section.8">8.</a> <a href="#acknowledgements" id="acknowledgements">Acknowledgements</a>
 </h1>
-<p id="rfc.section.8.p.1">The author would like to acknowledge the contributions of everyone who provided feedback and use cases for this specification.</p>
+<p id="rfc.section.8.p.1">This document was heavily influenced RFC-7565, adapted for a payments use -case. The author would like to acknowledge the contributions of everyone who worked on that and related specifications.</p>
+<p id="rfc.section.8.p.2">In addition, the author would like to acknowledge everyone who provided feedback and use-cases for this derivative specification.</p>
 <h1 id="rfc.references">
 <a href="#rfc.references">9.</a> References</h1>
 <h1 id="rfc.references.1">
 <a href="#rfc.references.1">9.1.</a> Normative References</h1>
 <table><tbody>
+<tr>
+<td class="reference"><b id="PAYID-DISCOVERY">[PAYID-DISCOVERY]</b></td>
+<td class="top">
+<a>Fuelling, D.</a>, "<a href="https://tbd.example.com/">The PayID Discovery Protocol</a>", n.d..</td>
+</tr>
 <tr>
 <td class="reference"><b id="RFC2119">[RFC2119]</b></td>
 <td class="top">
