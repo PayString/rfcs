@@ -8,6 +8,9 @@
 <!ENTITY RFC4627 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.4627.xml">
 <!ENTITY RFC6570 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6570.xml">
 <!ENTITY RFC7033 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7033.xml">
+<!ENTITY RFC7230 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7230.xml">
+<!ENTITY RFC5988 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5988.xml">
+<!ENTITY RFC6415 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6415.xml">
 ]>
 
 <?rfc toc="yes"?>
@@ -36,7 +39,7 @@
       </address>
     </author>
 
-    <date year="2020" month="April" day="16"/>
+    <date year="2020" month="April" day="21"/>
 
     <area>security</area>
     
@@ -72,42 +75,43 @@ PayID URI into a URL that can be used with other protocols.</t>
 
 
 <section anchor="introduction" title="Introduction">
-<t>PayID Discovery is used to transform a PayID URI <xref target="PAYID-URI"></xref> into a URL 
-   that can be used by higher-order protocols using HTTP.</t>
+<t>PayID Discovery is used to transform a PayID URI <xref target="PAYID-URI"></xref> into a
+   URL (defined below as a PayID Discovery URL) that can then be used by 
+   higher-order protocols to discover metadata about a service provider.</t>
 
 <t>This document specifies two modes of PayID discovery: one using
-   Webfinger <xref target="RFC7033"></xref> to resolve a corresponding URL from a PayID URI
-   in an automated fashion; and one using a manual, fallback mechanism
-   to assemble a URL from a PayID URI by-hand.</t>
+   Webfinger <xref target="RFC7033"></xref> to resolve a corresponding PayID Discovery URL
+   from a PayID using an automated fashion. The second modes uses a manual, 
+   fallback mechanism to assemble a PayID Discovery URL from a PayID by-hand.</t>
 
 <t>In 'automated' mode, a PayID can be presented to a service endpoint that
    supports PayID Discovery. The resource returns a Webfinger-compliant 
    JavaScript Object Notation (JSON) <xref target="RFC4627"></xref> object that can be used
-   to assemble PayID URL as defined by the procedure in section 4.1 of
-   this document.</t>
+   to perform PayID Discovery as defined in section 4.1 of this document.</t>
 
 <t>Conversely, in "manual" mode, a PayID can be decomposed into a URL, without
-   any intermediate server interaction, simply by transposing portions of the
-   PayID into a URL format defined in section 4.2 of this document.</t>
+   any intermediate server interaction, by simply transposing portions of a
+   PayID URI into a URL format. This procedure is defined in section 4.2 of
+   this document.</t>
 
 <t>It should be noted that "manual" mode does not allow divergence between the
    string characters in a PayID URI and any corresponding URL. Conversely, 
-   "automatic" mode does allow such divergence. For example, in "manual" mode,
-   the PayID 'alice$example.com' MUST always map to the URL 
-   'https://example.com/alice', whereas in "automatic" mode that same PayID
-   URI can map to any arbitrary URL structure determined buy the service
-   provider, such as 'https://example.com/users/alice'.</t>
+   "automated" mode does allow such divergence, and is thus more powerful. For
+   example, in "manual" mode, the PayID 'alice$example.com' MUST always map
+   to the URL 'https://example.com/alice', whereas in "automated" mode
+   that same PayID URI can map to any arbitrary URL structure determined
+   buy the service provider, such as 'https://example.com/users/alice'.</t>
 
-<t>Information returned via PayID Discovery might be for direct human
+<t>Information returned via PayID Discovery might be used for direct human
    consumption (e.g., looking up someone's Bitcoin address), or it might be
    used by systems to help carry out some operation (e.g., facilitating,
    with additional security mechanisms, protocols to support compliance or 
    other legal requirements necessary to facilitate a payment).</t>
 
 <t>The information returned via this protocol is intended to be static
-   in nature, and, as such, PayID Discovery is not intended to be
-   used to return dynamic information like a payment account balance or 
-   the current status of an account.</t>
+   in nature. As such, PayID Discovery is not intended to be used to return
+   dynamic information like a payment account balance or the current
+   status of an account.</t>
 
 <t>PayID Discovery is designed to be used across many applications. Use of 
    PayID Discovery is illustrated in the examples in Section 3 and
@@ -123,9 +127,9 @@ PayID URI into a URL that can be used with other protocols.</t>
 </section>
 <section anchor="example-usage" title="Example Usage">
 <t>This section shows sample uses of PayID Discovery in several
-    hypothetical scenarios.</t>
+   hypothetical scenarios.</t>
 
-<section anchor="automated-payid-discovery-by-a-wallet" title="Automated PayID Discovery by a Wallet">
+<section anchor="payid-discovery-by-a-wallet" title="PayID Discovery by a Wallet">
 <t>Suppose Alice wishes to send a friend some XRP from a web-based wallet
    provider that Alice has an account on. Alice would log-in to the wallet
    provider and enter Bob's PayID (say, <spanx style="verb">bob$receiver.example.com</spanx>) into the
@@ -153,24 +157,23 @@ PayID URI into a URL that can be used with other protocols.</t>
    "links" :
    [
      {  
-       "rel": "http://payid.org/rel/discovery/1.0 ",
-       "type": "application/payid-uri-template",
-       "href": "https://receiver.exmaple.com/users/{acctpart}"
+       "rel": "http://payid.org/rel/discovery/1.0",
+       "template": "https://receiver.exmaple.com/users/{acctpart}"
      }
    ]
  }
 ]]></artwork></figure>
 
-<t>Alice's wallet then uses URL template found in the <spanx style="verb">href</spanx> property to 
+<t>Alice's wallet then uses URL template found in the <spanx style="verb">template</spanx> property to 
    assemble a PayId-specific URL, <spanx style="verb">https://receiver.exmaple.com/users/bob</spanx>.</t>
 
-<t>Per RFC-7033, Webfinger requests can be filtered by using a "rel" 
+<t>Per <xref target="RFC7033"></xref>, Webfinger requests can be filtered by using a "rel" 
    parameter in the Webfinger request. Because support for the "rel" parameter
    is not required nor guaranteed, the client must not assume the "links" 
    array will contain only the link relations related to PayID Discovery.</t>
 
 </section>
-<section anchor="manual-payid-discovery-by-a-wallet" title="Manual PayID Discovery by a Wallet">
+<section anchor="payid-discovery-with-default-template" title="PayID Discovery with Default Template">
 <t>Suppose Alice wishes to send a friend some XRP from a web-based wallet
   provider that Alice has an account on. However, in this example, let's
    assume that the PayID Alice is wanting to pay doesn't support "automated"
@@ -209,116 +212,298 @@ PayID URI into a URL that can be used with other protocols.</t>
 </section>
 <section anchor="payid-discovery-protocol" title="PayID Discovery Protocol">
 <t>The PayID Discovery protocol is used to request information about an entity
-  identified by a query target that is a PayID URI.</t>
+  identified by a PayID URI.</t>
 
-<t>The result of PayID Discovery is a URL that can be used for any other
-  protocol purposes that are outside the scope of this document.</t>
+<t>When successful, PayID Discovery always yields a PayID URL, which is a
+  URI as defined by <xref target="RFC3986"></xref> using the 'https' scheme defined in
+  <xref target="RFC7230"></xref>. A PayID URL can be used for any purposes outside the scope of
+  this document.</t>
 
-<t>To this end, PayID Discovery defines two modes of operation, "manual" and
-  "automated" (defined below). Clients SHOULD attempt "automated mode" first.
-  Failing that, "manual mode" SHOULD be used.</t>
+<t>PayID Discovery is performed using one of two modes: "interactive" or
+  "fallback." Clients MUST attempt "interactive" mode first. If that
+  mode fails to yield a PayID URL, then "fallback" mode MAY be used as an
+  alternative discovery mechanism.</t>
 
-<section anchor="automated-mode" title="Automated Mode">
-<t>This mode utilizes the Webfinger specification in a narrowly defined
-  profile.</t>
+<section anchor="interactive-mode" title="Interactive Mode">
+<t>Interactive PayID Discovery is broken up into a series of steps, each of
+  which is defined in more detail below. The following is a visual
+  representation of the protocol flow:</t>
 
-<t>A WebFinger resource is always given a query target, which is another
-  URI that identifies the entity whose information is sought. For PayID
-  Discovery, this supplied URI MUST always be a valid PayID URI, and must be
-  supplied to the WebFinger service according to the rules defined in
-  section 4.1 of Webfinger <xref target="RFC7033"></xref>.</t>
+<figure><artwork><![CDATA[
+                    +--------------------------+                   
+                    |        PayID URI         |                   
+                    |    alice$example.com     |                   
+                    +--------------------------+                   
+                                  |                                
+                                  v                                
+                    +--------------------------+                   
+                    |         Assemble         |                   
+                    |   PayID Discovery URL    |                   
+                    +--------------------------+                   
+                                  |                                
+                                  v                                
+                    +--------------------------+                   
+                    |          Query           |                   
+              +-----|   PayID Discovery URL    |-----+             
+              |     +--------------------------+     |             
+              |                                  Success           
+              |                                      |             
+              |                                      v             
+              |                        +--------------------------+
+          Failure                      |   Parse PayID Metadata   |
+              |                        +--------------------------+
+              |                                      |             
+              |                                      v             
+              |                        +--------------------------+
+              |                        |Select PayID URI Template |
+              |                        +--------------------------+
+              |                                      |             
+              v                                      v             
++--------------------------+           +--------------------------+
+| Fallback PayID Discovery |           |    Assemble PayID URL    |
++--------------------------+           +--------------------------+
+              |                                      |             
+              +---------------------+----------------+             
+                                    |                              
+                                    v                              
+                      +---------------------------+                
+                      |         PayID URL         |                
+                      | https://example.com/alice |                
+                      +---------------------------+                
+]]></artwork></figure>
 
-<t>In this profile, the WebFinger resource returns a JSON Resource Descriptor
-  (JRD) as the resource representation to convey information about the
-  requested PayID. The returned JRD MUST have a URI template that can be used
-  to map the source PayID to a de-referencable URL.</t>
+<section anchor="step-1-assemble-payid-discovery-url" title="Step 1: Assemble PayID Discovery URL">
+<t>PayID Discovery utilizes the Webfinger <xref target="RFC7033"></xref> specification in a 
+  narrowly defined profile.</t>
 
-<section anchor="automated-mode-url-assembly" title="Automated Mode URL Assembly">
-<t>If a PayID Discovery server returns a JRD that conforms to section 4.1.2
-below, then the following ruleset SHOULD be used to transform the
-corresponding PayID URI into a URL:</t>
+<t>This document defines a PayID Discovery URL as being a Webfinger 
+  resource URI where the specified resource value is a valid PayID 
+  URI <xref target="PAYID-URI"></xref>.</t>
+
+<t>For example, the PayID Discovery URI for alice$example.com is</t>
+
+<figure><artwork><![CDATA[
+ https://example.com/.well-known/webfinger?resource=payid%3Abob%24.example.com
+]]></artwork></figure>
+
+</section>
+<section anchor="step-2-query-payid-discovery-url" title="Step 2: Query PayID Discovery URL">
+<t>A Webfinger query MUST be performed against the PayID Disovery URL,
+  as described in section 4.2 of Webfinger.</t>
+
+<t>In response, the WebFinger resource returns a JSON Resource Descriptor (JRD)
+  as the resource representation to convey information about the requested 
+  PayID.</t>
+
+<t>If the Webfinger endpoint returns a non-200 HTTP response status code, then
+  interactive PayID Discovery is considered to have failed. Clients SHOULD 
+  attempt to assemble a PayID URL using "fallback" mode as defined in section
+  4.2.1 of this document.</t>
+
+</section>
+<section anchor="step-3-parse-payid-metadata" title="Step 3: Parse PayID Metadata">
+<t>If the PayID Discovery server returns a valid response, the response will
+  contain one or more of the JRDs defined in section 5 of this document.</t>
+
+<t>If any of the JRDs contain a 'rel' value that represents a PayID URL
+  Template, then that template value MUST be used in the next protocol step.</t>
+
+<t>Failing the above, if the 'rel' value of any JRDs represents a PayID
+  Discovery URL, then that URL MUST be used in step 2 above, repeated
+  recursively if needed, until a valid PayID URI Template is obtained. 
+  That URI Template value MUST be used in the next protocol step.</t>
+
+</section>
+<section anchor="step-4-assemble-payid-url" title="Step 4: Assemble PayID URL">
+<t>A PayID URL is constructed by applying the PayID URI to the PayID URI
+   Template string obtained via the steps above. The PayID URI template MAY
+   contain a URI string without any variables to represent a host-level
+   PayID URL that is identical for every PayID URI on a particular host.</t>
+
+<t>For example, a PayID Discovery endpoint that only supports a single account
+   might use a URI template string with no variables, like this:</t>
+
+<figure><artwork><![CDATA[
+{
+  "rel": "https://payid.org/ns/payid-url-template/1.0",
+  "template": "https://example.com/alice"
+}
+]]></artwork></figure>
+
+<t>The result of this step is the PayID URL. Once obtained, PayID Discovery
+   is considered to have completed successfully.</t>
+
+<section anchor="template-syntax" title="Template Syntax">
+<t>This specification defines a simple template syntax for PayID URI
+   transformation.  A template is a string containing brace-enclosed
+   ("{}") variable names marking the parts of the string that are to be
+   substituted by the corresponding variable values.</t>
+
+<t>This specification defines a one variable – "acctpart" – which 
+   corresponds to the 'acctpart' of a PayID URI as defined in <xref target="PAYID-URI"></xref>.</t>
+
+<t>When substituting the 'acctpart' value into a URI 'path' as defined by
+   <xref target="RFC3986"></xref>, values MUST NOT be percent or otherwise encoded because the
+   'acctpart' value of a PayID URI always conforms to the character set
+   allowed by paths in <xref target="RFC3986"></xref>.</t>
+
+<t>However, before substituting template variables into a URI 'query' part,
+   values MUST be encoded using UTF-8, and any character other than
+   unreserved (as defined by <xref target="RFC3986"></xref>) MUST be percent-encoded per <xref target="RFC3986"></xref>.</t>
+
+<t>Protocols MAY define additional variables and syntax rules, but MUST NOT 
+   change the meaning of the 'acctpart' variable. If a client is unable to
+   successfully process a template (e.g., unknown variable names, unknown or 
+   incompatible syntax), the JRD SHOULD be ignored.</t>
+
+<t>The template syntax ABNF is as follows:</t>
+
+<figure><artwork><![CDATA[
+uri-char     =  ( reserved / unreserved / pct-encoded )
+var-char     =  ALPHA / DIGIT / "." / "_"
+var-name     =  %x61.63.63.74.70.61.72.74 / ( 1*var-char ) ; "acctpart" or
+                                                              other names
+variable     =  "{" var-name "}"
+PAYID-URI-Template =  *( uri-char / variable )
+]]></artwork></figure>
+
+<t>For example:</t>
+
+<figure><artwork><![CDATA[
+ Input:    alice$example.org
+ Template: https://example.org/{acctpart}
+ Output:   https://example.org/alice
+]]></artwork></figure>
+
+</section>
+</section>
+</section>
+<section anchor="fallback-mode" title="Fallback Mode">
+<t>If "Interactive" mode is not supported or otherwise fails to yield a PayID
+  URL, then a PayID URL MAY be assembled manually using the following
+  predefined ruleset:</t>
 
 <t><list style="numbers">
   <t>Decompose the PayID URI into its component parts, per <xref target="PAYID-URI"></xref>, 
-capturing the <spanx style="verb">acctpart</spanx> and <spanx style="verb">host</spanx> values.</t>
-  <t>Repalce the <spanx style="verb">acctpart</spanx> template variable in the URI template returned from 
-#1 above and with the <spanx style="verb">acctpart</spanx> portion of the PayID URI.</t>
+capturing the 'acctpart' and 'host' values.</t>
+  <t>Using the 'acctpart' and 'host', assemble a URL by substituting each
+   value into the following string using no special encoding or other
+   character adjustments: <spanx style="verb">https://{host}/{acctpart}</spanx>.</t>
 </list></t>
 
-<t>The resulting URL can be used according to the rules defined in any other
-protocol.</t>
+<t>For example:</t>
+
+<figure><artwork><![CDATA[
+ Input:    bob.primary$example.org
+ Output:   https://example.org/bob.primary
+]]></artwork></figure>
+
+<t>The resulting URL is a PayID URL.</t>
+
+<section anchor="fallback-assembly-flow" title="Fallback Assembly Flow">
+<t>The following is a visual representation of the Fallback Assembly protocol
+  flow:</t>
+
+<figure><artwork><![CDATA[
++--------------------------+ 
+|        PayID URI         | 
+|    alice$example.com     | 
++--------------------------+ 
+              |              
+              v              
++--------------------------+ 
+|Manual PayID URL Assembly | 
++--------------------------+ 
+              |              
+              v              
++---------------------------+
+|         PayID URL         |
+| https://example.com/alice |
++---------------------------+
+]]></artwork></figure>
 
 </section>
-<section anchor="payid-disovery-jrds" title="PayID Disovery JRDs">
-<t>Any JRD returned via Webfinger MUST be compatible with section 4.4 of
-  RFC-7033. As such, this protocol defines a single compatible 'link' as 
-  follows:</t>
+</section>
+</section>
+<section anchor="payid-discovery-jrds" title="PayID Discovery JRDs">
+<t>This document defines two JRDs that conform to section 4.4 of the
+  Webfinger RFC.</t>
+
+<section anchor="jrd-for-payid-discovery-url" title="JRD for PayID Discovery URL">
+<t>This type of JRD can be used to represent a URL that is a PayID Discovery
+  URL. This is useful for delegating PayID Discovery to another service
+  endpoint:</t>
 
 <t><list style="symbols">
-  <t>'rel': <spanx style="verb">http://payid.org/rel/discovery/1.0</spanx></t>
-  <t>'type': <spanx style="verb">application/payid-uri-template</spanx></t>
-  <t>'href': A URI template as defined by <xref target="RFC6570"></xref> that specifies an
-        <spanx style="verb">{acctpart}</spanx> template value specifying where in the service
-        provider's URL-space the account identifier should be located.</t>
+  <t>'rel': <spanx style="verb">http://payid.org/rel/payid-discovery-url/1.0</spanx></t>
+  <t>'href': A PayID Discovery URL that clients can dereference to perform
+        interactive PayID Discovery.</t>
 </list></t>
 
-</section>
-</section>
-<section anchor="manual-mode" title="Manual Mode">
-<t>If "Automated" mode is not supported or otherwise fails to yield a PayID
-  URL, then a URL can be assembled manually.</t>
+<t>The following is an example of a JRD that indicates a PayID Discovery URL:</t>
 
-<section anchor="manual-mode-url-assembly" title="Manual Mode URL Assembly">
-<t>If "Automated" mode is not supported or otherwise fails to yield a PayID
-  URL, then the following predefined ruleset SHOULD instead be used to
-  transform a PayID URI into a URL.</t>
+<figure><artwork><![CDATA[
+{
+  "rel": "https://payid.org/ns/payid-discovery-url/1.0",
+  "href": "https://delegate.example.com/.well-known/webfinger?resource=
+           payid%3Aalice%24example.com"
+}
+]]></artwork></figure>
 
-<t><list style="numbers">
-  <t>Decompose the PayID URI into its component parts, per <xref target="PAYID-URI"></xref>, 
-capturing the <spanx style="verb">acctpart</spanx> and <spanx style="verb">host</spanx> values.</t>
-  <t>Using the <spanx style="verb">acctpart</spanx> and the <spanx style="verb">host</spanx>, assemble a URL according to the
-following URL template:<spanx style="verb">https://{host}/{acctpart}</spanx></t>
+</section>
+<section anchor="jrd-for-payid-uri-template" title="JRD for PayID URI Template">
+<t>This type of JRD can be used to represent a URL that is a PayID URL
+  Template.</t>
+
+<t><list style="symbols">
+  <t>'rel': <spanx style="verb">http://payid.org/rel/payid-url-template/1.0</spanx></t>
+  <t>'template': A PayID URI Template</t>
 </list></t>
 
-<t>The resulting URL can be used according to the rules defined in any other
-protocol.</t>
+<t>The following is an example of a JRD that indicates a PayID URI Template:</t>
+
+<figure><artwork><![CDATA[
+{
+  "rel": "https://payid.org/ns/payid-url-template/1.0",
+  "template": "https://example.com/{acctpart}"
+}                
+]]></artwork></figure>
 
 </section>
-</section>
-</section>
-<section anchor="cross-origin-resource-sharing-cors" title="Cross-Origin Resource Sharing (CORS)">
-<t>PayID Discovery resources might not be accessible from a web browser due to
-"Same-Origin" policies. See section 5 of RFC-7033 for CORS considerations
-that apply to both "manual" and "automated" PayID Discovery modes.</t>
-
-</section>
-<section anchor="access-control" title="Access Control">
-<t>As with all web resources, access to the PayID Discovery resource could
-require authentication. See section 6 of RFC-7033 for Access Control
-considerations that could apply to both "manual" and "automated" PayID
-Discovery modes.</t>
-
-</section>
-<section anchor="hosted-payid-discovery-services" title="Hosted PayID Discovery Services">
-<t>As with most services provided on the Internet, it is possible for a domain
-owner to utilize "hosted" WebFinger services. Consult section 7 of 
-RFC-7033 for considerations that could apply to both "manual" and
-"automated" PayID Discovery when hosted by a third-party.</t>
-
 </section>
 <section anchor="security-considerations" title="Security Considerations">
 <t>Various security considerations should be taken into account for PayID
 Discovery.</t>
 
-<t>Among other resource, consult section 9 of RFC-7033 and section 7 of
+<t>Among other resource, consult section 9 of <xref target="RFC7033"></xref> and section 7 of
 <xref target="RFC3986"></xref> for important security considerations involved in PayID
 Discovery.</t>
 
+<section anchor="hosted-payid-discovery-services" title="Hosted PayID Discovery Services">
+<t>As with most services provided on the Internet, it is possible for a domain
+owner to utilize "hosted" WebFinger services. Consult section 7 of 
+<xref target="RFC7033"></xref> for considerations that could apply to both "manual" and
+"automated" PayID Discovery when hosted by a third-party.</t>
+
+</section>
+<section anchor="cross-origin-resource-sharing-cors" title="Cross-Origin Resource Sharing (CORS)">
+<t>PayID Discovery resources might not be accessible from a web browser due to
+"Same-Origin" policies. See section 5 of <xref target="RFC7033"></xref> for CORS considerations
+that apply to both "manual" and "automated" PayID Discovery modes.</t>
+
+</section>
+<section anchor="access-control" title="Access Control">
+<t>As with all web resources, access to the PayID Discovery resource could
+require authentication. See section 6 of <xref target="RFC7033"></xref> for Access Control
+considerations that could apply to both "manual" and "automated" PayID
+Discovery modes.</t>
+
+</section>
 </section>
 <section anchor="iana-considerations" title="IANA Considerations">
 
 <section anchor="new-link-relation-types" title="New Link Relation Types">
-<t>This document defines the following Link relation type per RFC-7033:</t>
+<t>This document defines the following Link relation type per <xref target="RFC7033"></xref>:</t>
 
 <t><list style="symbols">
   <t>Relation Type ('rel'): <spanx style="verb">http://payid.org/rel/discovery/1.0</spanx></t>
@@ -331,10 +516,11 @@ Discovery.</t>
 </section>
 </section>
 <section anchor="acknowledgments" title="Acknowledgments">
-<t>This document was heavily influenced by, and builds upon, the Webfinger
-protocol as defined in RFC-7033 (adapted for a payments use-case). The
-author would like to acknowledge the contributions of everyone who worked
-on that and related specifications.</t>
+<t>This document was heavily influenced by, and builds upon, Webfinger
+<xref target="RFC7033"></xref> (adapted for a payments use-case) as well as the supporting
+RFCs that it relies upon and that influenced it, especially <xref target="RFC5988"></xref> and
+<xref target="RFC6415"></xref>. The author would like to acknowledge the contributions of 
+everyone who worked on those and any related specifications.</t>
 
 <t>In addition, the author would like to acknowledge everyone who provided
 feedback and use-cases for this derivative specification.</t>
@@ -353,6 +539,7 @@ feedback and use-cases for this derivative specification.</t>
 &RFC4627;
 &RFC6570;
 &RFC7033;
+&RFC7230;
 <reference anchor="PAYID-URI" target="https://tbd.example.com/">
   <front>
     <title>The 'payid' URI Scheme</title>
@@ -366,106 +553,149 @@ feedback and use-cases for this derivative specification.</t>
 
     </references>
 
+    <references title='Informative References'>
+
+&RFC5988;
+&RFC6415;
+
+
+    </references>
 
 
 
   </back>
 
 <!-- ##markdown-source:
-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
-8yYtAAA=
+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
 
 -->
 

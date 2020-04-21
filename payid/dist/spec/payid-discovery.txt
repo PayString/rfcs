@@ -4,8 +4,8 @@
 
 Network Working Group                                        D. Fuelling
 Internet-Draft                                                    Ripple
-Intended status: Standards Track                          April 16, 2020
-Expires: October 18, 2020
+Intended status: Standards Track                          April 21, 2020
+Expires: October 23, 2020
 
 
                             PayID Discovery
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 18, 2020.
+   This Internet-Draft will expire on October 23, 2020.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Fuelling                Expires October 18, 2020                [Page 1]
+Fuelling                Expires October 23, 2020                [Page 1]
 
 Internet-Draft               PayID Discovery                  April 2020
 
@@ -70,74 +70,83 @@ Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
    2.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   3
-   3.  Example Usage . . . . . . . . . . . . . . . . . . . . . . . .   3
-     3.1.  Automated PayID Discovery by a Wallet . . . . . . . . . .   3
-     3.2.  Manual PayID Discovery by a Wallet  . . . . . . . . . . .   4
+   3.  Example Usage . . . . . . . . . . . . . . . . . . . . . . . .   4
+     3.1.  PayID Discovery by a Wallet . . . . . . . . . . . . . . .   4
+     3.2.  PayID Discovery with Default Template . . . . . . . . . .   5
    4.  PayID Discovery Protocol  . . . . . . . . . . . . . . . . . .   5
-     4.1.  Automated Mode  . . . . . . . . . . . . . . . . . . . . .   5
-       4.1.1.  Automated Mode URL Assembly . . . . . . . . . . . . .   6
-       4.1.2.  PayID Disovery JRDs . . . . . . . . . . . . . . . . .   6
-     4.2.  Manual Mode . . . . . . . . . . . . . . . . . . . . . . .   6
-       4.2.1.  Manual Mode URL Assembly  . . . . . . . . . . . . . .   6
-   5.  Cross-Origin Resource Sharing (CORS)  . . . . . . . . . . . .   7
-   6.  Access Control  . . . . . . . . . . . . . . . . . . . . . . .   7
-   7.  Hosted PayID Discovery Services . . . . . . . . . . . . . . .   7
-   8.  Security Considerations . . . . . . . . . . . . . . . . . . .   7
-   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   7
-     9.1.  New Link Relation Types . . . . . . . . . . . . . . . . .   7
-   10. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .   8
-   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .   8
-     11.1.  Normative References . . . . . . . . . . . . . . . . . .   8
-     11.2.  URIs . . . . . . . . . . . . . . . . . . . . . . . . . .   9
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .   9
+     4.1.  Interactive Mode  . . . . . . . . . . . . . . . . . . . .   6
+       4.1.1.  Step 1: Assemble PayID Discovery URL  . . . . . . . .   7
+       4.1.2.  Step 2: Query PayID Discovery URL . . . . . . . . . .   7
+       4.1.3.  Step 3: Parse PayID Metadata  . . . . . . . . . . . .   7
+       4.1.4.  Step 4: Assemble PayID URL  . . . . . . . . . . . . .   7
+     4.2.  Fallback Mode . . . . . . . . . . . . . . . . . . . . . .   9
+       4.2.1.  Fallback Assembly Flow  . . . . . . . . . . . . . . .   9
+   5.  PayID Discovery JRDs  . . . . . . . . . . . . . . . . . . . .  10
+     5.1.  JRD for PayID Discovery URL . . . . . . . . . . . . . . .  10
+     5.2.  JRD for PayID URI Template  . . . . . . . . . . . . . . .  10
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  10
+     6.1.  Hosted PayID Discovery Services . . . . . . . . . . . . .  11
+     6.2.  Cross-Origin Resource Sharing (CORS)  . . . . . . . . . .  11
+     6.3.  Access Control  . . . . . . . . . . . . . . . . . . . . .  11
+   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  11
+     7.1.  New Link Relation Types . . . . . . . . . . . . . . . . .  11
+   8.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  11
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  12
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  12
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  12
+     9.3.  URIs  . . . . . . . . . . . . . . . . . . . . . . . . . .  13
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  13
 
 1.  Introduction
 
    PayID Discovery is used to transform a PayID URI [PAYID-URI] into a
-   URL that can be used by higher-order protocols using HTTP.
+   URL (defined below as a PayID Discovery URL) that can then be used by
+   higher-order protocols to discover metadata about a service provider.
 
    This document specifies two modes of PayID discovery: one using
-   Webfinger [RFC7033] to resolve a corresponding URL from a PayID URI
-   in an automated fashion; and one using a manual, fallback mechanism
-   to assemble a URL from a PayID URI by-hand.
-
-   In 'automated' mode, a PayID can be presented to a service endpoint
-   that supports PayID Discovery.  The resource returns a Webfinger-
-   compliant JavaScript Object Notation (JSON) [RFC4627] object that can
-   be used to assemble PayID URL as defined by the procedure in section
-   4.1 of this document.
+   Webfinger [RFC7033] to resolve a corresponding PayID Discovery URL
+   from a PayID using an automated fashion.  The second modes uses a
 
 
 
-Fuelling                Expires October 18, 2020                [Page 2]
+Fuelling                Expires October 23, 2020                [Page 2]
 
 Internet-Draft               PayID Discovery                  April 2020
 
 
+   manual, fallback mechanism to assemble a PayID Discovery URL from a
+   PayID by-hand.
+
+   In 'automated' mode, a PayID can be presented to a service endpoint
+   that supports PayID Discovery.  The resource returns a Webfinger-
+   compliant JavaScript Object Notation (JSON) [RFC4627] object that can
+   be used to perform PayID Discovery as defined in section 4.1 of this
+   document.
+
    Conversely, in "manual" mode, a PayID can be decomposed into a URL,
-   without any intermediate server interaction, simply by transposing
-   portions of the PayID into a URL format defined in section 4.2 of
-   this document.
+   without any intermediate server interaction, by simply transposing
+   portions of a PayID URI into a URL format.  This procedure is defined
+   in section 4.2 of this document.
 
    It should be noted that "manual" mode does not allow divergence
    between the string characters in a PayID URI and any corresponding
-   URL.  Conversely, "automatic" mode does allow such divergence.  For
-   example, in "manual" mode, the PayID 'alice$example.com' MUST always
-   map to the URL 'https://example.com/alice', whereas in "automatic"
-   mode that same PayID URI can map to any arbitrary URL structure
-   determined buy the service provider, such as
-   'https://example.com/users/alice'.
+   URL.  Conversely, "automated" mode does allow such divergence, and is
+   thus more powerful.  For example, in "manual" mode, the PayID
+   'alice$example.com' MUST always map to the URL 'https://example.com/
+   alice', whereas in "automated" mode that same PayID URI can map to
+   any arbitrary URL structure determined buy the service provider, such
+   as 'https://example.com/users/alice'.
 
-   Information returned via PayID Discovery might be for direct human
-   consumption (e.g., looking up someone's Bitcoin address), or it might
-   be used by systems to help carry out some operation (e.g.,
+   Information returned via PayID Discovery might be used for direct
+   human consumption (e.g., looking up someone's Bitcoin address), or it
+   might be used by systems to help carry out some operation (e.g.,
    facilitating, with additional security mechanisms, protocols to
    support compliance or other legal requirements necessary to
    facilitate a payment).
 
    The information returned via this protocol is intended to be static
-   in nature, and, as such, PayID Discovery is not intended to be used
-   to return dynamic information like a payment account balance or the
+   in nature.  As such, PayID Discovery is not intended to be used to
+   return dynamic information like a payment account balance or the
    current status of an account.
 
    PayID Discovery is designed to be used across many applications.  Use
@@ -151,24 +160,27 @@ Internet-Draft               PayID Discovery                  April 2020
    "OPTIONAL" in this document are to be interpreted as described in
    [RFC2119].
 
+
+
+
+
+
+Fuelling                Expires October 23, 2020                [Page 3]
+
+Internet-Draft               PayID Discovery                  April 2020
+
+
 3.  Example Usage
 
    This section shows sample uses of PayID Discovery in several
    hypothetical scenarios.
 
-3.1.  Automated PayID Discovery by a Wallet
+3.1.  PayID Discovery by a Wallet
 
    Suppose Alice wishes to send a friend some XRP from a web-based
    wallet provider that Alice has an account on.  Alice would log-in to
    the wallet provider and enter Bob's PayID (say,
    "bob$receiver.example.com") into the wallet UI to start the payment.
-
-
-
-Fuelling                Expires October 18, 2020                [Page 3]
-
-Internet-Draft               PayID Discovery                  April 2020
-
 
    The Wallet application would first perform a WebFinger query looking
    for the PayID Discovery service provider, like this:
@@ -189,24 +201,32 @@ Internet-Draft               PayID Discovery                  April 2020
       "links" :
       [
         {
-          "rel": "http://payid.org/rel/discovery/1.0 ",
-          "type": "application/payid-uri-template",
-          "href": "https://receiver.exmaple.com/users/{acctpart}"
+          "rel": "http://payid.org/rel/discovery/1.0",
+          "template": "https://receiver.exmaple.com/users/{acctpart}"
         }
       ]
     }
 
-   Alice's wallet then uses URL template found in the "href" property to
-   assemble a PayId-specific URL, "https://receiver.exmaple.com/users/
-   bob".
+   Alice's wallet then uses URL template found in the "template"
+   property to assemble a PayId-specific URL,
+   "https://receiver.exmaple.com/users/bob".
 
-   Per RFC-7033, Webfinger requests can be filtered by using a "rel"
+   Per [RFC7033], Webfinger requests can be filtered by using a "rel"
    parameter in the Webfinger request.  Because support for the "rel"
    parameter is not required nor guaranteed, the client must not assume
    the "links" array will contain only the link relations related to
    PayID Discovery.
 
-3.2.  Manual PayID Discovery by a Wallet
+
+
+
+
+Fuelling                Expires October 23, 2020                [Page 4]
+
+Internet-Draft               PayID Discovery                  April 2020
+
+
+3.2.  PayID Discovery with Default Template
 
    Suppose Alice wishes to send a friend some XRP from a web-based
    wallet provider that Alice has an account on.  However, in this
@@ -216,15 +236,6 @@ Internet-Draft               PayID Discovery                  April 2020
 
    Alice would log-in to her wallet provider and enter Bob's PayID (say
    "bob$receiver.example.com") to make a payment.
-
-
-
-
-
-Fuelling                Expires October 18, 2020                [Page 4]
-
-Internet-Draft               PayID Discovery                  April 2020
-
 
    The Wallet application would first attempt a WebFinger query as in
    the example above, like this:
@@ -252,133 +263,335 @@ Internet-Draft               PayID Discovery                  April 2020
 4.  PayID Discovery Protocol
 
    The PayID Discovery protocol is used to request information about an
-   entity identified by a query target that is a PayID URI.
+   entity identified by a PayID URI.
 
-   The result of PayID Discovery is a URL that can be used for any other
-   protocol purposes that are outside the scope of this document.
+   When successful, PayID Discovery always yields a PayID URL, which is
+   a URI as defined by [RFC3986] using the 'https' scheme defined in
+   [RFC7230].  A PayID URL can be used for any purposes outside the
+   scope of this document.
 
-   To this end, PayID Discovery defines two modes of operation, "manual"
-   and "automated" (defined below).  Clients SHOULD attempt "automated
-   mode" first.  Failing that, "manual mode" SHOULD be used.
+   PayID Discovery is performed using one of two modes: "interactive" or
+   "fallback."  Clients MUST attempt "interactive" mode first.  If that
+   mode fails to yield a PayID URL, then "fallback" mode MAY be used as
+   an alternative discovery mechanism.
 
-4.1.  Automated Mode
 
-   This mode utilizes the Webfinger specification in a narrowly defined
-   profile.
 
-   A WebFinger resource is always given a query target, which is another
-   URI that identifies the entity whose information is sought.  For
-   PayID Discovery, this supplied URI MUST always be a valid PayID URI,
-   and must be supplied to the WebFinger service according to the rules
-   defined in section 4.1 of Webfinger [RFC7033].
+Fuelling                Expires October 23, 2020                [Page 5]
+
+Internet-Draft               PayID Discovery                  April 2020
 
-   In this profile, the WebFinger resource returns a JSON Resource
+
+4.1.  Interactive Mode
+
+   Interactive PayID Discovery is broken up into a series of steps, each
+   of which is defined in more detail below.  The following is a visual
+   representation of the protocol flow:
+
+                       +--------------------------+
+                       |        PayID URI         |
+                       |    alice$example.com     |
+                       +--------------------------+
+                                     |
+                                     v
+                       +--------------------------+
+                       |         Assemble         |
+                       |   PayID Discovery URL    |
+                       +--------------------------+
+                                     |
+                                     v
+                       +--------------------------+
+                       |          Query           |
+                 +-----|   PayID Discovery URL    |-----+
+                 |     +--------------------------+     |
+                 |                                  Success
+                 |                                      |
+                 |                                      v
+                 |                        +--------------------------+
+             Failure                      |   Parse PayID Metadata   |
+                 |                        +--------------------------+
+                 |                                      |
+                 |                                      v
+                 |                        +--------------------------+
+                 |                        |Select PayID URI Template |
+                 |                        +--------------------------+
+                 |                                      |
+                 v                                      v
+   +--------------------------+           +--------------------------+
+   | Fallback PayID Discovery |           |    Assemble PayID URL    |
+   +--------------------------+           +--------------------------+
+                 |                                      |
+                 +---------------------+----------------+
+                                       |
+                                       v
+                         +---------------------------+
+                         |         PayID URL         |
+                         | https://example.com/alice |
+                         +---------------------------+
+
+
+
+
+
+Fuelling                Expires October 23, 2020                [Page 6]
+
+Internet-Draft               PayID Discovery                  April 2020
+
+
+4.1.1.  Step 1: Assemble PayID Discovery URL
+
+   PayID Discovery utilizes the Webfinger [RFC7033] specification in a
+   narrowly defined profile.
+
+   This document defines a PayID Discovery URL as being a Webfinger
+   resource URI where the specified resource value is a valid PayID URI
+   [PAYID-URI].
+
+   For example, the PayID Discovery URI for alice$example.com is
+
+ https://example.com/.well-known/webfinger?resource=payid%3Abob%24.example.com
+
+4.1.2.  Step 2: Query PayID Discovery URL
+
+   A Webfinger query MUST be performed against the PayID Disovery URL,
+   as described in section 4.2 of Webfinger.
+
+   In response, the WebFinger resource returns a JSON Resource
    Descriptor (JRD) as the resource representation to convey information
+   about the requested PayID.
+
+   If the Webfinger endpoint returns a non-200 HTTP response status
+   code, then interactive PayID Discovery is considered to have failed.
+   Clients SHOULD attempt to assemble a PayID URL using "fallback" mode
+   as defined in section 4.2.1 of this document.
+
+4.1.3.  Step 3: Parse PayID Metadata
+
+   If the PayID Discovery server returns a valid response, the response
+   will contain one or more of the JRDs defined in section 5 of this
+   document.
+
+   If any of the JRDs contain a 'rel' value that represents a PayID URL
+   Template, then that template value MUST be used in the next protocol
+   step.
+
+   Failing the above, if the 'rel' value of any JRDs represents a PayID
+   Discovery URL, then that URL MUST be used in step 2 above, repeated
+   recursively if needed, until a valid PayID URI Template is obtained.
+   That URI Template value MUST be used in the next protocol step.
+
+4.1.4.  Step 4: Assemble PayID URL
+
+   A PayID URL is constructed by applying the PayID URI to the PayID URI
+   Template string obtained via the steps above.  The PayID URI template
+   MAY contain a URI string without any variables to represent a host-
 
 
 
-Fuelling                Expires October 18, 2020                [Page 5]
+
+Fuelling                Expires October 23, 2020                [Page 7]
 
 Internet-Draft               PayID Discovery                  April 2020
 
 
-   about the requested PayID.  The returned JRD MUST have a URI template
-   that can be used to map the source PayID to a de-referencable URL.
+   level PayID URL that is identical for every PayID URI on a particular
+   host.
 
-4.1.1.  Automated Mode URL Assembly
+   For example, a PayID Discovery endpoint that only supports a single
+   account might use a URI template string with no variables, like this:
 
-   If a PayID Discovery server returns a JRD that conforms to section
-   4.1.2 below, then the following ruleset SHOULD be used to transform
-   the corresponding PayID URI into a URL:
+   {
+     "rel": "https://payid.org/ns/payid-url-template/1.0",
+     "template": "https://example.com/alice"
+   }
 
-   1.  Decompose the PayID URI into its component parts, per
-       [PAYID-URI], capturing the "acctpart" and "host" values.
+   The result of this step is the PayID URL.  Once obtained, PayID
+   Discovery is considered to have completed successfully.
 
-   2.  Repalce the "acctpart" template variable in the URI template
-       returned from #1 above and with the "acctpart" portion of the
-       PayID URI.
+4.1.4.1.  Template Syntax
 
-   The resulting URL can be used according to the rules defined in any
-   other protocol.
+   This specification defines a simple template syntax for PayID URI
+   transformation.  A template is a string containing brace-enclosed
+   ("{}") variable names marking the parts of the string that are to be
+   substituted by the corresponding variable values.
 
-4.1.2.  PayID Disovery JRDs
+   This specification defines a one variable - "acctpart" - which
+   corresponds to the 'acctpart' of a PayID URI as defined in
+   [PAYID-URI].
 
-   Any JRD returned via Webfinger MUST be compatible with section 4.4 of
-   RFC-7033.  As such, this protocol defines a single compatible 'link'
-   as follows:
+   When substituting the 'acctpart' value into a URI 'path' as defined
+   by [RFC3986], values MUST NOT be percent or otherwise encoded because
+   the 'acctpart' value of a PayID URI always conforms to the character
+   set allowed by paths in [RFC3986].
 
-   o  'rel': "http://payid.org/rel/discovery/1.0"
+   However, before substituting template variables into a URI 'query'
+   part, values MUST be encoded using UTF-8, and any character other
+   than unreserved (as defined by [RFC3986]) MUST be percent-encoded per
+   [RFC3986].
 
-   o  'type': "application/payid-uri-template"
+   Protocols MAY define additional variables and syntax rules, but MUST
+   NOT change the meaning of the 'acctpart' variable.  If a client is
+   unable to successfully process a template (e.g., unknown variable
+   names, unknown or incompatible syntax), the JRD SHOULD be ignored.
 
-   o  'href': A URI template as defined by [RFC6570] that specifies an
-      "{acctpart}" template value specifying where in the service
-      provider's URL-space the account identifier should be located.
+   The template syntax ABNF is as follows:
 
-4.2.  Manual Mode
-
-   If "Automated" mode is not supported or otherwise fails to yield a
-   PayID URL, then a URL can be assembled manually.
-
-4.2.1.  Manual Mode URL Assembly
-
-   If "Automated" mode is not supported or otherwise fails to yield a
-   PayID URL, then the following predefined ruleset SHOULD instead be
-   used to transform a PayID URI into a URL.
-
-   1.  Decompose the PayID URI into its component parts, per
-       [PAYID-URI], capturing the "acctpart" and "host" values.
-
-
-
+uri-char     =  ( reserved / unreserved / pct-encoded )
+var-char     =  ALPHA / DIGIT / "." / "_"
+var-name     =  %x61.63.63.74.70.61.72.74 / ( 1*var-char ) ; "acctpart" or
+                                                              other names
+variable     =  "{" var-name "}"
+PAYID-URI-Template =  *( uri-char / variable )
 
 
-Fuelling                Expires October 18, 2020                [Page 6]
+
+Fuelling                Expires October 23, 2020                [Page 8]
 
 Internet-Draft               PayID Discovery                  April 2020
 
 
-   2.  Using the "acctpart" and the "host", assemble a URL according to
-       the following URL template:"https://{host}/{acctpart}"
+   For example:
 
-   The resulting URL can be used according to the rules defined in any
-   other protocol.
+    Input:    alice$example.org
+    Template: https://example.org/{acctpart}
+    Output:   https://example.org/alice
 
-5.  Cross-Origin Resource Sharing (CORS)
+4.2.  Fallback Mode
 
-   PayID Discovery resources might not be accessible from a web browser
-   due to "Same-Origin" policies.  See section 5 of RFC-7033 for CORS
-   considerations that apply to both "manual" and "automated" PayID
-   Discovery modes.
+   If "Interactive" mode is not supported or otherwise fails to yield a
+   PayID URL, then a PayID URL MAY be assembled manually using the
+   following predefined ruleset:
 
-6.  Access Control
+   1.  Decompose the PayID URI into its component parts, per
+       [PAYID-URI], capturing the 'acctpart' and 'host' values.
 
-   As with all web resources, access to the PayID Discovery resource
-   could require authentication.  See section 6 of RFC-7033 for Access
-   Control considerations that could apply to both "manual" and
-   "automated" PayID Discovery modes.
+   2.  Using the 'acctpart' and 'host', assemble a URL by substituting
+       each value into the following string using no special encoding or
+       other character adjustments: "https://{host}/{acctpart}".
 
-7.  Hosted PayID Discovery Services
+   For example:
 
-   As with most services provided on the Internet, it is possible for a
-   domain owner to utilize "hosted" WebFinger services.  Consult section
-   7 of RFC-7033 for considerations that could apply to both "manual"
-   and "automated" PayID Discovery when hosted by a third-party.
+    Input:    bob.primary$example.org
+    Output:   https://example.org/bob.primary
 
-8.  Security Considerations
+   The resulting URL is a PayID URL.
+
+4.2.1.  Fallback Assembly Flow
+
+   The following is a visual representation of the Fallback Assembly
+   protocol flow:
+
+   +--------------------------+
+   |        PayID URI         |
+   |    alice$example.com     |
+   +--------------------------+
+                 |
+                 v
+   +--------------------------+
+   |Manual PayID URL Assembly |
+   +--------------------------+
+                 |
+                 v
+   +---------------------------+
+   |         PayID URL         |
+   | https://example.com/alice |
+   +---------------------------+
+
+
+
+
+
+Fuelling                Expires October 23, 2020                [Page 9]
+
+Internet-Draft               PayID Discovery                  April 2020
+
+
+5.  PayID Discovery JRDs
+
+   This document defines two JRDs that conform to section 4.4 of the
+   Webfinger RFC.
+
+5.1.  JRD for PayID Discovery URL
+
+   This type of JRD can be used to represent a URL that is a PayID
+   Discovery URL.  This is useful for delegating PayID Discovery to
+   another service endpoint:
+
+   o  'rel': "http://payid.org/rel/payid-discovery-url/1.0"
+
+   o  'href': A PayID Discovery URL that clients can dereference to
+      perform interactive PayID Discovery.
+
+   The following is an example of a JRD that indicates a PayID Discovery
+   URL:
+
+ {
+   "rel": "https://payid.org/ns/payid-discovery-url/1.0",
+   "href": "https://delegate.example.com/.well-known/webfinger?resource=
+            payid%3Aalice%24example.com"
+ }
+
+5.2.  JRD for PayID URI Template
+
+   This type of JRD can be used to represent a URL that is a PayID URL
+   Template.
+
+   o  'rel': "http://payid.org/rel/payid-url-template/1.0"
+
+   o  'template': A PayID URI Template
+
+   The following is an example of a JRD that indicates a PayID URI
+   Template:
+
+   {
+     "rel": "https://payid.org/ns/payid-url-template/1.0",
+     "template": "https://example.com/{acctpart}"
+   }
+
+6.  Security Considerations
 
    Various security considerations should be taken into account for
    PayID Discovery.
 
-   Among other resource, consult section 9 of RFC-7033 and section 7 of
+
+
+
+
+Fuelling                Expires October 23, 2020               [Page 10]
+
+Internet-Draft               PayID Discovery                  April 2020
+
+
+   Among other resource, consult section 9 of [RFC7033] and section 7 of
    [RFC3986] for important security considerations involved in PayID
    Discovery.
 
-9.  IANA Considerations
+6.1.  Hosted PayID Discovery Services
 
-9.1.  New Link Relation Types
+   As with most services provided on the Internet, it is possible for a
+   domain owner to utilize "hosted" WebFinger services.  Consult section
+   7 of [RFC7033] for considerations that could apply to both "manual"
+   and "automated" PayID Discovery when hosted by a third-party.
 
-   This document defines the following Link relation type per RFC-7033:
+6.2.  Cross-Origin Resource Sharing (CORS)
+
+   PayID Discovery resources might not be accessible from a web browser
+   due to "Same-Origin" policies.  See section 5 of [RFC7033] for CORS
+   considerations that apply to both "manual" and "automated" PayID
+   Discovery modes.
+
+6.3.  Access Control
+
+   As with all web resources, access to the PayID Discovery resource
+   could require authentication.  See section 6 of [RFC7033] for Access
+   Control considerations that could apply to both "manual" and
+   "automated" PayID Discovery modes.
+
+7.  IANA Considerations
+
+7.1.  New Link Relation Types
+
+   This document defines the following Link relation type per [RFC7033]:
 
    o  Relation Type ('rel'): "http://payid.org/rel/discovery/1.0"
 
@@ -386,29 +599,31 @@ Internet-Draft               PayID Discovery                  April 2020
 
    o  Description: PayID Discovery URI Template, version 1.0
 
+   See section 3 for examples of this type of Link.
+
+8.  Acknowledgments
+
+   This document was heavily influenced by, and builds upon, Webfinger
+   [RFC7033] (adapted for a payments use-case) as well as the supporting
+   RFCs that it relies upon and that influenced it, especially [RFC5988]
+   and [RFC6415].  The author would like to acknowledge the
+   contributions of everyone who worked on those and any related
+   specifications.
 
 
 
-Fuelling                Expires October 18, 2020                [Page 7]
+
+Fuelling                Expires October 23, 2020               [Page 11]
 
 Internet-Draft               PayID Discovery                  April 2020
 
 
-   See section 3 for examples of this type of Link.
-
-10.  Acknowledgments
-
-   This document was heavily influenced by, and builds upon, the
-   Webfinger protocol as defined in RFC-7033 (adapted for a payments
-   use-case).  The author would like to acknowledge the contributions of
-   everyone who worked on that and related specifications.
-
    In addition, the author would like to acknowledge everyone who
    provided feedback and use-cases for this derivative specification.
 
-11.  References
+9.  References
 
-11.1.  Normative References
+9.1.  Normative References
 
    [PAYID-URI]
               Fuelling, D., "The 'payid' URI Scheme", n.d.,
@@ -438,19 +653,32 @@ Internet-Draft               PayID Discovery                  April 2020
               "WebFinger", RFC 7033, DOI 10.17487/RFC7033, September
               2013, <https://www.rfc-editor.org/info/rfc7033>.
 
+   [RFC7230]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
+              Protocol (HTTP/1.1): Message Syntax and Routing",
+              RFC 7230, DOI 10.17487/RFC7230, June 2014,
+              <https://www.rfc-editor.org/info/rfc7230>.
+
+9.2.  Informative References
+
+   [RFC5988]  Nottingham, M., "Web Linking", RFC 5988,
+              DOI 10.17487/RFC5988, October 2010,
+              <https://www.rfc-editor.org/info/rfc5988>.
 
 
 
 
 
 
-
-Fuelling                Expires October 18, 2020                [Page 8]
+Fuelling                Expires October 23, 2020               [Page 12]
 
 Internet-Draft               PayID Discovery                  April 2020
 
 
-11.2.  URIs
+   [RFC6415]  Hammer-Lahav, E., Ed. and B. Cook, "Web Host Metadata",
+              RFC 6415, DOI 10.17487/RFC6415, October 2011,
+              <https://www.rfc-editor.org/info/rfc6415>.
+
+9.3.  URIs
 
    [1] https://payid.org/
 
@@ -497,8 +725,4 @@ Author's Address
 
 
 
-
-
-
-
-Fuelling                Expires October 18, 2020                [Page 9]
+Fuelling                Expires October 23, 2020               [Page 13]
