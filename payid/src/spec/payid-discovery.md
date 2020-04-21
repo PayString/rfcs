@@ -63,24 +63,24 @@ PayID URI into a URL that can be used with other protocols.
       
    This document specifies two modes of PayID discovery: one using
    Webfinger [RFC7033][] to resolve a corresponding PayID Discovery URL
-   from a PayID using an automated fashion. The second modes uses a manual, 
+   from a PayID using an interactive fashion. The second modes uses a manual, 
    fallback mechanism to assemble a PayID Discovery URL from a PayID by-hand.
    
-   In 'automated' mode, a PayID can be presented to a service endpoint that
+   In 'interactive' mode, a PayID can be presented to a service endpoint that
    supports PayID Discovery. The resource returns a Webfinger-compliant 
    JavaScript Object Notation (JSON) [RFC4627][] object that can be used
    to perform PayID Discovery as defined in section 4.1 of this document.
    
-   Conversely, in "manual" mode, a PayID can be decomposed into a URL, without
+   Conversely, in "fallback" mode, a PayID can be decomposed into a URL, without
    any intermediate server interaction, by simply transposing portions of a
    PayID URI into a URL format. This procedure is defined in section 4.2 of
    this document.
    
-   It should be noted that "manual" mode does not allow divergence between the
+   It should be noted that "fallback" mode does not allow divergence between the
    string characters in a PayID URI and any corresponding URL. Conversely, 
-   "automated" mode does allow such divergence, and is thus more powerful. For
-   example, in "manual" mode, the PayID 'alice$example.com' MUST always map
-   to the URL 'https://example.com/alice', whereas in "automated" mode
+   "interactive" mode does allow such divergence, and is thus more powerful. For
+   example, in "fallback" mode, the PayID 'alice$example.com' MUST always map
+   to the URL 'https://example.com/alice', whereas in "interactive" mode
    that same PayID URI can map to any arbitrary URL structure determined
    buy the service provider, such as 'https://example.com/users/alice'.
       
@@ -151,7 +151,7 @@ PayID URI into a URL that can be used with other protocols.
 ## PayID Discovery with Default Template
   Suppose Alice wishes to send a friend some XRP from a web-based wallet
   provider that Alice has an account on. However, in this example, let's
-   assume that the PayID Alice is wanting to pay doesn't support "automated"
+   assume that the PayID Alice is wanting to pay doesn't support "interactive"
    PayID discovery (i.e., the receiver's server doesn't support Webfinger).
    
    Alice would log-in to her wallet provider and enter Bob's PayID (say
@@ -165,19 +165,19 @@ PayID URI into a URL that can be used with other protocols.
              HTTP/1.1
        Host: receiver.example.com
   
-   However, in this case the `receiver.exapmle.com` server doesn't support 
-   "automated" PayID Discovery, so the server responds like this:
+   However, in this case the `receiver.example.com` server doesn't support 
+   "interactive" PayID Discovery, so the server responds like this:
   
        HTTP/1.1 404 NOT FOUND
    
-   Because Alice's Wallet can utilize "manual" PayID Discovery, the wallet
+   Because Alice's Wallet can utilize "fallback" PayID Discovery, the wallet
    software merely transforms `bob$receiever.example.com` into the URL 
    `https://receiver.example.com/bob`. Alice's wallet then uses that URL to 
    continue making a PayID payment.
    
-   It should be noted that "manual" mode does not allow the PayID URI to
+   It should be noted that "fallback" mode does not allow the PayID URI to
    diverge from the underlying URL returned via PayID Discovery. Because of
-   this, "automated" PayID Discovery is generally preferred.
+   this, "interactive" PayID Discovery is generally preferred.
 
 # PayID Discovery Protocol
   The PayID Discovery protocol is used to request information about an entity
@@ -416,18 +416,18 @@ Discovery.
 ## Hosted PayID Discovery Services
 As with most services provided on the Internet, it is possible for a domain
 owner to utilize "hosted" WebFinger services. Consult section 7 of 
-[RFC7033][] for considerations that could apply to both "manual" and
-"automated" PayID Discovery when hosted by a third-party.  
+[RFC7033][] for considerations that could apply to both "fallback" and
+"interactive" PayID Discovery when hosted by a third-party.  
 
 ## Cross-Origin Resource Sharing (CORS)
 PayID Discovery resources might not be accessible from a web browser due to
 "Same-Origin" policies. See section 5 of [RFC7033][] for CORS considerations
-that apply to both "manual" and "automated" PayID Discovery modes.  
+that apply to both "fallback" and "interactive" PayID Discovery modes.  
 
 ## Access Control
 As with all web resources, access to the PayID Discovery resource could
 require authentication. See section 6 of [RFC7033][] for Access Control
-considerations that could apply to both "manual" and "automated" PayID
+considerations that could apply to both "fallback" and "interactive" PayID
 Discovery modes.  
 
 # IANA Considerations
