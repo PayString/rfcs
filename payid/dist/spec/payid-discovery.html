@@ -598,46 +598,46 @@
 </h1>
 <p id="rfc.section.4.1.p.1">Interactive PayID Discovery is broken up into a series of steps, each of which is defined in more detail below. The following is a visual representation of the protocol flow:</p>
 <pre>
-                    +--------------------------+                   
-                    |        PayID URI         |                   
-                    |    alice$example.com     |                   
-                    +--------------------------+                   
-                                  |                                
-                                  v                                
-                    +--------------------------+                   
-                    |         Assemble         |                   
-                    |   PayID Discovery URL    |                   
-                    +--------------------------+                   
-                                  |                                
-                                  v                                
-                    +--------------------------+                   
-                    |          Query           |                   
-              +-----|   PayID Discovery URL    |-----+             
-              |     +--------------------------+     |             
-              |                                  Success           
-              |                                      |             
-              |                                      v             
-              |                        +--------------------------+
-          Failure                      |   Parse PayID Metadata   |
-              |                        +--------------------------+
-              |                                      |             
-              |                                      v             
-              |                        +--------------------------+
-              |                        |Select PayID URI Template |
-              |                        +--------------------------+
-              |                                      |             
-              v                                      v             
-+--------------------------+           +--------------------------+
-| Fallback PayID Discovery |           |    Assemble PayID URL    |
-+--------------------------+           +--------------------------+
-              |                                      |             
-              +---------------------+----------------+             
-                                    |                              
-                                    v                              
-                      +---------------------------+                
-                      |         PayID URL         |                
-                      | https://example.com/alice |                
-                      +---------------------------+                
+                    +--------------------------+                    
+                    |        PayID URI         |                    
+                    |    alice$example.com     |                    
+                    +--------------------------+                    
+                                  |                                 
+                                  v                                 
+                    +--------------------------+                    
+                    |         Assemble         |                    
+                    |   PayID Discovery URL    |                    
+                    +--------------------------+                    
+                                  |                                 
+                                  v                                 
+                    +--------------------------+                    
+                    |          Query           |                    
+              +-----|   PayID Discovery URL    |-----+              
+              |     +--------------------------+     |              
+              |                                  Success            
+              |                                      |              
+              |                                      v              
+              |                        +---------------------------+
+          Failure                      |   Parse PayID Metadata    |
+              |                        +---------------------------+
+              |                                      |              
+              |                                      v              
+              |                        +---------------------------+
+              |                        | Select PayID URI Template |
+              |                        +---------------------------+
+              |                                      |              
+              v                                      v              
++--------------------------+           +---------------------------+
+| Fallback PayID Discovery |           |    Assemble PayID URL     |
++--------------------------+           +---------------------------+
+              |                                      |              
+              +---------------------+----------------+              
+                                    |                               
+                                    v                               
+                      +---------------------------+                 
+                      |         PayID URL         |                 
+                      | https://example.com/alice |                 
+                      +---------------------------+                 
 </pre>
 <h1 id="rfc.section.4.1.1">
 <a href="#rfc.section.4.1.1">4.1.1.</a> <a href="#step-1-assemble-payid-discovery-url" id="step-1-assemble-payid-discovery-url">Step 1: Assemble PayID Discovery URL</a>
