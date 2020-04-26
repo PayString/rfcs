@@ -68,5 +68,33 @@
     "expectedAccountId": "alice",
     "expectedHost": ":example.com",
     "expectedStringValue": "payid:alice$:example.com"
+  },
+  {
+    "description": "10. Double-embedded dollar-signs",
+    "payIdInput": "payid:alice$foo.example.com$bar.example.com",
+    "expectedAccountId": "alice$foo.example.com",
+    "expectedHost": "bar.example.com",
+    "expectedStringValue": "payid:alice$foo.example.com$bar.example.com"
+  },
+  {
+    "description": "11. Triple-embedded dollar-signs",
+    "payIdInput": "payid:alice$foo.example.com$bar.example.com$baz.example.com",
+    "expectedAccountId": "alice$foo.example.com$bar.example.com",
+    "expectedHost": "baz.example.com",
+    "expectedStringValue": "payid:alice$foo.example.com$bar.example.com$baz.example.com"
+  },
+  {
+    "description": "12. Percent-Encoded Email address",
+    "payIdInput": "payid:alice%40gmail.com$example.com",
+    "expectedAccountId": "alice%40gmail.com",
+    "expectedHost": "example.com",
+    "expectedStringValue": "payid:alice%40gmail.com$example.com"
+  },
+  {
+    "description": "13. Percent-Encoded Carat",
+    "payIdInput": "payid:alice%5E$example.com",
+    "expectedAccountId": "alice%5E",
+    "expectedHost": "example.com",
+    "expectedStringValue": "payid:alice%5E$example.com"
   }
 ]
