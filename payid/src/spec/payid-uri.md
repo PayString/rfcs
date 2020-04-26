@@ -47,10 +47,10 @@ normative:
  
 informative:
     RFC0020: 
-    RFC4395:
     RFC5988:
     RFC6068:
     RFC7033:
+    RFC7595:
 
 --- note_Feedback
 
@@ -114,26 +114,27 @@ This specification is a part of the [PayID Protocol](https://payid.org/) work.
    that payment account.  This is expressed as a URI using the 'payid' 
    scheme as 'payid:apollo$wallet.example.com'.
 
-   A common scenario is for a user to register with a payment service provider
-   using an identifier (such as an email address) that is associated
+   A possible scenario is for a user to register with a payment service
+   provider using an identifier (such as an email address) that is associated
    with some other service provider. For example, a user with the email
-   address "alice@example.net" might register with a wallet
-   website whose domain name is "wallet.example.com". In order to facilitate
-   payments to/from alice, the wallet service provider might offer alice a
-   PayID using alice's email address. In order to use her email address as the
-   localpart of the 'payid' URI, the at-sign character (U+0040) needs to be
+   address "alice@example.net" might register with a wallet website whose
+   domain name is "wallet.example.com". In order to facilitate payments 
+   to/from alice, the wallet service provider might offer alice a
+   PayID using alice's email address (though using an email address as a
+   PayID is not recommended). In order to use her email address as the
+   'acctpart' of the 'payid' URI, the at-sign character (U+0040) needs to be
    percent-encoded as described in [RFC3986]. Thus, the resulting 'payid' 
-   URI would be "payid:alice%40example.net$shoppingsite.example".
+   URI would be `payid:alice%40example.net$shoppingsite.example`.
    
-   Another scenario is a payment service provider (e.g., a digital wallet) 
-   that allows a user to use a PayID that is associated with some other
-   payment service provider. For example, a user with the PayID 
-   "alice$bank.example.net" might
-   register with a wallet website whose domain name is "wallet.example.net". 
-   In order to use her bank's PayID as the localpart of the wallet's 'payid' 
-   URI, the dollar-sign character (U+0024) needs to be percent-encoded as
-   described in [RFC3986].  Thus, the resulting 'payid' URI would be
-   "payid:alice%24bank.example$wallet.example".
+   Another possible scenario is a payment service provider (e.g., a digital
+   wallet) that allows a user to use a PayID that is associated with some
+   other payment service provider. For example, a user with the PayID 
+   "alice$bank.example.net" might register with a wallet website whose
+   domain name is "wallet.example.net". In order to use her bank's PayID as 
+   the localpart of the wallet's 'payid' URI, no percent-encoding is necessary
+   because the 'acctpart' portion of a PayID allows for dollar-signs. Thus, 
+   the resulting 'payid' URI would be 
+   `payid:alice$bank.example$wallet.example`.
 
    It is not assumed that an entity will necessarily be able to interact
    with a user's PayID using any particular application protocol, 
@@ -141,7 +142,7 @@ This specification is a part of the [PayID Protocol](https://payid.org/) work.
    (payments or otherwise), an entity would need to use the appropriate URI
    scheme for such a protocol. While it might be true that the 'payid' URI
    minus the scheme name (e.g., "user$example.com" derived from 
-   "payid:user$example.com") could be paid via some application protocol, 
+   "payid:user$example.com") could be used via some application protocol, 
    that fact would be purely contingent and dependent upon the deployment
    practices of the payment account provider.
    
@@ -162,7 +163,7 @@ This specification is a part of the [PayID Protocol](https://payid.org/) work.
    WebFinger protocol [RFC7033] might take a 'payid' URI, resolve the
    host portion to find a WebFinger server, and then pass the 'payid' URI
    as a parameter in a WebFinger HTTP request for metadata (i.e., web
-   links [RFC5988]) about the resource.  For example:
+   links [RFC5988]) about the resource. For example:
 
    ```
     GET /.well-known/webfinger?resource=payid%3Abob%24example.com HTTP/1.1
@@ -175,10 +176,10 @@ This specification is a part of the [PayID Protocol](https://payid.org/) work.
    If an application needs to compare two 'payid' URIs (e.g., for
    purposes of authentication and authorization), it MUST do so using
    case normalization and percent-encoding normalization as specified in
-   Sections 6.2.2.1 and 6.2.2.2 of [RFC3986]. In addition, the `acctpart` 
+   Sections 6.2.2.1 and 6.2.2.2 of [RFC3986]. In addition, the 'acctpart' 
    is case-insensitive and therefore should be normalized to lowercase. 
    For example, the URI `PAYID:aLICE$www.EXAMPLE.com` is equivalent to
-   `payid:alice$example.com`.
+   `payid:alice$www.example.com`.
       
 # Examples
    The following example URIs illustrate several variations of PayIDs
@@ -186,13 +187,13 @@ This specification is a part of the [PayID Protocol](https://payid.org/) work.
    
          payid:alice$example.net
          
-         payid:John.Doe$example.net
+         payid:john.doe$example.net
          
-         payid:jane-doe$example.net 
+         payid:jane-doe$example.net
 
 # Security Concerns
-   Because the 'payid' URI scheme does not directly enable interaction
-   with a user's payment account at a service provider, direct security concerns
+   Because the 'payid' URI scheme does not directly enable interaction with
+   a user's payment account at a service provider, direct security concerns
    are minimized.
 
    However, a 'payid' URI does provide proof of existence of the payment
@@ -225,10 +226,10 @@ This specification is a part of the [PayID Protocol](https://payid.org/) work.
    percent-encoding, an application MUST ensure the following about the
    string that is used as input to the URI-construction process:
 
-   * The accountpart consists only of Unicode code points that conform to
+   * The 'acctpart' consists only of Unicode code points that conform to
      the PRECIS IdentifierClass specified in [RFC7564].
 
-   * The host consists only of Unicode code points that conform to the
+   * The 'host' consists only of Unicode code points that conform to the
      rules specified in [RFC5892].
 
    * Internationalized domain name (IDN) labels are encoded as A-labels
@@ -237,7 +238,7 @@ This specification is a part of the [PayID Protocol](https://payid.org/) work.
 # IANA Considerations
 
 In accordance with the guidelines and registration procedures for new
-URI schemes [RFC4395], this section provides the information needed
+URI schemes [RFC7595], this section provides the information needed
 to register the 'payid' URI scheme.
 
    **URI Scheme Name**: payid
@@ -248,9 +249,9 @@ to register the 'payid' URI scheme.
    Backus-Naur Form (ABNF) [RFC5234], borrowing the 'host', 'pct-encoded',
    'sub-delims', and 'unreserved' rules from [RFC3986]:
 
-      payidURI      = "payid" ":" accountpart "$" host
-      accountpart   = unreserved / sub-delims  
-                     *( unreserved / pct-encoded / sub-delims )
+      payidURI   = "payid" ":" acctpart "$" host
+      acctpart   = unreserved / sub-delims  
+                   0*( unreserved / pct-encoded / sub-delims )
 
    Note that additional rules regarding the strings that are used as input
    to construction of 'payid' URIs further limit the characters that can be
