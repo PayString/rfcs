@@ -24,7 +24,6 @@ abstract class AbstractPayId implements PayId {
   private static final String UNRESERVED = ALPHA + DIGIT + "\\-\\.\\_\\~";
   private static final String SUB_DELIMS = "\\!\\$\\&\\'\\(\\)\\*\\+\\,\\;\\=";
   private static final String PERCENT = "\\%";
-  private static final String DEC_OCTET = DIGIT + "\\%x";
 
   // Note: These regex's don't enforce any ordering or format for things like IP address, etc. They merely define
   // allowed characters in a PayID. A PayID must be dereferenced in order to determine if it's a valid host

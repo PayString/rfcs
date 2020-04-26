@@ -7,7 +7,6 @@ import com.google.common.base.Preconditions;
 
 import java.util.Locale;
 import java.util.Objects;
-import java.util.StringTokenizer;
 
 /**
  * A standardized identifier for payment accounts.
@@ -57,20 +56,18 @@ public interface PayId {
         .checkArgument(value.length() > 6, format("PayID `%s` must specify a valid account and host", value));
     }
 
-    // Ensure no more than a single dollar-sign ($) without using a library.
-    // See https://stackoverflow.com/a/35242882
-    int numDollarSigns = new StringTokenizer(" " + value + " ", "$").countTokens() - 1;
-    Preconditions.checkArgument(numDollarSigns == 1,
-      format("PayID `%s` may only contain a single dollar-sign. All other dollar-signs must be percent-encoded.",
-        value));
     Preconditions.checkArgument(!value.startsWith("%"),
-      format("PayID `%s` MUST start with either an 'unreserved' or 'sub-selims' character rules. "
-        + "A PayID may not start with a percent-encoded value.", value));
+      format("PayID `%s` may not start with a percent-encoded value, but instead MUST start with "
+        + "a character from either the 'unreserved' or 'sub-delims' set.", value));
 
-    final String[] parts = value.split("\\$");
+    int lastDollar = value.lastIndexOf("$");
+    String account = value.substring(0, lastDollar);
+    String host = value.substring(lastDollar + 1);
 
-    String account = parts[0];
-    String host = parts[1];
+    // NOTE: This implementation purposefully does not percent-encode any invalid characters because we don't want to
+    // be too proscriptive around which encoding scheme should be used. Thus, it is assumed that only valid characters
+    // are initially supplied to a PayID, and that software encodes properly to the PayID-allowed character set before
+    // contruction.
 
     // NORMALIZATION: Capitalization
     account = account.toLowerCase(Locale.ENGLISH);
