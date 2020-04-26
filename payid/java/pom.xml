@@ -29,6 +29,7 @@
         <project.resources.sourceEncoding>UTF-8</project.resources.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <jackson.version>2.10.3</jackson.version>
+        <okhttp.version>4.2.0</okhttp.version>
     </properties>
 
     <dependencies>
@@ -53,6 +54,11 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -85,6 +91,11 @@
                 <artifactId>assertj-core</artifactId>
                 <version>3.13.2</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
