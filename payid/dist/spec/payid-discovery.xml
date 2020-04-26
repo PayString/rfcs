@@ -39,7 +39,7 @@
       </address>
     </author>
 
-    <date year="2020" month="April" day="21"/>
+    <date year="2020" month="April" day="26"/>
 
     <area>security</area>
     
@@ -77,30 +77,33 @@ PayID URI into a URL that can be used with other protocols.</t>
 <section anchor="introduction" title="Introduction">
 <t>PayID Discovery is used to transform a PayID URI <xref target="PAYID-URI"></xref> into a
    URL (defined below as a PayID Discovery URL) that can then be used by 
-   higher-order protocols to discover metadata about a service provider.</t>
+   higher-order protocols to discover metadata about a PayID-enabled service
+   provider.</t>
 
 <t>This document specifies two modes of PayID discovery: one using
    Webfinger <xref target="RFC7033"></xref> to resolve a corresponding PayID Discovery URL
-   from a PayID using an interactive fashion. The second modes uses a manual, 
-   fallback mechanism to assemble a PayID Discovery URL from a PayID by-hand.</t>
+   from a PayID using an interactive protocol. The second mode uses a manual 
+   mechanism to assemble a PayID Discovery URL from a PayID by-hand.</t>
 
-<t>In 'interactive' mode, a PayID can be presented to a service endpoint that
-   supports PayID Discovery. The resource returns a Webfinger-compliant 
-   JavaScript Object Notation (JSON) <xref target="RFC4627"></xref> object that can be used
-   to perform PayID Discovery as defined in section 4.1 of this document.</t>
-
-<t>Conversely, in "fallback" mode, a PayID can be decomposed into a URL, without
-   any intermediate server interaction, by simply transposing portions of a
-   PayID URI into a URL format. This procedure is defined in section 4.2 of
+<t>In 'interactive' mode, a PayID can be presented to a Webfinger-enabled 
+   service endpoint that supports PayID Discovery. The resource returns a
+   Webfinger-compliant JavaScript Object Notation (JSON) <xref target="RFC4627"></xref> object 
+   that can be used to perform PayID Discovery as defined in section 4.1 of
    this document.</t>
 
-<t>It should be noted that "fallback" mode does not allow divergence between the
-   string characters in a PayID URI and any corresponding URL. Conversely, 
-   "interactive" mode does allow such divergence, and is thus more powerful. For
-   example, in "fallback" mode, the PayID 'alice$example.com' MUST always map
-   to the URL 'https://example.com/alice', whereas in "interactive" mode
-   that same PayID URI can map to any arbitrary URL structure determined
-   buy the service provider, such as 'https://example.com/users/alice'.</t>
+<t>As an alternative, "manual" mode MAY be used to decompose a PayID into a
+   URL, without any intermediate server interaction by simply transposing
+   portions of a PayID URI into a URL format. This procedure is defined in
+   section 4.2 of this document.</t>
+
+<t>It should be noted that "manual" mode does not allow divergence between the
+   string characters in a PayID URI and any corresponding PayID URL. 
+   Interactive mode, on the other hand, does allow such divergence, and is 
+   thus more powerful. For example, in manual mode, the PayID
+   'alice$example.com' MUST always map to the URL 
+   'https://example.com/alice', whereas in interactive mode that same
+   PayID URI can map to any arbitrary URL structure determined by the
+   service provider, such as 'https://example.com/users/alice'.</t>
 
 <t>Information returned via PayID Discovery might be used for direct human
    consumption (e.g., looking up someone's Bitcoin address), or it might be
@@ -111,7 +114,7 @@ PayID URI into a URL that can be used with other protocols.</t>
 <t>The information returned via this protocol is intended to be static
    in nature. As such, PayID Discovery is not intended to be used to return
    dynamic information like a payment account balance or the current
-   status of an account.</t>
+   status of a payment account.</t>
 
 <t>PayID Discovery is designed to be used across many applications. Use of 
    PayID Discovery is illustrated in the examples in Section 3 and
@@ -157,15 +160,16 @@ PayID URI into a URL that can be used with other protocols.</t>
    "links" :
    [
      {  
-       "rel": "http://payid.org/rel/discovery/1.0",
+       "rel": "http://payid.org/rel/payid-uri-template/1.0",
        "template": "https://receiver.exmaple.com/users/{acctpart}"
      }
    ]
  }
 ]]></artwork></figure>
 
-<t>Alice's wallet then uses URL template found in the <spanx style="verb">template</spanx> property to 
-   assemble a PayId-specific URL, <spanx style="verb">https://receiver.exmaple.com/users/bob</spanx>.</t>
+<t>Alice's wallet then uses the URL template found in the <spanx style="verb">template</spanx> property
+   to assemble the specified PayId URL, 
+   <spanx style="verb">https://receiver.exmaple.com/users/bob</spanx>.</t>
 
 <t>Per <xref target="RFC7033"></xref>, Webfinger requests can be filtered by using a "rel" 
    parameter in the Webfinger request. Because support for the "rel" parameter
@@ -174,39 +178,40 @@ PayID URI into a URL that can be used with other protocols.</t>
 
 </section>
 <section anchor="payid-discovery-with-default-template" title="PayID Discovery with Default Template">
-<t>Suppose Alice wishes to send a friend some XRP from a web-based wallet
-  provider that Alice has an account on. However, in this example, let's
-   assume that the PayID Alice is wanting to pay doesn't support "interactive"
-   PayID discovery (i.e., the receiver's server doesn't support Webfinger).</t>
+<t>Suppose Alice, as in the example above, wishes to send a friend some XRP
+  from a web-based wallet provider that Alice has an account on. However, in 
+  this example, let's assume that the PayID Alice is wanting to pay doesn't 
+  support "interactive" PayID discovery (i.e., the receiver's server doesn't 
+  support Webfinger).</t>
 
 <t>Alice would log-in to her wallet provider and enter Bob's PayID (say
-   <spanx style="verb">bob$receiver.example.com</spanx>) to make a payment.</t>
+  <spanx style="verb">bob$receiver.example.com</spanx>) to make a payment.</t>
 
 <t>The Wallet application would first attempt a WebFinger query as in the 
-   example above, like this:</t>
+  example above, like this:</t>
 
 <figure><artwork><![CDATA[
-   GET /.well-known/webfinger?
-         resource=payid%3Abob%24receiver.example.com&
-         HTTP/1.1
-   Host: receiver.example.com
+  GET /.well-known/webfinger?
+        resource=payid%3Abob%24receiver.example.com&
+        HTTP/1.1
+  Host: receiver.example.com
 ]]></artwork></figure>
 
 <t>However, in this case the <spanx style="verb">receiver.example.com</spanx> server doesn't support 
-   "interactive" PayID Discovery, so the server responds like this:</t>
+  "interactive" PayID Discovery, so the server responds like this:</t>
 
 <figure><artwork><![CDATA[
-   HTTP/1.1 404 NOT FOUND
+  HTTP/1.1 404 NOT FOUND
 ]]></artwork></figure>
 
-<t>Because Alice's Wallet can utilize "fallback" PayID Discovery, the wallet
-   software merely transforms <spanx style="verb">bob$receiever.example.com</spanx> into the URL 
-   <spanx style="verb">https://receiver.example.com/bob</spanx>. Alice's wallet then uses that URL to 
-   continue making a PayID payment.</t>
+<t>Because Alice's Wallet can utilize "manual" PayID Discovery, the wallet
+  software merely transforms <spanx style="verb">bob$receiever.example.com</spanx> into the URL 
+  <spanx style="verb">https://receiver.example.com/bob</spanx>. Alice's wallet then uses that URL to 
+  continue making a PayID payment.</t>
 
-<t>It should be noted that "fallback" mode does not allow the PayID URI to
-   diverge from the underlying URL returned via PayID Discovery. Because of
-   this, "interactive" PayID Discovery is generally preferred.</t>
+<t>It should be noted that "manual" mode does not allow the PayID URI to
+  diverge from the underlying URL returned via PayID Discovery. Because of
+  this, "interactive" PayID Discovery is generally preferred.</t>
 
 </section>
 </section>
@@ -215,13 +220,13 @@ PayID URI into a URL that can be used with other protocols.</t>
   identified by a PayID URI.</t>
 
 <t>When successful, PayID Discovery always yields a PayID URL, which is a
-  URI as defined by <xref target="RFC3986"></xref> using the 'https' scheme defined in
-  <xref target="RFC7230"></xref>. A PayID URL can be used for any purposes outside the scope of
-  this document.</t>
+  URI as defined by <xref target="RFC3986"></xref> using the 'https' scheme defined in section
+  2.7.2 <xref target="RFC7230"></xref>. A PayID URL can be used for any purposes outside the
+  scope of this document.</t>
 
 <t>PayID Discovery is performed using one of two modes: "interactive" or
-  "fallback." Clients MUST attempt "interactive" mode first. If that
-  mode fails to yield a PayID URL, then "fallback" mode MAY be used as an
+  "manual." Clients MUST attempt "interactive" mode first. If that
+  mode fails to yield a PayID URL, then "manual" mode MAY be used as an
   alternative discovery mechanism.</t>
 
 <section anchor="interactive-mode" title="Interactive Mode">
@@ -260,7 +265,7 @@ PayID URI into a URL that can be used with other protocols.</t>
               |                                      |              
               v                                      v              
 +--------------------------+           +---------------------------+
-| Fallback PayID Discovery |           |    Assemble PayID URL     |
+|  Manual PayID Discovery  |           |    Assemble PayID URL     |
 +--------------------------+           +---------------------------+
               |                                      |              
               +---------------------+----------------+              
@@ -283,7 +288,7 @@ PayID URI into a URL that can be used with other protocols.</t>
 <t>For example, the PayID Discovery URI for alice$example.com is</t>
 
 <figure><artwork><![CDATA[
- https://example.com/.well-known/webfinger?resource=payid%3Abob%24.example.com
+ https://example.com/.well-known/webfinger?resource=payid%3Abob%24example.com
 ]]></artwork></figure>
 
 </section>
@@ -296,8 +301,8 @@ PayID URI into a URL that can be used with other protocols.</t>
   PayID.</t>
 
 <t>If the Webfinger endpoint returns a non-200 HTTP response status code, then
-  interactive PayID Discovery is considered to have failed. Clients SHOULD 
-  attempt to assemble a PayID URL using "fallback" mode as defined in section
+  interactive PayID Discovery is considered to have failed. Clients MAY 
+  attempt to assemble a PayID URL using "manual" mode as defined in section
   4.2.1 of this document.</t>
 
 </section>
@@ -316,7 +321,7 @@ PayID URI into a URL that can be used with other protocols.</t>
 </section>
 <section anchor="step-4-assemble-payid-url" title="Step 4: Assemble PayID URL">
 <t>A PayID URL is constructed by applying the PayID URI to the PayID URI
-   Template string obtained via the steps above. The PayID URI template MAY
+   Template string obtained in the step above. The PayID URI template MAY
    contain a URI string without any variables to represent a host-level
    PayID URL that is identical for every PayID URI on a particular host.</t>
 
@@ -325,7 +330,7 @@ PayID URI into a URL that can be used with other protocols.</t>
 
 <figure><artwork><![CDATA[
 {
-  "rel": "https://payid.org/ns/payid-url-template/1.0",
+  "rel": "https://payid.org/ns/payid-uri-template/1.0",
   "template": "https://example.com/alice"
 }
 ]]></artwork></figure>
@@ -456,7 +461,7 @@ capturing the 'acctpart' and 'host' values.</t>
   Template.</t>
 
 <t><list style="symbols">
-  <t>'rel': <spanx style="verb">http://payid.org/rel/payid-url-template/1.0</spanx></t>
+  <t>'rel': <spanx style="verb">http://payid.org/rel/payid-uri-template/1.0</spanx></t>
   <t>'template': A PayID URI Template</t>
 </list></t>
 
@@ -464,7 +469,7 @@ capturing the 'acctpart' and 'host' values.</t>
 
 <figure><artwork><![CDATA[
 {
-  "rel": "https://payid.org/ns/payid-url-template/1.0",
+  "rel": "https://payid.org/ns/payid-uri-template/1.0",
   "template": "https://example.com/{acctpart}"
 }                
 ]]></artwork></figure>
@@ -482,20 +487,20 @@ Discovery.</t>
 <section anchor="hosted-payid-discovery-services" title="Hosted PayID Discovery Services">
 <t>As with most services provided on the Internet, it is possible for a domain
 owner to utilize "hosted" WebFinger services. Consult section 7 of 
-<xref target="RFC7033"></xref> for considerations that could apply to both "fallback" and
+<xref target="RFC7033"></xref> for considerations that could apply to both "manual" and
 "interactive" PayID Discovery when hosted by a third-party.</t>
 
 </section>
 <section anchor="cross-origin-resource-sharing-cors" title="Cross-Origin Resource Sharing (CORS)">
 <t>PayID Discovery resources might not be accessible from a web browser due to
 "Same-Origin" policies. See section 5 of <xref target="RFC7033"></xref> for CORS considerations
-that apply to both "fallback" and "interactive" PayID Discovery modes.</t>
+that apply to both "manual" and "interactive" PayID Discovery modes.</t>
 
 </section>
 <section anchor="access-control" title="Access Control">
 <t>As with all web resources, access to the PayID Discovery resource could
 require authentication. See section 6 of <xref target="RFC7033"></xref> for Access Control
-considerations that could apply to both "fallback" and "interactive" PayID
+considerations that could apply to both "manual" and "interactive" PayID
 Discovery modes.</t>
 
 </section>
@@ -566,136 +571,136 @@ feedback and use-cases for this derivative specification.</t>
   </back>
 
 <!-- ##markdown-source:
-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
-6itu+G4hEUf/A7rpTC4rSwAA
+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
 
 -->
 

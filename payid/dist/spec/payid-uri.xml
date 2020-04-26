@@ -11,10 +11,10 @@
 <!ENTITY RFC5892 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5892.xml">
 <!ENTITY RFC7564 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7564.xml">
 <!ENTITY RFC0020 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.0020.xml">
-<!ENTITY RFC4395 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.4395.xml">
 <!ENTITY RFC5988 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5988.xml">
 <!ENTITY RFC6068 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6068.xml">
 <!ENTITY RFC7033 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7033.xml">
+<!ENTITY RFC7595 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7595.xml">
 ]>
 
 <?rfc toc="yes"?>
@@ -43,7 +43,7 @@
       </address>
     </author>
 
-    <date year="2020" month="April" day="21"/>
+    <date year="2020" month="April" day="26"/>
 
     <area>security</area>
     
@@ -128,26 +128,27 @@
    that payment account.  This is expressed as a URI using the 'payid' 
    scheme as 'payid:apollo$wallet.example.com'.</t>
 
-<t>A common scenario is for a user to register with a payment service provider
-   using an identifier (such as an email address) that is associated
+<t>A possible scenario is for a user to register with a payment service
+   provider using an identifier (such as an email address) that is associated
    with some other service provider. For example, a user with the email
-   address "alice@example.net" might register with a wallet
-   website whose domain name is "wallet.example.com". In order to facilitate
-   payments to/from alice, the wallet service provider might offer alice a
-   PayID using alice's email address. In order to use her email address as the
-   localpart of the 'payid' URI, the at-sign character (U+0040) needs to be
+   address "alice@example.net" might register with a wallet website whose
+   domain name is "wallet.example.com". In order to facilitate payments 
+   to/from alice, the wallet service provider might offer alice a
+   PayID using alice's email address (though using an email address as a
+   PayID is not recommended). In order to use her email address as the
+   'acctpart' of the 'payid' URI, the at-sign character (U+0040) needs to be
    percent-encoded as described in <xref target="RFC3986"></xref>. Thus, the resulting 'payid' 
-   URI would be "payid:alice%40example.net$shoppingsite.example".</t>
+   URI would be <spanx style="verb">payid:alice%40example.net$shoppingsite.example</spanx>.</t>
 
-<t>Another scenario is a payment service provider (e.g., a digital wallet) 
-   that allows a user to use a PayID that is associated with some other
-   payment service provider. For example, a user with the PayID 
-   "alice$bank.example.net" might
-   register with a wallet website whose domain name is "wallet.example.net". 
-   In order to use her bank's PayID as the localpart of the wallet's 'payid' 
-   URI, the dollar-sign character (U+0024) needs to be percent-encoded as
-   described in <xref target="RFC3986"></xref>.  Thus, the resulting 'payid' URI would be
-   "payid:alice%24bank.example$wallet.example".</t>
+<t>Another possible scenario is a payment service provider (e.g., a digital
+   wallet) that allows a user to use a PayID that is associated with some
+   other payment service provider. For example, a user with the PayID 
+   "alice$bank.example.net" might register with a wallet website whose
+   domain name is "wallet.example.net". In order to use her bank's PayID as 
+   the localpart of the wallet's 'payid' URI, no percent-encoding is necessary
+   because the 'acctpart' portion of a PayID allows for dollar-signs. Thus, 
+   the resulting 'payid' URI would be 
+   <spanx style="verb">payid:alice$bank.example$wallet.example</spanx>.</t>
 
 <t>It is not assumed that an entity will necessarily be able to interact
    with a user's PayID using any particular application protocol, 
@@ -155,7 +156,7 @@
    (payments or otherwise), an entity would need to use the appropriate URI
    scheme for such a protocol. While it might be true that the 'payid' URI
    minus the scheme name (e.g., "user$example.com" derived from 
-   "payid:user$example.com") could be paid via some application protocol, 
+   "payid:user$example.com") could be used via some application protocol, 
    that fact would be purely contingent and dependent upon the deployment
    practices of the payment account provider.</t>
 
@@ -176,7 +177,7 @@
    WebFinger protocol <xref target="RFC7033"></xref> might take a 'payid' URI, resolve the
    host portion to find a WebFinger server, and then pass the 'payid' URI
    as a parameter in a WebFinger HTTP request for metadata (i.e., web
-   links <xref target="RFC5988"></xref>) about the resource.  For example:</t>
+   links <xref target="RFC5988"></xref>) about the resource. For example:</t>
 
 <t><spanx style="verb">
     GET /.well-known/webfinger?resource=payid%3Abob%24example.com HTTP/1.1
@@ -189,10 +190,10 @@
 <t>If an application needs to compare two 'payid' URIs (e.g., for
    purposes of authentication and authorization), it MUST do so using
    case normalization and percent-encoding normalization as specified in
-   Sections 6.2.2.1 and 6.2.2.2 of <xref target="RFC3986"></xref>. In addition, the <spanx style="verb">acctpart</spanx> 
+   Sections 6.2.2.1 and 6.2.2.2 of <xref target="RFC3986"></xref>. In addition, the 'acctpart' 
    is case-insensitive and therefore should be normalized to lowercase. 
    For example, the URI <spanx style="verb">PAYID:aLICE$www.EXAMPLE.com</spanx> is equivalent to
-   <spanx style="verb">payid:alice$example.com</spanx>.</t>
+   <spanx style="verb">payid:alice$www.example.com</spanx>.</t>
 
 </section>
 <section anchor="examples" title="Examples">
@@ -202,15 +203,15 @@
 <figure><artwork><![CDATA[
      payid:alice$example.net
      
-     payid:John.Doe$example.net
+     payid:john.doe$example.net
      
-     payid:jane-doe$example.net 
+     payid:jane-doe$example.net
 ]]></artwork></figure>
 
 </section>
 <section anchor="security-concerns" title="Security Concerns">
-<t>Because the 'payid' URI scheme does not directly enable interaction
-   with a user's payment account at a service provider, direct security concerns
+<t>Because the 'payid' URI scheme does not directly enable interaction with
+   a user's payment account at a service provider, direct security concerns
    are minimized.</t>
 
 <t>However, a 'payid' URI does provide proof of existence of the payment
@@ -245,9 +246,9 @@
    string that is used as input to the URI-construction process:</t>
 
 <t><list style="symbols">
-  <t>The accountpart consists only of Unicode code points that conform to
+  <t>The 'acctpart' consists only of Unicode code points that conform to
 the PRECIS IdentifierClass specified in <xref target="RFC7564"></xref>.</t>
-  <t>The host consists only of Unicode code points that conform to the
+  <t>The 'host' consists only of Unicode code points that conform to the
 rules specified in <xref target="RFC5892"></xref>.</t>
   <t>Internationalized domain name (IDN) labels are encoded as A-labels
     <xref target="RFC5890"></xref>.</t>
@@ -257,7 +258,7 @@ rules specified in <xref target="RFC5892"></xref>.</t>
 <section anchor="iana-considerations" title="IANA Considerations">
 
 <t>In accordance with the guidelines and registration procedures for new
-URI schemes <xref target="RFC4395"></xref>, this section provides the information needed
+URI schemes <xref target="RFC7595"></xref>, this section provides the information needed
 to register the 'payid' URI scheme.</t>
 
 <t><spanx style="strong">URI Scheme Name</spanx>: payid</t>
@@ -269,9 +270,9 @@ to register the 'payid' URI scheme.</t>
    'sub-delims', and 'unreserved' rules from <xref target="RFC3986"></xref>:</t>
 
 <figure><artwork><![CDATA[
-  payidURI      = "payid" ":" accountpart "$" host
-  accountpart   = unreserved / sub-delims  
-                 *( unreserved / pct-encoded / sub-delims )
+  payidURI   = "payid" ":" acctpart "$" host
+  acctpart   = unreserved / sub-delims  
+               0*( unreserved / pct-encoded / sub-delims )
 ]]></artwork></figure>
 
 <t>Note that additional rules regarding the strings that are used as input
@@ -355,10 +356,10 @@ feedback and use-cases for this derivative specification.</t>
     <references title='Informative References'>
 
 &RFC0020;
-&RFC4395;
 &RFC5988;
 &RFC6068;
 &RFC7033;
+&RFC7595;
 
 
     </references>
@@ -368,111 +369,111 @@ feedback and use-cases for this derivative specification.</t>
   </back>
 
 <!-- ##markdown-source:
-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
-AA==
+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
+SUbv1EPQvK7DxKj3P9jCgfhwMQAA
 
 -->
 

@@ -4,8 +4,8 @@
 
 Network Working Group                                        D. Fuelling
 Internet-Draft                                                    Ripple
-Intended status: Standards Track                          April 21, 2020
-Expires: October 23, 2020
+Intended status: Standards Track                          April 26, 2020
+Expires: October 28, 2020
 
 
                          The 'payid' URI Scheme
@@ -39,7 +39,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 23, 2020.
+   This Internet-Draft will expire on October 28, 2020.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Fuelling                Expires October 23, 2020                [Page 1]
+Fuelling                Expires October 28, 2020                [Page 1]
 
 Internet-Draft           The 'payid' URI Scheme               April 2020
 
@@ -69,7 +69,7 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
    2.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   3
    3.  Definition  . . . . . . . . . . . . . . . . . . . . . . . . .   3
-   4.  Examples  . . . . . . . . . . . . . . . . . . . . . . . . . .   4
+   4.  Examples  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
    5.  Security Concerns . . . . . . . . . . . . . . . . . . . . . .   5
    6.  Internationalization Concerns . . . . . . . . . . . . . . . .   5
    7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   6
@@ -78,7 +78,7 @@ Table of Contents
      9.1.  Normative References  . . . . . . . . . . . . . . . . . .   7
      9.2.  Informative References  . . . . . . . . . . . . . . . . .   8
      9.3.  URIs  . . . . . . . . . . . . . . . . . . . . . . . . . .   8
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .   8
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .   9
 
 1.  Introduction
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Fuelling                Expires October 23, 2020                [Page 2]
+Fuelling                Expires October 28, 2020                [Page 2]
 
 Internet-Draft           The 'payid' URI Scheme               April 2020
 
@@ -141,34 +141,37 @@ Internet-Draft           The 'payid' URI Scheme               April 2020
    account.  This is expressed as a URI using the 'payid' scheme as
    'payid:apollo$wallet.example.com'.
 
-   A common scenario is for a user to register with a payment service
+   A possible scenario is for a user to register with a payment service
    provider using an identifier (such as an email address) that is
    associated with some other service provider.  For example, a user
    with the email address "alice@example.net" might register with a
    wallet website whose domain name is "wallet.example.com".  In order
    to facilitate payments to/from alice, the wallet service provider
-   might offer alice a PayID using alice's email address.  In order to
-   use her email address as the localpart of the 'payid' URI, the at-
-   sign character (U+0040) needs to be percent-encoded as described in
+   might offer alice a PayID using alice's email address (though using
+   an email address as a PayID is not recommended).  In order to use her
+   email address as the 'acctpart' of the 'payid' URI, the at-sign
+   character (U+0040) needs to be percent-encoded as described in
    [RFC3986].  Thus, the resulting 'payid' URI would be
    "payid:alice%40example.net$shoppingsite.example".
 
-   Another scenario is a payment service provider (e.g., a digital
-   wallet) that allows a user to use a PayID that is associated with
-   some other payment service provider.  For example, a user with the
-   PayID "alice$bank.example.net" might register with a wallet website
-   whose domain name is "wallet.example.net".  In order to use her
-   bank's PayID as the localpart of the wallet's 'payid' URI, the
-   dollar-sign character (U+0024) needs to be percent-encoded as
-   described in [RFC3986].  Thus, the resulting 'payid' URI would be
-   "payid:alice%24bank.example$wallet.example".
+   Another possible scenario is a payment service provider (e.g., a
+   digital wallet) that allows a user to use a PayID that is associated
+   with some other payment service provider.  For example, a user with
+   the PayID "alice$bank.example.net" might register with a wallet
+   website whose domain name is "wallet.example.net".  In order to use
+   her bank's PayID as the localpart of the wallet's 'payid' URI, no
+   percent-encoding is necessary because the 'acctpart' portion of a
 
 
 
-Fuelling                Expires October 23, 2020                [Page 3]
+
+Fuelling                Expires October 28, 2020                [Page 3]
 
 Internet-Draft           The 'payid' URI Scheme               April 2020
 
+
+   PayID allows for dollar-signs.  Thus, the resulting 'payid' URI would
+   be "payid:alice$bank.example$wallet.example".
 
    It is not assumed that an entity will necessarily be able to interact
    with a user's PayID using any particular application protocol, such
@@ -176,7 +179,7 @@ Internet-Draft           The 'payid' URI Scheme               April 2020
    or otherwise), an entity would need to use the appropriate URI scheme
    for such a protocol.  While it might be true that the 'payid' URI
    minus the scheme name (e.g., "user$example.com" derived from
-   "payid:user$example.com") could be paid via some application
+   "payid:user$example.com") could be used via some application
    protocol, that fact would be purely contingent and dependent upon the
    deployment practices of the payment account provider.
 
@@ -208,27 +211,29 @@ Internet-Draft           The 'payid' URI Scheme               April 2020
    purposes of authentication and authorization), it MUST do so using
    case normalization and percent-encoding normalization as specified in
    Sections 6.2.2.1 and 6.2.2.2 of [RFC3986].  In addition, the
-   "acctpart" is case-insensitive and therefore should be normalized to
+   'acctpart' is case-insensitive and therefore should be normalized to
    lowercase.  For example, the URI "PAYID:aLICE$www.EXAMPLE.com" is
-   equivalent to "payid:alice$example.com".
+   equivalent to "payid:alice$www.example.com".
+
+
+
+
+
+
+
+Fuelling                Expires October 28, 2020                [Page 4]
+
+Internet-Draft           The 'payid' URI Scheme               April 2020
+
 
 4.  Examples
 
    The following example URIs illustrate several variations of PayIDs
    and their common syntax components:
 
-
-
-
-
-Fuelling                Expires October 23, 2020                [Page 4]
-
-Internet-Draft           The 'payid' URI Scheme               April 2020
-
-
         payid:alice$example.net
 
-        payid:John.Doe$example.net
+        payid:john.doe$example.net
 
         payid:jane-doe$example.net
 
@@ -268,22 +273,23 @@ Internet-Draft           The 'payid' URI Scheme               April 2020
    character from the Unicode repertoire [UNICODE] encoded as UTF-8
    [RFC3629] and then percent-encoded into valid ASCII [RFC0020].
    Before applying any percent-encoding, an application MUST ensure the
-   following about the string that is used as input to the URI-
-   construction process:
-
-   o  The accountpart consists only of Unicode code points that conform
-      to the PRECIS IdentifierClass specified in [RFC7564].
 
 
 
 
-Fuelling                Expires October 23, 2020                [Page 5]
+Fuelling                Expires October 28, 2020                [Page 5]
 
 Internet-Draft           The 'payid' URI Scheme               April 2020
 
 
-   o  The host consists only of Unicode code points that conform to the
-      rules specified in [RFC5892].
+   following about the string that is used as input to the URI-
+   construction process:
+
+   o  The 'acctpart' consists only of Unicode code points that conform
+      to the PRECIS IdentifierClass specified in [RFC7564].
+
+   o  The 'host' consists only of Unicode code points that conform to
+      the rules specified in [RFC5892].
 
    o  Internationalized domain name (IDN) labels are encoded as A-labels
       [RFC5890].
@@ -291,7 +297,7 @@ Internet-Draft           The 'payid' URI Scheme               April 2020
 7.  IANA Considerations
 
    In accordance with the guidelines and registration procedures for new
-   URI schemes [RFC4395], this section provides the information needed
+   URI schemes [RFC7595], this section provides the information needed
    to register the 'payid' URI scheme.
 
    *URI Scheme Name*: payid
@@ -302,9 +308,9 @@ Internet-Draft           The 'payid' URI Scheme               April 2020
    Augmented Backus-Naur Form (ABNF) [RFC5234], borrowing the 'host',
    'pct-encoded', 'sub-delims', and 'unreserved' rules from [RFC3986]:
 
-     payidURI      = "payid" ":" accountpart "$" host
-     accountpart   = unreserved / sub-delims
-                    *( unreserved / pct-encoded / sub-delims )
+     payidURI   = "payid" ":" acctpart "$" host
+     acctpart   = unreserved / sub-delims
+                  0*( unreserved / pct-encoded / sub-delims )
 
    Note that additional rules regarding the strings that are used as
    input to construction of 'payid' URIs further limit the characters
@@ -325,18 +331,17 @@ Internet-Draft           The 'payid' URI Scheme               April 2020
    URI scheme.  However, use is not restricted to this protocol, and the
    scheme might be considered for use in other protocols.
 
+
+
+Fuelling                Expires October 28, 2020                [Page 6]
+
+Internet-Draft           The 'payid' URI Scheme               April 2020
+
+
    *Interoperability Considerations*: There are no known
    interoperability concerns related to use of the 'payid' URI scheme.
 
    *Security Considerations*: See Section 5 of this document.
-
-
-
-
-Fuelling                Expires October 23, 2020                [Page 6]
-
-Internet-Draft           The 'payid' URI Scheme               April 2020
-
 
    *Contact*: fuelling@ripple.com
 
@@ -381,18 +386,18 @@ Internet-Draft           The 'payid' URI Scheme               April 2020
               DOI 10.17487/RFC5234, January 2008,
               <https://www.rfc-editor.org/info/rfc5234>.
 
+
+
+
+Fuelling                Expires October 28, 2020                [Page 7]
+
+Internet-Draft           The 'payid' URI Scheme               April 2020
+
+
    [RFC5890]  Klensin, J., "Internationalized Domain Names for
               Applications (IDNA): Definitions and Document Framework",
               RFC 5890, DOI 10.17487/RFC5890, August 2010,
               <https://www.rfc-editor.org/info/rfc5890>.
-
-
-
-
-Fuelling                Expires October 23, 2020                [Page 7]
-
-Internet-Draft           The 'payid' URI Scheme               April 2020
-
 
    [RFC5892]  Faltstrom, P., Ed., "The Unicode Code Points and
               Internationalized Domain Names for Applications (IDNA)",
@@ -414,11 +419,6 @@ Internet-Draft           The 'payid' URI Scheme               April 2020
               RFC 20, DOI 10.17487/RFC0020, October 1969,
               <https://www.rfc-editor.org/info/rfc20>.
 
-   [RFC4395]  Hansen, T., Hardie, T., and L. Masinter, "Guidelines and
-              Registration Procedures for New URI Schemes", RFC 4395,
-              DOI 10.17487/RFC4395, February 2006,
-              <https://www.rfc-editor.org/info/rfc4395>.
-
    [RFC5988]  Nottingham, M., "Web Linking", RFC 5988,
               DOI 10.17487/RFC5988, October 2010,
               <https://www.rfc-editor.org/info/rfc5988>.
@@ -431,24 +431,26 @@ Internet-Draft           The 'payid' URI Scheme               April 2020
               "WebFinger", RFC 7033, DOI 10.17487/RFC7033, September
               2013, <https://www.rfc-editor.org/info/rfc7033>.
 
+   [RFC7595]  Thaler, D., Ed., Hansen, T., and T. Hardie, "Guidelines
+              and Registration Procedures for URI Schemes", BCP 35,
+              RFC 7595, DOI 10.17487/RFC7595, June 2015,
+              <https://www.rfc-editor.org/info/rfc7595>.
+
 9.3.  URIs
 
    [1] https://payid.org/
 
    [2] mailto:payid@ripple.com
 
-Author's Address
 
 
 
-
-
-
-
-Fuelling                Expires October 23, 2020                [Page 8]
+Fuelling                Expires October 28, 2020                [Page 8]
 
 Internet-Draft           The 'payid' URI Scheme               April 2020
 
+
+Author's Address
 
    David Fuelling
    Ripple
@@ -499,6 +501,4 @@ Internet-Draft           The 'payid' URI Scheme               April 2020
 
 
 
-
-
-Fuelling                Expires October 23, 2020                [Page 9]
+Fuelling                Expires October 28, 2020                [Page 9]

@@ -408,7 +408,7 @@
 
   <meta name="dct.creator" content="Fuelling, D." />
   <meta name="dct.identifier" content="urn:ietf:id:draft-fuelling-payid-discovery-01" />
-  <meta name="dct.issued" scheme="ISO8601" content="2020-04-21" />
+  <meta name="dct.issued" scheme="ISO8601" content="2020-04-26" />
   <meta name="dct.abstract" content="This specification defines the PayID Discovery protocol, which can be used to discover information about a 'payid' URI using standard HTTP methods." />
   <meta name="description" content="This specification defines the PayID Discovery protocol, which can be used to discover information about a 'payid' URI using standard HTTP methods." />
 
@@ -429,10 +429,10 @@
 </tr>
 <tr>
 <td class="left">Intended status: Standards Track</td>
-<td class="right">April 21, 2020</td>
+<td class="right">April 26, 2020</td>
 </tr>
 <tr>
-<td class="left">Expires: October 23, 2020</td>
+<td class="left">Expires: October 28, 2020</td>
 <td class="right"></td>
 </tr>
 
@@ -452,7 +452,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on October 23, 2020.</p>
+<p>This Internet-Draft will expire on October 28, 2020.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2020 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -523,13 +523,13 @@
   <h1 id="rfc.section.1">
 <a href="#rfc.section.1">1.</a> <a href="#introduction" id="introduction">Introduction</a>
 </h1>
-<p id="rfc.section.1.p.1">PayID Discovery is used to transform a PayID URI <a href="#PAYID-URI" class="xref">[PAYID-URI]</a> into a URL (defined below as a PayID Discovery URL) that can then be used by higher-order protocols to discover metadata about a service provider.</p>
-<p id="rfc.section.1.p.2">This document specifies two modes of PayID discovery: one using Webfinger <a href="#RFC7033" class="xref">[RFC7033]</a> to resolve a corresponding PayID Discovery URL from a PayID using an interactive fashion. The second modes uses a manual, fallback mechanism to assemble a PayID Discovery URL from a PayID by-hand.</p>
-<p id="rfc.section.1.p.3">In 'interactive' mode, a PayID can be presented to a service endpoint that supports PayID Discovery. The resource returns a Webfinger-compliant JavaScript Object Notation (JSON) <a href="#RFC4627" class="xref">[RFC4627]</a> object that can be used to perform PayID Discovery as defined in section 4.1 of this document.</p>
-<p id="rfc.section.1.p.4">Conversely, in "fallback" mode, a PayID can be decomposed into a URL, without any intermediate server interaction, by simply transposing portions of a PayID URI into a URL format. This procedure is defined in section 4.2 of this document.</p>
-<p id="rfc.section.1.p.5">It should be noted that "fallback" mode does not allow divergence between the string characters in a PayID URI and any corresponding URL. Conversely, "interactive" mode does allow such divergence, and is thus more powerful. For example, in "fallback" mode, the PayID 'alice$example.com' MUST always map to the URL 'https://example.com/alice', whereas in "interactive" mode that same PayID URI can map to any arbitrary URL structure determined buy the service provider, such as 'https://example.com/users/alice'.</p>
+<p id="rfc.section.1.p.1">PayID Discovery is used to transform a PayID URI <a href="#PAYID-URI" class="xref">[PAYID-URI]</a> into a URL (defined below as a PayID Discovery URL) that can then be used by higher-order protocols to discover metadata about a PayID-enabled service provider.</p>
+<p id="rfc.section.1.p.2">This document specifies two modes of PayID discovery: one using Webfinger <a href="#RFC7033" class="xref">[RFC7033]</a> to resolve a corresponding PayID Discovery URL from a PayID using an interactive protocol. The second mode uses a manual mechanism to assemble a PayID Discovery URL from a PayID by-hand.</p>
+<p id="rfc.section.1.p.3">In 'interactive' mode, a PayID can be presented to a Webfinger-enabled service endpoint that supports PayID Discovery. The resource returns a Webfinger-compliant JavaScript Object Notation (JSON) <a href="#RFC4627" class="xref">[RFC4627]</a> object that can be used to perform PayID Discovery as defined in section 4.1 of this document.</p>
+<p id="rfc.section.1.p.4">As an alternative, "manual" mode MAY be used to decompose a PayID into a URL, without any intermediate server interaction by simply transposing portions of a PayID URI into a URL format. This procedure is defined in section 4.2 of this document.</p>
+<p id="rfc.section.1.p.5">It should be noted that "manual" mode does not allow divergence between the string characters in a PayID URI and any corresponding PayID URL.  Interactive mode, on the other hand, does allow such divergence, and is thus more powerful. For example, in manual mode, the PayID 'alice$example.com' MUST always map to the URL 'https://example.com/alice', whereas in interactive mode that same PayID URI can map to any arbitrary URL structure determined by the service provider, such as 'https://example.com/users/alice'.</p>
 <p id="rfc.section.1.p.6">Information returned via PayID Discovery might be used for direct human consumption (e.g., looking up someone's Bitcoin address), or it might be used by systems to help carry out some operation (e.g., facilitating, with additional security mechanisms, protocols to support compliance or other legal requirements necessary to facilitate a payment).</p>
-<p id="rfc.section.1.p.7">The information returned via this protocol is intended to be static in nature. As such, PayID Discovery is not intended to be used to return dynamic information like a payment account balance or the current status of an account.</p>
+<p id="rfc.section.1.p.7">The information returned via this protocol is intended to be static in nature. As such, PayID Discovery is not intended to be used to return dynamic information like a payment account balance or the current status of a payment account.</p>
 <p id="rfc.section.1.p.8">PayID Discovery is designed to be used across many applications. Use of PayID Discovery is illustrated in the examples in Section 3 and described more formally in Section 4.</p>
 <h1 id="rfc.section.2">
 <a href="#rfc.section.2">2.</a> <a href="#terminology" id="terminology">Terminology</a>
@@ -561,38 +561,38 @@
    "links" :
    [
      {  
-       "rel": "http://payid.org/rel/discovery/1.0",
+       "rel": "http://payid.org/rel/payid-uri-template/1.0",
        "template": "https://receiver.exmaple.com/users/{acctpart}"
      }
    ]
  }
 </pre>
-<p id="rfc.section.3.1.p.4">Alice's wallet then uses URL template found in the <samp>template</samp> property to assemble a PayId-specific URL, <samp>https://receiver.exmaple.com/users/bob</samp>.</p>
+<p id="rfc.section.3.1.p.4">Alice's wallet then uses the URL template found in the <samp>template</samp> property to assemble the specified PayId URL, <samp>https://receiver.exmaple.com/users/bob</samp>.</p>
 <p id="rfc.section.3.1.p.5">Per <a href="#RFC7033" class="xref">[RFC7033]</a>, Webfinger requests can be filtered by using a "rel" parameter in the Webfinger request. Because support for the "rel" parameter is not required nor guaranteed, the client must not assume the "links" array will contain only the link relations related to PayID Discovery.</p>
 <h1 id="rfc.section.3.2">
 <a href="#rfc.section.3.2">3.2.</a> <a href="#payid-discovery-with-default-template" id="payid-discovery-with-default-template">PayID Discovery with Default Template</a>
 </h1>
-<p id="rfc.section.3.2.p.1">Suppose Alice wishes to send a friend some XRP from a web-based wallet provider that Alice has an account on. However, in this example, let's assume that the PayID Alice is wanting to pay doesn't support "interactive" PayID discovery (i.e., the receiver's server doesn't support Webfinger).</p>
+<p id="rfc.section.3.2.p.1">Suppose Alice, as in the example above, wishes to send a friend some XRP from a web-based wallet provider that Alice has an account on. However, in this example, let's assume that the PayID Alice is wanting to pay doesn't support "interactive" PayID discovery (i.e., the receiver's server doesn't support Webfinger).</p>
 <p id="rfc.section.3.2.p.2">Alice would log-in to her wallet provider and enter Bob's PayID (say <samp>bob$receiver.example.com</samp>) to make a payment.</p>
 <p id="rfc.section.3.2.p.3">The Wallet application would first attempt a WebFinger query as in the example above, like this:</p>
 <pre>
-   GET /.well-known/webfinger?
-         resource=payid%3Abob%24receiver.example.com&amp;
-         HTTP/1.1
-   Host: receiver.example.com
+  GET /.well-known/webfinger?
+        resource=payid%3Abob%24receiver.example.com&amp;
+        HTTP/1.1
+  Host: receiver.example.com
 </pre>
 <p id="rfc.section.3.2.p.4">However, in this case the <samp>receiver.example.com</samp> server doesn't support "interactive" PayID Discovery, so the server responds like this:</p>
 <pre>
-   HTTP/1.1 404 NOT FOUND
+  HTTP/1.1 404 NOT FOUND
 </pre>
-<p id="rfc.section.3.2.p.5">Because Alice's Wallet can utilize "fallback" PayID Discovery, the wallet software merely transforms <samp>bob$receiever.example.com</samp> into the URL <samp>https://receiver.example.com/bob</samp>. Alice's wallet then uses that URL to continue making a PayID payment.</p>
-<p id="rfc.section.3.2.p.6">It should be noted that "fallback" mode does not allow the PayID URI to diverge from the underlying URL returned via PayID Discovery. Because of this, "interactive" PayID Discovery is generally preferred.</p>
+<p id="rfc.section.3.2.p.5">Because Alice's Wallet can utilize "manual" PayID Discovery, the wallet software merely transforms <samp>bob$receiever.example.com</samp> into the URL <samp>https://receiver.example.com/bob</samp>. Alice's wallet then uses that URL to continue making a PayID payment.</p>
+<p id="rfc.section.3.2.p.6">It should be noted that "manual" mode does not allow the PayID URI to diverge from the underlying URL returned via PayID Discovery. Because of this, "interactive" PayID Discovery is generally preferred.</p>
 <h1 id="rfc.section.4">
 <a href="#rfc.section.4">4.</a> <a href="#payid-discovery-protocol" id="payid-discovery-protocol">PayID Discovery Protocol</a>
 </h1>
 <p id="rfc.section.4.p.1">The PayID Discovery protocol is used to request information about an entity identified by a PayID URI.</p>
-<p id="rfc.section.4.p.2">When successful, PayID Discovery always yields a PayID URL, which is a URI as defined by <a href="#RFC3986" class="xref">[RFC3986]</a> using the 'https' scheme defined in <a href="#RFC7230" class="xref">[RFC7230]</a>. A PayID URL can be used for any purposes outside the scope of this document.</p>
-<p id="rfc.section.4.p.3">PayID Discovery is performed using one of two modes: "interactive" or "fallback." Clients MUST attempt "interactive" mode first. If that mode fails to yield a PayID URL, then "fallback" mode MAY be used as an alternative discovery mechanism.</p>
+<p id="rfc.section.4.p.2">When successful, PayID Discovery always yields a PayID URL, which is a URI as defined by <a href="#RFC3986" class="xref">[RFC3986]</a> using the 'https' scheme defined in section 2.7.2 <a href="#RFC7230" class="xref">[RFC7230]</a>. A PayID URL can be used for any purposes outside the scope of this document.</p>
+<p id="rfc.section.4.p.3">PayID Discovery is performed using one of two modes: "interactive" or "manual." Clients MUST attempt "interactive" mode first. If that mode fails to yield a PayID URL, then "manual" mode MAY be used as an alternative discovery mechanism.</p>
 <h1 id="rfc.section.4.1">
 <a href="#rfc.section.4.1">4.1.</a> <a href="#interactive-mode" id="interactive-mode">Interactive Mode</a>
 </h1>
@@ -628,7 +628,7 @@
               |                                      |              
               v                                      v              
 +--------------------------+           +---------------------------+
-| Fallback PayID Discovery |           |    Assemble PayID URL     |
+|  Manual PayID Discovery  |           |    Assemble PayID URL     |
 +--------------------------+           +---------------------------+
               |                                      |              
               +---------------------+----------------+              
@@ -646,14 +646,14 @@
 <p id="rfc.section.4.1.1.p.2">This document defines a PayID Discovery URL as being a Webfinger resource URI where the specified resource value is a valid PayID URI <a href="#PAYID-URI" class="xref">[PAYID-URI]</a>.</p>
 <p id="rfc.section.4.1.1.p.3">For example, the PayID Discovery URI for alice$example.com is</p>
 <pre>
- https://example.com/.well-known/webfinger?resource=payid%3Abob%24.example.com
+ https://example.com/.well-known/webfinger?resource=payid%3Abob%24example.com
 </pre>
 <h1 id="rfc.section.4.1.2">
 <a href="#rfc.section.4.1.2">4.1.2.</a> <a href="#step-2-query-payid-discovery-url" id="step-2-query-payid-discovery-url">Step 2: Query PayID Discovery URL</a>
 </h1>
 <p id="rfc.section.4.1.2.p.1">A Webfinger query MUST be performed against the PayID Disovery URL, as described in section 4.2 of Webfinger.</p>
 <p id="rfc.section.4.1.2.p.2">In response, the WebFinger resource returns a JSON Resource Descriptor (JRD) as the resource representation to convey information about the requested PayID.</p>
-<p id="rfc.section.4.1.2.p.3">If the Webfinger endpoint returns a non-200 HTTP response status code, then interactive PayID Discovery is considered to have failed. Clients SHOULD attempt to assemble a PayID URL using "fallback" mode as defined in section 4.2.1 of this document.</p>
+<p id="rfc.section.4.1.2.p.3">If the Webfinger endpoint returns a non-200 HTTP response status code, then interactive PayID Discovery is considered to have failed. Clients MAY attempt to assemble a PayID URL using "manual" mode as defined in section 4.2.1 of this document.</p>
 <h1 id="rfc.section.4.1.3">
 <a href="#rfc.section.4.1.3">4.1.3.</a> <a href="#step-3-parse-payid-metadata" id="step-3-parse-payid-metadata">Step 3: Parse PayID Metadata</a>
 </h1>
@@ -663,11 +663,11 @@
 <h1 id="rfc.section.4.1.4">
 <a href="#rfc.section.4.1.4">4.1.4.</a> <a href="#step-4-assemble-payid-url" id="step-4-assemble-payid-url">Step 4: Assemble PayID URL</a>
 </h1>
-<p id="rfc.section.4.1.4.p.1">A PayID URL is constructed by applying the PayID URI to the PayID URI Template string obtained via the steps above. The PayID URI template MAY contain a URI string without any variables to represent a host-level PayID URL that is identical for every PayID URI on a particular host.</p>
+<p id="rfc.section.4.1.4.p.1">A PayID URL is constructed by applying the PayID URI to the PayID URI Template string obtained in the step above. The PayID URI template MAY contain a URI string without any variables to represent a host-level PayID URL that is identical for every PayID URI on a particular host.</p>
 <p id="rfc.section.4.1.4.p.2">For example, a PayID Discovery endpoint that only supports a single account might use a URI template string with no variables, like this:</p>
 <pre>
 {
-  "rel": "https://payid.org/ns/payid-url-template/1.0",
+  "rel": "https://payid.org/ns/payid-uri-template/1.0",
   "template": "https://example.com/alice"
 }
 </pre>
@@ -762,14 +762,14 @@ PAYID-URI-Template =  *( uri-char / variable )
 <p></p>
 
 <ul>
-<li>'rel': <samp>http://payid.org/rel/payid-url-template/1.0</samp>
+<li>'rel': <samp>http://payid.org/rel/payid-uri-template/1.0</samp>
 </li>
 <li>'template': A PayID URI Template</li>
 </ul>
 <p id="rfc.section.5.2.p.3">The following is an example of a JRD that indicates a PayID URI Template:</p>
 <pre>
 {
-  "rel": "https://payid.org/ns/payid-url-template/1.0",
+  "rel": "https://payid.org/ns/payid-uri-template/1.0",
   "template": "https://example.com/{acctpart}"
 }                
 </pre>
@@ -781,15 +781,15 @@ PAYID-URI-Template =  *( uri-char / variable )
 <h1 id="rfc.section.6.1">
 <a href="#rfc.section.6.1">6.1.</a> <a href="#hosted-payid-discovery-services" id="hosted-payid-discovery-services">Hosted PayID Discovery Services</a>
 </h1>
-<p id="rfc.section.6.1.p.1">As with most services provided on the Internet, it is possible for a domain owner to utilize "hosted" WebFinger services. Consult section 7 of <a href="#RFC7033" class="xref">[RFC7033]</a> for considerations that could apply to both "fallback" and "interactive" PayID Discovery when hosted by a third-party.</p>
+<p id="rfc.section.6.1.p.1">As with most services provided on the Internet, it is possible for a domain owner to utilize "hosted" WebFinger services. Consult section 7 of <a href="#RFC7033" class="xref">[RFC7033]</a> for considerations that could apply to both "manual" and "interactive" PayID Discovery when hosted by a third-party.</p>
 <h1 id="rfc.section.6.2">
 <a href="#rfc.section.6.2">6.2.</a> <a href="#cross-origin-resource-sharing-cors" id="cross-origin-resource-sharing-cors">Cross-Origin Resource Sharing (CORS)</a>
 </h1>
-<p id="rfc.section.6.2.p.1">PayID Discovery resources might not be accessible from a web browser due to "Same-Origin" policies. See section 5 of <a href="#RFC7033" class="xref">[RFC7033]</a> for CORS considerations that apply to both "fallback" and "interactive" PayID Discovery modes.</p>
+<p id="rfc.section.6.2.p.1">PayID Discovery resources might not be accessible from a web browser due to "Same-Origin" policies. See section 5 of <a href="#RFC7033" class="xref">[RFC7033]</a> for CORS considerations that apply to both "manual" and "interactive" PayID Discovery modes.</p>
 <h1 id="rfc.section.6.3">
 <a href="#rfc.section.6.3">6.3.</a> <a href="#access-control" id="access-control">Access Control</a>
 </h1>
-<p id="rfc.section.6.3.p.1">As with all web resources, access to the PayID Discovery resource could require authentication. See section 6 of <a href="#RFC7033" class="xref">[RFC7033]</a> for Access Control considerations that could apply to both "fallback" and "interactive" PayID Discovery modes.</p>
+<p id="rfc.section.6.3.p.1">As with all web resources, access to the PayID Discovery resource could require authentication. See section 6 of <a href="#RFC7033" class="xref">[RFC7033]</a> for Access Control considerations that could apply to both "manual" and "interactive" PayID Discovery modes.</p>
 <h1 id="rfc.section.7">
 <a href="#rfc.section.7">7.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a>
 </h1>
