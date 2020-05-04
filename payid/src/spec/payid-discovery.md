@@ -133,19 +133,19 @@ PayID URI into a URL that can be used with other protocols.
      Content-Type: application/jrd+json
 
      {
-       "subject" : "payid:bob$receiver.exmaple.com",
+       "subject" : "payid:bob$receiver.example.com",
        "links" :
        [
          {  
            "rel": "http://payid.org/rel/payid-uri-template/1.0",
-           "template": "https://receiver.exmaple.com/users/{acctpart}"
+           "template": "https://receiver.example.com/users/{acctpart}"
          }
        ]
      }
 
    Alice's wallet then uses the URL template found in the `template` property
    to assemble the specified PayId URL, 
-   `https://receiver.exmaple.com/users/bob`.
+   `https://receiver.example.com/users/bob`.
    
    Per [RFC7033][], Webfinger requests can be filtered by using a "rel" 
    parameter in the Webfinger request. Because support for the "rel" parameter
