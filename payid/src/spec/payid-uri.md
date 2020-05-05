@@ -122,9 +122,9 @@ This specification is a part of the [PayID Protocol](https://payid.org/) work.
    to/from alice, the wallet service provider might offer alice a
    PayID using alice's email address (though using an email address as a
    PayID is not recommended). In order to use her email address as the
-   'acctpart' of the 'payid' URI, the at-sign character (U+0040) needs to be
-   percent-encoded as described in [RFC3986]. Thus, the resulting 'payid' 
-   URI would be `payid:alice%40example.net$shoppingsite.example`.
+   'acctpart' of the 'payid' URI, no percent-encoding is necessary because
+   the 'acctpart' portion of a PayID allows for at-signs. Thus, the resulting 
+   'payid' URI would be `payid:alice@example.net$shoppingsite.example`.
    
    Another possible scenario is a payment service provider (e.g., a digital
    wallet) that allows a user to use a PayID that is associated with some

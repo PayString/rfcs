@@ -137,7 +137,7 @@ PayID URI into a URL that can be used with other protocols.
        "links" :
        [
          {  
-           "rel": "http://payid.org/rel/payid-uri-template/1.0",
+           "rel": "https://payid.org/ns/payid-uri-template/1.0",
            "template": "https://receiver.example.com/users/{acctpart}"
          }
        ]
@@ -252,7 +252,7 @@ PayID URI into a URL that can be used with other protocols.
   resource URI where the specified resource value is a valid PayID 
   URI [PAYID-URI][].
   
-  For example, the PayID Discovery URI for alice$example.com is 
+  For example, the PayID Discovery URL for alice$example.com is 
   
      https://example.com/.well-known/webfinger?resource=payid%3Abob%24example.com
 
@@ -384,7 +384,7 @@ The resulting URL is a PayID URL.
   URL. This is useful for delegating PayID Discovery to another service
   endpoint:
    
-  * 'rel': `http://payid.org/rel/payid-discovery-url/1.0`
+  * 'rel': `https://payid.org/ns/payid-discovery-url/1.0`
   * 'href': A PayID Discovery URL that clients can dereference to perform
             interactive PayID Discovery.
              
@@ -400,7 +400,7 @@ The resulting URL is a PayID URL.
   This type of JRD can be used to represent a URL that is a PayID URL
   Template.
 
-  * 'rel': `http://payid.org/rel/payid-uri-template/1.0`
+  * 'rel': `https://payid.org/ns/payid-uri-template/1.0`
   * 'template': A PayID URI Template
 
   The following is an example of a JRD that indicates a PayID URI Template:
@@ -437,14 +437,21 @@ Discovery modes.
 
 # IANA Considerations
 
-## New Link Relation Types 
-This document defines the following Link relation type per [RFC7033][]:
-     
-  * Relation Type ('rel'): `http://payid.org/rel/discovery/1.0` 
-  * Media Type: `application/payid-uri-template` 
-  * Description: PayID Discovery URI Template, version 1.0
+## New Link Relation Types
+This document defines the following Link relation types per [RFC7033][].
+See section 3 for examples of each type of Link.
 
-See section 3 for examples of this type of Link.
+### PayID Discovery URL 
+     
+  * Relation Type ('rel'): `https://payid.org/ns/payid-discovery-url/1.0` 
+  * Media Type: `application/jrd+json` 
+  * Description: PayID Discovery URL, version 1.0
+
+### PayID Discovery URI Template 
+     
+  * Relation Type ('rel'): `https://payid.org/ns/payid-uri-template/1.0` 
+  * Media Type: `application/jrd+json` 
+  * Description: PayID Discovery URI Template, version 1.0
     
 # Acknowledgments
 This document was heavily influenced by, and builds upon, Webfinger

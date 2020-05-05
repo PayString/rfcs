@@ -4,8 +4,8 @@
 
 Network Working Group                                        D. Fuelling
 Internet-Draft                                                    Ripple
-Intended status: Standards Track                            May 04, 2020
-Expires: November 5, 2020
+Intended status: Standards Track                            May 05, 2020
+Expires: November 6, 2020
 
 
                          The 'payid' URI Scheme
@@ -39,7 +39,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 5, 2020.
+   This Internet-Draft will expire on November 6, 2020.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Fuelling                Expires November 5, 2020                [Page 1]
+Fuelling                Expires November 6, 2020                [Page 1]
 
 Internet-Draft           The 'payid' URI Scheme                 May 2020
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Fuelling                Expires November 5, 2020                [Page 2]
+Fuelling                Expires November 6, 2020                [Page 2]
 
 Internet-Draft           The 'payid' URI Scheme                 May 2020
 
@@ -149,10 +149,10 @@ Internet-Draft           The 'payid' URI Scheme                 May 2020
    to facilitate payments to/from alice, the wallet service provider
    might offer alice a PayID using alice's email address (though using
    an email address as a PayID is not recommended).  In order to use her
-   email address as the 'acctpart' of the 'payid' URI, the at-sign
-   character (U+0040) needs to be percent-encoded as described in
-   [RFC3986].  Thus, the resulting 'payid' URI would be
-   "payid:alice%40example.net$shoppingsite.example".
+   email address as the 'acctpart' of the 'payid' URI, no percent-
+   encoding is necessary because the 'acctpart' portion of a PayID
+   allows for at-signs.  Thus, the resulting 'payid' URI would be
+   "payid:alice@example.net$shoppingsite.example".
 
    Another possible scenario is a payment service provider (e.g., a
    digital wallet) that allows a user to use a PayID that is associated
@@ -165,7 +165,7 @@ Internet-Draft           The 'payid' URI Scheme                 May 2020
 
 
 
-Fuelling                Expires November 5, 2020                [Page 3]
+Fuelling                Expires November 6, 2020                [Page 3]
 
 Internet-Draft           The 'payid' URI Scheme                 May 2020
 
@@ -221,7 +221,7 @@ Internet-Draft           The 'payid' URI Scheme                 May 2020
 
 
 
-Fuelling                Expires November 5, 2020                [Page 4]
+Fuelling                Expires November 6, 2020                [Page 4]
 
 Internet-Draft           The 'payid' URI Scheme                 May 2020
 
@@ -277,7 +277,7 @@ Internet-Draft           The 'payid' URI Scheme                 May 2020
 
 
 
-Fuelling                Expires November 5, 2020                [Page 5]
+Fuelling                Expires November 6, 2020                [Page 5]
 
 Internet-Draft           The 'payid' URI Scheme                 May 2020
 
@@ -333,7 +333,7 @@ Internet-Draft           The 'payid' URI Scheme                 May 2020
 
 
 
-Fuelling                Expires November 5, 2020                [Page 6]
+Fuelling                Expires November 6, 2020                [Page 6]
 
 Internet-Draft           The 'payid' URI Scheme                 May 2020
 
@@ -389,7 +389,7 @@ Internet-Draft           The 'payid' URI Scheme                 May 2020
 
 
 
-Fuelling                Expires November 5, 2020                [Page 7]
+Fuelling                Expires November 6, 2020                [Page 7]
 
 Internet-Draft           The 'payid' URI Scheme                 May 2020
 
@@ -445,7 +445,7 @@ Internet-Draft           The 'payid' URI Scheme                 May 2020
 
 
 
-Fuelling                Expires November 5, 2020                [Page 8]
+Fuelling                Expires November 6, 2020                [Page 8]
 
 Internet-Draft           The 'payid' URI Scheme                 May 2020
 
@@ -501,4 +501,4 @@ Author's Address
 
 
 
-Fuelling                Expires November 5, 2020                [Page 9]
+Fuelling                Expires November 6, 2020                [Page 9]
