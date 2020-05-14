@@ -75,8 +75,7 @@ This specification is a part of the [PayID Protocol](https://payid.org/) work.
    these identifiers are insufficient because they are typically recognized
    as supporting functionality unique to those schemes. For example, the
    'mailto' scheme [RFC6068][] (which enables interaction with a user's email
-    account
-   ) is broadly deployed for messaging. Re-using this identifier for
+   account) is broadly deployed for messaging. Re-using this identifier for
    payments would likely cause confusion because one desirable quality of
    a payment account identifier is that it expressly does not support
    messaging, in order to avoid spam and/or other security concerns such as 
@@ -84,12 +83,12 @@ This specification is a part of the [PayID Protocol](https://payid.org/) work.
    
    Deploying payment protocols on top of identifiers that are commonly
    employed for other use-cases would likely be a mis-use of those
-   identifers, and could also cause confusing for end-users, among other
-   problems. 
+   identifiers, and could also cause confusion for end-users, among other
+   problems.
    
    Instead, the `payid` scheme uses a new type of identifier that is
-   inteneded to identify accounts for payment use-cases only.
-
+   intended to identify accounts for payment use-cases only.
+ 
 # Terminology
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
