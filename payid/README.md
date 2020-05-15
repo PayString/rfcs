@@ -29,7 +29,7 @@ From root directory of the repo run:
     npm install
     grunt kramdown_rfc2629
    
-To watch edits to `payid.md` and auto-generate output when changes are saved run:
+To watch edits to `payid-uri.md` or `payid-discovery.md` and auto-generate output when changes are saved run:
 
     grunt watch
     
