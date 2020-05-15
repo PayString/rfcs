@@ -1,8 +1,12 @@
 # PayID
 
-## Spec
+## Specs
 
-You can find the spec here: https://tools.ietf.org/html/TBD
+You can find the specs here: https://github.com/xpring-eng/rfcs/tree/master/payid/dist/spec
+
+* [The 'payid' URI Scheme](https://github.com/xpring-eng/rfcs/blob/master/payid/dist/spec/payid-uri.txt)
+* [PayID Discovery](https://github.com/xpring-eng/rfcs/blob/master/payid/dist/spec/payid-discovery.txt)
+* The PayID Protocol (coming soon)
 
 The source code for the spec is in `src/spec/payid.md`
 
