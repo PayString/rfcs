@@ -8,7 +8,7 @@ You can find the specs here: https://github.com/xpring-eng/rfcs/tree/master/payi
 * [PayID Discovery](https://github.com/xpring-eng/rfcs/blob/master/payid/dist/spec/payid-discovery.txt)
 * The PayID Protocol (coming soon)
 
-The source code for the spec is in `src/spec/payid.md`
+The source code for each spec is in `src/spec`
 
 ## Implementations
 
