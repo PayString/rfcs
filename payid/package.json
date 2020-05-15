@@ -4,7 +4,6 @@
   "description": "payid specs and tests",
   "main": "index.js",
   "scripts": {
-    "build": "rm -f test-vectors/valid/*; node scripts/generate_test_vectors.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "spec": "rm -f dist/spec/payid.*; grunt kramdown_rfc2629"
   },
