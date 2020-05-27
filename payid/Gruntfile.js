@@ -5,7 +5,7 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     watch: {
       scripts: {
-        files: ['src/spec/payid-uri.md', 'src/spec/payid-discovery.md'],
+        files: ['src/spec/payid-uri.md', 'src/spec/payid-discovery.md', 'src/spec/payid-protocol.md'],
         tasks: ['kramdown_rfc2629'],
         options: {
           spawn: false,
@@ -19,7 +19,7 @@ module.exports = function(grunt) {
         removeXML: false
       },
       your_target: {
-        src: ['src/spec/payid-uri.md', 'src/spec/payid-discovery.md']
+        src: ['src/spec/payid-uri.md', 'src/spec/payid-discovery.md', 'src/spec/payid-protocol.md']
       },
     },
   });
