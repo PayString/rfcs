@@ -90,20 +90,20 @@ This specification defines the PayID protocol - an application-layer protocol, w
 
 ## Design Goals
 
-   * Extensibility
+   * Extensibility  
    
-   Although, the primary use-case for payment account(s) information resource returned via Basic PayID protocol is assumed to be for making payments, the PayID protocol is designed to be easily extensible to facilitate creation and retrieval of other resources about the PayID owner, PayID client and/or PayID server that might be required for making payments. 
+   Although the primary use-case for the payment account(s) information resource returned via Basic PayID protocol is assumed to be for making payments, the PayID protocol is designed to be easily extensible to facilitate creation and retrieval of other resources about the PayID owner, PayID client and/or PayID server that might be required for making payments. 
 
-   * Neutrality: Currency and Network Agnostic
+   * Neutrality: Currency and Network Agnostic  
    
    PayID protocol is designed to be a fundamentally neutral protocol. PayID protocol is capable of returning a PayID owner's payment account(s) information for any network that they (or their service) support. This makes PayID protocol a network and currency agnostic protocol, capable of enabling payments in BTC, XRP, ERC-20 tokens, Lightning, ILP, or even fiat networks like ACH.
 
-   * Decentralized & Peer-to-Peer
+   * Decentralized & Peer-to-Peer  
    
    Just like email servers, anyone can run their own PayID server or use third-party hosted services. If self-hosted, PayID protocol introduces no new counterparty risk or changes to a service’s security or privacy model. PayID protocol doesn’t require new, complex, and potentially unreliable peer discovery protocols, instead establishing direct peer-to-peer connections between communicating parties from the start.
    PayID is built on the most successful decentralized network: the web. There is no designated centralized authority, or a risk of a patchwork of different standards in different jurisdictions that make a global solution impossibly complex.
 
-   * Service Sovereignty
+   * Service Sovereignty  
    
    Each service provider that uses PayID for their users maintains full control of its PayID URL space, PayID service and has the ability to incorporate any policy they choose, including privacy, authentication, and security.  They also have full sovereignty over users on their domain, just like in email. PayID is highly generalized and does not prescribe any particular solution outside of the standardized communication, which makes it compatible with existing compliance and user management tools and philosophies.
 
