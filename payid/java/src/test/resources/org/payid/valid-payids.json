@@ -85,8 +85,8 @@
   },
   {
     "description": "12. Percent-Encoded Email address",
-    "payIdInput": "payid:alice%40gmail.com$example.com",
-    "expectedAccountId": "alice%40gmail.com",
+    "payIdInput": "payid:alice%40example.com$example.com",
+    "expectedAccountId": "alice%40example.com",
     "expectedHost": "example.com",
     "expectedStringValue": "payid:alice%40example.com$example.com"
   },
