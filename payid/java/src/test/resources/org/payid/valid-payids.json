@@ -15,10 +15,10 @@
   },
   {
     "description": "2. (sub-delims)",
-    "payIdInput": "payid:!&'()*+,;=$example.net",
-    "expectedAccountId": "!&'()*+,;=",
+    "payIdInput": "payid:!$&'()*+,;=$example.net",
+    "expectedAccountId": "!$&'()*+,;=",
     "expectedHost": "example.net",
-    "expectedStringValue": "payid:!&'()*+,;=$example.net"
+    "expectedStringValue": "payid:!$&'()*+,;=$example.net"
   },
   {
     "description": "3. (sub-delims first, then unreserved)",
@@ -96,5 +96,68 @@
     "expectedAccountId": "alice%5E",
     "expectedHost": "example.com",
     "expectedStringValue": "payid:alice%5E$example.com"
+  },
+  {
+    "description": "14. path-abempty (begins with '/' or is empty)",
+    "payIdInput": "payid:/$example.com",
+    "expectedAccountId": "/",
+    "expectedHost": "example.com",
+    "expectedStringValue": "payid:/$example.com"
+  },
+  {
+    "description": "15. path-abempty (begins with '/' or is empty)",
+    "payIdInput": "payid:$example.com",
+    "expectedAccountId": "",
+    "expectedHost": "example.com",
+    "expectedStringValue": "payid:$example.com"
+  },
+  {
+    "description": "16. path-absolute (1) begins with '/' and with at least 1 char",
+    "payIdInput": "payid:/t$example.com",
+    "expectedAccountId": "/t",
+    "expectedHost": "example.com",
+    "expectedStringValue": "payid:/t$example.com"
+  },
+  {
+    "description": "17. path-absolute (2) begins with '/' and with at least 1 char",
+    "payIdInput": "payid:/test/user$example.com",
+    "expectedAccountId": "/test/user",
+    "expectedHost": "example.com",
+    "expectedStringValue": "payid:/test/user$example.com"
+  },
+  {
+    "description": "18. path-absolute (3) begins with '/' and with at least 1 char",
+    "payIdInput": "payid:test/user/$example.com",
+    "expectedAccountId": "test/user/",
+    "expectedHost": "example.com",
+    "expectedStringValue": "payid:test/user/$example.com"
+  },
+  {
+    "description": "19. path-absolute (4) begins with '/' and with at least 1 char",
+    "payIdInput": "payid:/test/user/$example.com",
+    "expectedAccountId": "/test/user/",
+    "expectedHost": "example.com",
+    "expectedStringValue": "payid:/test/user/$example.com"
+  },
+  {
+    "description": "20. path-noscheme (begins with a non-colon segment)",
+    "payIdInput": "payid:f$example.com",
+    "expectedAccountId": "f",
+    "expectedHost": "example.com",
+    "expectedStringValue": "payid:f$example.com"
+  },
+  {
+    "description": "21. path-rootless (allows a colon to start)",
+    "payIdInput": "payid::$example.com",
+    "expectedAccountId": ":",
+    "expectedHost": "example.com",
+    "expectedStringValue": "payid::$example.com"
+  },
+  {
+    "description": "22. Allowed chars",
+    "payIdInput": "payid:foo$fa$t.com",
+    "expectedAccountId": "foo$fa",
+    "expectedHost": "t.com",
+    "expectedStringValue": "payid:foo$fa$t.com"
   }
 ]

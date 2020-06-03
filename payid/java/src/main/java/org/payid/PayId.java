@@ -4,6 +4,7 @@ import static java.lang.String.format;
 import static org.payid.AbstractPayId.upperCasePercentEncoded;
 
 import com.google.common.base.Preconditions;
+import org.immutables.value.Value.Default;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -56,10 +57,6 @@ public interface PayId {
         .checkArgument(value.length() > 6, format("PayID `%s` must specify a valid account and host", value));
     }
 
-    Preconditions.checkArgument(!value.startsWith("%"),
-      format("PayID `%s` may not start with a percent-encoded value, but instead MUST start with "
-        + "a character from either the 'unreserved' or 'sub-delims' set.", value));
-
     int lastDollar = value.lastIndexOf("$");
     String account = value.substring(0, lastDollar);
     String host = value.substring(lastDollar + 1);
@@ -92,7 +89,10 @@ public interface PayId {
    *
    * @return A {@link String} containing the 'path' portion of this PayId.
    */
-  String account();
+  @Default
+  default String account() {
+    return "";
+  }
 
   /**
    * A host as defined defined in the `payid-uri` RFC.
