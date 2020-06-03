@@ -88,7 +88,7 @@
     "payIdInput": "payid:alice%40gmail.com$example.com",
     "expectedAccountId": "alice%40gmail.com",
     "expectedHost": "example.com",
-    "expectedStringValue": "payid:alice%40gmail.com$example.com"
+    "expectedStringValue": "payid:alice%40example.com$example.com"
   },
   {
     "description": "13. Percent-Encoded Carat",
