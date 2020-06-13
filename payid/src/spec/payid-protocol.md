@@ -152,7 +152,7 @@ This specification defines the PayID protocol - an application-layer protocol, w
        required string addressDetailsType,
        required addressDetailsType addressDetails
       }
-    
+
    * paymentNetwork: The value of payment-network as specified in the client request's `Accept` header
    * environment: The value of environment as specified in the client request's `Accept` header
    * addressDetailsType: The value of `addressDetailsType` is JSON object of one of the following types.
@@ -277,6 +277,21 @@ This specification defines the PayID protocol - an application-layer protocol, w
 ### Header Cache-Control
   PayID server MUST include the `Cache-Control` header with the max-age limit of 0. The intermediate hops or PayID client MUST not cache the responses. 
 
+# Extensibility
+
+## Payload Extensibility
+  PayID protocol supports extensibility in the payload, according to the specific format.
+
+  Regardless of the format, additional content MUST NOT be present if it needs to be understood by the receiver in order to correctly interpret the payload according to the specified PayID-Version header. Thus, clients MUST be prepared to handle or safely ignore any content not specifically defined in the version of the payload specified by the PayID-version header.
+
+## Header Field Extensibility
+  PayID protocol defines semantics around certain HTTP request and response headers. Services that support a version of PayID protocol conform to the processing requirements for the headers defined by this specification for that version.
+
+  Individual services MAY define custom headers. These headers MUST NOT begin with PayID. Custom headers SHOULD be optional when making requests to the service. A service MUST NOT require the PayID client to understand custom headers to accurately interpret the response.
+
+## Format Extensibility
+  A PayID service MUST support JSON format as described above and MAY support additional formats response bodies.
+
 # Basic PayID Protocol
   Basic PayID protocol is used to request payment account(s) information resource identified by a PayID URI from a PayID-enabled service provider identified by a PayID URL using HTTP over secure transport. When successful, PayID protocol always returns the JSON representation of payment account(s) information resource along with optional metadata. This information can be used for any purposes outside the scope of this document.
  
@@ -325,14 +340,14 @@ This specification defines the PayID protocol - an application-layer protocol, w
      GET /users/bob HTTP/1.1
      Host: www.receiver.example.com
      Accept: application/payid+json
-     PayID-version: 0.1
+     PayID-version: 1.0
 
    The PayID server might respond like this:
 
      HTTP/1.1 200 OK
      Content-Type: application/json
      Content-Length: 403
-     PayID-version: 0.1
+     PayID-version: 1.0
      Cache-Control: max-age=0
      Server: Apache/1.3.11
      {
@@ -369,14 +384,14 @@ This specification defines the PayID protocol - an application-layer protocol, w
      Host: www.receiver.example.com
      Accept: application/xrpl-testnet+json; q=0.4,
              application/ach+json; q=0.1
-     PayID-version= 0.1
+     PayID-version= 1.0
 
    The PayID server might respond like this:
 
      HTTP/1.1 200 OK
      Content-Type: application/json
      Content-Length: 403
-     PayID-version: 0.1
+     PayID-version: 1.0
      Cache-Control: max-age=0
      Server: Apache/1.3.11
      {

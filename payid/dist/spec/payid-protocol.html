@@ -397,35 +397,39 @@
 <link href="#rfc.section.5.2.1" rel="Chapter" title="5.2.1 Header Accept">
 <link href="#rfc.section.5.3" rel="Chapter" title="5.3 Response Headers">
 <link href="#rfc.section.5.3.1" rel="Chapter" title="5.3.1 Header Cache-Control">
-<link href="#rfc.section.6" rel="Chapter" title="6 Basic PayID Protocol">
-<link href="#rfc.section.6.1" rel="Chapter" title="6.1 Step 1: HTTP Request to PayID URL using HTTP GET Method">
-<link href="#rfc.section.6.2" rel="Chapter" title="6.2 Step 2: Payment Account Information Response">
-<link href="#rfc.section.6.3" rel="Chapter" title="6.3 Step 3: Parse Payment Account Information Response">
-<link href="#rfc.section.7" rel="Chapter" title="7 Example Use of Basic PayID Protocol">
-<link href="#rfc.section.7.1" rel="Chapter" title="7.1 Basic PayID Protocol by a Wallet">
-<link href="#rfc.section.8" rel="Chapter" title="8 Common Response Status Codes (TODO)">
-<link href="#rfc.section.8.1" rel="Chapter" title="8.1 Success Responses">
-<link href="#rfc.section.8.1.1" rel="Chapter" title="8.1.1 Response Code 200 OK">
-<link href="#rfc.section.8.1.2" rel="Chapter" title="8.1.2 Response Code 3xx Redirection">
-<link href="#rfc.section.8.2" rel="Chapter" title="8.2 Client Error Responses">
-<link href="#rfc.section.9" rel="Chapter" title="9 Content Negotiation">
-<link href="#rfc.section.10" rel="Chapter" title="10 Versioning(TODO)">
-<link href="#rfc.section.11" rel="Chapter" title="11 Security Considerations">
-<link href="#rfc.section.11.1" rel="Chapter" title="11.1 Network Attacks">
-<link href="#rfc.section.11.1.1" rel="Chapter" title="11.1.1 Denial-of-Service (DoS) attacks">
-<link href="#rfc.section.11.2" rel="Chapter" title="11.2 Information Integrity">
-<link href="#rfc.section.12" rel="Chapter" title="12 Privacy Considerations">
-<link href="#rfc.section.12.1" rel="Chapter" title="12.1 Access Control">
-<link href="#rfc.section.12.2" rel="Chapter" title="12.2 Payment Address Rotation">
-<link href="#rfc.section.12.3" rel="Chapter" title="12.3 On the Wire">
-<link href="#rfc.section.12.4" rel="Chapter" title="12.4 In the PayID Server">
-<link href="#rfc.section.13" rel="Chapter" title="13 IANA Considerations">
-<link href="#rfc.section.13.1" rel="Chapter" title="13.1 Header Field Registration">
-<link href="#rfc.section.13.2" rel="Chapter" title="13.2 Media Type Registration">
-<link href="#rfc.section.14" rel="Chapter" title="14 Acknowledgments">
-<link href="#rfc.references" rel="Chapter" title="15 References">
-<link href="#rfc.references.1" rel="Chapter" title="15.1 Normative References">
-<link href="#rfc.references.2" rel="Chapter" title="15.2 Informative References">
+<link href="#rfc.section.6" rel="Chapter" title="6 Extensibility">
+<link href="#rfc.section.6.1" rel="Chapter" title="6.1 Payload Extensibility">
+<link href="#rfc.section.6.2" rel="Chapter" title="6.2 Header Field Extensibility">
+<link href="#rfc.section.6.3" rel="Chapter" title="6.3 Format Extensibility">
+<link href="#rfc.section.7" rel="Chapter" title="7 Basic PayID Protocol">
+<link href="#rfc.section.7.1" rel="Chapter" title="7.1 Step 1: HTTP Request to PayID URL using HTTP GET Method">
+<link href="#rfc.section.7.2" rel="Chapter" title="7.2 Step 2: Payment Account Information Response">
+<link href="#rfc.section.7.3" rel="Chapter" title="7.3 Step 3: Parse Payment Account Information Response">
+<link href="#rfc.section.8" rel="Chapter" title="8 Example Use of Basic PayID Protocol">
+<link href="#rfc.section.8.1" rel="Chapter" title="8.1 Basic PayID Protocol by a Wallet">
+<link href="#rfc.section.9" rel="Chapter" title="9 Common Response Status Codes (TODO)">
+<link href="#rfc.section.9.1" rel="Chapter" title="9.1 Success Responses">
+<link href="#rfc.section.9.1.1" rel="Chapter" title="9.1.1 Response Code 200 OK">
+<link href="#rfc.section.9.1.2" rel="Chapter" title="9.1.2 Response Code 3xx Redirection">
+<link href="#rfc.section.9.2" rel="Chapter" title="9.2 Client Error Responses">
+<link href="#rfc.section.10" rel="Chapter" title="10 Content Negotiation">
+<link href="#rfc.section.11" rel="Chapter" title="11 Versioning(TODO)">
+<link href="#rfc.section.12" rel="Chapter" title="12 Security Considerations">
+<link href="#rfc.section.12.1" rel="Chapter" title="12.1 Network Attacks">
+<link href="#rfc.section.12.1.1" rel="Chapter" title="12.1.1 Denial-of-Service (DoS) attacks">
+<link href="#rfc.section.12.2" rel="Chapter" title="12.2 Information Integrity">
+<link href="#rfc.section.13" rel="Chapter" title="13 Privacy Considerations">
+<link href="#rfc.section.13.1" rel="Chapter" title="13.1 Access Control">
+<link href="#rfc.section.13.2" rel="Chapter" title="13.2 Payment Address Rotation">
+<link href="#rfc.section.13.3" rel="Chapter" title="13.3 On the Wire">
+<link href="#rfc.section.13.4" rel="Chapter" title="13.4 In the PayID Server">
+<link href="#rfc.section.14" rel="Chapter" title="14 IANA Considerations">
+<link href="#rfc.section.14.1" rel="Chapter" title="14.1 Header Field Registration">
+<link href="#rfc.section.14.2" rel="Chapter" title="14.2 Media Type Registration">
+<link href="#rfc.section.15" rel="Chapter" title="15 Acknowledgments">
+<link href="#rfc.references" rel="Chapter" title="16 References">
+<link href="#rfc.references.1" rel="Chapter" title="16.1 Normative References">
+<link href="#rfc.references.2" rel="Chapter" title="16.2 Informative References">
 <link href="#rfc.authors" rel="Chapter">
 
 
@@ -434,7 +438,7 @@
 
   <meta name="dct.creator" content="Malhotra, A. and D. Schwartz" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-aanchal-payid-protocol-01" />
-  <meta name="dct.issued" scheme="ISO8601" content="2020-05-27" />
+  <meta name="dct.issued" scheme="ISO8601" content="2020-06-13" />
   <meta name="dct.abstract" content="This specification defines the PayID protocol - an application-layer protocol, which can be used to interact with a PayID-enabled service provider. The primary use-case is to discover payment account information along with optional metadata identified by a PayID . The protocol is based on HTTP transfer of PayID protocol messages over a secure transport. " />
   <meta name="description" content="This specification defines the PayID protocol - an application-layer protocol, which can be used to interact with a PayID-enabled service provider. The primary use-case is to discover payment account information along with optional metadata identified by a PayID . The protocol is based on HTTP transfer of PayID protocol messages over a secure transport. " />
 
@@ -458,8 +462,8 @@
 <td class="right">Ripple</td>
 </tr>
 <tr>
-<td class="left">Expires: November 28, 2020</td>
-<td class="right">May 27, 2020</td>
+<td class="left">Expires: December 15, 2020</td>
+<td class="right">June 13, 2020</td>
 </tr>
 
     	
@@ -477,7 +481,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on November 28, 2020.</p>
+<p>This Internet-Draft will expire on December 15, 2020.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2020 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -533,63 +537,71 @@
 </li>
 <ul><li>5.3.1.   <a href="#rfc.section.5.3.1">Header Cache-Control</a>
 </li>
-</ul></ul><li>6.   <a href="#rfc.section.6">Basic PayID Protocol</a>
+</ul></ul><li>6.   <a href="#rfc.section.6">Extensibility</a>
 </li>
-<ul><li>6.1.   <a href="#rfc.section.6.1">Step 1: HTTP Request to PayID URL using HTTP GET Method</a>
+<ul><li>6.1.   <a href="#rfc.section.6.1">Payload Extensibility</a>
 </li>
-<li>6.2.   <a href="#rfc.section.6.2">Step 2: Payment Account Information Response</a>
+<li>6.2.   <a href="#rfc.section.6.2">Header Field Extensibility</a>
 </li>
-<li>6.3.   <a href="#rfc.section.6.3">Step 3: Parse Payment Account Information Response</a>
+<li>6.3.   <a href="#rfc.section.6.3">Format Extensibility</a>
 </li>
-</ul><li>7.   <a href="#rfc.section.7">Example Use of Basic PayID Protocol</a>
+</ul><li>7.   <a href="#rfc.section.7">Basic PayID Protocol</a>
 </li>
-<ul><li>7.1.   <a href="#rfc.section.7.1">Basic PayID Protocol by a Wallet</a>
+<ul><li>7.1.   <a href="#rfc.section.7.1">Step 1: HTTP Request to PayID URL using HTTP GET Method</a>
 </li>
-</ul><li>8.   <a href="#rfc.section.8">Common Response Status Codes (TODO)</a>
+<li>7.2.   <a href="#rfc.section.7.2">Step 2: Payment Account Information Response</a>
 </li>
-<ul><li>8.1.   <a href="#rfc.section.8.1">Success Responses</a>
+<li>7.3.   <a href="#rfc.section.7.3">Step 3: Parse Payment Account Information Response</a>
 </li>
-<ul><li>8.1.1.   <a href="#rfc.section.8.1.1">Response Code 200 OK</a>
+</ul><li>8.   <a href="#rfc.section.8">Example Use of Basic PayID Protocol</a>
 </li>
-<li>8.1.2.   <a href="#rfc.section.8.1.2">Response Code 3xx Redirection</a>
+<ul><li>8.1.   <a href="#rfc.section.8.1">Basic PayID Protocol by a Wallet</a>
 </li>
-</ul><li>8.2.   <a href="#rfc.section.8.2">Client Error Responses</a>
+</ul><li>9.   <a href="#rfc.section.9">Common Response Status Codes (TODO)</a>
 </li>
-</ul><li>9.   <a href="#rfc.section.9">Content Negotiation</a>
+<ul><li>9.1.   <a href="#rfc.section.9.1">Success Responses</a>
 </li>
-<li>10.   <a href="#rfc.section.10">Versioning(TODO)</a>
+<ul><li>9.1.1.   <a href="#rfc.section.9.1.1">Response Code 200 OK</a>
 </li>
-<li>11.   <a href="#rfc.section.11">Security Considerations</a>
+<li>9.1.2.   <a href="#rfc.section.9.1.2">Response Code 3xx Redirection</a>
 </li>
-<ul><li>11.1.   <a href="#rfc.section.11.1">Network Attacks</a>
+</ul><li>9.2.   <a href="#rfc.section.9.2">Client Error Responses</a>
 </li>
-<ul><li>11.1.1.   <a href="#rfc.section.11.1.1">Denial-of-Service (DoS) attacks</a>
+</ul><li>10.   <a href="#rfc.section.10">Content Negotiation</a>
 </li>
-</ul><li>11.2.   <a href="#rfc.section.11.2">Information Integrity</a>
+<li>11.   <a href="#rfc.section.11">Versioning(TODO)</a>
 </li>
-</ul><li>12.   <a href="#rfc.section.12">Privacy Considerations</a>
+<li>12.   <a href="#rfc.section.12">Security Considerations</a>
 </li>
-<ul><li>12.1.   <a href="#rfc.section.12.1">Access Control</a>
+<ul><li>12.1.   <a href="#rfc.section.12.1">Network Attacks</a>
 </li>
-<li>12.2.   <a href="#rfc.section.12.2">Payment Address Rotation</a>
+<ul><li>12.1.1.   <a href="#rfc.section.12.1.1">Denial-of-Service (DoS) attacks</a>
 </li>
-<li>12.3.   <a href="#rfc.section.12.3">On the Wire</a>
+</ul><li>12.2.   <a href="#rfc.section.12.2">Information Integrity</a>
 </li>
-<li>12.4.   <a href="#rfc.section.12.4">In the PayID Server</a>
+</ul><li>13.   <a href="#rfc.section.13">Privacy Considerations</a>
 </li>
-</ul><li>13.   <a href="#rfc.section.13">IANA Considerations</a>
+<ul><li>13.1.   <a href="#rfc.section.13.1">Access Control</a>
 </li>
-<ul><li>13.1.   <a href="#rfc.section.13.1">Header Field Registration</a>
+<li>13.2.   <a href="#rfc.section.13.2">Payment Address Rotation</a>
 </li>
-<li>13.2.   <a href="#rfc.section.13.2">Media Type Registration</a>
+<li>13.3.   <a href="#rfc.section.13.3">On the Wire</a>
 </li>
-</ul><li>14.   <a href="#rfc.section.14">Acknowledgments</a>
+<li>13.4.   <a href="#rfc.section.13.4">In the PayID Server</a>
 </li>
-<li>15.   <a href="#rfc.references">References</a>
+</ul><li>14.   <a href="#rfc.section.14">IANA Considerations</a>
 </li>
-<ul><li>15.1.   <a href="#rfc.references.1">Normative References</a>
+<ul><li>14.1.   <a href="#rfc.section.14.1">Header Field Registration</a>
 </li>
-<li>15.2.   <a href="#rfc.references.2">Informative References</a>
+<li>14.2.   <a href="#rfc.section.14.2">Media Type Registration</a>
+</li>
+</ul><li>15.   <a href="#rfc.section.15">Acknowledgments</a>
+</li>
+<li>16.   <a href="#rfc.references">References</a>
+</li>
+<ul><li>16.1.   <a href="#rfc.references.1">Normative References</a>
+</li>
+<li>16.2.   <a href="#rfc.references.2">Informative References</a>
 </li>
 </ul><li><a href="#rfc.authors">Authors' Addresses</a>
 </li>
@@ -822,10 +834,27 @@
 </h1>
 <p id="rfc.section.5.3.1.p.1">PayID server MUST include the <samp>Cache-Control</samp> header with the max-age limit of 0. The intermediate hops or PayID client MUST not cache the responses.</p>
 <h1 id="rfc.section.6">
-<a href="#rfc.section.6">6.</a> <a href="#basic-payid-protocol" id="basic-payid-protocol">Basic PayID Protocol</a>
+<a href="#rfc.section.6">6.</a> <a href="#extensibility" id="extensibility">Extensibility</a>
 </h1>
-<p id="rfc.section.6.p.1">Basic PayID protocol is used to request payment account(s) information resource identified by a PayID URI from a PayID-enabled service provider identified by a PayID URL using HTTP over secure transport. When successful, PayID protocol always returns the JSON representation of payment account(s) information resource along with optional metadata. This information can be used for any purposes outside the scope of this document.</p>
-<p id="rfc.section.6.p.2">Basic PayID protocol comprise of request and response messages, each of which is defined in more detail below. The following is a visual representation of the basic protocol flow:</p>
+<h1 id="rfc.section.6.1">
+<a href="#rfc.section.6.1">6.1.</a> <a href="#payload-extensibility" id="payload-extensibility">Payload Extensibility</a>
+</h1>
+<p id="rfc.section.6.1.p.1">PayID protocol supports extensibility in the payload, according to the specific format.</p>
+<p id="rfc.section.6.1.p.2">Regardless of the format, additional content MUST NOT be present if it needs to be understood by the receiver in order to correctly interpret the payload according to the specified PayID-Version header. Thus, clients MUST be prepared to handle or safely ignore any content not specifically defined in the version of the payload specified by the PayID-version header.</p>
+<h1 id="rfc.section.6.2">
+<a href="#rfc.section.6.2">6.2.</a> <a href="#header-field-extensibility" id="header-field-extensibility">Header Field Extensibility</a>
+</h1>
+<p id="rfc.section.6.2.p.1">PayID protocol defines semantics around certain HTTP request and response headers. Services that support a version of PayID protocol conform to the processing requirements for the headers defined by this specification for that version.</p>
+<p id="rfc.section.6.2.p.2">Individual services MAY define custom headers. These headers MUST NOT begin with PayID. Custom headers SHOULD be optional when making requests to the service. A service MUST NOT require the PayID client to understand custom headers to accurately interpret the response.</p>
+<h1 id="rfc.section.6.3">
+<a href="#rfc.section.6.3">6.3.</a> <a href="#format-extensibility" id="format-extensibility">Format Extensibility</a>
+</h1>
+<p id="rfc.section.6.3.p.1">A PayID service MUST support JSON format as described above and MAY support additional formats response bodies.</p>
+<h1 id="rfc.section.7">
+<a href="#rfc.section.7">7.</a> <a href="#basic-payid-protocol" id="basic-payid-protocol">Basic PayID Protocol</a>
+</h1>
+<p id="rfc.section.7.p.1">Basic PayID protocol is used to request payment account(s) information resource identified by a PayID URI from a PayID-enabled service provider identified by a PayID URL using HTTP over secure transport. When successful, PayID protocol always returns the JSON representation of payment account(s) information resource along with optional metadata. This information can be used for any purposes outside the scope of this document.</p>
+<p id="rfc.section.7.p.2">Basic PayID protocol comprise of request and response messages, each of which is defined in more detail below. The following is a visual representation of the basic protocol flow:</p>
 <pre>
 PayID client                                         PayID server
    |                                                          |
@@ -838,43 +867,43 @@ PayID client                                         PayID server
    |                                                          |
    |                                                          | 
 </pre>
-<h1 id="rfc.section.6.1">
-<a href="#rfc.section.6.1">6.1.</a> <a href="#step-1-http-request-to-payid-url-using-http-get-method" id="step-1-http-request-to-payid-url-using-http-get-method">Step 1: HTTP Request to PayID URL using HTTP GET Method</a>
-</h1>
-<p id="rfc.section.6.1.p.1">A basic PayID client issues a query using the HTTP GET method to the PayID URL without any query parameters and body.</p>
-<p id="rfc.section.6.1.p.2">The PayID client MUST query the PayID server using HTTPS only. <a href="#RFC2818" class="xref">[RFC2818]</a> defines how HTTPS verifies the PayID server's identity. If the HTTPS connection cannot be established for any reason, then the PayID client MUST accept that the PayID request has failed and MUST NOT attempt to reissue the PayID request using HTTP over a non-secure connection.</p>
-<h1 id="rfc.section.6.2">
-<a href="#rfc.section.6.2">6.2.</a> <a href="#step-2-payment-account-information-response" id="step-2-payment-account-information-response">Step 2: Payment Account Information Response</a>
-</h1>
-<p id="rfc.section.6.2.p.1">In response, the PayID server returns a JSON object representation of the payment account(s) information resource for the payment-network and environment requested by PayID client in the request <samp>Accept</samp> header field along with other required and/or optional meta data.</p>
-<p id="rfc.section.6.2.p.2">PayID servers MUST be able to process <samp>application/payid+json</samp> header type.</p>
-<p id="rfc.section.6.2.p.3">If the PayID server does not contain the payment account information corresponding to the request, the PayID server MUST respond with an appropriate error message.</p>
-<p id="rfc.section.6.2.p.4">A PayID server MAY redirect the PayID client; if it does, the redirection MUST only be to an <samp>https</samp> URI and the PayID client MUST perform certificate validation again when redirected.</p>
-<h1 id="rfc.section.6.3">
-<a href="#rfc.section.6.3">6.3.</a> <a href="#step-3-parse-payment-account-information-response" id="step-3-parse-payment-account-information-response">Step 3: Parse Payment Account Information Response</a>
-</h1>
-<p id="rfc.section.6.3.p.1">If the PayID server returns a valid response, the response will contain one or more of fields defined above.</p>
-<h1 id="rfc.section.7">
-<a href="#rfc.section.7">7.</a> <a href="#example-use-of-basic-payid-protocol" id="example-use-of-basic-payid-protocol">Example Use of Basic PayID Protocol</a>
-</h1>
-<p id="rfc.section.7.p.1">This section shows sample use of Basic PayID protocol in several hypothetical scenarios.</p>
 <h1 id="rfc.section.7.1">
-<a href="#rfc.section.7.1">7.1.</a> <a href="#basic-payid-protocol-by-a-wallet" id="basic-payid-protocol-by-a-wallet">Basic PayID Protocol by a Wallet</a>
+<a href="#rfc.section.7.1">7.1.</a> <a href="#step-1-http-request-to-payid-url-using-http-get-method" id="step-1-http-request-to-payid-url-using-http-get-method">Step 1: HTTP Request to PayID URL using HTTP GET Method</a>
 </h1>
-<p id="rfc.section.7.1.p.1">Suppose Alice wishes to send a friend some XRP from a web-based wallet provider that Alice has an account on. Alice would log-in to the wallet provider and enter Bob's PayID (say, <samp>bob$receiver.example.com</samp>) into the wallet UI to start the payment.  The Wallet application would first discover the PayID URL for the PayID service-provider using one of the mechanisms described in PayID discovery <a href="#PAYID-DISCOVERY" class="xref">[PAYID-DISCOVERY]</a> protocol.</p>
-<p id="rfc.section.7.1.p.2">The Wallet application would then issue an HTTPS GET request:</p>
+<p id="rfc.section.7.1.p.1">A basic PayID client issues a query using the HTTP GET method to the PayID URL without any query parameters and body.</p>
+<p id="rfc.section.7.1.p.2">The PayID client MUST query the PayID server using HTTPS only. <a href="#RFC2818" class="xref">[RFC2818]</a> defines how HTTPS verifies the PayID server's identity. If the HTTPS connection cannot be established for any reason, then the PayID client MUST accept that the PayID request has failed and MUST NOT attempt to reissue the PayID request using HTTP over a non-secure connection.</p>
+<h1 id="rfc.section.7.2">
+<a href="#rfc.section.7.2">7.2.</a> <a href="#step-2-payment-account-information-response" id="step-2-payment-account-information-response">Step 2: Payment Account Information Response</a>
+</h1>
+<p id="rfc.section.7.2.p.1">In response, the PayID server returns a JSON object representation of the payment account(s) information resource for the payment-network and environment requested by PayID client in the request <samp>Accept</samp> header field along with other required and/or optional meta data.</p>
+<p id="rfc.section.7.2.p.2">PayID servers MUST be able to process <samp>application/payid+json</samp> header type.</p>
+<p id="rfc.section.7.2.p.3">If the PayID server does not contain the payment account information corresponding to the request, the PayID server MUST respond with an appropriate error message.</p>
+<p id="rfc.section.7.2.p.4">A PayID server MAY redirect the PayID client; if it does, the redirection MUST only be to an <samp>https</samp> URI and the PayID client MUST perform certificate validation again when redirected.</p>
+<h1 id="rfc.section.7.3">
+<a href="#rfc.section.7.3">7.3.</a> <a href="#step-3-parse-payment-account-information-response" id="step-3-parse-payment-account-information-response">Step 3: Parse Payment Account Information Response</a>
+</h1>
+<p id="rfc.section.7.3.p.1">If the PayID server returns a valid response, the response will contain one or more of fields defined above.</p>
+<h1 id="rfc.section.8">
+<a href="#rfc.section.8">8.</a> <a href="#example-use-of-basic-payid-protocol" id="example-use-of-basic-payid-protocol">Example Use of Basic PayID Protocol</a>
+</h1>
+<p id="rfc.section.8.p.1">This section shows sample use of Basic PayID protocol in several hypothetical scenarios.</p>
+<h1 id="rfc.section.8.1">
+<a href="#rfc.section.8.1">8.1.</a> <a href="#basic-payid-protocol-by-a-wallet" id="basic-payid-protocol-by-a-wallet">Basic PayID Protocol by a Wallet</a>
+</h1>
+<p id="rfc.section.8.1.p.1">Suppose Alice wishes to send a friend some XRP from a web-based wallet provider that Alice has an account on. Alice would log-in to the wallet provider and enter Bob's PayID (say, <samp>bob$receiver.example.com</samp>) into the wallet UI to start the payment.  The Wallet application would first discover the PayID URL for the PayID service-provider using one of the mechanisms described in PayID discovery <a href="#PAYID-DISCOVERY" class="xref">[PAYID-DISCOVERY]</a> protocol.</p>
+<p id="rfc.section.8.1.p.2">The Wallet application would then issue an HTTPS GET request:</p>
 <pre>
  GET /users/bob HTTP/1.1
  Host: www.receiver.example.com
  Accept: application/payid+json
- PayID-version: 0.1
+ PayID-version: 1.0
 </pre>
-<p id="rfc.section.7.1.p.3">The PayID server might respond like this:</p>
+<p id="rfc.section.8.1.p.3">The PayID server might respond like this:</p>
 <pre>
  HTTP/1.1 200 OK
  Content-Type: application/json
  Content-Length: 403
- PayID-version: 0.1
+ PayID-version: 1.0
  Cache-Control: max-age=0
  Server: Apache/1.3.11
  {
@@ -902,21 +931,21 @@ PayID client                                         PayID server
     "memo" : "Additional optional Information"
  }
 </pre>
-<p id="rfc.section.7.1.p.4">In the above example we see that the PayID server returned a list of payment accounts identified by PayID <samp>bob$receiver.example.com</samp>. This is because Alice's Wallet asked for all the payment accounts corresponding to the PayID in the <samp>Accept</samp> header.  Alice's Wallet MAY then use the payment account information to make payments.</p>
-<p id="rfc.section.7.1.p.5">Another example:</p>
+<p id="rfc.section.8.1.p.4">In the above example we see that the PayID server returned a list of payment accounts identified by PayID <samp>bob$receiver.example.com</samp>. This is because Alice's Wallet asked for all the payment accounts corresponding to the PayID in the <samp>Accept</samp> header.  Alice's Wallet MAY then use the payment account information to make payments.</p>
+<p id="rfc.section.8.1.p.5">Another example:</p>
 <pre>
  GET /users/bob HTTP/1.1
  Host: www.receiver.example.com
  Accept: application/xrpl-testnet+json; q=0.4,
          application/ach+json; q=0.1
- PayID-version= 0.1
+ PayID-version= 1.0
 </pre>
-<p id="rfc.section.7.1.p.6">The PayID server might respond like this:</p>
+<p id="rfc.section.8.1.p.6">The PayID server might respond like this:</p>
 <pre>
  HTTP/1.1 200 OK
  Content-Type: application/json
  Content-Length: 403
- PayID-version: 0.1
+ PayID-version: 1.0
  Cache-Control: max-age=0
  Server: Apache/1.3.11
  {
@@ -934,63 +963,63 @@ PayID client                                         PayID server
     ]
  }
 </pre>
-<h1 id="rfc.section.8">
-<a href="#rfc.section.8">8.</a> <a href="#common-response-status-codes-todo" id="common-response-status-codes-todo">Common Response Status Codes (TODO)</a>
-</h1>
-<p id="rfc.section.8.p.1">A PayID server MAY respond to request using any valid HTTP response code appropriate for the request. The PayID server SHOULD be as specific as possible in its choice of an HTTP specific status code.</p>
-<h1 id="rfc.section.8.1">
-<a href="#rfc.section.8.1">8.1.</a> <a href="#success-responses" id="success-responses">Success Responses</a>
-</h1>
-<p id="rfc.section.8.1.p.1">The following response codes represent successful requests.</p>
-<h1 id="rfc.section.8.1.1">
-<a href="#rfc.section.8.1.1">8.1.1.</a> <a href="#response-code-200-ok" id="response-code-200-ok">Response Code 200 OK</a>
-</h1>
-<p id="rfc.section.8.1.1.p.1">A request that does not create a resource returns 200 OK if it is completed successfully and the value of the resource is not null. null. In this case, the response body MUST contain the value of the resource specified in the request URL.</p>
-<h1 id="rfc.section.8.1.2">
-<a href="#rfc.section.8.1.2">8.1.2.</a> <a href="#response-code-3xx-redirection" id="response-code-3xx-redirection">Response Code 3xx Redirection</a>
-</h1>
-<p id="rfc.section.8.1.2.p.1">As per <a href="#RFC7231" class="xref">[RFC7231]</a>, a 3xx Redirection indicates that further action needs to be taken by the client in order to fulfill the request. In this case, the response SHOULD include a Location header, as appropriate, with the URL from which the result can be obtained; it MAY include a Retry-After header.</p>
-<h1 id="rfc.section.8.2">
-<a href="#rfc.section.8.2">8.2.</a> <a href="#client-error-responses" id="client-error-responses">Client Error Responses</a>
-</h1>
-<p id="rfc.section.8.2.p.1">Error codes in the 4xx range indicate a client error, such as a malformed request.  In the case that a response body is defined for the error code, the body of the error is as defined for the appropriate format.</p>
 <h1 id="rfc.section.9">
-<a href="#rfc.section.9">9.</a> <a href="#content-negotiation" id="content-negotiation">Content Negotiation</a>
+<a href="#rfc.section.9">9.</a> <a href="#common-response-status-codes-todo" id="common-response-status-codes-todo">Common Response Status Codes (TODO)</a>
 </h1>
-<p id="rfc.section.9.p.1">The PayID client MAY choose to query for all possible payment addresses corresponding to a PayID URI</p>
+<p id="rfc.section.9.p.1">A PayID server MAY respond to request using any valid HTTP response code appropriate for the request. The PayID server SHOULD be as specific as possible in its choice of an HTTP specific status code.</p>
+<h1 id="rfc.section.9.1">
+<a href="#rfc.section.9.1">9.1.</a> <a href="#success-responses" id="success-responses">Success Responses</a>
+</h1>
+<p id="rfc.section.9.1.p.1">The following response codes represent successful requests.</p>
+<h1 id="rfc.section.9.1.1">
+<a href="#rfc.section.9.1.1">9.1.1.</a> <a href="#response-code-200-ok" id="response-code-200-ok">Response Code 200 OK</a>
+</h1>
+<p id="rfc.section.9.1.1.p.1">A request that does not create a resource returns 200 OK if it is completed successfully and the value of the resource is not null. null. In this case, the response body MUST contain the value of the resource specified in the request URL.</p>
+<h1 id="rfc.section.9.1.2">
+<a href="#rfc.section.9.1.2">9.1.2.</a> <a href="#response-code-3xx-redirection" id="response-code-3xx-redirection">Response Code 3xx Redirection</a>
+</h1>
+<p id="rfc.section.9.1.2.p.1">As per <a href="#RFC7231" class="xref">[RFC7231]</a>, a 3xx Redirection indicates that further action needs to be taken by the client in order to fulfill the request. In this case, the response SHOULD include a Location header, as appropriate, with the URL from which the result can be obtained; it MAY include a Retry-After header.</p>
+<h1 id="rfc.section.9.2">
+<a href="#rfc.section.9.2">9.2.</a> <a href="#client-error-responses" id="client-error-responses">Client Error Responses</a>
+</h1>
+<p id="rfc.section.9.2.p.1">Error codes in the 4xx range indicate a client error, such as a malformed request.  In the case that a response body is defined for the error code, the body of the error is as defined for the appropriate format.</p>
+<h1 id="rfc.section.10">
+<a href="#rfc.section.10">10.</a> <a href="#content-negotiation" id="content-negotiation">Content Negotiation</a>
+</h1>
+<p id="rfc.section.10.p.1">The PayID client MAY choose to query for all possible payment addresses corresponding to a PayID URI</p>
 <pre>
  GET / HTTP/1.1
  Accept: application/all+json                 
 </pre>
-<p id="rfc.section.9.p.2">In this case, the PayID server MUST respond with all payment account(s) information associated with the queried PayID.</p>
-<p id="rfc.section.9.p.3">Alternatively, the PayID client MAY choose to query for a subset payment account(s) information in the order of preference.</p>
+<p id="rfc.section.10.p.2">In this case, the PayID server MUST respond with all payment account(s) information associated with the queried PayID.</p>
+<p id="rfc.section.10.p.3">Alternatively, the PayID client MAY choose to query for a subset payment account(s) information in the order of preference.</p>
 <pre>
  GET / HTTP/1.1
  Accept: application/xrpl-testnet+json; q=0.4,
          application/xrpl-mainnet+json; q= 0.1
 </pre>
-<p id="rfc.section.9.p.4">In this case, the PayID server MUST respond with the payment account(s) information corresponding to one of the payment-network and environment mentioned in the <samp>Accept</samp> header in the order of client request preference. If none of those exist, PayID server MUST send an appropriate error response.</p>
-<p id="rfc.section.9.p.5">Alternatively, the PayID client MAY combine the above two approaches.</p>
+<p id="rfc.section.10.p.4">In this case, the PayID server MUST respond with the payment account(s) information corresponding to one of the payment-network and environment mentioned in the <samp>Accept</samp> header in the order of client request preference. If none of those exist, PayID server MUST send an appropriate error response.</p>
+<p id="rfc.section.10.p.5">Alternatively, the PayID client MAY combine the above two approaches.</p>
 <pre>
  GET / HTTP/1.1
  Accept: application/xrpl-testnet+json; q=0.4,
          application/xrpl-mainnet+json; q= 0.1,
          application/payid+json
 </pre>
-<p id="rfc.section.9.p.6">In this case, the PayID server MUST respond with the payment account information corresponding to one of the payment-network and environment mentioned in the <samp>Accept</samp> header in the order of PayID client's preference. If none of those exist, then the PayID server MUST respond with payment account(s) information corresponding to all payment accounts associated with the queried PayID URI.</p>
-<h1 id="rfc.section.10">
-<a href="#rfc.section.10">10.</a> <a href="#versioningtodo" id="versioningtodo">Versioning(TODO)</a>
-</h1>
-<p id="rfc.section.10.p.1">Versioning enables clients and servers to evolve independently. PayID protocol defines semantics for protocol versioning.</p>
-<p id="rfc.section.10.p.2">PayID requests and responses are versioned according to the PayID-version header.  PayID clients include the PayID-version header in order to specify the maximum acceptable response version. PayID servers respond with the maximum supported version that is less than or equal to the requested <samp>major</samp></p>
+<p id="rfc.section.10.p.6">In this case, the PayID server MUST respond with the payment account information corresponding to one of the payment-network and environment mentioned in the <samp>Accept</samp> header in the order of PayID client's preference. If none of those exist, then the PayID server MUST respond with payment account(s) information corresponding to all payment accounts associated with the queried PayID URI.</p>
 <h1 id="rfc.section.11">
-<a href="#rfc.section.11">11.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a>
+<a href="#rfc.section.11">11.</a> <a href="#versioningtodo" id="versioningtodo">Versioning(TODO)</a>
 </h1>
-<p id="rfc.section.11.p.1">This security considerations section only considers PayID clients and servers bound to implementations as defined in this document. Such implementations have the following characteristics:</p>
+<p id="rfc.section.11.p.1">Versioning enables clients and servers to evolve independently. PayID protocol defines semantics for protocol versioning.</p>
+<p id="rfc.section.11.p.2">PayID requests and responses are versioned according to the PayID-version header.  PayID clients include the PayID-version header in order to specify the maximum acceptable response version. PayID servers respond with the maximum supported version that is less than or equal to the requested <samp>major</samp></p>
+<h1 id="rfc.section.12">
+<a href="#rfc.section.12">12.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a>
+</h1>
+<p id="rfc.section.12.p.1">This security considerations section only considers PayID clients and servers bound to implementations as defined in this document. Such implementations have the following characteristics:</p>
 <p></p>
 
 <ul><li>PayID URIs are static and well-known to the PayID client; PayID server URLs can be static or discovered.</li></ul>
-<p id="rfc.section.11.p.3">The following is considered out-of-scope:</p>
+<p id="rfc.section.12.p.3">The following is considered out-of-scope:</p>
 <p></p>
 
 <ul>
@@ -999,10 +1028,10 @@ PayID client                                         PayID server
 <li>PayID server URL discovery by PayID client. Implementations using PayID-Discovery <a href="#PAYID-DISCOVERY" class="xref">[PAYID-DISCOVERY]</a> MUST consider the security considerations in the corresponding document.</li>
 <li>PayID server URL resolution by PayID client. Implementations using DNS, DNSSEC, DoH, DoT, etc. MUST consider the security considerations of the corresponding documents.</li>
 </ul>
-<h1 id="rfc.section.11.1">
-<a href="#rfc.section.11.1">11.1.</a> <a href="#network-attacks" id="network-attacks">Network Attacks</a>
+<h1 id="rfc.section.12.1">
+<a href="#rfc.section.12.1">12.1.</a> <a href="#network-attacks" id="network-attacks">Network Attacks</a>
 </h1>
-<p id="rfc.section.11.1.p.1">Basic PayID protocol's security model assumes the following network attackers:</p>
+<p id="rfc.section.12.1.p.1">Basic PayID protocol's security model assumes the following network attackers:</p>
 <p></p>
 
 <ul>
@@ -1010,63 +1039,63 @@ PayID client                                         PayID server
 <li>On-path attacker: An on-path attacker can eavesdrop, inject, spoof and replay packets, but can not drop, delay or tamper with the legitimate traffic.</li>
 <li>In-path or Man-in-the-middle (MiTM) attacker: An MiTM is the most powerful network attacker. An MiTM has full access to the communication path between the PayID client and the server. She can observe, modify, delay and drop network packets.</li>
 </ul>
-<p id="rfc.section.11.1.p.3">Additionally we assume that the attacker has enough resources to mount an attack but can not break the security guarantees provided by the cryptographic primitives of the underlying secure transport.</p>
-<p id="rfc.section.11.1.p.4">The basic PayID protocol runs over HTTPS and thus relies on the security of the underlying transport. Implementations utilizing TLS 1.3 benefit from the TLS security profile defined in [RFC 8446][] against all the above network attackers.</p>
-<h1 id="rfc.section.11.1.1">
-<a href="#rfc.section.11.1.1">11.1.1.</a> <a href="#denial-of-service-dos-attacks" id="denial-of-service-dos-attacks">Denial-of-Service (DoS) attacks</a>
+<p id="rfc.section.12.1.p.3">Additionally we assume that the attacker has enough resources to mount an attack but can not break the security guarantees provided by the cryptographic primitives of the underlying secure transport.</p>
+<p id="rfc.section.12.1.p.4">The basic PayID protocol runs over HTTPS and thus relies on the security of the underlying transport. Implementations utilizing TLS 1.3 benefit from the TLS security profile defined in [RFC 8446][] against all the above network attackers.</p>
+<h1 id="rfc.section.12.1.1">
+<a href="#rfc.section.12.1.1">12.1.1.</a> <a href="#denial-of-service-dos-attacks" id="denial-of-service-dos-attacks">Denial-of-Service (DoS) attacks</a>
 </h1>
-<p id="rfc.section.11.1.1.p.1">As such cryptography can not defend against DoS attacks because any attacker can stop/interrupt the PayID protocol by: * Dropping network packets, * Exhaustion of resources either at the network level or at PayID client and/or server.</p>
-<p id="rfc.section.11.1.1.p.2">The PayID servers are recommended to follow general best network configuration practices to defend against such attacks <a href="#RFC4732" class="xref">[RFC4732]</a>.</p>
-<h1 id="rfc.section.11.2">
-<a href="#rfc.section.11.2">11.2.</a> <a href="#information-integrity" id="information-integrity">Information Integrity</a>
-</h1>
-<p id="rfc.section.11.2.p.1">The HTTPS connection provides transport security for the interaction between PayID client and server but does not provide the response integrity of the data provided by PayID server. A PayID client has no way of knowing if data provided in the payment account information resource has been manipulated at the PayID server, either due to malicious behaviour on the part of PayID server administrator or as a result of being compromised by an attacker. As with any information service available on the Internet, PayID clients should be wary of the information received from untrusted sources.</p>
-<h1 id="rfc.section.12">
-<a href="#rfc.section.12">12.</a> <a href="#privacy-considerations" id="privacy-considerations">Privacy Considerations</a>
-</h1>
-<p id="rfc.section.12.p.1">The PayID client and server should be aware that placing information on the Internet means that any one can access that information. While PayID protocol is an extremely useful tool to discovering payment account(s) information corresponding to a human-rememberable PayID URI, PayID owners should also understand the associated privacy risks. The easy access to payment account information via PayID protocol was a design goal of the protocol, not a limitation.</p>
-<h1 id="rfc.section.12.1">
-<a href="#rfc.section.12.1">12.1.</a> <a href="#access-control" id="access-control">Access Control</a>
-</h1>
-<p id="rfc.section.12.1.p.1">PayID protocol MUST not be used to provide payment account(s) information corresponding to a PayID URI unless providing that data via PayID protocol by the relevant PayID server was explicitly authorized by the PayID owner. If PayID owner wishes to limit access to information, PayID servers MAY provide an interface by which PayID owners can select which information is exposed through the PayID server interface. For example, PayID servers MAY allow PayID owners to mark certain data as <samp>public</samp> and then utilize that marking as a means of determining what information to expose via PayID protocol. The PayID servers MAY also allow PayID owners to provide a whitelist of users who are authorized to access the specific information. In such a case, the PayID server MUST authenticate the PayID client.</p>
+<p id="rfc.section.12.1.1.p.1">As such cryptography can not defend against DoS attacks because any attacker can stop/interrupt the PayID protocol by: * Dropping network packets, * Exhaustion of resources either at the network level or at PayID client and/or server.</p>
+<p id="rfc.section.12.1.1.p.2">The PayID servers are recommended to follow general best network configuration practices to defend against such attacks <a href="#RFC4732" class="xref">[RFC4732]</a>.</p>
 <h1 id="rfc.section.12.2">
-<a href="#rfc.section.12.2">12.2.</a> <a href="#payment-address-rotation" id="payment-address-rotation">Payment Address Rotation</a>
+<a href="#rfc.section.12.2">12.2.</a> <a href="#information-integrity" id="information-integrity">Information Integrity</a>
 </h1>
-<p id="rfc.section.12.2.p.1">The power of PayID protocol comes from providing a single place where others can find payment account(s) information correspondong to a PayID URI, but PayID owners should be aware of how easily payment account information that one might publish can be used in unintended ways. As one example, one might query a PayID server only to see if a given PayID URI is valid and if so, get the list of associated payment account information. If the PayID server uses the same payment address each time, it becomes easy for third-party to track one's entire payment history. The PayID server SHOULD follow the best practice of payment address rotation for every query to mitigate this privacy concern.</p>
-<h1 id="rfc.section.12.3">
-<a href="#rfc.section.12.3">12.3.</a> <a href="#on-the-wire" id="on-the-wire">On the Wire</a>
-</h1>
-<p id="rfc.section.12.3.p.1">PayID protocol over HTTPS encrypts the traffic and requires mutual authentication of the PayID client and the PayID server. This mitigates both passive surveillance <a href="#RFC7258" class="xref">[RFC7258]</a> and the active attacks that attempt to divert PayID protocol queries to rogue servers.</p>
-<p id="rfc.section.12.3.p.2">Additionally, the use of the HTTPS default port 443 and the ability to mix PayID protocol traffic with other HTTPS traffic on the same connection can deter unprivileged on-path devices from interfering with PayID operations and make PayID traffic analysis more difficult.</p>
-<h1 id="rfc.section.12.4">
-<a href="#rfc.section.12.4">12.4.</a> <a href="#in-the-payid-server" id="in-the-payid-server">In the PayID Server</a>
-</h1>
-<p id="rfc.section.12.4.p.1">The Basic PayID protocol data contains no information about the PayID client; however, various transports of PayID queries and responses do provide data that can be used to correlate requests. A Basic PayID protocol implementation is built on IP, TCP, TLS and HTTP. Each layer contains one or more common features that can be used to correlate queries to the same identity.</p>
-<p id="rfc.section.12.4.p.2">At the IP level, the PayID client address provides obvious correlation information. This can be mitigated by usee of NAT, proxy, VPN, or simple address rotation over time. It may be aggravated  by use of a PayID server that can correlate real-time addressing information with other identifiers, such as when PayID server and other services are operated by the same entity.</p>
-<p id="rfc.section.12.4.p.3">PayID client implementations that use one TCP connection for multiple PayID requests directly group those requests. Long-lived connections have better performance behaviours than short-lived connections; however they group more requests, which can expose more information to correlation and consolidation. TCP-based solutions may also seek performance through the use of TCP Fast Open [RFC7413][]. The cookies used in TCP Fast open may allow PayID servers to correlate TLS connections together.</p>
-<p id="rfc.section.12.4.p.4">TCP-based implementations often achieve better handshake performance throught the use of some form of session resumption mechanism, such as Section 2.2 of <a href="#RFC8446" class="xref">[RFC8446]</a>. Session resumption creates trivial mechanism for a server to correlate TLS connections together.</p>
-<p id="rfc.section.12.4.p.5">HTTP's feature set can also be used for identification and tracking in a number of ways. For example, Authentication request header fields explicitly identify profiles in use, and HTTP cookies are designed as an explicit state-tracking mechanism and are often used as an authentication mechanism.</p>
-<p id="rfc.section.12.4.p.6">Additionally, the <samp>User-Agent</samp> and <samp>Accept-Language</samp> request header fields often convey specific information about the PayID client version or locale. This allows for content-negotiation and operational work-arounds for implementation bugs. Request header fields that control caching can expose state information about a subset of the client's history. Mixing PayID queries with other HTTP requests on the same connection also provides an opportunity for richer data correlation.</p>
-<p id="rfc.section.12.4.p.7">The PayID protocol design allows implementations to fully leverage the HTTP ecosystem, including features that are not enumerated in this document. Utilizing the full set of HTTP featurees enables PayID to be more than HTTP tunnel, but it is at the cost of opening up implementations to the full set of privacy considerations of HTTP.</p>
-<p id="rfc.section.12.4.p.8">Implementations of PayID clients and servers need to consider the benefits and privacy impacts of these fetaures, and their deployment context, when deciding whether or not to enable them. Implementations are advised to expose the minimal set of data needed to achieve the desired feature set.</p>
-<p id="rfc.section.12.4.p.9">Determining whether or not PayID client implementation requires HTTP cookie [RFC6265][] support is particularly important because HTTP cookies are the primary state tracking mechanism in HTTP, HTTP cookies SHOULD NOT be accepted by PayID clients unless they are explicitly required by a use case.</p>
-<p id="rfc.section.12.4.p.10">Overall, the PayID protocol does not introduce privacy concerns beyond those associated with using the underlying IP, TCP, TLS and HTTP layers.</p>
+<p id="rfc.section.12.2.p.1">The HTTPS connection provides transport security for the interaction between PayID client and server but does not provide the response integrity of the data provided by PayID server. A PayID client has no way of knowing if data provided in the payment account information resource has been manipulated at the PayID server, either due to malicious behaviour on the part of PayID server administrator or as a result of being compromised by an attacker. As with any information service available on the Internet, PayID clients should be wary of the information received from untrusted sources.</p>
 <h1 id="rfc.section.13">
-<a href="#rfc.section.13">13.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a>
+<a href="#rfc.section.13">13.</a> <a href="#privacy-considerations" id="privacy-considerations">Privacy Considerations</a>
 </h1>
-<p id="rfc.section.13.p.1">This document defines registries for PayID protocol version and application/* +json media types.</p>
+<p id="rfc.section.13.p.1">The PayID client and server should be aware that placing information on the Internet means that any one can access that information. While PayID protocol is an extremely useful tool to discovering payment account(s) information corresponding to a human-rememberable PayID URI, PayID owners should also understand the associated privacy risks. The easy access to payment account information via PayID protocol was a design goal of the protocol, not a limitation.</p>
 <h1 id="rfc.section.13.1">
-<a href="#rfc.section.13.1">13.1.</a> <a href="#header-field-registration" id="header-field-registration">Header Field Registration</a>
+<a href="#rfc.section.13.1">13.1.</a> <a href="#access-control" id="access-control">Access Control</a>
 </h1>
-<p id="rfc.section.13.1.p.1">Header field name: PayID-version: major.minor</p>
-<p id="rfc.section.13.1.p.2">Applicable Protocol: "PayID protocol"</p>
-<p id="rfc.section.13.1.p.3">Status: <samp>standard</samp></p>
-<p id="rfc.section.13.1.p.4">Author/Change controller: Refer to the contact details of the authors in this document.</p>
-<p id="rfc.section.13.1.p.5">Specification Document: <samp>PayID protocol</samp></p>
+<p id="rfc.section.13.1.p.1">PayID protocol MUST not be used to provide payment account(s) information corresponding to a PayID URI unless providing that data via PayID protocol by the relevant PayID server was explicitly authorized by the PayID owner. If PayID owner wishes to limit access to information, PayID servers MAY provide an interface by which PayID owners can select which information is exposed through the PayID server interface. For example, PayID servers MAY allow PayID owners to mark certain data as <samp>public</samp> and then utilize that marking as a means of determining what information to expose via PayID protocol. The PayID servers MAY also allow PayID owners to provide a whitelist of users who are authorized to access the specific information. In such a case, the PayID server MUST authenticate the PayID client.</p>
 <h1 id="rfc.section.13.2">
-<a href="#rfc.section.13.2">13.2.</a> <a href="#media-type-registration" id="media-type-registration">Media Type Registration</a>
+<a href="#rfc.section.13.2">13.2.</a> <a href="#payment-address-rotation" id="payment-address-rotation">Payment Address Rotation</a>
 </h1>
-<p id="rfc.section.13.2.p.1">This document registers multiple media types, listed in Table 1.</p>
+<p id="rfc.section.13.2.p.1">The power of PayID protocol comes from providing a single place where others can find payment account(s) information correspondong to a PayID URI, but PayID owners should be aware of how easily payment account information that one might publish can be used in unintended ways. As one example, one might query a PayID server only to see if a given PayID URI is valid and if so, get the list of associated payment account information. If the PayID server uses the same payment address each time, it becomes easy for third-party to track one's entire payment history. The PayID server SHOULD follow the best practice of payment address rotation for every query to mitigate this privacy concern.</p>
+<h1 id="rfc.section.13.3">
+<a href="#rfc.section.13.3">13.3.</a> <a href="#on-the-wire" id="on-the-wire">On the Wire</a>
+</h1>
+<p id="rfc.section.13.3.p.1">PayID protocol over HTTPS encrypts the traffic and requires mutual authentication of the PayID client and the PayID server. This mitigates both passive surveillance <a href="#RFC7258" class="xref">[RFC7258]</a> and the active attacks that attempt to divert PayID protocol queries to rogue servers.</p>
+<p id="rfc.section.13.3.p.2">Additionally, the use of the HTTPS default port 443 and the ability to mix PayID protocol traffic with other HTTPS traffic on the same connection can deter unprivileged on-path devices from interfering with PayID operations and make PayID traffic analysis more difficult.</p>
+<h1 id="rfc.section.13.4">
+<a href="#rfc.section.13.4">13.4.</a> <a href="#in-the-payid-server" id="in-the-payid-server">In the PayID Server</a>
+</h1>
+<p id="rfc.section.13.4.p.1">The Basic PayID protocol data contains no information about the PayID client; however, various transports of PayID queries and responses do provide data that can be used to correlate requests. A Basic PayID protocol implementation is built on IP, TCP, TLS and HTTP. Each layer contains one or more common features that can be used to correlate queries to the same identity.</p>
+<p id="rfc.section.13.4.p.2">At the IP level, the PayID client address provides obvious correlation information. This can be mitigated by usee of NAT, proxy, VPN, or simple address rotation over time. It may be aggravated  by use of a PayID server that can correlate real-time addressing information with other identifiers, such as when PayID server and other services are operated by the same entity.</p>
+<p id="rfc.section.13.4.p.3">PayID client implementations that use one TCP connection for multiple PayID requests directly group those requests. Long-lived connections have better performance behaviours than short-lived connections; however they group more requests, which can expose more information to correlation and consolidation. TCP-based solutions may also seek performance through the use of TCP Fast Open [RFC7413][]. The cookies used in TCP Fast open may allow PayID servers to correlate TLS connections together.</p>
+<p id="rfc.section.13.4.p.4">TCP-based implementations often achieve better handshake performance throught the use of some form of session resumption mechanism, such as Section 2.2 of <a href="#RFC8446" class="xref">[RFC8446]</a>. Session resumption creates trivial mechanism for a server to correlate TLS connections together.</p>
+<p id="rfc.section.13.4.p.5">HTTP's feature set can also be used for identification and tracking in a number of ways. For example, Authentication request header fields explicitly identify profiles in use, and HTTP cookies are designed as an explicit state-tracking mechanism and are often used as an authentication mechanism.</p>
+<p id="rfc.section.13.4.p.6">Additionally, the <samp>User-Agent</samp> and <samp>Accept-Language</samp> request header fields often convey specific information about the PayID client version or locale. This allows for content-negotiation and operational work-arounds for implementation bugs. Request header fields that control caching can expose state information about a subset of the client's history. Mixing PayID queries with other HTTP requests on the same connection also provides an opportunity for richer data correlation.</p>
+<p id="rfc.section.13.4.p.7">The PayID protocol design allows implementations to fully leverage the HTTP ecosystem, including features that are not enumerated in this document. Utilizing the full set of HTTP featurees enables PayID to be more than HTTP tunnel, but it is at the cost of opening up implementations to the full set of privacy considerations of HTTP.</p>
+<p id="rfc.section.13.4.p.8">Implementations of PayID clients and servers need to consider the benefits and privacy impacts of these fetaures, and their deployment context, when deciding whether or not to enable them. Implementations are advised to expose the minimal set of data needed to achieve the desired feature set.</p>
+<p id="rfc.section.13.4.p.9">Determining whether or not PayID client implementation requires HTTP cookie [RFC6265][] support is particularly important because HTTP cookies are the primary state tracking mechanism in HTTP, HTTP cookies SHOULD NOT be accepted by PayID clients unless they are explicitly required by a use case.</p>
+<p id="rfc.section.13.4.p.10">Overall, the PayID protocol does not introduce privacy concerns beyond those associated with using the underlying IP, TCP, TLS and HTTP layers.</p>
+<h1 id="rfc.section.14">
+<a href="#rfc.section.14">14.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a>
+</h1>
+<p id="rfc.section.14.p.1">This document defines registries for PayID protocol version and application/* +json media types.</p>
+<h1 id="rfc.section.14.1">
+<a href="#rfc.section.14.1">14.1.</a> <a href="#header-field-registration" id="header-field-registration">Header Field Registration</a>
+</h1>
+<p id="rfc.section.14.1.p.1">Header field name: PayID-version: major.minor</p>
+<p id="rfc.section.14.1.p.2">Applicable Protocol: "PayID protocol"</p>
+<p id="rfc.section.14.1.p.3">Status: <samp>standard</samp></p>
+<p id="rfc.section.14.1.p.4">Author/Change controller: Refer to the contact details of the authors in this document.</p>
+<p id="rfc.section.14.1.p.5">Specification Document: <samp>PayID protocol</samp></p>
+<h1 id="rfc.section.14.2">
+<a href="#rfc.section.14.2">14.2.</a> <a href="#media-type-registration" id="media-type-registration">Media Type Registration</a>
+</h1>
+<p id="rfc.section.14.2.p.1">This document registers multiple media types, listed in Table 1.</p>
 <table cellpadding="3" cellspacing="0" class="tt full center">
 <thead><tr>
 <th class="left">Type</th>
@@ -1111,31 +1140,31 @@ PayID client                                         PayID server
 </tr>
 </tbody>
 </table>
-<p id="rfc.section.13.2.p.2">Type Name: application</p>
-<p id="rfc.section.13.2.p.3">Subtype name: This document registers multiple subtypes as listed in table 1</p>
-<p id="rfc.section.13.2.p.4">Required parameters: n/a</p>
-<p id="rfc.section.13.2.p.5">Optional parameters: n/a</p>
-<p id="rfc.section.13.2.p.6">Encoding considerations:  Encoding considerations are identical to those specified for the "application/json" media type. See[RFC7159][].</p>
-<p id="rfc.section.13.2.p.7">Security considerations: Security considerations relating to the generation and consumption of PayID protocol messages are discussed in Section X.</p>
-<p id="rfc.section.13.2.p.8">Interoperability considerations:  This document specifies format of conforming messages and the interpretation thereof.</p>
-<p id="rfc.section.13.2.p.9">Published specification: This document is the specification for these media types; see Table 1 for the section documenting each media type.</p>
-<p id="rfc.section.13.2.p.10">Applications that use this media type:  PayID servers and PayID clients.</p>
-<p id="rfc.section.13.2.p.11">Additional information:</p>
-<p id="rfc.section.13.2.p.12">Magic number(s):  n/a</p>
-<p id="rfc.section.13.2.p.13">File extension(s):  This document uses the mime type to refer to protocol messages and thus does not require a file extension.</p>
-<p id="rfc.section.13.2.p.14">Macintosh file type code(s):  n/a</p>
-<p id="rfc.section.13.2.p.15">Person &amp; email address to contact for further information:  See Authors' Addresses section.</p>
-<p id="rfc.section.13.2.p.16">Intended usage:  COMMON</p>
-<p id="rfc.section.13.2.p.17">Restrictions on usage:  n/a</p>
-<p id="rfc.section.13.2.p.18">Author:  See Authors' Addresses section.</p>
-<p id="rfc.section.13.2.p.19">Change controller:  Internet Engineering Task Force (mailto:iesg@ietf.org).</p>
-<h1 id="rfc.section.14">
-<a href="#rfc.section.14">14.</a> <a href="#acknowledgments" id="acknowledgments">Acknowledgments</a>
+<p id="rfc.section.14.2.p.2">Type Name: application</p>
+<p id="rfc.section.14.2.p.3">Subtype name: This document registers multiple subtypes as listed in table 1</p>
+<p id="rfc.section.14.2.p.4">Required parameters: n/a</p>
+<p id="rfc.section.14.2.p.5">Optional parameters: n/a</p>
+<p id="rfc.section.14.2.p.6">Encoding considerations:  Encoding considerations are identical to those specified for the "application/json" media type. See[RFC7159][].</p>
+<p id="rfc.section.14.2.p.7">Security considerations: Security considerations relating to the generation and consumption of PayID protocol messages are discussed in Section X.</p>
+<p id="rfc.section.14.2.p.8">Interoperability considerations:  This document specifies format of conforming messages and the interpretation thereof.</p>
+<p id="rfc.section.14.2.p.9">Published specification: This document is the specification for these media types; see Table 1 for the section documenting each media type.</p>
+<p id="rfc.section.14.2.p.10">Applications that use this media type:  PayID servers and PayID clients.</p>
+<p id="rfc.section.14.2.p.11">Additional information:</p>
+<p id="rfc.section.14.2.p.12">Magic number(s):  n/a</p>
+<p id="rfc.section.14.2.p.13">File extension(s):  This document uses the mime type to refer to protocol messages and thus does not require a file extension.</p>
+<p id="rfc.section.14.2.p.14">Macintosh file type code(s):  n/a</p>
+<p id="rfc.section.14.2.p.15">Person &amp; email address to contact for further information:  See Authors' Addresses section.</p>
+<p id="rfc.section.14.2.p.16">Intended usage:  COMMON</p>
+<p id="rfc.section.14.2.p.17">Restrictions on usage:  n/a</p>
+<p id="rfc.section.14.2.p.18">Author:  See Authors' Addresses section.</p>
+<p id="rfc.section.14.2.p.19">Change controller:  Internet Engineering Task Force (mailto:iesg@ietf.org).</p>
+<h1 id="rfc.section.15">
+<a href="#rfc.section.15">15.</a> <a href="#acknowledgments" id="acknowledgments">Acknowledgments</a>
 </h1>
 <h1 id="rfc.references">
-<a href="#rfc.references">15.</a> References</h1>
+<a href="#rfc.references">16.</a> References</h1>
 <h1 id="rfc.references.1">
-<a href="#rfc.references.1">15.1.</a> Normative References</h1>
+<a href="#rfc.references.1">16.1.</a> Normative References</h1>
 <table><tbody>
 <tr>
 <td class="reference"><b id="PAYID-DISCOVERY">[PAYID-DISCOVERY]</b></td>
@@ -1174,7 +1203,7 @@ PayID client                                         PayID server
 </tr>
 </tbody></table>
 <h1 id="rfc.references.2">
-<a href="#rfc.references.2">15.2.</a> Informative References</h1>
+<a href="#rfc.references.2">16.2.</a> Informative References</h1>
 <table><tbody><tr>
 <td class="reference"><b id="RFC4732">[RFC4732]</b></td>
 <td class="top">

@@ -1,0 +1,1157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head profile="http://www.w3.org/2006/03/hcard http://dublincore.org/documents/2008/08/04/dc-html/">
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+
+  <title>Verifiable PayID Protocol</title>
+
+  <style type="text/css" title="Xml2Rfc (sans serif)">
+  /*<![CDATA[*/
+	  a {
+	  text-decoration: none;
+	  }
+      /* info code from SantaKlauss at http://www.madaboutstyle.com/tooltip2.html */
+      a.info {
+          /* This is the key. */
+          position: relative;
+          z-index: 24;
+          text-decoration: none;
+      }
+      a.info:hover {
+          z-index: 25;
+          color: #FFF; background-color: #900;
+      }
+      a.info span { display: none; }
+      a.info:hover span.info {
+          /* The span will display just on :hover state. */
+          display: block;
+          position: absolute;
+          font-size: smaller;
+          top: 2em; left: -5em; width: 15em;
+          padding: 2px; border: 1px solid #333;
+          color: #900; background-color: #EEE;
+          text-align: left;
+      }
+	  a.smpl {
+	  color: black;
+	  }
+	  a:hover {
+	  text-decoration: underline;
+	  }
+	  a:active {
+	  text-decoration: underline;
+	  }
+	  address {
+	  margin-top: 1em;
+	  margin-left: 2em;
+	  font-style: normal;
+	  }
+	  body {
+	  color: black;
+	  font-family: verdana, helvetica, arial, sans-serif;
+	  font-size: 10pt;
+	  max-width: 55em;
+	  
+	  }
+	  cite {
+	  font-style: normal;
+	  }
+	  dd {
+	  margin-right: 2em;
+	  }
+	  dl {
+	  margin-left: 2em;
+	  }
+	
+	  ul.empty {
+	  list-style-type: none;
+	  }
+	  ul.empty li {
+	  margin-top: .5em;
+	  }
+	  dl p {
+	  margin-left: 0em;
+	  }
+	  dt {
+	  margin-top: .5em;
+	  }
+	  h1 {
+	  font-size: 14pt;
+	  line-height: 21pt;
+	  page-break-after: avoid;
+	  }
+	  h1.np {
+	  page-break-before: always;
+	  }
+	  h1 a {
+	  color: #333333;
+	  }
+	  h2 {
+	  font-size: 12pt;
+	  line-height: 15pt;
+	  page-break-after: avoid;
+	  }
+	  h3, h4, h5, h6 {
+	  font-size: 10pt;
+	  page-break-after: avoid;
+	  }
+	  h2 a, h3 a, h4 a, h5 a, h6 a {
+	  color: black;
+	  }
+	  img {
+	  margin-left: 3em;
+	  }
+	  li {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  ol {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  ol p {
+	  margin-left: 0em;
+	  }
+	  p {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  pre {
+	  margin-left: 3em;
+	  background-color: lightyellow;
+	  padding: .25em;
+	  }
+	  pre.text2 {
+	  border-style: dotted;
+	  border-width: 1px;
+	  background-color: #f0f0f0;
+	  width: 69em;
+	  }
+	  pre.inline {
+	  background-color: white;
+	  padding: 0em;
+	  }
+	  pre.text {
+	  border-style: dotted;
+	  border-width: 1px;
+	  background-color: #f8f8f8;
+	  width: 69em;
+	  }
+	  pre.drawing {
+	  border-style: solid;
+	  border-width: 1px;
+	  background-color: #f8f8f8;
+	  padding: 2em;
+	  }
+	  table {
+	  margin-left: 2em;
+	  }
+	  table.tt {
+	  vertical-align: top;
+	  }
+	  table.full {
+	  border-style: outset;
+	  border-width: 1px;
+	  }
+	  table.headers {
+	  border-style: outset;
+	  border-width: 1px;
+	  }
+	  table.tt td {
+	  vertical-align: top;
+	  }
+	  table.full td {
+	  border-style: inset;
+	  border-width: 1px;
+	  }
+	  table.tt th {
+	  vertical-align: top;
+	  }
+	  table.full th {
+	  border-style: inset;
+	  border-width: 1px;
+	  }
+	  table.headers th {
+	  border-style: none none inset none;
+	  border-width: 1px;
+	  }
+	  table.left {
+	  margin-right: auto;
+	  }
+	  table.right {
+	  margin-left: auto;
+	  }
+	  table.center {
+	  margin-left: auto;
+	  margin-right: auto;
+	  }
+	  caption {
+	  caption-side: bottom;
+	  font-weight: bold;
+	  font-size: 9pt;
+	  margin-top: .5em;
+	  }
+	
+	  table.header {
+	  border-spacing: 1px;
+	  width: 95%;
+	  font-size: 10pt;
+	  color: white;
+	  }
+	  td.top {
+	  vertical-align: top;
+	  }
+	  td.topnowrap {
+	  vertical-align: top;
+	  white-space: nowrap; 
+	  }
+	  table.header td {
+	  background-color: gray;
+	  width: 50%;
+	  }
+	  table.header a {
+	  color: white;
+	  }
+	  td.reference {
+	  vertical-align: top;
+	  white-space: nowrap;
+	  padding-right: 1em;
+	  }
+	  thead {
+	  display:table-header-group;
+	  }
+	  ul.toc, ul.toc ul {
+	  list-style: none;
+	  margin-left: 1.5em;
+	  margin-right: 0em;
+	  padding-left: 0em;
+	  }
+	  ul.toc li {
+	  line-height: 150%;
+	  font-weight: bold;
+	  font-size: 10pt;
+	  margin-left: 0em;
+	  margin-right: 0em;
+	  }
+	  ul.toc li li {
+	  line-height: normal;
+	  font-weight: normal;
+	  font-size: 9pt;
+	  margin-left: 0em;
+	  margin-right: 0em;
+	  }
+	  li.excluded {
+	  font-size: 0pt;
+	  }
+	  ul p {
+	  margin-left: 0em;
+	  }
+	
+	  .comment {
+	  background-color: yellow;
+	  }
+	  .center {
+	  text-align: center;
+	  }
+	  .error {
+	  color: red;
+	  font-style: italic;
+	  font-weight: bold;
+	  }
+	  .figure {
+	  font-weight: bold;
+	  text-align: center;
+	  font-size: 9pt;
+	  }
+	  .filename {
+	  color: #333333;
+	  font-weight: bold;
+	  font-size: 12pt;
+	  line-height: 21pt;
+	  text-align: center;
+	  }
+	  .fn {
+	  font-weight: bold;
+	  }
+	  .hidden {
+	  display: none;
+	  }
+	  .left {
+	  text-align: left;
+	  }
+	  .right {
+	  text-align: right;
+	  }
+	  .title {
+	  color: #990000;
+	  font-size: 18pt;
+	  line-height: 18pt;
+	  font-weight: bold;
+	  text-align: center;
+	  margin-top: 36pt;
+	  }
+	  .vcardline {
+	  display: block;
+	  }
+	  .warning {
+	  font-size: 14pt;
+	  background-color: yellow;
+	  }
+	
+	
+	  @media print {
+	  .noprint {
+		display: none;
+	  }
+	
+	  a {
+		color: black;
+		text-decoration: none;
+	  }
+	
+	  table.header {
+		width: 90%;
+	  }
+	
+	  td.header {
+		width: 50%;
+		color: black;
+		background-color: white;
+		vertical-align: top;
+		font-size: 12pt;
+	  }
+	
+	  ul.toc a::after {
+		content: leader('.') target-counter(attr(href), page);
+	  }
+	
+	  ul.ind li li a {
+		content: target-counter(attr(href), page);
+	  }
+	
+	  .print2col {
+		column-count: 2;
+		-moz-column-count: 2;
+		column-fill: auto;
+	  }
+	  }
+	
+	  @page {
+	  @top-left {
+		   content: "Internet-Draft"; 
+	  } 
+	  @top-right {
+		   content: "December 2010"; 
+	  } 
+	  @top-center {
+		   content: "Abbreviated Title";
+	  } 
+	  @bottom-left {
+		   content: "Doe"; 
+	  } 
+	  @bottom-center {
+		   content: "Expires June 2011"; 
+	  } 
+	  @bottom-right {
+		   content: "[Page " counter(page) "]"; 
+	  } 
+	  }
+	
+	  @page:first { 
+		@top-left {
+		  content: normal;
+		}
+		@top-right {
+		  content: normal;
+		}
+		@top-center {
+		  content: normal;
+		}
+	  }
+  /*]]>*/
+  </style>
+
+  <link href="#rfc.toc" rel="Contents">
+<link href="#rfc.section.1" rel="Chapter" title="1 Terminology">
+<link href="#rfc.section.2" rel="Chapter" title="2 Motivation">
+<link href="#rfc.section.3" rel="Chapter" title="3 Verifiable PayID Protocol Specification">
+<link href="#rfc.section.3.1" rel="Chapter" title="3.1 Basic Operations">
+<link href="#rfc.section.3.1.1" rel="Chapter" title="3.1.1 PayID Client Requesting the PaymentInformation Resource">
+<link href="#rfc.section.3.1.2" rel="Chapter" title="3.1.2 PayID Server Responding to the PaymentInformation Resource Request">
+<link href="#rfc.section.3.2" rel="Chapter" title="3.2 JSON Payloads">
+<link href="#rfc.section.3.2.1" rel="Chapter" title="3.2.1 PayID Client Request Query Body for PaymentInformation Resource">
+<link href="#rfc.section.3.2.2" rel="Chapter" title="3.2.2 PayID Server Response Body for PaymentInformation Resource Request">
+<link href="#rfc.section.3.2.3" rel="Chapter" title="3.2.3 SignatureWrapper">
+<link href="#rfc.section.4" rel="Chapter" title="4 Custodial and Non-Custodial PayID Service Providers">
+<link href="#rfc.section.5" rel="Chapter" title="5 Verifiable PayID Protocol for Custodial Wallets and Exchanges">
+<link href="#rfc.section.5.1" rel="Chapter" title="5.1 Step 1: Preparing the HTTP Request to PayID URL using HTTP POST Method">
+<link href="#rfc.section.5.2" rel="Chapter" title="5.2 Step 2: Preparing the PaymentInformation Response">
+<link href="#rfc.section.5.2.1" rel="Chapter" title="5.2.1 Preparing the payment account(s) information message">
+<link href="#rfc.section.5.2.2" rel="Chapter" title="5.2.2 Preparing SignatureWrapper message">
+<link href="#rfc.section.5.3" rel="Chapter" title="5.3 Step 3: Parse PaymentInformation Response">
+<link href="#rfc.section.6" rel="Chapter" title="6 Verifiable PayID Protocol for Non-Custodial Wallets and Exchanges">
+<link href="#rfc.section.6.1" rel="Chapter" title="6.1 Discussion Section on distributing PayID owner's keys">
+<link href="#rfc.section.6.1.1" rel="Chapter" title="6.1.1 identity field in payment account(s) information message">
+<link href="#rfc.section.6.1.2" rel="Chapter" title="6.1.2 Embed the public key of PayID owner in the PayID">
+<link href="#rfc.section.6.2" rel="Chapter" title="6.2 Step 1: Preparing HTTP Request to PayID URL using HTTP POST Method">
+<link href="#rfc.section.6.3" rel="Chapter" title="6.3 Step 2: Preparing PaymentInformation Response">
+<link href="#rfc.section.6.4" rel="Chapter" title="6.4 Step 3: Parsing the PaymentInformation Response">
+<link href="#rfc.section.7" rel="Chapter" title="7 Example Use of Verifiable PayID Protocol">
+<link href="#rfc.section.7.1" rel="Chapter" title="7.1 Verifiable PayID Protocol by a Custodial Wallet as PayID server">
+<link href="#rfc.section.7.2" rel="Chapter" title="7.2 Verifiable PayID Protocol by a Non-Custodial Wallet as PayID Server">
+<link href="#rfc.section.8" rel="Chapter" title="8 Security Considerations">
+<link href="#rfc.section.8.1" rel="Chapter" title="8.1 Fully-Malicious Adversary Model for PayID Client Wallet and Custodial Wallets and Exchanges as PayID Servers">
+<link href="#rfc.section.8.1.1" rel="Chapter" title="8.1.1 Cryptographic Proofs">
+<link href="#rfc.section.8.2" rel="Chapter" title="8.2 Fully Compromisable Custodial PayID Server Wallet (hot/always online systems): Adding another Layer of Security.">
+<link href="#rfc.section.8.3" rel="Chapter" title="8.3 Security Model for Non-Custodial PayID Server Wallets">
+<link href="#rfc.section.9" rel="Chapter" title="9 Privacy Considerations">
+<link href="#rfc.section.9.1" rel="Chapter" title="9.1 Access Control">
+<link href="#rfc.section.10" rel="Chapter" title="10 IANA Considerations">
+<link href="#rfc.section.11" rel="Chapter" title="11 Acknowledgments">
+<link href="#rfc.references" rel="Chapter" title="12 References">
+<link href="#rfc.references.1" rel="Chapter" title="12.1 Normative References">
+<link href="#rfc.references.2" rel="Chapter" title="12.2 Informative References">
+<link href="#rfc.authors" rel="Chapter">
+
+
+  <meta name="generator" content="xml2rfc version 2.44.0 - https://tools.ietf.org/tools/xml2rfc" />
+  <link rel="schema.dct" href="http://purl.org/dc/terms/" />
+
+  <meta name="dct.creator" content="Malhotra, A. and D. Schwartz" />
+  <meta name="dct.identifier" content="urn:ietf:id:draft-aanchal-verifiable-payid-protocol-01" />
+  <meta name="dct.issued" scheme="ISO8601" content="2020-06-13" />
+  <meta name="dct.abstract" content="This specification defines the verifiable PayID protocol - an extension to  that aims to provide payment account(s) information associated with a PayID  while allowing involved parties to exchange identity information and provides third-party verifiable cryptographic proof trail of the entire communication. More specifically verifiable PayID protocol provides the following enhancements to Basic PayID protocol. Verifiable Custodial PayID service: It allows custodial wallets and exchanges to send payment account(s) address information and other resources digitally signed with their off-ledger private key. Verifiable Non-Custodial PayID service: It allows non-custodial wallets and exchanges to send payment account(s) address information digitally signed with the off-ledger private key of the PayID owner along with PayID owner's identity information. Privacy-enhanced PayID service: It allows PayID service providers (both custodial and non-custodial) to deploy appropriate access control mechanisms by allowing the PayID clients or senders to transmit their identity information for authentication.  " />
+  <meta name="description" content="This specification defines the verifiable PayID protocol - an extension to  that aims to provide payment account(s) information associated with a PayID  while allowing involved parties to exchange identity information and provides third-party verifiable cryptographic proof trail of the entire communication. More specifically verifiable PayID protocol provides the following enhancements to Basic PayID protocol. Verifiable Custodial PayID service: It allows custodial wallets and exchanges to send payment account(s) address information and other resources digitally signed with their off-ledger private key. Verifiable Non-Custodial PayID service: It allows non-custodial wallets and exchanges to send payment account(s) address information digitally signed with the off-ledger private key of the PayID owner along with PayID owner's identity information. Privacy-enhanced PayID service: It allows PayID service providers (both custodial and non-custodial) to deploy appropriate access control mechanisms by allowing the PayID clients or senders to transmit their identity information for authentication.  " />
+
+</head>
+
+<body>
+
+  <table class="header">
+    <tbody>
+    
+    	<tr>
+<td class="left">Network Working Group</td>
+<td class="right">A. Malhotra</td>
+</tr>
+<tr>
+<td class="left">Internet-Draft</td>
+<td class="right">D. Schwartz</td>
+</tr>
+<tr>
+<td class="left">Intended status: Standards Track</td>
+<td class="right">Ripple</td>
+</tr>
+<tr>
+<td class="left">Expires: December 15, 2020</td>
+<td class="right">June 13, 2020</td>
+</tr>
+
+    	
+    </tbody>
+  </table>
+
+  <p class="title">Verifiable PayID Protocol<br />
+  <span class="filename">draft-aanchal-verifiable-payid-protocol-01</span></p>
+  
+  <h1 id="rfc.abstract"><a href="#rfc.abstract">Abstract</a></h1>
+<p>This specification defines the verifiable PayID protocol - an extension to <a href="#PAYID-PROTOCOL" class="xref">[PAYID-PROTOCOL]</a> that aims to provide payment account(s) information associated with a PayID <a href="#PAYID-URI" class="xref">[PAYID-URI]</a> while allowing involved parties to exchange <samp>identity</samp> information and provides third-party verifiable cryptographic proof trail of the entire communication. More specifically verifiable PayID protocol provides the following enhancements to Basic PayID protocol<a href="#PAYID-PROTOCOL" class="xref">[PAYID-PROTOCOL]</a>.</p>
+<p></p>
+
+<ul>
+<li>Verifiable Custodial PayID service: It allows custodial wallets and exchanges to send payment account(s) address information and other resources digitally signed with their off-ledger private key.</li>
+<li>Verifiable Non-Custodial PayID service: It allows non-custodial wallets and exchanges to send payment account(s) address information digitally signed with the off-ledger private key of the PayID owner along with PayID owner's <samp>identity</samp> information.</li>
+<li>Privacy-enhanced PayID service: It allows PayID service providers (both custodial and non-custodial) to deploy appropriate access control mechanisms by allowing the PayID clients or senders to transmit their <samp>identity</samp> information for authentication.</li>
+</ul>
+<h1><a>Feedback</a></h1>
+<p>This specification is a part of the <a href="https://payid.org/">PayID Protocol</a> work.  Feedback related to this specification should be sent to <a href="mailto:payid@ripple.com">payid@ripple.com</a>.</p>
+<h1 id="rfc.status"><a href="#rfc.status">Status of This Memo</a></h1>
+<p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
+<p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
+<p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
+<p>This Internet-Draft will expire on December 15, 2020.</p>
+<h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
+<p>Copyright (c) 2020 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
+<p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
+
+  
+  <hr class="noprint" />
+  <h1 class="np" id="rfc.toc"><a href="#rfc.toc">Table of Contents</a></h1>
+  <ul class="toc">
+
+  	<li>1.   <a href="#rfc.section.1">Terminology</a>
+</li>
+<li>2.   <a href="#rfc.section.2">Motivation</a>
+</li>
+<li>3.   <a href="#rfc.section.3">Verifiable PayID Protocol Specification</a>
+</li>
+<ul><li>3.1.   <a href="#rfc.section.3.1">Basic Operations</a>
+</li>
+<ul><li>3.1.1.   <a href="#rfc.section.3.1.1">PayID Client Requesting the PaymentInformation Resource</a>
+</li>
+<li>3.1.2.   <a href="#rfc.section.3.1.2">PayID Server Responding to the PaymentInformation Resource Request</a>
+</li>
+</ul><li>3.2.   <a href="#rfc.section.3.2">JSON Payloads</a>
+</li>
+<ul><li>3.2.1.   <a href="#rfc.section.3.2.1">PayID Client Request Query Body for PaymentInformation Resource</a>
+</li>
+<li>3.2.2.   <a href="#rfc.section.3.2.2">PayID Server Response Body for PaymentInformation Resource Request</a>
+</li>
+<li>3.2.3.   <a href="#rfc.section.3.2.3">SignatureWrapper</a>
+</li>
+</ul></ul><li>4.   <a href="#rfc.section.4">Custodial and Non-Custodial PayID Service Providers</a>
+</li>
+<li>5.   <a href="#rfc.section.5">Verifiable PayID Protocol for Custodial Wallets and Exchanges</a>
+</li>
+<ul><li>5.1.   <a href="#rfc.section.5.1">Step 1: Preparing the HTTP Request to PayID URL using HTTP POST Method</a>
+</li>
+<li>5.2.   <a href="#rfc.section.5.2">Step 2: Preparing the PaymentInformation Response</a>
+</li>
+<ul><li>5.2.1.   <a href="#rfc.section.5.2.1">Preparing the payment account(s) information message</a>
+</li>
+<li>5.2.2.   <a href="#rfc.section.5.2.2">Preparing SignatureWrapper message</a>
+</li>
+</ul><li>5.3.   <a href="#rfc.section.5.3">Step 3: Parse PaymentInformation Response</a>
+</li>
+</ul><li>6.   <a href="#rfc.section.6">Verifiable PayID Protocol for Non-Custodial Wallets and Exchanges</a>
+</li>
+<ul><li>6.1.   <a href="#rfc.section.6.1">Discussion Section on distributing PayID owner's keys</a>
+</li>
+<ul><li>6.1.1.   <a href="#rfc.section.6.1.1">identity field in payment account(s) information message</a>
+</li>
+<li>6.1.2.   <a href="#rfc.section.6.1.2">Embed the public key of PayID owner in the PayID</a>
+</li>
+</ul><li>6.2.   <a href="#rfc.section.6.2">Step 1: Preparing HTTP Request to PayID URL using HTTP POST Method</a>
+</li>
+<li>6.3.   <a href="#rfc.section.6.3">Step 2: Preparing PaymentInformation Response</a>
+</li>
+<li>6.4.   <a href="#rfc.section.6.4">Step 3: Parsing the PaymentInformation Response</a>
+</li>
+</ul><li>7.   <a href="#rfc.section.7">Example Use of Verifiable PayID Protocol</a>
+</li>
+<ul><li>7.1.   <a href="#rfc.section.7.1">Verifiable PayID Protocol by a Custodial Wallet as PayID server</a>
+</li>
+<li>7.2.   <a href="#rfc.section.7.2">Verifiable PayID Protocol by a Non-Custodial Wallet as PayID Server</a>
+</li>
+</ul><li>8.   <a href="#rfc.section.8">Security Considerations</a>
+</li>
+<ul><li>8.1.   <a href="#rfc.section.8.1">Fully-Malicious Adversary Model for PayID Client Wallet and Custodial Wallets and Exchanges as PayID Servers</a>
+</li>
+<ul><li>8.1.1.   <a href="#rfc.section.8.1.1">Cryptographic Proofs</a>
+</li>
+</ul><li>8.2.   <a href="#rfc.section.8.2">Fully Compromisable Custodial PayID Server Wallet (hot/always online systems): Adding another Layer of Security.</a>
+</li>
+<li>8.3.   <a href="#rfc.section.8.3">Security Model for Non-Custodial PayID Server Wallets</a>
+</li>
+</ul><li>9.   <a href="#rfc.section.9">Privacy Considerations</a>
+</li>
+<ul><li>9.1.   <a href="#rfc.section.9.1">Access Control</a>
+</li>
+</ul><li>10.   <a href="#rfc.section.10">IANA Considerations</a>
+</li>
+<li>11.   <a href="#rfc.section.11">Acknowledgments</a>
+</li>
+<li>12.   <a href="#rfc.references">References</a>
+</li>
+<ul><li>12.1.   <a href="#rfc.references.1">Normative References</a>
+</li>
+<li>12.2.   <a href="#rfc.references.2">Informative References</a>
+</li>
+</ul><li><a href="#rfc.authors">Authors' Addresses</a>
+</li>
+
+
+  </ul>
+
+  <h1 id="rfc.section.1">
+<a href="#rfc.section.1">1.</a> <a href="#terminology" id="terminology">Terminology</a>
+</h1>
+<p id="rfc.section.1.p.1">This protocol can be referred to as <samp>Verifiable PayID Protocol</samp>. It uses the following terminology.</p>
+<p></p>
+
+<ul>
+<li>endpoint: either the client or the server of the connection.</li>
+<li>sender: individual or entity originating the transaction.</li>
+<li>PayID client: the endpoint that initiates PayID protocol/sending side of the transaction.</li>
+<li>PayID server: the endpoint that returns payment account(s) information/receiving side of the transaction (custodial or non-custodial wallets, exchanges, etc).</li>
+<li>receiver/PayID owner: individual or entity receiving the transaction/owner of the PayID<a href="#PAYID-URI" class="xref">[PAYID-URI]</a>.</li>
+</ul>
+<p id="rfc.section.1.p.3">The terms <samp>receiver</samp> and <samp>PayID owner</samp> are used interchangeably.</p>
+<p id="rfc.section.1.p.4">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <a href="#RFC2119" class="xref">[RFC2119]</a> and [RFC9174][].</p>
+<h1 id="rfc.section.2">
+<a href="#rfc.section.2">2.</a> <a href="#motivation" id="motivation">Motivation</a>
+</h1>
+<p id="rfc.section.2.p.1">Basic PayID protocol <a href="#PAYID-PROTOCOL" class="xref">[PAYID-PROTOCOL]</a> specifies a protocol to interact with PayID server and retrieve payment account(s) information resource along with other meta-data corresponding to the queried PayID. The protocol relies on the underlying secure transport (TLS 1.3 <a href="#RFC8446" class="xref">[RFC8446]</a>) to ensure message integrity and privacy from network attackers. There are at least two assumptions in the security and privacy model of the basic PayID protocol that are less desirable.</p>
+<p></p>
+
+<ol>
+<li>Trust requirement between the PayID client and PayID server: As pointed out in the security considerations section of the <a href="#PAYID-PROTOCOL" class="xref">[PAYID-PROTOCOL]</a>, PayID server has full control over the contents of the response message, and may go rogue or be compromised. The PayID client has no way of knowing if the PayID server behaves maliciously. This implicit trust assumption between the PayID client and server is not ideal in the world where the information provided by the PayID server may be used by the PayID client to transmit money.</li>
+<li>Privacy: Per <a href="#PAYID-PROTOCOL" class="xref">[PAYID-PROTOCOL]</a>, anyone can query the PayID server and retrieve the payment account(s) information corresponding to the queried PayID. The PayID server or PayID owner has no way of deploying access control mechanisms since the <samp>identity</samp> of the PayID client and the sender is unknown to the PayID server.</li>
+</ol>
+<p id="rfc.section.2.p.3">The motivation for verifiable PayID protocol is threefold:</p>
+<p></p>
+
+<ol>
+<li>Eliminate implicit trust assumption between the PayID client and server: While it is not possible for the protocol to prevent PayID server from acting maliciously, the best we can do is to allow for mechanisms in the protocol that enables PayID client to prove this misbehaviour to third-parties and potentially hold the PayID server legally accountable for misbehaving.</li>
+<li>Enhance privacy of the PayID protocol by allowing the PayID client to share their and sender's <samp>identity</samp> information with the PayID server. This information could then be used to: <ul>
+<li>Give the PayID owner and/or PayID server the ability to decide if they want to share their payment account(s) information and other resources with the PayID client or the sender.</li>
+<li>Allow for an open standards based way for endpoints to keep verifiable records of their financial transactions, to better meet the needs of accounting practices or other reporting and regulatory requirements.</li>
+</ul>
+</li>
+<li>Ensure that if the PayID server is compromised, an attacker can not swap payment address in the payment account information response and redirect funds to the attacker controlled payment network and address. Allow the PayID server or PayID owner to pre-sign <samp>PaymentInformation</samp> in a cold/airgapped system offline instead of online on a hot wallet.</li>
+<li>Allows for non-custodial service providers to run non-custodial PayID service by allowing the PayID owners to digitally sign the <samp>PaymentInformation</samp> resource locally on their device with their off-ledger private keys and send PayID owner's <samp>identity</samp> information in the response. This information can then be used by the PayID client and sender to authenticate the PayID owner and decide if they want to proceed with the transaction.</li>
+</ol>
+<h1 id="rfc.section.3">
+<a href="#rfc.section.3">3.</a> <a href="#verifiable-payid-protocol-specification" id="verifiable-payid-protocol-specification">Verifiable PayID Protocol Specification</a>
+</h1>
+<p id="rfc.section.3.p.1">The verifiable PayID protocol is designed along the same design principles as <a href="#PAYID-PROTOCOL" class="xref">[PAYID-PROTOCOL]</a>.</p>
+<h1 id="rfc.section.3.1">
+<a href="#rfc.section.3.1">3.1.</a> <a href="#basic-operations" id="basic-operations">Basic Operations</a>
+</h1>
+<p id="rfc.section.3.1.p.1">Following are the basic operations performed by the Verifiable PayID client and PayID server to retrieve <samp>PaymentInformation</samp> resource corresponding to PayID.</p>
+<h1 id="rfc.section.3.1.1">
+<a href="#rfc.section.3.1.1">3.1.1.</a> <a href="#payid-client-requesting-the-paymentinformation-resource" id="payid-client-requesting-the-paymentinformation-resource">PayID Client Requesting the PaymentInformation Resource</a>
+</h1>
+<p id="rfc.section.3.1.1.p.1">When requesting the payment accounts(s) information resource per <a href="#PAYID-PROTOCOL" class="xref">[PAYID-PROTOCOL]</a> that is digitally signed and requires input paramters, the PayID client uses the HTTP <samp>POST</samp> method with path parameter <samp>payment-setup-details</samp> with optional payload in JSON format. We define this resource as <samp>PaymentInformation</samp> resource.</p>
+<h1 id="rfc.section.3.1.2">
+<a href="#rfc.section.3.1.2">3.1.2.</a> <a href="#payid-server-responding-to-the-paymentinformation-resource-request" id="payid-server-responding-to-the-paymentinformation-resource-request">PayID Server Responding to the PaymentInformation Resource Request</a>
+</h1>
+<p id="rfc.section.3.1.2.p.1">Upon receiving a request for a <samp>PaymentInformation</samp> resource that the PayID server can provide, the PayID server normally returns the requested response. However, if PayID server does not support verifiable PayID protocol, the PayID server MAY send back an appropriate error code (TBD) to indicate to the PayID client that the resource is available via an HTTP <samp>GET</samp> request to an alternate URL.</p>
+<h1 id="rfc.section.3.2">
+<a href="#rfc.section.3.2">3.2.</a> <a href="#json-payloads" id="json-payloads">JSON Payloads</a>
+</h1>
+<h1 id="rfc.section.3.2.1">
+<a href="#rfc.section.3.2.1">3.2.1.</a> <a href="#payid-client-request-query-body-for-paymentinformation-resource" id="payid-client-request-query-body-for-paymentinformation-resource">PayID Client Request Query Body for PaymentInformation Resource</a>
+</h1>
+<pre>
+  {
+   optional string identity,
+   optional string memo
+  }
+</pre>
+<h1 id="rfc.section.3.2.1.1">
+<a href="#rfc.section.3.2.1.1">3.2.1.1.</a> <a href="#identity" id="identity">identity</a>
+</h1>
+<p id="rfc.section.3.2.1.1.p.1">The type/value of <samp>identity</samp> field is TBD. We anticipate this being mechanism for the PayID client to transmit their or sender's <samp>identity</samp> information to the PayID server. This information can then be used by the PayID server/PayID owner to * Enhance privacy by exercising access control mechanisms such as authorized access via accept/deny lists, etc. for the <samp>PaymentInformation</samp> or other resources for a PayID.  * Record-Keeping</p>
+<h1 id="rfc.section.3.2.1.2">
+<a href="#rfc.section.3.2.1.2">3.2.1.2.</a> <a href="#memo" id="memo">memo</a>
+</h1>
+<p id="rfc.section.3.2.1.2.p.1">The type/value of <samp>memo</samp> field is TBD. <samp>memo</samp> field is a placeholder to ensure protocol extensibility. e.g. for the primary use-case of making payments, the PayID client MAY send information such as amount, scale, etc. necessary to make the payment.  //TBD: The request body parameters will depend on the use-case.</p>
+<h1 id="rfc.section.3.2.2">
+<a href="#rfc.section.3.2.2">3.2.2.</a> <a href="#payid-server-response-body-for-paymentinformation-resource-request" id="payid-server-response-body-for-paymentinformation-resource-request">PayID Server Response Body for PaymentInformation Resource Request</a>
+</h1>
+<p id="rfc.section.3.2.2.p.1">Refer to payment account(s) information resource in <a href="#PAYID-PROTOCOL" class="xref">[PAYID-PROTOCOL]</a>.</p>
+<h1 id="rfc.section.3.2.3">
+<a href="#rfc.section.3.2.3">3.2.3.</a> <a href="#signaturewrapper" id="signaturewrapper">SignatureWrapper</a>
+</h1>
+<p><samp>SignatureWrapper</samp> is an encapsulating wrapper for any verifiable PayID protocol messages. It allows for the generation of cryptographically signed third-party verifiable proofs of the contents of the messages exchanged between the participating endpoints. We define <samp>SignatureWrapper</samp> as JSON object with the following name/value pairs:</p>
+<pre>
+  {
+   required string messageType,
+   required Message message,
+   required string publicKeyType,
+   required array publicKeyData,
+   required string publicKey,
+   required string signature
+  }
+</pre>
+<h1 id="rfc.section.3.2.3.1">
+<a href="#rfc.section.3.2.3.1">3.2.3.1.</a> <a href="#messagetype" id="messagetype">messageType</a>
+</h1>
+<p id="rfc.section.3.2.3.1.p.1">The value of <samp>messageType</samp> is the message type of the signed <samp>message</samp>. <samp>messageType</samp> is essential for future extensibility of the protocol to include more message types. We define the following enum for message types: enum messageType { PaymentInformation }</p>
+<h1 id="rfc.section.3.2.3.2">
+<a href="#rfc.section.3.2.3.2">3.2.3.2.</a> <a href="#message" id="message">message</a>
+</h1>
+<p id="rfc.section.3.2.3.2.p.1">The value of <samp>message</samp> includes the contents of the verifiable PayID protocol message of the type <samp>messageType</samp> to be signed.</p>
+<h1 id="rfc.section.3.2.3.3">
+<a href="#rfc.section.3.2.3.3">3.2.3.3.</a> <a href="#publickeytype" id="publickeytype">publicKeyType</a>
+</h1>
+<p id="rfc.section.3.2.3.3.p.1">The value of <samp>publicKeyType</samp> is the Public Key Infrastructure (PKI)/identity system being used to identify the signing endpoint. e.g. <samp>X509+SHA512</samp> means an X.509 certificate as described in <a href="#RFC5280" class="xref">[RFC5280]</a> and SHA512 hash algorithm used to hash the contents of <samp>message</samp> for signing. This field defaults to empty string. We define the following <samp>publicKeyType</samp> values. One can register more in future.</p>
+<table cellpadding="3" cellspacing="0" class="tt full center">
+<thead><tr>
+<th class="left">publicKeyType</th>
+<th class="left">Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="left">X509+SHA512</td>
+<td class="left">A X.509 certificate <a href="#RFC5280" class="xref">[RFC5280]</a>
+</td>
+</tr>
+<tr>
+<td class="left">pgp+SHA512</td>
+<td class="left">An OpenPGP certificate</td>
+</tr>
+<tr>
+<td class="left">ecdsa+SHA256</td>
+<td class="left">A secp256k1 ECDSA public key <a href="#RFC6979" class="xref">[RFC6979]</a> <a href="#RFC8422" class="xref">[RFC8422]</a>
+</td>
+</tr>
+</tbody>
+</table>
+<h1 id="rfc.section.3.2.3.4">
+<a href="#rfc.section.3.2.3.4">3.2.3.4.</a> <a href="#publickeydata" id="publickeydata">publicKeyData</a>
+</h1>
+<p id="rfc.section.3.2.3.4.p.1">The value of <samp>publicKeyData</samp> is the PKI-system/identity data used to identify the signing endpoint who creates digital signatures over the hash of the contents of the <samp>message</samp>. e.g. in the case of X.509 certificates, it may contain one or more X.509 certificates as a list upto the root trust certificate. Defaults to empty.</p>
+<h1 id="rfc.section.3.2.3.5">
+<a href="#rfc.section.3.2.3.5">3.2.3.5.</a> <a href="#publickey" id="publickey">publicKey</a>
+</h1>
+<p id="rfc.section.3.2.3.5.p.1">The value of <samp>publicKey</samp> is the contents of the public key. Defaults to empty.</p>
+<h1 id="rfc.section.3.2.3.6">
+<a href="#rfc.section.3.2.3.6">3.2.3.6.</a> <a href="#signature" id="signature">signature</a>
+</h1>
+<p id="rfc.section.3.2.3.6.p.1">The value of <samp>signature</samp> is the digital signature over the hash of the contents of the <samp>message</samp> using the private key corresponding to the public key in <samp>publicKey</samp>. This is a proof that the <samp>message</samp> was signed by the corresponding private key holder.</p>
+<h1 id="rfc.section.4">
+<a href="#rfc.section.4">4.</a> <a href="#custodial-and-non-custodial-payid-service-providers" id="custodial-and-non-custodial-payid-service-providers">Custodial and Non-Custodial PayID Service Providers</a>
+</h1>
+<p id="rfc.section.4.p.1">We anticipate that the most common use-case for retrieving <samp>PaymentInformation</samp> resource is to make transactions. We can categorize the providers of such services as follows: * Custodial wallets and exchanges: Custodial wallets and exchanges hold the private keys of their customers on their servers and essentially hold their funds. There is an implicit trust between the custodial service provider and their customers.</p>
+<p></p>
+
+<ul><li>Non-Custodial wallets and exchanges: Non-custodial wallets and exchanges do not store their customers&#8217; keys on their servers. The customers hold their private keys locally on their device. [Arguably] there is a no trust requirement between the non-custodial wallets and exchanges and their customers. Since the customers hold the private keys so the wallets are not liable for any consequences coming from the lost, compromised or hacked private keys of the customers. Nor do they need their customers to trust their servers in case wallet's servers go malicious or are compromised.</li></ul>
+<p id="rfc.section.4.p.3">Notice that the custodial and non-custodial service providers operate under different trust models. To continue operating under the same trust model, verifiable PayID requires slightly different treatment for the two.</p>
+<h1 id="rfc.section.5">
+<a href="#rfc.section.5">5.</a> <a href="#verifiable-payid-protocol-for-custodial-wallets-and-exchanges" id="verifiable-payid-protocol-for-custodial-wallets-and-exchanges">Verifiable PayID Protocol for Custodial Wallets and Exchanges</a>
+</h1>
+<p id="rfc.section.5.p.1">Verifiable PayID protocol flow is similar to that of the Basic PayID protocol <a href="#PAYID-PROTOCOL" class="xref">[PAYID-PROTOCOL]</a> with the following modifications.</p>
+<pre>
+Sender  PayID client                                             PayID server    Receiver
+  |           |                                                          |            | 
+  |PayID, etc.|                                                          |            |
+  |----------&gt;|                                                          |            |
+  |           |     1.) POST /payment-setup-details request to PayID URL |            |
+  |           |---------------------------------------------------------&gt;|            | 
+  |           |     2.) 200 Ok                                           |            |
+  |           |       Signed PaymentInformation response                 |            |
+  |           |&lt;---------------------------------------------------------|  Optional  |
+  |           |                                                          |notification| 
+  |           |                                                          |-----------&gt;|
+  |           |                                                          |            | 
+</pre>
+<h1 id="rfc.section.5.1">
+<a href="#rfc.section.5.1">5.1.</a> <a href="#step-1-preparing-the-http-request-to-payid-url-using-http-post-method" id="step-1-preparing-the-http-request-to-payid-url-using-http-post-method">Step 1: Preparing the HTTP Request to PayID URL using HTTP POST Method</a>
+</h1>
+<p id="rfc.section.5.1.p.1">A verifiable PayID client issues a query using the HTTP <samp>POST</samp> method to the PayID URL with path parameter <samp>payment-setup-details</samp> and optional body parameters as described above.</p>
+<h1 id="rfc.section.5.2">
+<a href="#rfc.section.5.2">5.2.</a> <a href="#step-2-preparing-the-paymentinformation-response" id="step-2-preparing-the-paymentinformation-response">Step 2: Preparing the PaymentInformation Response</a>
+</h1>
+<p id="rfc.section.5.2.p.1">In response, the PayID server returns JSON representation of the <samp>PaymentInformation</samp> resource. <samp>PaymentInformation</samp> resource is the <samp>signed</samp> payment account(s) information message <a href="#PAYID-PROTOCOL" class="xref">[PAYID-PROTOCOL]</a> for the payment-network and environment requested by PayID client in the request <samp>Accept</samp> header field along with other required and optional meta data as <samp>message</samp> field in the <samp>SignatureWrapper</samp>.</p>
+<h1 id="rfc.section.5.2.1">
+<a href="#rfc.section.5.2.1">5.2.1.</a> <a href="#preparing-the-payment-accounts-information-message" id="preparing-the-payment-accounts-information-message">Preparing the payment account(s) information message</a>
+</h1>
+<p></p>
+
+<ul>
+<li>Set <samp>payId</samp> to the value of the PayID in the client query. This is a required field in verifiable PayID protocol.</li>
+<li>Set <samp>addresses</samp> to the value as described in <a href="#PAYID-PROTOCOL" class="xref">[PAYID-PROTOCOL]</a>
+</li>
+<li>Optionally set <samp>memo</samp> to any additional information.</li>
+<li>
+<samp>identity</samp> field is optional.</li>
+<li>Optionally set <samp>proofOfControlSignature</samp> to the value as described in <a href="#PAYID-PROTOCOL" class="xref">[PAYID-PROTOCOL]</a>.</li>
+</ul>
+<h1 id="rfc.section.5.2.2">
+<a href="#rfc.section.5.2.2">5.2.2.</a> <a href="#preparing-signaturewrapper-message" id="preparing-signaturewrapper-message">Preparing SignatureWrapper message</a>
+</h1>
+<p></p>
+
+<ul>
+<li>Set <samp>messageType</samp> to <samp>PaymentInformation</samp>.</li>
+<li>Set <samp>message</samp> to the value of payment account(s) information message as generated above.</li>
+<li>Set <samp>publicKeyType</samp> to one of the values described in the Section above.</li>
+<li>Set <samp>publicKeyData</samp> to the data corresponding to the value in <samp>publicKeyType</samp>.</li>
+<li>Set <samp>publicKey</samp> to value of the public key of the signing endpoint (PayID server.)</li>
+<li>Sign the <samp>message</samp> using the hash algorithm and the signture scheme corresponding to the value in <samp>publicKeyType</samp>
+</li>
+<li>Set <samp>signature</samp> to the result of the signature operation in the previous step.</li>
+</ul>
+<p id="rfc.section.5.2.2.p.2">Send the signed payment account(s) information message as <samp>PaymentInformation</samp> response to the client.</p>
+<h1 id="rfc.section.5.3">
+<a href="#rfc.section.5.3">5.3.</a> <a href="#step-3-parse-paymentinformation-response" id="step-3-parse-paymentinformation-response">Step 3: Parse PaymentInformation Response</a>
+</h1>
+<p id="rfc.section.5.3.p.1">If the PayID server returns a valid response, the response will contain one or more of the fields defined above. The PayID client will then:</p>
+<p></p>
+
+<ul>
+<li>Verify the <samp>publicKey</samp> using the information in the <samp>publicKeyType</samp> and <samp>publicKeyData</samp> in the response.</li>
+<li>Verify the signature retrieved from the <samp>signature</samp> field using the public key verified in the previous step.</li>
+<li>Retrieve payment account(s) information message from the <samp>message</samp> field of the <samp>PaymentInformation</samp> Response.</li>
+</ul>
+<p id="rfc.section.5.3.p.3">All the verification steps MUST pass. The PayID client proceeds to the next step only if the previous step passes, otherwise it generates the relevant Error message (//TBD).</p>
+<h1 id="rfc.section.6">
+<a href="#rfc.section.6">6.</a> <a href="#verifiable-payid-protocol-for-non-custodial-wallets-and-exchanges" id="verifiable-payid-protocol-for-non-custodial-wallets-and-exchanges">Verifiable PayID Protocol for Non-Custodial Wallets and Exchanges</a>
+</h1>
+<p id="rfc.section.6.p.1">Pre-step at PayID owner's (non-custodial wallet's customer) device locally.  For each <samp>payment-network</samp> and <samp>environment</samp> as described in <a href="#PAYID-PROTOCOL" class="xref">[PAYID-PROTOCOL]</a> that the PayID owner has a payment address for, generate the following payment account(s) information message * Set <samp>payId</samp> to the value of the PayID. This is a required field in verifiable PayID protocol.  * Set <samp>addresses</samp> to the value as described in <a href="#PAYID-PROTOCOL" class="xref">[PAYID-PROTOCOL]</a> * Optionally set <samp>memo</samp> to any additional information.  * <samp>identity</samp> field is TBD.  * <samp>proofOfControlSignature</samp> is optional described in <a href="#PAYID-PROTOCOL" class="xref">[PAYID-PROTOCOL]</a> and is not required in this case.</p>
+<p id="rfc.section.6.p.2">For each payment account(s) information message, prepare <samp>SignatureWrapper</samp> message * Set <samp>messageType</samp> to <samp>PaymentInformation</samp>.  * Set <samp>message</samp> to the value of payment account(s) information message as generated above.  * Set <samp>publicKeyType</samp> to one of the values described in Section X.  * Set <samp>publicKeyData</samp> to the data corresponding to the value in <samp>publicKeyType</samp>.  * Set <samp>publicKey</samp> to value of the public key of the signing endpoint (PayID server.) * Sign the <samp>message</samp> using the hash algorithm and the signture scheme corresponding to the value in <samp>publicKeyType</samp> * Set <samp>signature</samp> to the result of the signature operation in the previous step.</p>
+<p id="rfc.section.6.p.3">This signed payment account(s) information message is then securely transferred to the non-custodial PayID server and stored by the PayID server as <samp>PaymentInformation</samp> resource.</p>
+<h1 id="rfc.section.6.1">
+<a href="#rfc.section.6.1">6.1.</a> <a href="#discussion-section-on-distributing-payid-owners-keys" id="discussion-section-on-distributing-payid-owners-keys">Discussion Section on distributing PayID owner's keys</a>
+</h1>
+<p id="rfc.section.6.1.p.1">In this subsection, we discuss potential ways to distribute the keys of the PayID owner used to sign the message. Once we reach a consensus, it will be added to the relevant sections of this document and this subsection will be removed. Following are the two possible approaches:</p>
+<h1 id="rfc.section.6.1.1">
+<a href="#rfc.section.6.1.1">6.1.1.</a> <a href="#identity-field-in-payment-accounts-information-message" id="identity-field-in-payment-accounts-information-message">identity field in payment account(s) information message</a>
+</h1>
+<p id="rfc.section.6.1.1.p.1">The following table enumerates the possible ways to share the public key of PayID owner using <samp>identity</samp> field.</p>
+<table cellpadding="3" cellspacing="0" class="tt full center">
+<thead><tr>
+<th class="left">identity</th>
+<th class="left">Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="left">Global Identifier (GiD) <a href="#GiD" class="xref">[GiD]</a>
+</td>
+<td class="left">digital identifier</td>
+</tr>
+<tr>
+<td class="left">Human Universally Unique Identifier (Human UUID) <a href="#HUUID" class="xref">[HUUID]</a>
+</td>
+<td class="left">digital identifier</td>
+</tr>
+<tr>
+<td class="left">Digital Identifier (DID) <a href="#DID" class="xref">[DID]</a>
+</td>
+<td class="left">digital identifier</td>
+</tr>
+<tr>
+<td class="left">Certificate</td>
+<td class="left">attested certificate that associates digital identifier to PayID and public key</td>
+</tr>
+<tr>
+<td class="left">URL</td>
+<td class="left">URL for secure retrieval of public key of the PayID owner</td>
+</tr>
+<tr>
+<td class="left">Public key</td>
+<td class="left">out-of-band preshared public key between PayID client and PayID owner</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+
+<ul>
+<li>Digital identifier: A global digital identifier that uniquely associates the <samp>PayID owner's identity</samp> as defined by the identifier (GiD, HUID, DID, etc.) to the <samp>PayID</samp> and <samp>public key</samp>. The PayID client can then verify the <samp>public key</samp> using the digital identifier. This could be a direct retrieval of the corresponding <samp>public key</samp> from digital identity service provider if PayID is a part of that digital identifier.</li>
+<li>Certificate: An attested certificate that associates digital identifier such as GiD, Human UUID, DID, etc. to the <samp>PayID</samp> and <samp>public key</samp>.</li>
+<li>URL: A URL for secure retrieval of <samp>public key</samp> of the PayID owner.</li>
+<li>Pre-shared public Key: The public key that has been pre-shared out-of-band between the PayID client and PayID owner.</li>
+</ul>
+<h1 id="rfc.section.6.1.2">
+<a href="#rfc.section.6.1.2">6.1.2.</a> <a href="#embed-the-public-key-of-payid-owner-in-the-payid" id="embed-the-public-key-of-payid-owner-in-the-payid">Embed the public key of PayID owner in the PayID</a>
+</h1>
+<p id="rfc.section.6.1.2.p.1">PayID <a href="#PAYID-URI" class="xref">[PAYID-URI]</a> could support non-custodial systems with a fairly simple extension to the protocol to run non-custodial PayID servers that could not be hacked or tricked into sending money to the wrong place. The idea is to reserve the hostname <samp>pkh</samp> for <samp>public key hashes</samp> and support a PayID format like <samp>public_key_hash</samp>$pkh.provider.domain. PayID client implementations would require that any <samp>PaymentInformation</samp> resource that resulted from the PayID of that form be signed with the <samp>private key</samp> corresponding to that <samp>public key hash</samp>. So only a <samp>PaymentInformation</samp> signed by the owner of the PayID would work.</p>
+<p id="rfc.section.6.1.2.p.2">The caveat is that that PayID format is not human-readable anymore. The solution is simple: the non-custodial wallets and exchanges would provide a non-human-readable PayID of the form <samp>public_key_hash</samp>$pkh.provider.domain, but the customers may get a human-readable PayID from another trusted service providers (say from their email provider) that maps to the non-human-readable PayID they got from their non-custodial service-provider. Non-custodial service-providers could even automate this process by allowing the user to choose a mapping provider.</p>
+<p id="rfc.section.6.1.2.p.3">// Details TBD</p>
+<h1 id="rfc.section.6.2">
+<a href="#rfc.section.6.2">6.2.</a> <a href="#step-1-preparing-http-request-to-payid-url-using-http-post-method" id="step-1-preparing-http-request-to-payid-url-using-http-post-method">Step 1: Preparing HTTP Request to PayID URL using HTTP POST Method</a>
+</h1>
+<p id="rfc.section.6.2.p.1">Same as in the previous section.</p>
+<h1 id="rfc.section.6.3">
+<a href="#rfc.section.6.3">6.3.</a> <a href="#step-2-preparing-paymentinformation-response" id="step-2-preparing-paymentinformation-response">Step 2: Preparing PaymentInformation Response</a>
+</h1>
+<p id="rfc.section.6.3.p.1">The PayID server MUST parse the request body. The protocol does not provide specification on how the PayID server MAY use this information.</p>
+<p id="rfc.section.6.3.p.2">If the PayID server were to proceed, the PayID server retrieves the pre-signed <samp>PaymentInformation</samp> response to the PayID client.</p>
+<h1 id="rfc.section.6.4">
+<a href="#rfc.section.6.4">6.4.</a> <a href="#step-3-parsing-the-paymentinformation-response" id="step-3-parsing-the-paymentinformation-response">Step 3: Parsing the PaymentInformation Response</a>
+</h1>
+<p id="rfc.section.6.4.p.1">The PayID client follows the same verifiation steps as in the previous section. Details to be decided based on <samp>identity</samp> solution.</p>
+<h1 id="rfc.section.7">
+<a href="#rfc.section.7">7.</a> <a href="#example-use-of-verifiable-payid-protocol" id="example-use-of-verifiable-payid-protocol">Example Use of Verifiable PayID Protocol</a>
+</h1>
+<p id="rfc.section.7.p.1">This section shows sample use of verifiable PayID protocol in several hypothetical scenarios.</p>
+<h1 id="rfc.section.7.1">
+<a href="#rfc.section.7.1">7.1.</a> <a href="#verifiable-payid-protocol-by-a-custodial-wallet-as-payid-server" id="verifiable-payid-protocol-by-a-custodial-wallet-as-payid-server">Verifiable PayID Protocol by a Custodial Wallet as PayID server</a>
+</h1>
+<p id="rfc.section.7.1.p.1">Suppose Alice (sender) wishes to send a friend Bob (PayID owner) some XRP from a web-based wallet provider (PayID client) that Alice has an account on. Alice would log-in to the wallet provider and enter Bob's PayID (say, <samp>bob$receiver.example.com</samp>) into the wallet UI to start the payment.</p>
+<p id="rfc.section.7.1.p.2">The Wallet application would first discover the PayID URL for the PayID service-provider using one of the mechanisms described in PayID discovery protocol <a href="#PAYID-DISCOVERY" class="xref">[PAYID-DISCOVERY]</a>.</p>
+<p id="rfc.section.7.1.p.3">The Wallet application would then issue an HTTPS POST request:</p>
+<pre>
+ POST /users/bob/payment-setup-details HTTP/1.1
+ Host: www.receiver.example.com
+ Accept: application/xrpl-testnet+json
+ PayID-version: 1.0
+
+ {
+  "identity": "TBD",
+  "memo": "Any additional required information"
+ }
+</pre>
+<p id="rfc.section.7.1.p.4">Bob's wallet who is a custodial PayID server wallet might respond like this:</p>
+<pre>
+ HTTP/1.1 200 OK
+ Content-Type: application/json
+ Content-Length: 403
+ PayID-version: 1.0
+ Cache-Control: max-age=0
+ Server: Apache/1.3.11
+{
+"messageType" : "PaymentInformation",
+"message" :
+ {
+   "payId" : "bob$receiver.example.com",
+   "addresses" :
+   [
+     {  
+       "paymentNetwork" : "xrpl",
+       "environment" : "testnet",
+       "addressDetailsType" : "CryptoAddressDetails",
+       "addressDetails" : {
+                    "address" : "XTVQWr6BhgBLW2jbFyqqufgq8T9eN7KresB684ZSHKQ3oDth"
+            }
+      }
+    ],
+    "memo" : "Additional optional Information",
+    "proofOfControlSignature" : 
+    {
+      "publicKey" : "sdkfhjasdvkakjnasdv",
+      "payId" : "bob$receiver.example.com", 
+      "hashAlgorithm" : "SHA512",
+      "signature" : "9743b52063cd84097a65d1633f5c74f5"
+    }
+ }
+"publicKeyType" : "X509+SHA512",
+"publicKeyData": [],
+"publicKey" : "00:c9:22:69:31:8a:d6:6c:ea:da:c3:7f:2c:ac:a5:af:c0:02:ea:81:cb:65:b9:fd:0c:6d:46:5b:c9:1e:9d:3b:ef...",
+"signature" : "8b:c3:ed:d1:9d:39:6f:af:40:72:bd:1e:18:5e:30:54:23:35..."
+}
+</pre>
+<p id="rfc.section.7.1.p.5">In the above example we see that Bob's custodial PayID server wallet returned signed X-Addreess on XRPL testnet identified by PayID <samp>bob$receiver.example.com</samp>. This is because Alice's wallet asked for XRPL and testnet payment accounts corresponding to the PayID in the <samp>Accept</samp> header.</p>
+<p id="rfc.section.7.1.p.6">Alice's Wallet MAY then use the payment account information to make payments.</p>
+<h1 id="rfc.section.7.2">
+<a href="#rfc.section.7.2">7.2.</a> <a href="#verifiable-payid-protocol-by-a-non-custodial-wallet-as-payid-server" id="verifiable-payid-protocol-by-a-non-custodial-wallet-as-payid-server">Verifiable PayID Protocol by a Non-Custodial Wallet as PayID Server</a>
+</h1>
+<p id="rfc.section.7.2.p.1">Consider the same scenario as above.</p>
+<p id="rfc.section.7.2.p.2">Bob's wallet who is a non-custodial PayID server might respond like this:</p>
+<pre>
+ HTTP/1.1 200 OK
+ Content-Type: application/json
+ Content-Length: 403
+ PayID-version: 1.0
+ Cache-Control: max-age=0
+ Server: Apache/1.3.11
+{
+"messageType" : "PaymentInformation",
+"message" :
+ {
+   "payId" : "bob$receiver.example.com",
+   "addresses" :
+   [
+     {  
+       "paymentNetwork" : "xrpl",
+       "environment" : "testnet",
+       "addressDetailsType" : "CryptoAddressDetails",
+       "addressDetails" : {
+          "address" : "XTVQWr6BhgBLW2jbFyqqufgq8T9eN7KresB684ZSHKQ3oDth"
+        }
+      }
+    ],
+    "memo" : "Additional optional Information",
+    "identity" : "TBD",
+ }
+"signature" : "TBD"
+}
+</pre>
+<p id="rfc.section.7.2.p.3">In the above example, the <samp>PaymentInformation</samp> resource is a pre-signed message with the off-ledger private keys of the PayID owner Bob. Bob's non-custodial wallet retrieves this response and sends to the PayID client.</p>
+<p id="rfc.section.7.2.p.4">//TODO Add example for PayID owner's public key embedded in PayID.</p>
+<h1 id="rfc.section.8">
+<a href="#rfc.section.8">8.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a>
+</h1>
+<p id="rfc.section.8.p.1">This security considerations section only considers verifiable PayID clients and servers bound to implementations as defined in this document.</p>
+<p id="rfc.section.8.p.2">The security guarantees mentioned in <a href="#PAYID-PROTOCOL" class="xref">[PAYID-PROTOCOL]</a> applies to verifiable PayID protocol. In this section we discuss security model for verifiable PayID protocol.</p>
+<h1 id="rfc.section.8.1">
+<a href="#rfc.section.8.1">8.1.</a> <a href="#fully-malicious-adversary-model-for-payid-client-wallet-and-custodial-wallets-and-exchanges-as-payid-servers" id="fully-malicious-adversary-model-for-payid-client-wallet-and-custodial-wallets-and-exchanges-as-payid-servers">Fully-Malicious Adversary Model for PayID Client Wallet and Custodial Wallets and Exchanges as PayID Servers</a>
+</h1>
+<p id="rfc.section.8.1.p.1">While the verifiable PayID protocol operates between a PayID client and a PayID server, there are actually four parties to any payment. The other two parties are the sender of the payment whose funds are being transferred and the PayID owner or the receiver of the payment who the sender wishes to pay.</p>
+<p id="rfc.section.8.1.p.2">In the current security model, there is necessarily some existing trust between the sender and the sender's wallet. The sender's wallet is holding the sender's private keys and consequently their funds before the payment is made. Similarly, there is necessarily some existing trust between the receiver and their custodial wallet since the receiver has directed that the custodial wallet receive their funds.</p>
+<p id="rfc.section.8.1.p.3">Verifiable PayID protocol provides stronger security guarantee: The ideal scenario that we strive for is that the sender should be able to hold the PayID client wallet legally accountable if the institution provably mishandles their funds. Similarly, the PayID owner/receiver should be able to hold the PayID server wallet legally accountable if their funds are mishandled. However, this mechanism requires that it be possible for either wallet to establish that it acted properly and that the other wallet acted improperly.</p>
+<p id="rfc.section.8.1.p.4">Of course, the preferred outcome of any payment is that nothing goes wrong and both the sender and PayID owner/receiver of the payment are satisfied that the payment took place as agreed. A less desirable outcome is that the payment cannot take place for some reason and the sender still has their money and understands why the payment cannot take place.</p>
+<p id="rfc.section.8.1.p.5">While the protocol cannot possibly prevent the PayID client wallet from sending the funds to the wrong address or the PayID server wallet from receiving the funds but refusing to release them to the PayID owner/receiver, it is vital that the institutions not be able to plausibly blame each other for a failure where the sender has been debited but the PayID client/wallet has not been credited.</p>
+<p id="rfc.section.8.1.p.6">Accordingly, the security model of verifiable PayID protocol permits four acceptable outcomes:</p>
+<p></p>
+
+<ol>
+<li>The payment succeeds, the sender is debited, and the PayID owner/receiver is credited.</li>
+<li>The payment fails, the sender is not debited, and the PayID owner/receiver is not credited.</li>
+<li>The payment fails, the sender is debited, the PayID owner/receiver is not credited, the sender can show that the PayID client wallet did not follow the protocol.</li>
+<li>The payment fails, the sender is debited, the PayID owner/receiver is not credited, the sender can show the receiver that their PayID server wallet did not follow the protocol.</li>
+</ol>
+<p id="rfc.section.8.1.p.8">Again, the protocol cannot possibly prevent outcomes 3 or 4 because the PayID client wallet can always send the money to the wrong address and the PayID server wallet can always refuse to credit the PayID owner/receiver. It is, however, critical that the PayID client and PayID server wallets not need to trust each other to ensure that one of these four outcomes occurs and that they cannot point blame at each other.</p>
+<h1 id="rfc.section.8.1.1">
+<a href="#rfc.section.8.1.1">8.1.1.</a> <a href="#cryptographic-proofs" id="cryptographic-proofs">Cryptographic Proofs</a>
+</h1>
+<p id="rfc.section.8.1.1.p.1">//TODO</p>
+<h1 id="rfc.section.8.2">
+<a href="#rfc.section.8.2">8.2.</a> <a href="#fully-compromisable-custodial-payid-server-wallet-hotalways-online-systems-adding-another-layer-of-security" id="fully-compromisable-custodial-payid-server-wallet-hotalways-online-systems-adding-another-layer-of-security">Fully Compromisable Custodial PayID Server Wallet (hot/always online systems): Adding another Layer of Security.</a>
+</h1>
+<p id="rfc.section.8.2.p.1">Verifiable PayID protocol's security model assumes that the online servers can be physically or remotely compromised by an adversary. These are the most attractive attack vectors. There is sufficient evidence that hot/always online systems are more vulnerable.</p>
+<p id="rfc.section.8.2.p.2">There are multiple cryptogrpahic operations that the PayID server wallet MUST perform to establish secure communication channels, to generate signed messages as verifiable cryptogrpahic proofs, etc.</p>
+<p id="rfc.section.8.2.p.3">These operations have very different security requirements and compromising the cryptographic keys required for these operations have different security implications.</p>
+<p></p>
+
+<ul>
+<li>High risk impersonation attack to steal funds: If the PayID server wallet&#8217;s cryptographic keys used to sign <samp>PaymentInformation</samp> resource are compromised, an attacker may impersonate as the PayID server wallet and sign malicious mappings (&#8216;Receiver's PayID &#8594; attacker controlled payment address&#8217;) to send to the PayID client wallet. This may lead to indirection of funds by the PayID client wallet to the attacker controlled address. Therefore, it is extremely important to keep these keys safe offline.</li>
+<li>Lower-risk impersonation attacks: An attacker can never steal funds if only cryptographic keys used to establish secure network connection between the PayID client wallet and PayID server wallet are compromised.</li>
+</ul>
+<p id="rfc.section.8.2.p.5">These differing security implications warrant a separation of generating cryptographically signed proofs and storing the cryptographic keys used to perform these two operations. Some observations that inform us on how we can deal with this is that: * generating the cryptographic signatures on <samp>PaymentInformation</samp> resource need not be an online operation. This can be performed offline in a safe cold system with a separate set of keys,</p>
+<p></p>
+
+<ul><li>All other cryptographic operations need to be performed online such as signing any additional information needed to fulfil the payment or establishing secure communication channel.</li></ul>
+<p id="rfc.section.8.2.p.7">Based on these observations, we propose to maintain two separate systems (hot and cold) and two separate sets of cryptographic keys for the two operations.</p>
+<p id="rfc.section.8.2.p.8">We propose that the PayID client wallet and PayID server wallet SHOULD follow best practices to reduce the attack surface and be more robust.</p>
+<p id="rfc.section.8.2.p.9">//TODO Key Management sub-section.</p>
+<h1 id="rfc.section.8.3">
+<a href="#rfc.section.8.3">8.3.</a> <a href="#security-model-for-non-custodial-payid-server-wallets" id="security-model-for-non-custodial-payid-server-wallets">Security Model for Non-Custodial PayID Server Wallets</a>
+</h1>
+<p id="rfc.section.8.3.p.1">In the current security model, non-custodial wallets do not store their customers&#8217; keys on their servers. The customers hold their private keys on their device. There is a no trust requirement between the service provided by the non-custodial wallets and the customers of this service. Since the customers hold the private keys: * the wallets are not liable for any consequences coming from the lost, compromised or hacked private keys of the customers.  * the non-custodial wallets do not require their customers to trust their servers in case wallets servers go malicious or are compromised.</p>
+<p id="rfc.section.8.3.p.2">Verifiable PayID protocol preserves this trust model. For the non-custodial PayID server wallets this means that</p>
+<p></p>
+
+<ul><li>On the receiving side of the payment (as a PayID server) non-custodial wallets have no liability on their end for providing <samp>PaymentInformation</samp>, i.e. the <samp>PayID --&gt; Payment Address</samp> mappings for their customers that is signed with the private key of the non-custodial PayID server wallet. The PayID owners or the customers can generate this signed mapping with their own off-ledger private key locally on their app/device. The PayID client can easily verify this signature based on the trust relationship between the sender of the payment (PayID client wallet&#8217;s customer) and the receiver (non-custodial PayID server's wallet). The non-custodial PayID server wallet has no role whatsoever. This eliminates any risk of the non-custodial PayID server wallet having lost their private keys, going malicious or getting hacked, etc. because if this happens then their customers might lose funds.</li></ul>
+<h1 id="rfc.section.9">
+<a href="#rfc.section.9">9.</a> <a href="#privacy-considerations" id="privacy-considerations">Privacy Considerations</a>
+</h1>
+<p id="rfc.section.9.p.1">All privacy guarantess in Privacy Considerations section of <a href="#PAYID-PROTOCOL" class="xref">[PAYID-PROTOCOL]</a> applies to Verifiable PayID protocol and further addresses some of the privacy issues mentioned in <a href="#PAYID-PROTOCOL" class="xref">[PAYID-PROTOCOL]</a>.</p>
+<h1 id="rfc.section.9.1">
+<a href="#rfc.section.9.1">9.1.</a> <a href="#access-control" id="access-control">Access Control</a>
+</h1>
+<p id="rfc.section.9.1.p.1">PayID protocol MUST not be used to provide <samp>PaymentInformation</samp> or any pther resources corresponding to a PayID unless providing that data via PayID protocol by the relevant PayID server was explicitly authorized by the PayID owner. If PayID owner wishes to limit access to information, PayID servers MAY provide an interface by which PayID owners can select which information is exposed through the PayID server interface. For example, PayID servers MAY allow PayID owners to mark certain data as <samp>public</samp> and then utilize that marking as a means of determining what information to expose via PayID protocol. The PayID servers MAY also allow PayID owners to provide a whitelist of users who are authorized to access the specific information. In such a case, the PayID server MUST authenticate the PayID client. The additional <samp>identity</samp> field in the PayID client query request allows for this.</p>
+<h1 id="rfc.section.10">
+<a href="#rfc.section.10">10.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a>
+</h1>
+<p id="rfc.section.10.p.1">//TODO</p>
+<h1 id="rfc.section.11">
+<a href="#rfc.section.11">11.</a> <a href="#acknowledgments" id="acknowledgments">Acknowledgments</a>
+</h1>
+<p id="rfc.section.11.p.1">//TODO</p>
+<h1 id="rfc.references">
+<a href="#rfc.references">12.</a> References</h1>
+<h1 id="rfc.references.1">
+<a href="#rfc.references.1">12.1.</a> Normative References</h1>
+<table><tbody>
+<tr>
+<td class="reference"><b id="DID">[DID]</b></td>
+<td class="top">"<a href="https://www.didalliance.org/">Digital Identity Alliance</a>", n.d..</td>
+</tr>
+<tr>
+<td class="reference"><b id="GiD">[GiD]</b></td>
+<td class="top">"<a href="https://www.global.id/">Global identity</a>", n.d..</td>
+</tr>
+<tr>
+<td class="reference"><b id="HUUID">[HUUID]</b></td>
+<td class="top">"<a href="https://github.com/codetsunami/HumanUUID">Human Universally Unique Identifier</a>", n.d..</td>
+</tr>
+<tr>
+<td class="reference"><b id="PAYID-DISCOVERY">[PAYID-DISCOVERY]</b></td>
+<td class="top">
+<a>Fuelling, D.</a>, "<a>PayID Discovery</a>", n.d..</td>
+</tr>
+<tr>
+<td class="reference"><b id="PAYID-PROTOCOL">[PAYID-PROTOCOL]</b></td>
+<td class="top">
+<a>Schwartz, D.</a>, "<a>PayID Protocol</a>", n.d..</td>
+</tr>
+<tr>
+<td class="reference"><b id="PAYID-URI">[PAYID-URI]</b></td>
+<td class="top">
+<a>Fuelling, D.</a>, "<a href="https://tbd.example.com/">The 'payid' URI Scheme</a>", n.d..</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC2119">[RFC2119]</b></td>
+<td class="top">
+<a>Bradner, S.</a>, "<a href="https://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC2818">[RFC2818]</b></td>
+<td class="top">
+<a>Rescorla, E.</a>, "<a href="https://tools.ietf.org/html/rfc2818">HTTP Over TLS</a>", RFC 2818, DOI 10.17487/RFC2818, May 2000.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC5280">[RFC5280]</b></td>
+<td class="top">
+<a>Cooper, D.</a>, <a>Santesson, S.</a>, <a>Farrell, S.</a>, <a>Boeyen, S.</a>, <a>Housley, R.</a> and <a>W. Polk</a>, "<a href="https://tools.ietf.org/html/rfc5280">Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile</a>", RFC 5280, DOI 10.17487/RFC5280, May 2008.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC6979">[RFC6979]</b></td>
+<td class="top">
+<a>Pornin, T.</a>, "<a href="https://tools.ietf.org/html/rfc6979">Deterministic Usage of the Digital Signature Algorithm (DSA) and Elliptic Curve Digital Signature Algorithm (ECDSA)</a>", RFC 6979, DOI 10.17487/RFC6979, August 2013.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC7258">[RFC7258]</b></td>
+<td class="top">
+<a>Farrell, S.</a> and <a>H. Tschofenig</a>, "<a href="https://tools.ietf.org/html/rfc7258">Pervasive Monitoring Is an Attack</a>", BCP 188, RFC 7258, DOI 10.17487/RFC7258, May 2014.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8422">[RFC8422]</b></td>
+<td class="top">
+<a>Nir, Y.</a>, <a>Josefsson, S.</a> and <a>M. Pegourie-Gonnard</a>, "<a href="https://tools.ietf.org/html/rfc8422">Elliptic Curve Cryptography (ECC) Cipher Suites for Transport Layer Security (TLS) Versions 1.2 and Earlier</a>", RFC 8422, DOI 10.17487/RFC8422, August 2018.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8446">[RFC8446]</b></td>
+<td class="top">
+<a>Rescorla, E.</a>, "<a href="https://tools.ietf.org/html/rfc8446">The Transport Layer Security (TLS) Protocol Version 1.3</a>", RFC 8446, DOI 10.17487/RFC8446, August 2018.</td>
+</tr>
+</tbody></table>
+<h1 id="rfc.references.2">
+<a href="#rfc.references.2">12.2.</a> Informative References</h1>
+<table><tbody><tr>
+<td class="reference"><b id="RFC4732">[RFC4732]</b></td>
+<td class="top">
+<a>Handley, M.</a>, <a>Rescorla, E.</a> and <a>IAB</a>, "<a href="https://tools.ietf.org/html/rfc4732">Internet Denial-of-Service Considerations</a>", RFC 4732, DOI 10.17487/RFC4732, December 2006.</td>
+</tr></tbody></table>
+<h1 id="rfc.authors"><a href="#rfc.authors">Authors' Addresses</a></h1>
+<div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Aanchal Malhotra</span> 
+	  <span class="n hidden">
+		<span class="family-name">Malhotra</span>
+	  </span>
+	</span>
+	<span class="org vcardline">Ripple</span>
+	<span class="adr">
+	  <span class="vcardline">315 Montgomery Street</span>
+
+	  <span class="vcardline">
+		<span class="locality">San Francisco</span>,  
+		<span class="region">CA</span> 
+		<span class="code">94104</span>
+	  </span>
+	  <span class="country-name vcardline">US</span>
+	</span>
+	<span class="vcardline">Phone: -----------------</span>
+
+<span class="vcardline">EMail: <a href="mailto:amalhotra@ripple.com">amalhotra@ripple.com</a></span>
+
+<span class="vcardline">URI: <a href="https://www.ripple.com">https://www.ripple.com</a></span>
+
+  </address>
+</div><div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">David Schwartz</span> 
+	  <span class="n hidden">
+		<span class="family-name">Schwartz</span>
+	  </span>
+	</span>
+	<span class="org vcardline">Ripple</span>
+	<span class="adr">
+	  <span class="vcardline">315 Montgomery Street</span>
+
+	  <span class="vcardline">
+		<span class="locality">San Francisco</span>,  
+		<span class="region">CA</span> 
+		<span class="code">94104</span>
+	  </span>
+	  <span class="country-name vcardline">US</span>
+	</span>
+	<span class="vcardline">Phone: -----------------</span>
+
+<span class="vcardline">EMail: <a href="mailto:david@ripple.com">david@ripple.com</a></span>
+
+<span class="vcardline">URI: <a href="https://www.ripple.com">https://www.ripple.com</a></span>
+
+  </address>
+</div>
+
+</body>
+</html>
