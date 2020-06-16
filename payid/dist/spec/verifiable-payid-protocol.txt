@@ -5,7 +5,7 @@
 Network Working Group                                        A. Malhotra
 Internet-Draft                                               D. Schwartz
 Intended status: Standards Track                                  Ripple
-Expires: December 15, 2020                                 June 13, 2020
+Expires: December 18, 2020                                 June 16, 2020
 
 
                        Verifiable PayID Protocol
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Malhotra & Schwartz     Expires December 15, 2020               [Page 1]
+Malhotra & Schwartz     Expires December 18, 2020               [Page 1]
 
 Internet-Draft          Verifiable PayID Protocol              June 2020
 
@@ -66,7 +66,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 15, 2020.
+   This Internet-Draft will expire on December 18, 2020.
 
 Copyright Notice
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Malhotra & Schwartz     Expires December 15, 2020               [Page 2]
+Malhotra & Schwartz     Expires December 18, 2020               [Page 2]
 
 Internet-Draft          Verifiable PayID Protocol              June 2020
 
@@ -165,7 +165,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 
 
 
-Malhotra & Schwartz     Expires December 15, 2020               [Page 3]
+Malhotra & Schwartz     Expires December 18, 2020               [Page 3]
 
 Internet-Draft          Verifiable PayID Protocol              June 2020
 
@@ -221,7 +221,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 
 
 
-Malhotra & Schwartz     Expires December 15, 2020               [Page 4]
+Malhotra & Schwartz     Expires December 18, 2020               [Page 4]
 
 Internet-Draft          Verifiable PayID Protocol              June 2020
 
@@ -277,7 +277,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 
 
 
-Malhotra & Schwartz     Expires December 15, 2020               [Page 5]
+Malhotra & Schwartz     Expires December 18, 2020               [Page 5]
 
 Internet-Draft          Verifiable PayID Protocol              June 2020
 
@@ -333,7 +333,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 
 
 
-Malhotra & Schwartz     Expires December 15, 2020               [Page 6]
+Malhotra & Schwartz     Expires December 18, 2020               [Page 6]
 
 Internet-Draft          Verifiable PayID Protocol              June 2020
 
@@ -389,7 +389,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 
 
 
-Malhotra & Schwartz     Expires December 15, 2020               [Page 7]
+Malhotra & Schwartz     Expires December 18, 2020               [Page 7]
 
 Internet-Draft          Verifiable PayID Protocol              June 2020
 
@@ -445,7 +445,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 
 
 
-Malhotra & Schwartz     Expires December 15, 2020               [Page 8]
+Malhotra & Schwartz     Expires December 18, 2020               [Page 8]
 
 Internet-Draft          Verifiable PayID Protocol              June 2020
 
@@ -501,7 +501,7 @@ Sender  PayID client                                             PayID server   
 
 
 
-Malhotra & Schwartz     Expires December 15, 2020               [Page 9]
+Malhotra & Schwartz     Expires December 18, 2020               [Page 9]
 
 Internet-Draft          Verifiable PayID Protocol              June 2020
 
@@ -557,7 +557,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 
 
 
-Malhotra & Schwartz     Expires December 15, 2020              [Page 10]
+Malhotra & Schwartz     Expires December 18, 2020              [Page 10]
 
 Internet-Draft          Verifiable PayID Protocol              June 2020
 
@@ -613,7 +613,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 
 
 
-Malhotra & Schwartz     Expires December 15, 2020              [Page 11]
+Malhotra & Schwartz     Expires December 18, 2020              [Page 11]
 
 Internet-Draft          Verifiable PayID Protocol              June 2020
 
@@ -669,7 +669,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 
 
 
-Malhotra & Schwartz     Expires December 15, 2020              [Page 12]
+Malhotra & Schwartz     Expires December 18, 2020              [Page 12]
 
 Internet-Draft          Verifiable PayID Protocol              June 2020
 
@@ -725,7 +725,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 
 
 
-Malhotra & Schwartz     Expires December 15, 2020              [Page 13]
+Malhotra & Schwartz     Expires December 18, 2020              [Page 13]
 
 Internet-Draft          Verifiable PayID Protocol              June 2020
 
@@ -781,7 +781,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 
 
 
-Malhotra & Schwartz     Expires December 15, 2020              [Page 14]
+Malhotra & Schwartz     Expires December 18, 2020              [Page 14]
 
 Internet-Draft          Verifiable PayID Protocol              June 2020
 
@@ -837,7 +837,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 
 
 
-Malhotra & Schwartz     Expires December 15, 2020              [Page 15]
+Malhotra & Schwartz     Expires December 18, 2020              [Page 15]
 
 Internet-Draft          Verifiable PayID Protocol              June 2020
 
@@ -893,7 +893,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 
 
 
-Malhotra & Schwartz     Expires December 15, 2020              [Page 16]
+Malhotra & Schwartz     Expires December 18, 2020              [Page 16]
 
 Internet-Draft          Verifiable PayID Protocol              June 2020
 
@@ -949,7 +949,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 
 
 
-Malhotra & Schwartz     Expires December 15, 2020              [Page 17]
+Malhotra & Schwartz     Expires December 18, 2020              [Page 17]
 
 Internet-Draft          Verifiable PayID Protocol              June 2020
 
@@ -1005,7 +1005,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 
 
 
-Malhotra & Schwartz     Expires December 15, 2020              [Page 18]
+Malhotra & Schwartz     Expires December 18, 2020              [Page 18]
 
 Internet-Draft          Verifiable PayID Protocol              June 2020
 
@@ -1061,7 +1061,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 
 
 
-Malhotra & Schwartz     Expires December 15, 2020              [Page 19]
+Malhotra & Schwartz     Expires December 18, 2020              [Page 19]
 
 Internet-Draft          Verifiable PayID Protocol              June 2020
 
@@ -1117,7 +1117,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 
 
 
-Malhotra & Schwartz     Expires December 15, 2020              [Page 20]
+Malhotra & Schwartz     Expires December 18, 2020              [Page 20]
 
 Internet-Draft          Verifiable PayID Protocol              June 2020
 
@@ -1173,7 +1173,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 
 
 
-Malhotra & Schwartz     Expires December 15, 2020              [Page 21]
+Malhotra & Schwartz     Expires December 18, 2020              [Page 21]
 
 Internet-Draft          Verifiable PayID Protocol              June 2020
 
@@ -1229,4 +1229,4 @@ Authors' Addresses
 
 
 
-Malhotra & Schwartz     Expires December 15, 2020              [Page 22]
+Malhotra & Schwartz     Expires December 18, 2020              [Page 22]
