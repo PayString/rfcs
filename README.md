@@ -2,13 +2,13 @@
 
 ## Specs
 
-You can find the specs here: https://github.com/xpring-eng/rfcs/tree/master/payid/dist/spec
+You can find the specs here: https://github.com/payid-org/rfcs/blob/master/dist/spec/
 
-* [The 'payid' URI Scheme](https://github.com/xpring-eng/rfcs/blob/master/payid/dist/spec/payid-uri.txt)
-* [PayID Discovery](https://github.com/xpring-eng/rfcs/blob/master/payid/dist/spec/payid-discovery.txt)
-* The PayID Protocol (coming soon)
+* [The 'payid' URI Scheme](https://github.com/payid-org/rfcs/blob/master/src/spec/payid-discovery.md)
+* [PayID Discovery](https://github.com/payid-org/rfcs/blob/master/dist/spec/payid-discovery.txt)
+* [The PayID Protocol](https://github.com/payid-org/rfcs/blob/master/dist/spec/payid-protocol.txt) 
 
-The source code for each spec is in [src/spec](https://github.com/xpring-eng/rfcs/tree/master/payid/src/spec).
+The source code for each spec is in [src/spec](https://github.com/payid-org/rfcs/tree/master/src/spec).
 
 ## Implementations
 
