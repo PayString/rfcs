@@ -4,7 +4,7 @@
 
 You can find the specs here: https://github.com/payid-org/rfcs/blob/master/dist/spec/
 
-* [The 'payid' URI Scheme](https://github.com/payid-org/rfcs/blob/master/src/spec/payid-discovery.md)
+* [The 'payid' URI Scheme](https://github.com/payid-org/rfcs/blob/master/dist/spec/payid-uri.txt)
 * [PayID Discovery](https://github.com/payid-org/rfcs/blob/master/dist/spec/payid-discovery.txt)
 * [The PayID Protocol](https://github.com/payid-org/rfcs/blob/master/dist/spec/payid-protocol.txt) 
 
