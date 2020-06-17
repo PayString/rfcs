@@ -2,7 +2,7 @@
 
 ## Specs
 
-You can find the specs here: https://github.com/payid-org/rfcs/tree/master/src/spec
+You can find the specs here: https://github.com/payid-org/rfcs/blob/master/dist/spec/
 
 * [The 'payid' URI Scheme](https://github.com/payid-org/rfcs/blob/master/src/spec/payid-discovery.md)
 * [PayID Discovery](https://github.com/payid-org/rfcs/blob/master/dist/spec/payid-discovery.txt)
