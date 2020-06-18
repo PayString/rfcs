@@ -2,22 +2,23 @@
 
 ## Specs
 
-You can find the specs here: https://github.com/xpring-eng/rfcs/tree/master/dist/spec
+You can find the specs here: https://github.com/payid-org/rfcs/tree/master/dist/spec
 
-* [The 'payid' URI Scheme](https://github.com/xpring-eng/rfcs/blob/master/dist/spec/payid-uri.txt)
-* [PayID Discovery](https://github.com/xpring-eng/rfcs/blob/master/dist/spec/payid-discovery.txt)
-* [PayID Protocol](https://github.com/payid-org/rfcs/blob/master/dist/spec/payid-protocol.txt)
-* [Verifiable PayID Protocol](https://github.com/payid-org/rfcs/blob/master/dist/spec/verifiable-payid-protocol.txt)
+- [PayID Whitepaper](https://payid.org/whitepaper.pdf)
+- [The 'payid' URI Scheme](https://github.com/payid-org/rfcs/blob/master/dist/spec/payid-uri.txt)
+- [PayID Discovery](https://github.com/payid-org/rfcs/blob/master/dist/spec/payid-discovery.txt)
+- [PayID Protocol](https://github.com/payid-org/rfcs/blob/master/dist/spec/payid-protocol.txt)
+- [Verifiable PayID Protocol](https://github.com/payid-org/rfcs/blob/master/dist/spec/verifiable-payid-protocol.txt)
 
-The source code for each spec is in [src/spec](https://github.com/xpring-eng/rfcs/tree/master/src/spec).
+The source code for each spec is in [src/spec](https://github.com/payid-org/rfcs/tree/master/src/spec).
 
 ## Implementations
 
 Known implementations of PayID and PayID Discovery:
 
-* JavaScript: TBD.
-* Java: TBD.
-* Swift: TBD.
+- JavaScript: TBD.
+- Java: TBD.
+- Swift: TBD.
 
 If you would like to update this list, please feel free to open a pull request against this repository.
 
@@ -27,9 +28,15 @@ Uses [kramdown-rfc2629](https://github.com/cabo/kramdown-rfc2629/), [xml2rfc](ht
 
 From root directory of the repo run:
 
+```sh
+    # IETF RFC tools
     gem install kramdown-rfc2629
+    pip3 install xml2rfc
+
+    # PayID RFC dependencies
     npm install
     grunt kramdown_rfc2629
+```
 
 To watch edits to `payid-uri.md` or `payid-discovery.md` and auto-generate output when changes are saved run:
 
