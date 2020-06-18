@@ -6,7 +6,8 @@ You can find the specs here: https://github.com/xpring-eng/rfcs/tree/master/payi
 
 * [The 'payid' URI Scheme](https://github.com/xpring-eng/rfcs/blob/master/payid/dist/spec/payid-uri.txt)
 * [PayID Discovery](https://github.com/xpring-eng/rfcs/blob/master/payid/dist/spec/payid-discovery.txt)
-* The PayID Protocol (coming soon)
+* [PayID Protocol](https://github.com/payid-org/rfcs/blob/master/payid/dist/spec/payid-protocol.txt)
+* [Verifiable PayID Protocol](https://github.com/payid-org/rfcs/blob/master/payid/dist/spec/verifiable-payid-protocol.txt)
 
 The source code for each spec is in [src/spec](https://github.com/xpring-eng/rfcs/tree/master/payid/src/spec).
 
