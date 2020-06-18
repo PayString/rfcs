@@ -30,7 +30,7 @@ abstract class AbstractPayId implements PayId {
   // per RFC-3986.
 
   // ACCOUNT (allowed-chars)
-  private static final String ALLOWED_ACCOUNT_CHARS = UNRESERVED + SUB_DELIMS + PERCENT;
+  private static final String ALLOWED_ACCOUNT_CHARS = UNRESERVED + SUB_DELIMS + PERCENT + ":@/";
   private static final String ALLOWED_ACCOUNT_CHARS_REGEX = "^([" + ALLOWED_ACCOUNT_CHARS + "]+)*$";
 
   // HOST (allowed-chars)
