@@ -27,6 +27,7 @@ Uses [kramdown-rfc2629](https://github.com/cabo/kramdown-rfc2629/), [xml2rfc](ht
 
 From root directory of the repo run:
 
+    gem install kramdown-rfc2629
     npm install
     grunt kramdown_rfc2629
 

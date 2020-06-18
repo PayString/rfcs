@@ -393,7 +393,7 @@
 
   <meta name="dct.creator" content="Fuelling, D." />
   <meta name="dct.identifier" content="urn:ietf:id:draft-fuelling-payid-uri-01" />
-  <meta name="dct.issued" scheme="ISO8601" content="2020-05-14" />
+  <meta name="dct.issued" scheme="ISO8601" content="2020-06-18" />
   <meta name="dct.abstract" content="This specification defines the 'payid' Uniform Resource Identifier (URI) scheme as a way to identify a payment account at a service provider, irrespective of the particular protocols that can be used to interact with the account." />
   <meta name="description" content="This specification defines the 'payid' Uniform Resource Identifier (URI) scheme as a way to identify a payment account at a service provider, irrespective of the particular protocols that can be used to interact with the account." />
 
@@ -414,10 +414,10 @@
 </tr>
 <tr>
 <td class="left">Intended status: Standards Track</td>
-<td class="right">May 14, 2020</td>
+<td class="right">June 18, 2020</td>
 </tr>
 <tr>
-<td class="left">Expires: November 15, 2020</td>
+<td class="left">Expires: December 20, 2020</td>
 <td class="right"></td>
 </tr>
 
@@ -436,7 +436,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on November 15, 2020.</p>
+<p>This Internet-Draft will expire on December 20, 2020.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2020 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -534,11 +534,10 @@
 <p id="rfc.section.7.p.1">In accordance with the guidelines and registration procedures for new URI schemes <a href="#RFC7595" class="xref">[RFC7595]</a>, this section provides the information needed to register the 'payid' URI scheme.</p>
 <p><strong>URI Scheme Name</strong>: payid</p>
 <p><strong>Status</strong>: permanent</p>
-<p><strong>URI Scheme Syntax</strong>:  The 'payid' URI syntax is defined here in Augmented Backus-Naur Form (ABNF) <a href="#RFC5234" class="xref">[RFC5234]</a>, borrowing the 'host', 'pct-encoded', 'sub-delims', and 'unreserved' rules from <a href="#RFC3986" class="xref">[RFC3986]</a>:</p>
+<p><strong>URI Scheme Syntax</strong>:  The 'payid' URI syntax is defined here in Augmented Backus-Naur Form (ABNF) <a href="#RFC5234" class="xref">[RFC5234]</a>, borrowing the 'host', 'path' rules from <a href="#RFC3986" class="xref">[RFC3986]</a>:</p>
 <pre>
   payidURI   = "payid" ":" acctpart "$" host
-  acctpart   = unreserved / sub-delims  
-               0*( unreserved / pct-encoded / sub-delims )
+  acctpart   = path
 </pre>
 <p id="rfc.section.7.p.5">Note that additional rules regarding the strings that are used as input to construction of 'payid' URIs further limit the characters that can be percent-encoded; see the Encoding Considerations as well as Section 6 of this document.</p>
 <p><strong>URI Scheme Semantics</strong>:  The 'payid' URI scheme identifies payment accounts hosted at payment service providers.  It is used only for identification, not interaction.  A protocol that employs the 'payid' URI scheme is responsible for specifying how a 'payid' URI is dereferenced in the context of that protocol.  There is no media type associated with the 'payid' URI scheme.</p>

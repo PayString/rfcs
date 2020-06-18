@@ -245,12 +245,11 @@ to register the 'payid' URI scheme.
    **Status**: permanent
 
    **URI Scheme Syntax**:  The 'payid' URI syntax is defined here in Augmented
-   Backus-Naur Form (ABNF) [RFC5234], borrowing the 'host', 'pct-encoded',
-   'sub-delims', and 'unreserved' rules from [RFC3986]:
+   Backus-Naur Form (ABNF) [RFC5234], borrowing the 'host', 'path' rules from 
+   [RFC3986]:
 
       payidURI   = "payid" ":" acctpart "$" host
-      acctpart   = unreserved / sub-delims  
-                   0*( unreserved / pct-encoded / sub-delims )
+      acctpart   = path
 
    Note that additional rules regarding the strings that are used as input
    to construction of 'payid' URIs further limit the characters that can be
