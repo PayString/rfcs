@@ -4,9 +4,10 @@
 
 You can find the specs here: https://github.com/payid-org/rfcs/blob/master/dist/spec/
 
+* [PayID Whitepaper](https://payid.org/whitepaper.pdf)
 * [The 'payid' URI Scheme](https://github.com/payid-org/rfcs/blob/master/dist/spec/payid-uri.txt)
 * [PayID Discovery](https://github.com/payid-org/rfcs/blob/master/dist/spec/payid-discovery.txt)
-* [The PayID Protocol](https://github.com/payid-org/rfcs/blob/master/dist/spec/payid-protocol.txt) 
+* [The PayID Protocol](https://github.com/payid-org/rfcs/blob/master/dist/spec/payid-protocol.txt)
 * [The Verifiable PayID Protocol](https://github.com/payid-org/rfcs/blob/master/dist/spec/verifiable-payid-protocol.txt)
 
 The source code for each spec is in [src/spec](https://github.com/payid-org/rfcs/tree/master/src/spec).
@@ -29,8 +30,8 @@ From root directory of the repo run:
 
     npm install
     grunt kramdown_rfc2629
-   
+
 To watch edits to `payid-uri.md` or `payid-discovery.md` and auto-generate output when changes are saved run:
 
     grunt watch
-    
+
