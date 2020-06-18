@@ -11,7 +11,7 @@
     <version>HEAD-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <url>https://github.com/xpring-eng/rfcs/payid/java</url>
+    <url>https://github.com/xpring-eng/rfcs/java</url>
     <inceptionYear>2017</inceptionYear>
 
     <licenses>

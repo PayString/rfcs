@@ -2,14 +2,14 @@
 
 ## Specs
 
-You can find the specs here: https://github.com/xpring-eng/rfcs/tree/master/payid/dist/spec
+You can find the specs here: https://github.com/xpring-eng/rfcs/tree/master/dist/spec
 
-* [The 'payid' URI Scheme](https://github.com/xpring-eng/rfcs/blob/master/payid/dist/spec/payid-uri.txt)
-* [PayID Discovery](https://github.com/xpring-eng/rfcs/blob/master/payid/dist/spec/payid-discovery.txt)
-* [PayID Protocol](https://github.com/payid-org/rfcs/blob/master/payid/dist/spec/payid-protocol.txt)
-* [Verifiable PayID Protocol](https://github.com/payid-org/rfcs/blob/master/payid/dist/spec/verifiable-payid-protocol.txt)
+* [The 'payid' URI Scheme](https://github.com/xpring-eng/rfcs/blob/master/dist/spec/payid-uri.txt)
+* [PayID Discovery](https://github.com/xpring-eng/rfcs/blob/master/dist/spec/payid-discovery.txt)
+* [PayID Protocol](https://github.com/payid-org/rfcs/blob/master/dist/spec/payid-protocol.txt)
+* [Verifiable PayID Protocol](https://github.com/payid-org/rfcs/blob/master/dist/spec/verifiable-payid-protocol.txt)
 
-The source code for each spec is in [src/spec](https://github.com/xpring-eng/rfcs/tree/master/payid/src/spec).
+The source code for each spec is in [src/spec](https://github.com/xpring-eng/rfcs/tree/master/src/spec).
 
 ## Implementations
 
@@ -29,8 +29,7 @@ From root directory of the repo run:
 
     npm install
     grunt kramdown_rfc2629
-   
+
 To watch edits to `payid-uri.md` or `payid-discovery.md` and auto-generate output when changes are saved run:
 
     grunt watch
-    
