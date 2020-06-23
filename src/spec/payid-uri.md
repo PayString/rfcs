@@ -132,7 +132,7 @@ informative:
    Note that both the 'acctpart' and 'host' components of a 'payid' may
    contain one or more dollar-sign characters. However, because a 'host' 
    SHOULD also be a valid DNS domain, that portion of a 'payid' will
-   generally not include a dollar-sign. Therefore, applications should
+   generally not include a dollar-sign. Therefore, applications SHOULD
    always search for the last dollar-sign when attempting to parse a 'payid' 
    URI into its two component parts.
 
@@ -148,7 +148,7 @@ informative:
    other service provider. For example, a user with the email address 
    "alice@example.net" might register with a wallet website whose domain
    name is "wallet.example.com". In order to facilitate payments to/from
-   Alice, the wallet service provider might offer alice a PayID using alice's 
+   Alice, the wallet service provider might offer Alice a PayID using Alice's 
    email address (though using an email address as a PayID is not
    recommended).  In order to use Alice's email address as the 'acctpart' of
    the 'payid' URI, no percent-encoding is necessary because the 'acctpart' 
