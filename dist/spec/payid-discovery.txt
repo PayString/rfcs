@@ -400,7 +400,8 @@ Internet-Draft               PayID Discovery                   June 2020
 
    For example, the PayID Discovery URL for alice$example.com is
 
- https://example.com/.well-known/webfinger?resource=payid%3Abob%24example.com
+    https://example.com/.well-known/webfinger?
+      resource=payid%3Aalice%24example.com
 
 4.1.2.  Step 2: Query PayID Discovery URL
 
@@ -441,7 +442,6 @@ Internet-Draft               PayID Discovery                   June 2020
 
    For example, a PayID Discovery endpoint that only supports a single
    account might use a URI template string with no variables, like this:
-
 
 
 

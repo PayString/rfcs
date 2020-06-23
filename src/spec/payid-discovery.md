@@ -253,7 +253,8 @@ informative:
   
   For example, the PayID Discovery URL for alice$example.com is 
   
-     https://example.com/.well-known/webfinger?resource=payid%3Abob%24example.com
+     https://example.com/.well-known/webfinger?
+       resource=payid%3Aalice%24example.com
 
 ### Step 2: Query PayID Discovery URL
   A Webfinger query MUST be performed against the PayID Disovery URL,
