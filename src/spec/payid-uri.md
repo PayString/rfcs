@@ -20,9 +20,6 @@ author:
     region: CA
     code: 94104
     country: US
-    phone: -----------------
-    email: fuelling@ripple.com
-    uri: https://www.ripple.com
       
 normative:
     RFC2119:
@@ -31,13 +28,29 @@ normative:
     RFC5234:
     RFC5890:
     RFC5892:
-    RFC7564:
+    RFC8264:
     PAYID-DISCOVERY: 
       title: "The PayID Discovery Protocol"
       target: https://tbd.example.com/
       author:
         ins: D. Fuelling
         fullname: David Fuelling
+    PAYID-PROTOCOL: 
+      title: "PayID Protocol"
+      target: https://tbd.example.com/
+      author:
+         - ins: A. Malhotra
+           fullname: Aanchal Malhotra
+         - ins: D. Schwartz
+           fullname: David Schwartz
+    VERIFIABLE-PAYID: 
+       title: "Verifiable PayID Protocol"
+       target: https://tbd.example.com/
+       author:
+         - ins: A. Malhotra
+           fullname: Aanchal Malhotra
+         - ins: D. Schwartz
+           fullname: David Schwartz
     UNICODE:
       title: "The Unicode Standard"
       target: http://www.unicode.org/versions/latest/
@@ -50,242 +63,202 @@ informative:
     RFC5988:
     RFC6068:
     RFC7033:
+    RFC7565:
     RFC7595:
 
 --- note_Feedback
-
-This specification is a part of the [PayID Protocol](https://payid.org/) work.
- Feedback related to this specification should be sent to <payid@ripple.com>.
+  This specification is a draft proposal, and is part of the 
+  [PayID Protocol](https://payid.org/) initiative. Feedback related to this 
+  document should be sent in the form of a Github issue at: 
+  https://github.com/payid-org/rfcs/issues.
 
 --- abstract
- This specification defines the 'payid' Uniform Resource Identifier (URI) 
- scheme as a way to identify a payment account at a service provider, 
- irrespective of the particular protocols that can be used to interact with
- the account.
+  This specification defines the 'payid' Uniform Resource Identifier (URI) 
+  scheme as a way to identify a payment account at a service provider.
    
 --- middle
 
 # Introduction
-   Various Uniform Resource Identifier (URI) schemes enable interaction
-   with, or identify resources associated with, a user account at a
-   service provider. However, no standard identifier exists to identify a
-   user's payment account at a service provider.
+   Various Uniform Resource Identifier (URI) schemes can be used to
+   identify a user account at a service provider. However, no standard 
+   identifier exists to identify a user's _payment_ account at a service
+   provider.
    
    While popular URIs could be re-used as payment account identifiers, 
    these identifiers are insufficient because they are typically recognized
    as supporting functionality unique to those schemes. For example, the
-   'mailto' scheme [RFC6068][] (which enables interaction with a user's email
-   account) is broadly deployed for messaging. Re-using this identifier for
-   payments would likely cause confusion because one desirable quality of
-   a payment account identifier is that it expressly does not support
-   messaging, in order to avoid spam and/or other security concerns such as 
-   phishing attacks.
+   'mailto' scheme [RFC6068][] is broadly deployed for messaging. Re-using 
+   this identifier for payments would likely cause confusion because one
+   desirable quality of a payment account identifier is that it expressly
+   does not support messaging, in order to avoid spam and/or other security
+   concerns such as phishing attacks.
    
    Deploying payment protocols on top of identifiers that are commonly
    employed for other use-cases would likely be a mis-use of those
    identifiers, and could also cause confusion for end-users, among other
    problems.
    
-   Instead, the `payid` scheme uses a new type of identifier that is
-   intended to identify accounts for payment use-cases only.
+   Instead, the 'payid' scheme defines an identifier that is intended to
+   identify accounts for payment use-cases only.
  
 # Terminology
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
    "OPTIONAL" in this document are to be interpreted as described in
    [RFC2119][].
-   
+ 
 # Definition
-   The syntax of the 'payid' URI scheme is defined under Section 7 of
-   this document.  Although 'payid' URIs take the form "user$host", the
-   scheme is designed for the purpose of identification instead of
-   interaction (regarding this distinction, see Section 1.2.2 of
-   [RFC3986][]). The "Internet resource" identified by a 'payid' URI is a
-   user's payment account hosted at a service provider, where the service
-   provider is typically associated with a DNS domain name.  Thus, a
-   particular 'payid' URI is formed by setting the "user" portion to the
-   user's payment account name at the service provider and by setting the "host"
-   portion to the DNS domain name of the service provider.
-
-   Consider the case of a user with an account name of "apollo" on a
-   wallet service "wallet.example.com".  It is taken as
-   convention that the string "apollo$wallet.example.com" designates
-   that payment account.  This is expressed as a URI using the 'payid' 
-   scheme as 'payid:apollo$wallet.example.com'.
-
-   A possible scenario is for a user to register with a payment service
-   provider using an identifier (such as an email address) that is associated
-   with some other service provider. For example, a user with the email
-   address "alice@example.net" might register with a wallet website whose
-   domain name is "wallet.example.com". In order to facilitate payments 
-   to/from alice, the wallet service provider might offer alice a
-   PayID using alice's email address (though using an email address as a
-   PayID is not recommended). In order to use her email address as the
-   'acctpart' of the 'payid' URI, no percent-encoding is necessary because
-   the 'acctpart' portion of a PayID allows for at-signs. Thus, the resulting 
-   'payid' URI would be `payid:alice@example.net$shoppingsite.example`.
+   The syntax of the 'payid' URI scheme is defined in Section 7 of this
+   document.
    
-   Another possible scenario is a payment service provider (e.g., a digital
-   wallet) that allows a user to use a PayID that is associated with some
-   other payment service provider. For example, a user with the PayID 
-   "alice$bank.example.net" might register with a wallet website whose
-   domain name is "wallet.example.net". In order to use her bank's PayID as 
-   the localpart of the wallet's 'payid' URI, no percent-encoding is necessary
-   because the 'acctpart' portion of a PayID allows for dollar-signs. Thus, 
-   the resulting 'payid' URI would be 
-   `payid:alice$bank.example$wallet.example`.
-
-   It is not assumed that an entity will necessarily be able to interact
-   with a user's PayID using any particular application protocol, 
-   such as a wallet or banking application. To enable interactions
-   (payments or otherwise), an entity would need to use the appropriate URI
-   scheme for such a protocol. While it might be true that the 'payid' URI
-   minus the scheme name (e.g., "user$example.com" derived from 
-   "payid:user$example.com") could be used via some application protocol, 
-   that fact would be purely contingent and dependent upon the deployment
-   practices of the payment account provider.
-   
-   Because a 'payid' URI enables abstract identification only and not
-   interaction, this specification provides no method for dereferencing
-   a 'payid' URI on its own, e.g., as the value of the 'href' attribute
-   of an HTML anchor element.  For example, there is no behavior
-   specified in this document for a 'payid' URI used as follows:
-
-   ```
-    <a href='payid:bob$example.com'>find out more</a>
-   ```
-
-   Any protocol that uses 'payid' URIs is responsible for specifying how
-   a 'payid' URI is employed in the context of that protocol (in
-   particular, how it is dereferenced or resolved; see [RFC3986]).  As a
-   concrete example, an "Account Information" application of the
-   WebFinger protocol [RFC7033] might take a 'payid' URI, resolve the
-   host portion to find a WebFinger server, and then pass the 'payid' URI
-   as a parameter in a WebFinger HTTP request for metadata (i.e., web
-   links [RFC5988]) about the resource. For example:
-
-   ```
-    GET /.well-known/webfinger?resource=payid%3Abob%24example.com HTTP/1.1
-   ```
-
-   In the above example, the service retrieves the metadata associated with
-   the payment account identified by that URI and then provides that
-   metadata to the requesting entity in an HTTP response.
-
-   If an application needs to compare two 'payid' URIs (e.g., for
-   purposes of authentication and authorization), it MUST do so using
-   case normalization and percent-encoding normalization as specified in
-   Sections 6.2.2.1 and 6.2.2.2 of [RFC3986]. In addition, the 'acctpart' 
-   is case-insensitive and therefore should be normalized to lowercase. 
-   For example, the URI `PAYID:aLICE$www.EXAMPLE.com` is equivalent to
-   `payid:alice$www.example.com`.
+   A 'payid' URI identifies a payment account hosted at a service provider, 
+   and is designed for payment account identification rather than
+   interaction, as discussed in section 1.2.2 of [RFC3986]. 
+     
+   A 'payid' URI is constructed by taking a user's payment account identifier 
+   at a service provider and using that value as the 'acctpart'. The 'host' 
+   portion is then set to the DNS domain name of the service provider that
+   provides the 'payid'.
       
-# Examples
-   The following example URIs illustrate several variations of PayIDs
-   and their common syntax components:
+   To compare two 'payid' URIs, case normalization and percent-encoding 
+   normalization (as specified in sections 6.2.2.1 and 6.2.2.2 of
+   [RFC3986]) MUST be employed before performing any comparison.
+   
+   In addition, a 'payid' is case-insensitive and therefore should be
+   normalized to lowercase.  For example, the URI 
+   "PAYID:aLICE$www.EXAMPLE.com" is equivalent to 
+   "payid:alice$www.example.com".
+   
+   Note that both the 'acctpart' and 'host' components of a 'payid' may
+   contain one or more dollar-sign characters. However, because a 'host' 
+   SHOULD also be a valid DNS domain, that portion of a 'payid' will
+   generally not include a dollar-sign. Therefore, applications should
+   always search for the last dollar-sign when attempting to parse a 'payid' 
+   URI into its two component parts.
+
+# Examples                                                              
+   As an example, a user with an account name of "apollo" at a wallet
+   service "wallet.example.com" can be identified by a URI using the 'payid' 
+   scheme via the following construction: 
+   
+     'payid:apollo$wallet.example.com'
+
+   One possible PayID scenario is for an account to be registered with a 
+   payment service provider using an identifier that is associated with some 
+   other service provider. For example, a user with the email address 
+   "alice@example.net" might register with a wallet website whose domain
+   name is "wallet.example.com". In order to facilitate payments to/from
+   Alice, the wallet service provider might offer alice a PayID using alice's 
+   email address (though using an email address as a PayID is not
+   recommended).  In order to use Alice's email address as the 'acctpart' of
+   the 'payid' URI, no percent-encoding is necessary because the 'acctpart' 
+   portion of a PayID allows for at-signs. Thus, the provisioned 'payid' URI 
+   for Alice would be "payid:alice@example.net$shoppingsite.example".
+   
+   Another possible scenario is where a payment service provider (e.g., a
+   digital wallet) provides its users with PayIDs that are associated with
+   the PayIDs of another service provider. For example, a user with the
+   PayID "alice$bank.example.net" might register with a wallet website whose 
+   domain name is "wallet.example.net". In order to use the bank's PayID
+   as the acctpart of the wallet's 'payid' URI, no percent-encoding is 
+   necessary because the 'acctpart' portion of a PayID allows for 
+   dollar-signs. Therefore, the resulting 'payid' URI would be 
+   "payid:alice$bank.example$wallet.example".
+      
+   The following example URIs illustrate several variations of PayIDs and
+   their common syntax components:
    
          payid:alice$example.net
          
          payid:john.doe$example.net
          
          payid:jane-doe$example.net
-
+         
 # Security Concerns
-   Because the 'payid' URI scheme does not directly enable interaction with
-   a user's payment account at a service provider, direct security concerns
-   are minimized.
-
-   However, a 'payid' URI does provide proof of existence of the payment
-   account; this implies that harvesting published 'payid' URIs could
-   prove useful for certain attackers -- for example, if
-   an attacker can use a 'payid' URI to leverage more information about the
-   account (e.g., via WebFinger) or if they can interact with protocol-
-   specific URIs (such as 'mailto' URIs) whose user@host portion is the
-   same as that of the 'payid' URI (e.g., replacing the `$` character with an
-   `@` sign).
-
-   In addition, protocols that make use of 'payid' URIs are responsible
-   for defining security considerations related to such usage, e.g., the
-   risks involved in dereferencing a 'payid' URI, the authentication and
-   authorization methods that could be used to control access to
-   personal data associated with a user's payment account at a service, and
-   methods for ensuring the confidentiality of such information.
-
-   The use of percent-encoding allows a wider range of characters in
-   payment account names but introduces some additional risks.  Implementers
-   are advised to disallow percent-encoded characters or sequences that
-   would (1) result in space, null, control, or other characters that
-   are otherwise forbidden, (2) allow unauthorized access to private
-   data, or (3) lead to other security vulnerabilities.
+   The 'payid' URI scheme defined in this document does not directly enable
+   interaction with a user's payment account and therefore does not present
+   any direct security concerns.
    
+   However, a 'payid' URI indicates existence of a payment account, so
+   care should be taken to properly secure any payment account interactions 
+   allowed by a service provider. 
+   
+   In addition, service providers and users should consider whether an 
+   attacker might be able to derive or infer other identifiers correlating
+   to the user of any particular PayID. For example, replacing the `$` 
+   character in a PayID with an `@` sign SHOULD NOT yield a 'mailto' URI, 
+   when possible. In addition, care should be taken when the 'acctpart' of
+   a PayID corresponds to a user's email address (in part or in whole) as this
+   might allow an attacker to execute phishing attacks or send spam messages.
+
+   Due to the use of percent-encoding in 'payid' URIs, implementers SHOULD
+   disallow percent-encoded characters or sequences that would result in
+   "space", "null", "control", or other characters that are otherwise
+   forbidden.
+         
 # Internationalization Concerns
    As specified in [RFC3986], the 'payid' URI scheme allows any character
    from the Unicode repertoire [Unicode] encoded as UTF-8 [RFC3629] and
-   then percent-encoded into valid ASCII [RFC0020].  Before applying any
+   then percent-encoded into valid ASCII [RFC0020]. Before applying any
    percent-encoding, an application MUST ensure the following about the
    string that is used as input to the URI-construction process:
 
    * The 'acctpart' consists only of Unicode code points that conform to
-     the PRECIS IdentifierClass specified in [RFC7564].
+     the PRECIS IdentifierClass specified in [RFC8264].
 
    * The 'host' consists only of Unicode code points that conform to the
      rules specified in [RFC5892].
 
    * Internationalized domain name (IDN) labels are encoded as A-labels
-    [RFC5890]. 
- 
+    [RFC5890].
+    
 # IANA Considerations
-
-In accordance with the guidelines and registration procedures for new
-URI schemes [RFC7595], this section provides the information needed
-to register the 'payid' URI scheme.
+   In accordance with [RFC7595], this section provides the information
+   needed to register the 'payid' URI scheme.
 
    **URI Scheme Name**: payid
 
    **Status**: permanent
 
    **URI Scheme Syntax**:  The 'payid' URI syntax is defined here in Augmented
-   Backus-Naur Form (ABNF) [RFC5234], borrowing the 'host', 'path' rules from 
-   [RFC3986]:
+   Backus-Naur Form (ABNF) per [RFC5234], borrowing the 'host' and 'path' 
+   rules from [RFC3986]:
 
       payidURI   = "payid" ":" acctpart "$" host
       acctpart   = path
 
-   Note that additional rules regarding the strings that are used as input
-   to construction of 'payid' URIs further limit the characters that can be
-   percent-encoded; see the Encoding Considerations as well as Section 6
-   of this document.
+   Note that additional rules limit the characters that can be
+   percent-encoded in a 'payid' URI. See "Encoding Considerations" below for
+   more details.
 
-   **URI Scheme Semantics**:  The 'payid' URI scheme identifies payment accounts
-      hosted at payment service providers.  It is used only for
-      identification, not interaction.  A protocol that employs the 'payid'
-      URI scheme is responsible for specifying how a 'payid' URI is
-      dereferenced in the context of that protocol.  There is no media type
-      associated with the 'payid' URI scheme.
+   **URI Scheme Semantics**:  The 'payid' URI scheme identifies payment 
+      accounts hosted at payment service providers.  It is used only for
+      identification, not interaction.
 
    **Encoding Considerations**:  See Section 6 of this document.
 
-   **Applications/Protocols That Use This URI Scheme Name**: At the time of
-     this writing, only the [PAYID-DISCOVERY][] protocol uses the 'payid' URI
-     scheme.  However, use is not restricted to this protocol, and the
-     scheme might be considered for use in other protocols.
+   **Applications/Protocols That Use This URI Scheme Name**: The following
+    protocols utilize this URI scheme: 
+    
+      - [PAYID-DISCOVERY][], 
+      - [PAYID-PROTOCOL][],
+      - [VERIFIABLE-PAYID][].
 
-   **Interoperability Considerations**:  There are no known interoperability
-      concerns related to use of the 'payid' URI scheme.
+   **Interoperability Considerations**:  n/a.
 
-   **Security Considerations**:  See Section 5 of this document.
+   **Security Considerations**:  See Section 6 of this document.
 
-   **Contact**:  fuelling@ripple.com
+   **Contact**:  rfcs@payid.org
 
-   **Author/Change Controller**:  This scheme is registered under the IETF
-      tree.  As such, the IETF maintains change control.
+   **Author/Change Controller**:  TBD.
 
    **References**:  None.
-
+   
 # Acknowledgements
-This document was heavily influenced RFC-7565, adapted for a payments use
--case. The author would like to acknowledge the contributions of everyone who
-worked on that and related specifications. 
-
-In addition, the author would like to acknowledge everyone who provided
-feedback and use-cases for this derivative specification.
+  This document was adapted from and heavily influenced by [RFC7565][], 
+  modifying it (in some cases only slightly) for a payments use-case. The
+  author would like to acknowledge the contributions of everyone who worked
+  on that and related specifications. 
+  
+  In addition, the author would like to acknowledge everyone who provided
+  feedback and use-cases for this derivative specification.

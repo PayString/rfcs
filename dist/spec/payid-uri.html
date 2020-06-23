@@ -393,9 +393,9 @@
 
   <meta name="dct.creator" content="Fuelling, D." />
   <meta name="dct.identifier" content="urn:ietf:id:draft-fuelling-payid-uri-01" />
-  <meta name="dct.issued" scheme="ISO8601" content="2020-06-18" />
-  <meta name="dct.abstract" content="This specification defines the 'payid' Uniform Resource Identifier (URI) scheme as a way to identify a payment account at a service provider, irrespective of the particular protocols that can be used to interact with the account." />
-  <meta name="description" content="This specification defines the 'payid' Uniform Resource Identifier (URI) scheme as a way to identify a payment account at a service provider, irrespective of the particular protocols that can be used to interact with the account." />
+  <meta name="dct.issued" scheme="ISO8601" content="2020-06-23" />
+  <meta name="dct.abstract" content="This specification defines the 'payid' Uniform Resource Identifier (URI) scheme as a way to identify a payment account at a service provider." />
+  <meta name="description" content="This specification defines the 'payid' Uniform Resource Identifier (URI) scheme as a way to identify a payment account at a service provider." />
 
 </head>
 
@@ -414,10 +414,10 @@
 </tr>
 <tr>
 <td class="left">Intended status: Standards Track</td>
-<td class="right">June 18, 2020</td>
+<td class="right">June 23, 2020</td>
 </tr>
 <tr>
-<td class="left">Expires: December 20, 2020</td>
+<td class="left">Expires: December 25, 2020</td>
 <td class="right"></td>
 </tr>
 
@@ -429,14 +429,14 @@
   <span class="filename">draft-fuelling-payid-uri-01</span></p>
   
   <h1 id="rfc.abstract"><a href="#rfc.abstract">Abstract</a></h1>
-<p>This specification defines the 'payid' Uniform Resource Identifier (URI) scheme as a way to identify a payment account at a service provider, irrespective of the particular protocols that can be used to interact with the account.</p>
+<p>This specification defines the 'payid' Uniform Resource Identifier (URI) scheme as a way to identify a payment account at a service provider.</p>
 <h1><a>Feedback</a></h1>
-<p>This specification is a part of the <a href="https://payid.org/">PayID Protocol</a> work.  Feedback related to this specification should be sent to <a href="mailto:payid@ripple.com">payid@ripple.com</a>.</p>
+<p>This specification is a draft proposal, and is part of the <a href="https://payid.org/">PayID Protocol</a> initiative. Feedback related to this document should be sent in the form of a Github issue at: https://github.com/payid-org/rfcs/issues.</p>
 <h1 id="rfc.status"><a href="#rfc.status">Status of This Memo</a></h1>
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on December 20, 2020.</p>
+<p>This Internet-Draft will expire on December 25, 2020.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2020 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -477,10 +477,10 @@
   <h1 id="rfc.section.1">
 <a href="#rfc.section.1">1.</a> <a href="#introduction" id="introduction">Introduction</a>
 </h1>
-<p id="rfc.section.1.p.1">Various Uniform Resource Identifier (URI) schemes enable interaction with, or identify resources associated with, a user account at a service provider. However, no standard identifier exists to identify a user's payment account at a service provider.</p>
-<p id="rfc.section.1.p.2">While popular URIs could be re-used as payment account identifiers, these identifiers are insufficient because they are typically recognized as supporting functionality unique to those schemes. For example, the 'mailto' scheme <a href="#RFC6068" class="xref">[RFC6068]</a> (which enables interaction with a user's email account) is broadly deployed for messaging. Re-using this identifier for payments would likely cause confusion because one desirable quality of a payment account identifier is that it expressly does not support messaging, in order to avoid spam and/or other security concerns such as phishing attacks.</p>
+<p id="rfc.section.1.p.1">Various Uniform Resource Identifier (URI) schemes can be used to identify a user account at a service provider. However, no standard identifier exists to identify a user's <em>payment</em> account at a service provider.</p>
+<p id="rfc.section.1.p.2">While popular URIs could be re-used as payment account identifiers, these identifiers are insufficient because they are typically recognized as supporting functionality unique to those schemes. For example, the 'mailto' scheme <a href="#RFC6068" class="xref">[RFC6068]</a> is broadly deployed for messaging. Re-using this identifier for payments would likely cause confusion because one desirable quality of a payment account identifier is that it expressly does not support messaging, in order to avoid spam and/or other security concerns such as phishing attacks.</p>
 <p id="rfc.section.1.p.3">Deploying payment protocols on top of identifiers that are commonly employed for other use-cases would likely be a mis-use of those identifiers, and could also cause confusion for end-users, among other problems.</p>
-<p id="rfc.section.1.p.4">Instead, the <samp>payid</samp> scheme uses a new type of identifier that is intended to identify accounts for payment use-cases only.</p>
+<p id="rfc.section.1.p.4">Instead, the 'payid' scheme defines an identifier that is intended to identify accounts for payment use-cases only.</p>
 <h1 id="rfc.section.2">
 <a href="#rfc.section.2">2.</a> <a href="#terminology" id="terminology">Terminology</a>
 </h1>
@@ -488,21 +488,22 @@
 <h1 id="rfc.section.3">
 <a href="#rfc.section.3">3.</a> <a href="#definition" id="definition">Definition</a>
 </h1>
-<p id="rfc.section.3.p.1">The syntax of the 'payid' URI scheme is defined under Section 7 of this document.  Although 'payid' URIs take the form "user$host", the scheme is designed for the purpose of identification instead of interaction (regarding this distinction, see Section 1.2.2 of <a href="#RFC3986" class="xref">[RFC3986]</a>). The "Internet resource" identified by a 'payid' URI is a user's payment account hosted at a service provider, where the service provider is typically associated with a DNS domain name.  Thus, a particular 'payid' URI is formed by setting the "user" portion to the user's payment account name at the service provider and by setting the "host" portion to the DNS domain name of the service provider.</p>
-<p id="rfc.section.3.p.2">Consider the case of a user with an account name of "apollo" on a wallet service "wallet.example.com".  It is taken as convention that the string "apollo$wallet.example.com" designates that payment account.  This is expressed as a URI using the 'payid' scheme as 'payid:apollo$wallet.example.com'.</p>
-<p id="rfc.section.3.p.3">A possible scenario is for a user to register with a payment service provider using an identifier (such as an email address) that is associated with some other service provider. For example, a user with the email address "alice@example.net" might register with a wallet website whose domain name is "wallet.example.com". In order to facilitate payments to/from alice, the wallet service provider might offer alice a PayID using alice's email address (though using an email address as a PayID is not recommended). In order to use her email address as the 'acctpart' of the 'payid' URI, no percent-encoding is necessary because the 'acctpart' portion of a PayID allows for at-signs. Thus, the resulting 'payid' URI would be <samp>payid:alice@example.net$shoppingsite.example</samp>.</p>
-<p id="rfc.section.3.p.4">Another possible scenario is a payment service provider (e.g., a digital wallet) that allows a user to use a PayID that is associated with some other payment service provider. For example, a user with the PayID "alice$bank.example.net" might register with a wallet website whose domain name is "wallet.example.net". In order to use her bank's PayID as the localpart of the wallet's 'payid' URI, no percent-encoding is necessary because the 'acctpart' portion of a PayID allows for dollar-signs. Thus, the resulting 'payid' URI would be <samp>payid:alice$bank.example$wallet.example</samp>.</p>
-<p id="rfc.section.3.p.5">It is not assumed that an entity will necessarily be able to interact with a user's PayID using any particular application protocol, such as a wallet or banking application. To enable interactions (payments or otherwise), an entity would need to use the appropriate URI scheme for such a protocol. While it might be true that the 'payid' URI minus the scheme name (e.g., "user$example.com" derived from "payid:user$example.com") could be used via some application protocol, that fact would be purely contingent and dependent upon the deployment practices of the payment account provider.</p>
-<p id="rfc.section.3.p.6">Because a 'payid' URI enables abstract identification only and not interaction, this specification provides no method for dereferencing a 'payid' URI on its own, e.g., as the value of the 'href' attribute of an HTML anchor element.  For example, there is no behavior specified in this document for a 'payid' URI used as follows:</p>
-<p><samp>&lt;a href='payid:bob$example.com'&gt;find out more&lt;/a&gt; </samp></p>
-<p id="rfc.section.3.p.8">Any protocol that uses 'payid' URIs is responsible for specifying how a 'payid' URI is employed in the context of that protocol (in particular, how it is dereferenced or resolved; see <a href="#RFC3986" class="xref">[RFC3986]</a>).  As a concrete example, an "Account Information" application of the WebFinger protocol <a href="#RFC7033" class="xref">[RFC7033]</a> might take a 'payid' URI, resolve the host portion to find a WebFinger server, and then pass the 'payid' URI as a parameter in a WebFinger HTTP request for metadata (i.e., web links <a href="#RFC5988" class="xref">[RFC5988]</a>) about the resource. For example:</p>
-<p><samp>GET /.well-known/webfinger?resource=payid%3Abob%24example.com HTTP/1.1 </samp></p>
-<p id="rfc.section.3.p.10">In the above example, the service retrieves the metadata associated with the payment account identified by that URI and then provides that metadata to the requesting entity in an HTTP response.</p>
-<p id="rfc.section.3.p.11">If an application needs to compare two 'payid' URIs (e.g., for purposes of authentication and authorization), it MUST do so using case normalization and percent-encoding normalization as specified in Sections 6.2.2.1 and 6.2.2.2 of <a href="#RFC3986" class="xref">[RFC3986]</a>. In addition, the 'acctpart' is case-insensitive and therefore should be normalized to lowercase.  For example, the URI <samp>PAYID:aLICE$www.EXAMPLE.com</samp> is equivalent to <samp>payid:alice$www.example.com</samp>.</p>
+<p id="rfc.section.3.p.1">The syntax of the 'payid' URI scheme is defined in Section 7 of this document.</p>
+<p id="rfc.section.3.p.2">A 'payid' URI identifies a payment account hosted at a service provider, and is designed for payment account identification rather than interaction, as discussed in section 1.2.2 of <a href="#RFC3986" class="xref">[RFC3986]</a>.</p>
+<p id="rfc.section.3.p.3">A 'payid' URI is constructed by taking a user's payment account identifier at a service provider and using that value as the 'acctpart'. The 'host' portion is then set to the DNS domain name of the service provider that provides the 'payid'.</p>
+<p id="rfc.section.3.p.4">To compare two 'payid' URIs, case normalization and percent-encoding normalization (as specified in sections 6.2.2.1 and 6.2.2.2 of <a href="#RFC3986" class="xref">[RFC3986]</a>) MUST be employed before performing any comparison.</p>
+<p id="rfc.section.3.p.5">In addition, a 'payid' is case-insensitive and therefore should be normalized to lowercase.  For example, the URI "PAYID:aLICE$www.EXAMPLE.com" is equivalent to "payid:alice$www.example.com".</p>
+<p id="rfc.section.3.p.6">Note that both the 'acctpart' and 'host' components of a 'payid' may contain one or more dollar-sign characters. However, because a 'host' SHOULD also be a valid DNS domain, that portion of a 'payid' will generally not include a dollar-sign. Therefore, applications should always search for the last dollar-sign when attempting to parse a 'payid' URI into its two component parts.</p>
 <h1 id="rfc.section.4">
 <a href="#rfc.section.4">4.</a> <a href="#examples" id="examples">Examples</a>
 </h1>
-<p id="rfc.section.4.p.1">The following example URIs illustrate several variations of PayIDs and their common syntax components:</p>
+<p id="rfc.section.4.p.1">As an example, a user with an account name of "apollo" at a wallet service "wallet.example.com" can be identified by a URI using the 'payid' scheme via the following construction:</p>
+<pre>
+ 'payid:apollo$wallet.example.com'
+</pre>
+<p id="rfc.section.4.p.2">One possible PayID scenario is for an account to be registered with a payment service provider using an identifier that is associated with some other service provider. For example, a user with the email address "alice@example.net" might register with a wallet website whose domain name is "wallet.example.com". In order to facilitate payments to/from Alice, the wallet service provider might offer alice a PayID using alice's email address (though using an email address as a PayID is not recommended).  In order to use Alice's email address as the 'acctpart' of the 'payid' URI, no percent-encoding is necessary because the 'acctpart' portion of a PayID allows for at-signs. Thus, the provisioned 'payid' URI for Alice would be "payid:alice@example.net$shoppingsite.example".</p>
+<p id="rfc.section.4.p.3">Another possible scenario is where a payment service provider (e.g., a digital wallet) provides its users with PayIDs that are associated with the PayIDs of another service provider. For example, a user with the PayID "alice$bank.example.net" might register with a wallet website whose domain name is "wallet.example.net". In order to use the bank's PayID as the acctpart of the wallet's 'payid' URI, no percent-encoding is necessary because the 'acctpart' portion of a PayID allows for dollar-signs. Therefore, the resulting 'payid' URI would be "payid:alice$bank.example$wallet.example".</p>
+<p id="rfc.section.4.p.4">The following example URIs illustrate several variations of PayIDs and their common syntax components:</p>
 <pre>
      payid:alice$example.net
      
@@ -513,45 +514,50 @@
 <h1 id="rfc.section.5">
 <a href="#rfc.section.5">5.</a> <a href="#security-concerns" id="security-concerns">Security Concerns</a>
 </h1>
-<p id="rfc.section.5.p.1">Because the 'payid' URI scheme does not directly enable interaction with a user's payment account at a service provider, direct security concerns are minimized.</p>
-<p id="rfc.section.5.p.2">However, a 'payid' URI does provide proof of existence of the payment account; this implies that harvesting published 'payid' URIs could prove useful for certain attackers &#8211; for example, if an attacker can use a 'payid' URI to leverage more information about the account (e.g., via WebFinger) or if they can interact with protocol- specific URIs (such as 'mailto' URIs) whose user@host portion is the same as that of the 'payid' URI (e.g., replacing the <samp>$</samp> character with an <samp>@</samp> sign).</p>
-<p id="rfc.section.5.p.3">In addition, protocols that make use of 'payid' URIs are responsible for defining security considerations related to such usage, e.g., the risks involved in dereferencing a 'payid' URI, the authentication and authorization methods that could be used to control access to personal data associated with a user's payment account at a service, and methods for ensuring the confidentiality of such information.</p>
-<p id="rfc.section.5.p.4">The use of percent-encoding allows a wider range of characters in payment account names but introduces some additional risks.  Implementers are advised to disallow percent-encoded characters or sequences that would (1) result in space, null, control, or other characters that are otherwise forbidden, (2) allow unauthorized access to private data, or (3) lead to other security vulnerabilities.</p>
+<p id="rfc.section.5.p.1">The 'payid' URI scheme defined in this document does not directly enable interaction with a user's payment account and therefore does not present any direct security concerns.</p>
+<p id="rfc.section.5.p.2">However, a 'payid' URI indicates existence of a payment account, so care should be taken to properly secure any payment account interactions allowed by a service provider.</p>
+<p id="rfc.section.5.p.3">In addition, service providers and users should consider whether an attacker might be able to derive or infer other identifiers correlating to the user of any particular PayID. For example, replacing the <samp>$</samp> character in a PayID with an <samp>@</samp> sign SHOULD NOT yield a 'mailto' URI, when possible. In addition, care should be taken when the 'acctpart' of a PayID corresponds to a user's email address (in part or in whole) as this might allow an attacker to execute phishing attacks or send spam messages.</p>
+<p id="rfc.section.5.p.4">Due to the use of percent-encoding in 'payid' URIs, implementers SHOULD disallow percent-encoded characters or sequences that would result in "space", "null", "control", or other characters that are otherwise forbidden.</p>
 <h1 id="rfc.section.6">
 <a href="#rfc.section.6">6.</a> <a href="#internationalization-concerns" id="internationalization-concerns">Internationalization Concerns</a>
 </h1>
-<p id="rfc.section.6.p.1">As specified in <a href="#RFC3986" class="xref">[RFC3986]</a>, the 'payid' URI scheme allows any character from the Unicode repertoire <a href="#UNICODE" class="xref">[UNICODE]</a> encoded as UTF-8 <a href="#RFC3629" class="xref">[RFC3629]</a> and then percent-encoded into valid ASCII <a href="#RFC0020" class="xref">[RFC0020]</a>.  Before applying any percent-encoding, an application MUST ensure the following about the string that is used as input to the URI-construction process:</p>
+<p id="rfc.section.6.p.1">As specified in <a href="#RFC3986" class="xref">[RFC3986]</a>, the 'payid' URI scheme allows any character from the Unicode repertoire <a href="#UNICODE" class="xref">[UNICODE]</a> encoded as UTF-8 <a href="#RFC3629" class="xref">[RFC3629]</a> and then percent-encoded into valid ASCII <a href="#RFC0020" class="xref">[RFC0020]</a>. Before applying any percent-encoding, an application MUST ensure the following about the string that is used as input to the URI-construction process:</p>
 <p></p>
 
 <ul>
-<li>The 'acctpart' consists only of Unicode code points that conform to the PRECIS IdentifierClass specified in <a href="#RFC7564" class="xref">[RFC7564]</a>.</li>
+<li>The 'acctpart' consists only of Unicode code points that conform to the PRECIS IdentifierClass specified in <a href="#RFC8264" class="xref">[RFC8264]</a>.</li>
 <li>The 'host' consists only of Unicode code points that conform to the rules specified in <a href="#RFC5892" class="xref">[RFC5892]</a>.</li>
 <li>Internationalized domain name (IDN) labels are encoded as A-labels <a href="#RFC5890" class="xref">[RFC5890]</a>.</li>
 </ul>
 <h1 id="rfc.section.7">
 <a href="#rfc.section.7">7.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a>
 </h1>
-<p id="rfc.section.7.p.1">In accordance with the guidelines and registration procedures for new URI schemes <a href="#RFC7595" class="xref">[RFC7595]</a>, this section provides the information needed to register the 'payid' URI scheme.</p>
+<p id="rfc.section.7.p.1">In accordance with <a href="#RFC7595" class="xref">[RFC7595]</a>, this section provides the information needed to register the 'payid' URI scheme.</p>
 <p><strong>URI Scheme Name</strong>: payid</p>
 <p><strong>Status</strong>: permanent</p>
-<p><strong>URI Scheme Syntax</strong>:  The 'payid' URI syntax is defined here in Augmented Backus-Naur Form (ABNF) <a href="#RFC5234" class="xref">[RFC5234]</a>, borrowing the 'host', 'path' rules from <a href="#RFC3986" class="xref">[RFC3986]</a>:</p>
+<p><strong>URI Scheme Syntax</strong>:  The 'payid' URI syntax is defined here in Augmented Backus-Naur Form (ABNF) per <a href="#RFC5234" class="xref">[RFC5234]</a>, borrowing the 'host' and 'path' rules from <a href="#RFC3986" class="xref">[RFC3986]</a>:</p>
 <pre>
   payidURI   = "payid" ":" acctpart "$" host
   acctpart   = path
 </pre>
-<p id="rfc.section.7.p.5">Note that additional rules regarding the strings that are used as input to construction of 'payid' URIs further limit the characters that can be percent-encoded; see the Encoding Considerations as well as Section 6 of this document.</p>
-<p><strong>URI Scheme Semantics</strong>:  The 'payid' URI scheme identifies payment accounts hosted at payment service providers.  It is used only for identification, not interaction.  A protocol that employs the 'payid' URI scheme is responsible for specifying how a 'payid' URI is dereferenced in the context of that protocol.  There is no media type associated with the 'payid' URI scheme.</p>
+<p id="rfc.section.7.p.5">Note that additional rules limit the characters that can be percent-encoded in a 'payid' URI. See "Encoding Considerations" below for more details.</p>
+<p><strong>URI Scheme Semantics</strong>:  The 'payid' URI scheme identifies payment accounts hosted at payment service providers.  It is used only for identification, not interaction.</p>
 <p><strong>Encoding Considerations</strong>:  See Section 6 of this document.</p>
-<p><strong>Applications/Protocols That Use This URI Scheme Name</strong>: At the time of this writing, only the <a href="#PAYID-DISCOVERY" class="xref">[PAYID-DISCOVERY]</a> protocol uses the 'payid' URI scheme.  However, use is not restricted to this protocol, and the scheme might be considered for use in other protocols.</p>
-<p><strong>Interoperability Considerations</strong>:  There are no known interoperability concerns related to use of the 'payid' URI scheme.</p>
-<p><strong>Security Considerations</strong>:  See Section 5 of this document.</p>
-<p><strong>Contact</strong>:  fuelling@ripple.com</p>
-<p><strong>Author/Change Controller</strong>:  This scheme is registered under the IETF tree.  As such, the IETF maintains change control.</p>
+<p><strong>Applications/Protocols That Use This URI Scheme Name</strong>: The following protocols utilize this URI scheme:</p>
+<pre>
+  - [PAYID-DISCOVERY][], 
+  - [PAYID-PROTOCOL][],
+  - [VERIFIABLE-PAYID][].
+</pre>
+<p><strong>Interoperability Considerations</strong>:  n/a.</p>
+<p><strong>Security Considerations</strong>:  See Section 6 of this document.</p>
+<p><strong>Contact</strong>:  rfcs@payid.org</p>
+<p><strong>Author/Change Controller</strong>:  TBD.</p>
 <p><strong>References</strong>:  None.</p>
 <h1 id="rfc.section.8">
 <a href="#rfc.section.8">8.</a> <a href="#acknowledgements" id="acknowledgements">Acknowledgements</a>
 </h1>
-<p id="rfc.section.8.p.1">This document was heavily influenced RFC-7565, adapted for a payments use -case. The author would like to acknowledge the contributions of everyone who worked on that and related specifications.</p>
+<p id="rfc.section.8.p.1">This document was adapted from and heavily influenced by <a href="#RFC7565" class="xref">[RFC7565]</a>, modifying it (in some cases only slightly) for a payments use-case. The author would like to acknowledge the contributions of everyone who worked on that and related specifications.</p>
 <p id="rfc.section.8.p.2">In addition, the author would like to acknowledge everyone who provided feedback and use-cases for this derivative specification.</p>
 <h1 id="rfc.references">
 <a href="#rfc.references">9.</a> References</h1>
@@ -562,6 +568,11 @@
 <td class="reference"><b id="PAYID-DISCOVERY">[PAYID-DISCOVERY]</b></td>
 <td class="top">
 <a>Fuelling, D.</a>, "<a href="https://tbd.example.com/">The PayID Discovery Protocol</a>", n.d..</td>
+</tr>
+<tr>
+<td class="reference"><b id="PAYID-PROTOCOL">[PAYID-PROTOCOL]</b></td>
+<td class="top">
+<a>Malhotra, A.</a> and <a>D. Schwartz</a>, "<a href="https://tbd.example.com/">PayID Protocol</a>", n.d..</td>
 </tr>
 <tr>
 <td class="reference"><b id="RFC2119">[RFC2119]</b></td>
@@ -594,14 +605,19 @@
 <a>Faltstrom, P.</a>, "<a href="https://tools.ietf.org/html/rfc5892">The Unicode Code Points and Internationalized Domain Names for Applications (IDNA)</a>", RFC 5892, DOI 10.17487/RFC5892, August 2010.</td>
 </tr>
 <tr>
-<td class="reference"><b id="RFC7564">[RFC7564]</b></td>
+<td class="reference"><b id="RFC8264">[RFC8264]</b></td>
 <td class="top">
-<a>Saint-Andre, P.</a> and <a>M. Blanchet</a>, "<a href="https://tools.ietf.org/html/rfc7564">PRECIS Framework: Preparation, Enforcement, and Comparison of Internationalized Strings in Application Protocols</a>", RFC 7564, DOI 10.17487/RFC7564, May 2015.</td>
+<a>Saint-Andre, P.</a> and <a>M. Blanchet</a>, "<a href="https://tools.ietf.org/html/rfc8264">PRECIS Framework: Preparation, Enforcement, and Comparison of Internationalized Strings in Application Protocols</a>", RFC 8264, DOI 10.17487/RFC8264, October 2017.</td>
 </tr>
 <tr>
 <td class="reference"><b id="UNICODE">[UNICODE]</b></td>
 <td class="top">
 <a>The Unicode Consortium</a>, "<a href="http://www.unicode.org/versions/latest/">The Unicode Standard</a>", n.d..</td>
+</tr>
+<tr>
+<td class="reference"><b id="VERIFIABLE-PAYID">[VERIFIABLE-PAYID]</b></td>
+<td class="top">
+<a>Malhotra, A.</a> and <a>D. Schwartz</a>, "<a href="https://tbd.example.com/">Verifiable PayID Protocol</a>", n.d..</td>
 </tr>
 </tbody></table>
 <h1 id="rfc.references.2">
@@ -626,6 +642,11 @@
 <td class="reference"><b id="RFC7033">[RFC7033]</b></td>
 <td class="top">
 <a>Jones, P.</a>, <a>Salgueiro, G.</a>, <a>Jones, M.</a> and <a>J. Smarr</a>, "<a href="https://tools.ietf.org/html/rfc7033">WebFinger</a>", RFC 7033, DOI 10.17487/RFC7033, September 2013.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC7565">[RFC7565]</b></td>
+<td class="top">
+<a>Saint-Andre, P.</a>, "<a href="https://tools.ietf.org/html/rfc7565">The 'acct' URI Scheme</a>", RFC 7565, DOI 10.17487/RFC7565, May 2015.</td>
 </tr>
 <tr>
 <td class="reference"><b id="RFC7595">[RFC7595]</b></td>
@@ -653,12 +674,7 @@
 	  </span>
 	  <span class="country-name vcardline">US</span>
 	</span>
-	<span class="vcardline">Phone: -----------------</span>
-
-<span class="vcardline">EMail: <a href="mailto:fuelling@ripple.com">fuelling@ripple.com</a></span>
-
-<span class="vcardline">URI: <a href="https://www.ripple.com">https://www.ripple.com</a></span>
-
+	
   </address>
 </div>
 

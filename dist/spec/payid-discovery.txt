@@ -4,8 +4,8 @@
 
 Network Working Group                                        D. Fuelling
 Internet-Draft                                                    Ripple
-Intended status: Standards Track                           June 18, 2020
-Expires: December 20, 2020
+Intended status: Standards Track                           June 23, 2020
+Expires: December 25, 2020
 
 
                             PayID Discovery
@@ -22,9 +22,10 @@ Abstract
 
 Feedback
 
-   This specification is a part of the PayID Protocol [1] work.
-   Feedback related to this specification should be sent to
-   payid@ripple.com [2].
+   This specification is a draft proposal, and is part of the PayID
+   Protocol [1] initiative.  Feedback related to this document should be
+   sent in the form of a Github issue at: https://github.com/payid-
+   org/rfcs/issues.
 
 Status of This Memo
 
@@ -41,23 +42,24 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 20, 2020.
+   This Internet-Draft will expire on December 25, 2020.
 
 Copyright Notice
 
    Copyright (c) 2020 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
-   This document is subject to BCP 78 and the IETF Trust's Legal
-   Provisions Relating to IETF Documents
 
 
 
-Fuelling                Expires December 20, 2020               [Page 1]
+
+Fuelling                Expires December 25, 2020               [Page 1]
 
 Internet-Draft               PayID Discovery                   June 2020
 
 
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents
    (https://trustee.ietf.org/license-info) in effect on the date of
    publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
@@ -69,7 +71,7 @@ Internet-Draft               PayID Discovery                   June 2020
 Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
-   2.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   3
+   2.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   4
    3.  Example Usage . . . . . . . . . . . . . . . . . . . . . . . .   4
      3.1.  PayID Discovery by a Wallet . . . . . . . . . . . . . . .   4
      3.2.  PayID Discovery with Default Template . . . . . . . . . .   5
@@ -103,16 +105,17 @@ Table of Contents
 
    PayID Discovery is used to transform a PayID URI [PAYID-URI] into a
    URL (defined below as a PayID Discovery URL) that can then be used by
-   higher-order protocols to discover metadata about a PayID-enabled
-   service provider.
 
 
 
 
-Fuelling                Expires December 20, 2020               [Page 2]
+Fuelling                Expires December 25, 2020               [Page 2]
 
 Internet-Draft               PayID Discovery                   June 2020
 
+
+   higher-order protocols to discover metadata about a PayID-enabled
+   service provider.
 
    This document specifies two modes of PayID discovery: one using
    Webfinger [RFC7033] to resolve a corresponding PayID Discovery URL
@@ -156,19 +159,23 @@ Internet-Draft               PayID Discovery                   June 2020
    of PayID Discovery is illustrated in the examples in Section 3 and
    described more formally in Section 4.
 
+
+
+
+
+
+
+Fuelling                Expires December 25, 2020               [Page 3]
+
+Internet-Draft               PayID Discovery                   June 2020
+
+
 2.  Terminology
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
    "OPTIONAL" in this document are to be interpreted as described in
    [RFC2119].
-
-
-
-Fuelling                Expires December 20, 2020               [Page 3]
-
-Internet-Draft               PayID Discovery                   June 2020
-
 
 3.  Example Usage
 
@@ -177,7 +184,7 @@ Internet-Draft               PayID Discovery                   June 2020
 
 3.1.  PayID Discovery by a Wallet
 
-   Suppose Alice wishes to send a friend some XRP from a web-based
+   Imagine Alice wishes to send a friend some XRP from a web-based
    wallet provider that Alice has an account on.  Alice would log-in to
    the wallet provider and enter Bob's PayID (say,
    "bob$receiver.example.com") into the wallet UI to start the payment.
@@ -211,24 +218,23 @@ Internet-Draft               PayID Discovery                   June 2020
    property to assemble the specified PayId URL,
    "https://receiver.example.com/users/bob".
 
+
+
+
+Fuelling                Expires December 25, 2020               [Page 4]
+
+Internet-Draft               PayID Discovery                   June 2020
+
+
    Per [RFC7033], Webfinger requests can be filtered by using a "rel"
    parameter in the Webfinger request.  Because support for the "rel"
    parameter is not required nor guaranteed, the client must not assume
    the "links" array will contain only the link relations related to
    PayID Discovery.
 
-
-
-
-
-Fuelling                Expires December 20, 2020               [Page 4]
-
-Internet-Draft               PayID Discovery                   June 2020
-
-
 3.2.  PayID Discovery with Default Template
 
-   Suppose Alice, as in the example above, wishes to send a friend some
+   Imagine Alice, as in the example above, wants to send a friend some
    XRP from a web-based wallet provider that Alice has an account on.
    However, in this example, let's assume that the PayID Alice is
    wanting to pay doesn't support "interactive" PayID discovery (i.e.,
@@ -268,20 +274,19 @@ Internet-Draft               PayID Discovery                   June 2020
 
    When successful, PayID Discovery always yields a PayID URL, which is
    a URI as defined by [RFC3986] using the 'https' scheme defined in
+
+
+
+Fuelling                Expires December 25, 2020               [Page 5]
+
+Internet-Draft               PayID Discovery                   June 2020
+
+
    section 2.7.2 [RFC7230].  A PayID URL can be used for any purposes
    outside the scope of this document.
 
    PayID Discovery is performed using one of two modes: "interactive" or
    "manual."  Clients MUST attempt "interactive" mode first.  If that
-
-
-
-
-Fuelling                Expires December 20, 2020               [Page 5]
-
-Internet-Draft               PayID Discovery                   June 2020
-
-
    mode fails to yield a PayID URL, then "manual" mode MAY be used as an
    alternative discovery mechanism.
 
@@ -328,12 +333,7 @@ Internet-Draft               PayID Discovery                   June 2020
 
 
 
-
-
-
-
-
-Fuelling                Expires December 20, 2020               [Page 6]
+Fuelling                Expires December 25, 2020               [Page 6]
 
 Internet-Draft               PayID Discovery                   June 2020
 
@@ -389,7 +389,7 @@ Internet-Draft               PayID Discovery                   June 2020
 
 
 
-Fuelling                Expires December 20, 2020               [Page 7]
+Fuelling                Expires December 25, 2020               [Page 7]
 
 Internet-Draft               PayID Discovery                   June 2020
 
@@ -445,7 +445,7 @@ Internet-Draft               PayID Discovery                   June 2020
 
 
 
-Fuelling                Expires December 20, 2020               [Page 8]
+Fuelling                Expires December 25, 2020               [Page 8]
 
 Internet-Draft               PayID Discovery                   June 2020
 
@@ -501,7 +501,7 @@ PAYID-URI-Template =  *( uri-char / variable )
 
 
 
-Fuelling                Expires December 20, 2020               [Page 9]
+Fuelling                Expires December 25, 2020               [Page 9]
 
 Internet-Draft               PayID Discovery                   June 2020
 
@@ -557,7 +557,7 @@ Internet-Draft               PayID Discovery                   June 2020
 
 
 
-Fuelling                Expires December 20, 2020              [Page 10]
+Fuelling                Expires December 25, 2020              [Page 10]
 
 Internet-Draft               PayID Discovery                   June 2020
 
@@ -613,7 +613,7 @@ Internet-Draft               PayID Discovery                   June 2020
 
 
 
-Fuelling                Expires December 20, 2020              [Page 11]
+Fuelling                Expires December 25, 2020              [Page 11]
 
 Internet-Draft               PayID Discovery                   June 2020
 
@@ -669,7 +669,7 @@ Internet-Draft               PayID Discovery                   June 2020
 
 
 
-Fuelling                Expires December 20, 2020              [Page 12]
+Fuelling                Expires December 25, 2020              [Page 12]
 
 Internet-Draft               PayID Discovery                   June 2020
 
@@ -725,7 +725,7 @@ Internet-Draft               PayID Discovery                   June 2020
 
 
 
-Fuelling                Expires December 20, 2020              [Page 13]
+Fuelling                Expires December 25, 2020              [Page 13]
 
 Internet-Draft               PayID Discovery                   June 2020
 
@@ -744,8 +744,6 @@ Internet-Draft               PayID Discovery                   June 2020
 
    [1] https://payid.org/
 
-   [2] mailto:payid@ripple.com
-
 Author's Address
 
    David Fuelling
@@ -754,9 +752,6 @@ Author's Address
    San Francisco, CA  94104
    US
 
-   Phone: -----------------
-   Email: fuelling@ripple.com
-   URI:   https://www.ripple.com
 
 
 
@@ -781,4 +776,9 @@ Author's Address
 
 
 
-Fuelling                Expires December 20, 2020              [Page 14]
+
+
+
+
+
+Fuelling                Expires December 25, 2020              [Page 14]

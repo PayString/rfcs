@@ -62,8 +62,9 @@ informative:
     
 --- note_Feedback
 
-This specification is a part of the [PayID Protocol](https://payid.org/) work.
- Feedback related to this specification should be sent to <payid@ripple.com>.
+This specification is a draft proposal, and is part of the [PayID Protocol
+](https://payid.org/) work. Feedback related to this specification should
+ be sent to <rfcs@payid.org>.
 
 --- abstract
 This specification defines the PayID protocol - an application-layer protocol, which can be used to interact with a PayID-enabled service provider. The primary use-case is to discover payment account information along with optional metadata identified by a PayID [PayID-URI][]. The protocol is based on HTTP transfer of PayID protocol messages over a secure transport.   

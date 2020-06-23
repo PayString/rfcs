@@ -20,9 +20,6 @@ author:
     region: CA
     code: 94104
     country: US
-    phone: -----------------
-    email: fuelling@ripple.com
-    uri: https://www.ripple.com
       
 normative:
     RFC2119:
@@ -44,15 +41,17 @@ informative:
     
 --- note_Feedback
 
-This specification is a part of the [PayID Protocol](https://payid.org/) work.
- Feedback related to this specification should be sent to <payid@ripple.com>.
+  This specification is a draft proposal, and is part of the 
+  [PayID Protocol](https://payid.org/) initiative. Feedback related to this 
+  document should be sent in the form of a Github issue at: 
+  https://github.com/payid-org/rfcs/issues.
 
 --- abstract
-This specification defines the PayID Discovery protocol, which can be used
-to discover information about a 'payid' URI using standard HTTP methods.
-
-The primary use-case of this protocol is to define how to transform a 
-PayID URI into a URL that can be used with other protocols.   
+   This specification defines the PayID Discovery protocol, which can be used
+   to discover information about a 'payid' URI using standard HTTP methods.
+   
+   The primary use-case of this protocol is to define how to transform a 
+   PayID URI into a URL that can be used with other protocols.   
        
 --- middle
 
@@ -113,7 +112,7 @@ PayID URI into a URL that can be used with other protocols.
    hypothetical scenarios.
 
 ## PayID Discovery by a Wallet 
-   Suppose Alice wishes to send a friend some XRP from a web-based wallet
+   Imagine Alice wishes to send a friend some XRP from a web-based wallet
    provider that Alice has an account on. Alice would log-in to the wallet
    provider and enter Bob's PayID (say, `bob$receiver.example.com`) into the
    wallet UI to start the payment. 
@@ -153,7 +152,7 @@ PayID URI into a URL that can be used with other protocols.
    array will contain only the link relations related to PayID Discovery.
 
 ## PayID Discovery with Default Template
-  Suppose Alice, as in the example above, wishes to send a friend some XRP
+  Imagine Alice, as in the example above, wants to send a friend some XRP
   from a web-based wallet provider that Alice has an account on. However, in 
   this example, let's assume that the PayID Alice is wanting to pay doesn't 
   support "interactive" PayID discovery (i.e., the receiver's server doesn't 

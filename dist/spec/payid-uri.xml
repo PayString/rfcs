@@ -9,11 +9,12 @@
 <!ENTITY RFC5234 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5234.xml">
 <!ENTITY RFC5890 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5890.xml">
 <!ENTITY RFC5892 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5892.xml">
-<!ENTITY RFC7564 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7564.xml">
+<!ENTITY RFC8264 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8264.xml">
 <!ENTITY RFC0020 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.0020.xml">
 <!ENTITY RFC5988 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5988.xml">
 <!ENTITY RFC6068 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6068.xml">
 <!ENTITY RFC7033 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7033.xml">
+<!ENTITY RFC7565 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7565.xml">
 <!ENTITY RFC7595 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7595.xml">
 ]>
 
@@ -37,13 +38,10 @@
           <code>94104</code>
           <country>US</country>
         </postal>
-        <phone>-----------------</phone>
-        <email>fuelling@ripple.com</email>
-        <uri>https://www.ripple.com</uri>
       </address>
     </author>
 
-    <date year="2020" month="June" day="18"/>
+    <date year="2020" month="June" day="23"/>
 
     <area>security</area>
     
@@ -53,9 +51,7 @@
 
 
 <t>This specification defines the 'payid' Uniform Resource Identifier (URI) 
- scheme as a way to identify a payment account at a service provider, 
- irrespective of the particular protocols that can be used to interact with
- the account.</t>
+  scheme as a way to identify a payment account at a service provider.</t>
 
 
 
@@ -65,8 +61,10 @@
     <note title="Feedback">
 
 
-<t>This specification is a part of the <eref target="https://payid.org/">PayID Protocol</eref> work.
- Feedback related to this specification should be sent to <eref target="mailto:payid@ripple.com">payid@ripple.com</eref>.</t>
+<t>This specification is a draft proposal, and is part of the 
+  <eref target="https://payid.org/">PayID Protocol</eref> initiative. Feedback related to this 
+  document should be sent in the form of a Github issue at: 
+  https://github.com/payid-org/rfcs/issues.</t>
 
 
     </note>
@@ -78,28 +76,27 @@
 
 
 <section anchor="introduction" title="Introduction">
-<t>Various Uniform Resource Identifier (URI) schemes enable interaction
-   with, or identify resources associated with, a user account at a
-   service provider. However, no standard identifier exists to identify a
-   user's payment account at a service provider.</t>
+<t>Various Uniform Resource Identifier (URI) schemes can be used to
+   identify a user account at a service provider. However, no standard 
+   identifier exists to identify a user's <spanx style="emph">payment</spanx> account at a service
+   provider.</t>
 
 <t>While popular URIs could be re-used as payment account identifiers, 
    these identifiers are insufficient because they are typically recognized
    as supporting functionality unique to those schemes. For example, the
-   'mailto' scheme <xref target="RFC6068"></xref> (which enables interaction with a user's email
-   account) is broadly deployed for messaging. Re-using this identifier for
-   payments would likely cause confusion because one desirable quality of
-   a payment account identifier is that it expressly does not support
-   messaging, in order to avoid spam and/or other security concerns such as 
-   phishing attacks.</t>
+   'mailto' scheme <xref target="RFC6068"></xref> is broadly deployed for messaging. Re-using 
+   this identifier for payments would likely cause confusion because one
+   desirable quality of a payment account identifier is that it expressly
+   does not support messaging, in order to avoid spam and/or other security
+   concerns such as phishing attacks.</t>
 
 <t>Deploying payment protocols on top of identifiers that are commonly
    employed for other use-cases would likely be a mis-use of those
    identifiers, and could also cause confusion for end-users, among other
    problems.</t>
 
-<t>Instead, the <spanx style="verb">payid</spanx> scheme uses a new type of identifier that is
-   intended to identify accounts for payment use-cases only.</t>
+<t>Instead, the 'payid' scheme defines an identifier that is intended to
+   identify accounts for payment use-cases only.</t>
 
 </section>
 <section anchor="terminology" title="Terminology">
@@ -110,94 +107,68 @@
 
 </section>
 <section anchor="definition" title="Definition">
-<t>The syntax of the 'payid' URI scheme is defined under Section 7 of
-   this document.  Although 'payid' URIs take the form "user$host", the
-   scheme is designed for the purpose of identification instead of
-   interaction (regarding this distinction, see Section 1.2.2 of
-   <xref target="RFC3986"></xref>). The "Internet resource" identified by a 'payid' URI is a
-   user's payment account hosted at a service provider, where the service
-   provider is typically associated with a DNS domain name.  Thus, a
-   particular 'payid' URI is formed by setting the "user" portion to the
-   user's payment account name at the service provider and by setting the "host"
-   portion to the DNS domain name of the service provider.</t>
+<t>The syntax of the 'payid' URI scheme is defined in Section 7 of this
+   document.</t>
 
-<t>Consider the case of a user with an account name of "apollo" on a
-   wallet service "wallet.example.com".  It is taken as
-   convention that the string "apollo$wallet.example.com" designates
-   that payment account.  This is expressed as a URI using the 'payid' 
-   scheme as 'payid:apollo$wallet.example.com'.</t>
+<t>A 'payid' URI identifies a payment account hosted at a service provider, 
+   and is designed for payment account identification rather than
+   interaction, as discussed in section 1.2.2 of <xref target="RFC3986"></xref>.</t>
 
-<t>A possible scenario is for a user to register with a payment service
-   provider using an identifier (such as an email address) that is associated
-   with some other service provider. For example, a user with the email
-   address "alice@example.net" might register with a wallet website whose
-   domain name is "wallet.example.com". In order to facilitate payments 
-   to/from alice, the wallet service provider might offer alice a
-   PayID using alice's email address (though using an email address as a
-   PayID is not recommended). In order to use her email address as the
-   'acctpart' of the 'payid' URI, no percent-encoding is necessary because
-   the 'acctpart' portion of a PayID allows for at-signs. Thus, the resulting 
-   'payid' URI would be <spanx style="verb">payid:alice@example.net$shoppingsite.example</spanx>.</t>
+<t>A 'payid' URI is constructed by taking a user's payment account identifier 
+   at a service provider and using that value as the 'acctpart'. The 'host' 
+   portion is then set to the DNS domain name of the service provider that
+   provides the 'payid'.</t>
 
-<t>Another possible scenario is a payment service provider (e.g., a digital
-   wallet) that allows a user to use a PayID that is associated with some
-   other payment service provider. For example, a user with the PayID 
-   "alice$bank.example.net" might register with a wallet website whose
-   domain name is "wallet.example.net". In order to use her bank's PayID as 
-   the localpart of the wallet's 'payid' URI, no percent-encoding is necessary
-   because the 'acctpart' portion of a PayID allows for dollar-signs. Thus, 
-   the resulting 'payid' URI would be 
-   <spanx style="verb">payid:alice$bank.example$wallet.example</spanx>.</t>
+<t>To compare two 'payid' URIs, case normalization and percent-encoding 
+   normalization (as specified in sections 6.2.2.1 and 6.2.2.2 of
+   <xref target="RFC3986"></xref>) MUST be employed before performing any comparison.</t>
 
-<t>It is not assumed that an entity will necessarily be able to interact
-   with a user's PayID using any particular application protocol, 
-   such as a wallet or banking application. To enable interactions
-   (payments or otherwise), an entity would need to use the appropriate URI
-   scheme for such a protocol. While it might be true that the 'payid' URI
-   minus the scheme name (e.g., "user$example.com" derived from 
-   "payid:user$example.com") could be used via some application protocol, 
-   that fact would be purely contingent and dependent upon the deployment
-   practices of the payment account provider.</t>
+<t>In addition, a 'payid' is case-insensitive and therefore should be
+   normalized to lowercase.  For example, the URI 
+   "PAYID:aLICE$www.EXAMPLE.com" is equivalent to 
+   "payid:alice$www.example.com".</t>
 
-<t>Because a 'payid' URI enables abstract identification only and not
-   interaction, this specification provides no method for dereferencing
-   a 'payid' URI on its own, e.g., as the value of the 'href' attribute
-   of an HTML anchor element.  For example, there is no behavior
-   specified in this document for a 'payid' URI used as follows:</t>
-
-<t><spanx style="verb">
-    &lt;a href='payid:bob$example.com'&gt;find out more&lt;/a&gt;
-  </spanx></t>
-
-<t>Any protocol that uses 'payid' URIs is responsible for specifying how
-   a 'payid' URI is employed in the context of that protocol (in
-   particular, how it is dereferenced or resolved; see <xref target="RFC3986"></xref>).  As a
-   concrete example, an "Account Information" application of the
-   WebFinger protocol <xref target="RFC7033"></xref> might take a 'payid' URI, resolve the
-   host portion to find a WebFinger server, and then pass the 'payid' URI
-   as a parameter in a WebFinger HTTP request for metadata (i.e., web
-   links <xref target="RFC5988"></xref>) about the resource. For example:</t>
-
-<t><spanx style="verb">
-    GET /.well-known/webfinger?resource=payid%3Abob%24example.com HTTP/1.1
-  </spanx></t>
-
-<t>In the above example, the service retrieves the metadata associated with
-   the payment account identified by that URI and then provides that
-   metadata to the requesting entity in an HTTP response.</t>
-
-<t>If an application needs to compare two 'payid' URIs (e.g., for
-   purposes of authentication and authorization), it MUST do so using
-   case normalization and percent-encoding normalization as specified in
-   Sections 6.2.2.1 and 6.2.2.2 of <xref target="RFC3986"></xref>. In addition, the 'acctpart' 
-   is case-insensitive and therefore should be normalized to lowercase. 
-   For example, the URI <spanx style="verb">PAYID:aLICE$www.EXAMPLE.com</spanx> is equivalent to
-   <spanx style="verb">payid:alice$www.example.com</spanx>.</t>
+<t>Note that both the 'acctpart' and 'host' components of a 'payid' may
+   contain one or more dollar-sign characters. However, because a 'host' 
+   SHOULD also be a valid DNS domain, that portion of a 'payid' will
+   generally not include a dollar-sign. Therefore, applications should
+   always search for the last dollar-sign when attempting to parse a 'payid' 
+   URI into its two component parts.</t>
 
 </section>
 <section anchor="examples" title="Examples">
-<t>The following example URIs illustrate several variations of PayIDs
-   and their common syntax components:</t>
+<t>As an example, a user with an account name of "apollo" at a wallet
+   service "wallet.example.com" can be identified by a URI using the 'payid' 
+   scheme via the following construction:</t>
+
+<figure><artwork><![CDATA[
+ 'payid:apollo$wallet.example.com'
+]]></artwork></figure>
+
+<t>One possible PayID scenario is for an account to be registered with a 
+   payment service provider using an identifier that is associated with some 
+   other service provider. For example, a user with the email address 
+   "alice@example.net" might register with a wallet website whose domain
+   name is "wallet.example.com". In order to facilitate payments to/from
+   Alice, the wallet service provider might offer alice a PayID using alice's 
+   email address (though using an email address as a PayID is not
+   recommended).  In order to use Alice's email address as the 'acctpart' of
+   the 'payid' URI, no percent-encoding is necessary because the 'acctpart' 
+   portion of a PayID allows for at-signs. Thus, the provisioned 'payid' URI 
+   for Alice would be "payid:alice@example.net$shoppingsite.example".</t>
+
+<t>Another possible scenario is where a payment service provider (e.g., a
+   digital wallet) provides its users with PayIDs that are associated with
+   the PayIDs of another service provider. For example, a user with the
+   PayID "alice$bank.example.net" might register with a wallet website whose 
+   domain name is "wallet.example.net". In order to use the bank's PayID
+   as the acctpart of the wallet's 'payid' URI, no percent-encoding is 
+   necessary because the 'acctpart' portion of a PayID allows for 
+   dollar-signs. Therefore, the resulting 'payid' URI would be 
+   "payid:alice$bank.example$wallet.example".</t>
+
+<t>The following example URIs illustrate several variations of PayIDs and
+   their common syntax components:</t>
 
 <figure><artwork><![CDATA[
      payid:alice$example.net
@@ -209,44 +180,38 @@
 
 </section>
 <section anchor="security-concerns" title="Security Concerns">
-<t>Because the 'payid' URI scheme does not directly enable interaction with
-   a user's payment account at a service provider, direct security concerns
-   are minimized.</t>
+<t>The 'payid' URI scheme defined in this document does not directly enable
+   interaction with a user's payment account and therefore does not present
+   any direct security concerns.</t>
 
-<t>However, a 'payid' URI does provide proof of existence of the payment
-   account; this implies that harvesting published 'payid' URIs could
-   prove useful for certain attackers – for example, if
-   an attacker can use a 'payid' URI to leverage more information about the
-   account (e.g., via WebFinger) or if they can interact with protocol-
-   specific URIs (such as 'mailto' URIs) whose user@host portion is the
-   same as that of the 'payid' URI (e.g., replacing the <spanx style="verb">$</spanx> character with an
-   <spanx style="verb">@</spanx> sign).</t>
+<t>However, a 'payid' URI indicates existence of a payment account, so
+   care should be taken to properly secure any payment account interactions 
+   allowed by a service provider.</t>
 
-<t>In addition, protocols that make use of 'payid' URIs are responsible
-   for defining security considerations related to such usage, e.g., the
-   risks involved in dereferencing a 'payid' URI, the authentication and
-   authorization methods that could be used to control access to
-   personal data associated with a user's payment account at a service, and
-   methods for ensuring the confidentiality of such information.</t>
+<t>In addition, service providers and users should consider whether an 
+   attacker might be able to derive or infer other identifiers correlating
+   to the user of any particular PayID. For example, replacing the <spanx style="verb">$</spanx> 
+   character in a PayID with an <spanx style="verb">@</spanx> sign SHOULD NOT yield a 'mailto' URI, 
+   when possible. In addition, care should be taken when the 'acctpart' of
+   a PayID corresponds to a user's email address (in part or in whole) as this
+   might allow an attacker to execute phishing attacks or send spam messages.</t>
 
-<t>The use of percent-encoding allows a wider range of characters in
-   payment account names but introduces some additional risks.  Implementers
-   are advised to disallow percent-encoded characters or sequences that
-   would (1) result in space, null, control, or other characters that
-   are otherwise forbidden, (2) allow unauthorized access to private
-   data, or (3) lead to other security vulnerabilities.</t>
+<t>Due to the use of percent-encoding in 'payid' URIs, implementers SHOULD
+   disallow percent-encoded characters or sequences that would result in
+   "space", "null", "control", or other characters that are otherwise
+   forbidden.</t>
 
 </section>
 <section anchor="internationalization-concerns" title="Internationalization Concerns">
 <t>As specified in <xref target="RFC3986"></xref>, the 'payid' URI scheme allows any character
    from the Unicode repertoire <xref target="UNICODE"></xref> encoded as UTF-8 <xref target="RFC3629"></xref> and
-   then percent-encoded into valid ASCII <xref target="RFC0020"></xref>.  Before applying any
+   then percent-encoded into valid ASCII <xref target="RFC0020"></xref>. Before applying any
    percent-encoding, an application MUST ensure the following about the
    string that is used as input to the URI-construction process:</t>
 
 <t><list style="symbols">
   <t>The 'acctpart' consists only of Unicode code points that conform to
-the PRECIS IdentifierClass specified in <xref target="RFC7564"></xref>.</t>
+the PRECIS IdentifierClass specified in <xref target="RFC8264"></xref>.</t>
   <t>The 'host' consists only of Unicode code points that conform to the
 rules specified in <xref target="RFC5892"></xref>.</t>
   <t>Internationalized domain name (IDN) labels are encoded as A-labels
@@ -255,63 +220,60 @@ rules specified in <xref target="RFC5892"></xref>.</t>
 
 </section>
 <section anchor="iana-considerations" title="IANA Considerations">
-
-<t>In accordance with the guidelines and registration procedures for new
-URI schemes <xref target="RFC7595"></xref>, this section provides the information needed
-to register the 'payid' URI scheme.</t>
+<t>In accordance with <xref target="RFC7595"></xref>, this section provides the information
+   needed to register the 'payid' URI scheme.</t>
 
 <t><spanx style="strong">URI Scheme Name</spanx>: payid</t>
 
 <t><spanx style="strong">Status</spanx>: permanent</t>
 
 <t><spanx style="strong">URI Scheme Syntax</spanx>:  The 'payid' URI syntax is defined here in Augmented
-   Backus-Naur Form (ABNF) <xref target="RFC5234"></xref>, borrowing the 'host', 'path' rules from 
-   <xref target="RFC3986"></xref>:</t>
+   Backus-Naur Form (ABNF) per <xref target="RFC5234"></xref>, borrowing the 'host' and 'path' 
+   rules from <xref target="RFC3986"></xref>:</t>
 
 <figure><artwork><![CDATA[
   payidURI   = "payid" ":" acctpart "$" host
   acctpart   = path
 ]]></artwork></figure>
 
-<t>Note that additional rules regarding the strings that are used as input
-   to construction of 'payid' URIs further limit the characters that can be
-   percent-encoded; see the Encoding Considerations as well as Section 6
-   of this document.</t>
+<t>Note that additional rules limit the characters that can be
+   percent-encoded in a 'payid' URI. See "Encoding Considerations" below for
+   more details.</t>
 
-<t><spanx style="strong">URI Scheme Semantics</spanx>:  The 'payid' URI scheme identifies payment accounts
-      hosted at payment service providers.  It is used only for
-      identification, not interaction.  A protocol that employs the 'payid'
-      URI scheme is responsible for specifying how a 'payid' URI is
-      dereferenced in the context of that protocol.  There is no media type
-      associated with the 'payid' URI scheme.</t>
+<t><spanx style="strong">URI Scheme Semantics</spanx>:  The 'payid' URI scheme identifies payment 
+      accounts hosted at payment service providers.  It is used only for
+      identification, not interaction.</t>
 
 <t><spanx style="strong">Encoding Considerations</spanx>:  See Section 6 of this document.</t>
 
-<t><spanx style="strong">Applications/Protocols That Use This URI Scheme Name</spanx>: At the time of
-     this writing, only the <xref target="PAYID-DISCOVERY"></xref> protocol uses the 'payid' URI
-     scheme.  However, use is not restricted to this protocol, and the
-     scheme might be considered for use in other protocols.</t>
+<t><spanx style="strong">Applications/Protocols That Use This URI Scheme Name</spanx>: The following
+    protocols utilize this URI scheme:</t>
 
-<t><spanx style="strong">Interoperability Considerations</spanx>:  There are no known interoperability
-      concerns related to use of the 'payid' URI scheme.</t>
+<figure><artwork><![CDATA[
+  - [PAYID-DISCOVERY][], 
+  - [PAYID-PROTOCOL][],
+  - [VERIFIABLE-PAYID][].
+]]></artwork></figure>
 
-<t><spanx style="strong">Security Considerations</spanx>:  See Section 5 of this document.</t>
+<t><spanx style="strong">Interoperability Considerations</spanx>:  n/a.</t>
 
-<t><spanx style="strong">Contact</spanx>:  fuelling@ripple.com</t>
+<t><spanx style="strong">Security Considerations</spanx>:  See Section 6 of this document.</t>
 
-<t><spanx style="strong">Author/Change Controller</spanx>:  This scheme is registered under the IETF
-      tree.  As such, the IETF maintains change control.</t>
+<t><spanx style="strong">Contact</spanx>:  rfcs@payid.org</t>
+
+<t><spanx style="strong">Author/Change Controller</spanx>:  TBD.</t>
 
 <t><spanx style="strong">References</spanx>:  None.</t>
 
 </section>
 <section anchor="acknowledgements" title="Acknowledgements">
-<t>This document was heavily influenced RFC-7565, adapted for a payments use
--case. The author would like to acknowledge the contributions of everyone who
-worked on that and related specifications.</t>
+<t>This document was adapted from and heavily influenced by <xref target="RFC7565"></xref>, 
+  modifying it (in some cases only slightly) for a payments use-case. The
+  author would like to acknowledge the contributions of everyone who worked
+  on that and related specifications.</t>
 
 <t>In addition, the author would like to acknowledge everyone who provided
-feedback and use-cases for this derivative specification.</t>
+  feedback and use-cases for this derivative specification.</t>
 
 </section>
 
@@ -328,11 +290,35 @@ feedback and use-cases for this derivative specification.</t>
 &RFC5234;
 &RFC5890;
 &RFC5892;
-&RFC7564;
+&RFC8264;
 <reference anchor="PAYID-DISCOVERY" target="https://tbd.example.com/">
   <front>
     <title>The PayID Discovery Protocol</title>
     <author initials="D." surname="Fuelling" fullname="David Fuelling">
+      <organization></organization>
+    </author>
+    <date year="n.d."/>
+  </front>
+</reference>
+<reference anchor="PAYID-PROTOCOL" target="https://tbd.example.com/">
+  <front>
+    <title>PayID Protocol</title>
+    <author initials="A." surname="Malhotra" fullname="Aanchal Malhotra">
+      <organization></organization>
+    </author>
+    <author initials="D." surname="Schwartz" fullname="David Schwartz">
+      <organization></organization>
+    </author>
+    <date year="n.d."/>
+  </front>
+</reference>
+<reference anchor="VERIFIABLE-PAYID" target="https://tbd.example.com/">
+  <front>
+    <title>Verifiable PayID Protocol</title>
+    <author initials="A." surname="Malhotra" fullname="Aanchal Malhotra">
+      <organization></organization>
+    </author>
+    <author initials="D." surname="Schwartz" fullname="David Schwartz">
       <organization></organization>
     </author>
     <date year="n.d."/>
@@ -357,6 +343,7 @@ feedback and use-cases for this derivative specification.</t>
 &RFC5988;
 &RFC6068;
 &RFC7033;
+&RFC7565;
 &RFC7595;
 
 
@@ -367,109 +354,91 @@ feedback and use-cases for this derivative specification.</t>
   </back>
 
 <!-- ##markdown-source:
-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
-uvW0e4N4tlTykc6ZkBWzyrkjssEQFcgroCKV69JbXTaH3HSUO3TToVvfL2FB
-c9eML8s1W9fOzTP8MJwhfG7pLh861h7d+eWgFc7D0trgrcMGBDlXN7TGXn/K
-QLxXCJhpbx5uGNN2zc0xdxXJDcCpkqepWYuJUe//AMEGyQH5MAAA
+H4sIAK898l4AA81abW/byBH+rl+xUAI4DizZcRJfIqDAKbbTE5DYqV+uPRhG
+siJX0jYUl+GSVnS/vs/MLN8kuZde+6EB7iyRy915feaZoQaDQS9ysU3nI1UW
+s8GbXq+wRWJG6mZh1F6m1zbeU7dXE3UdLczS9GIXpXqJ+3GuZ8VgVpokwdMD
+Xjkoczs4etGLdGHmLl+PlC/iXi+zI3VXuOhAeZcXuZl5fFov5UPklkuTFv6+
+55c6Lz5/K11h/Ei52azX07nR2MRE2LhY93RZLFw+6in+hz8D/mhTrD8bqvdB
+GL4oUp7pBxt3b7gcul7ZLEsMf/eQyBQj9fLFa/XRpcXcLU2+Vtd8mVdEOHuk
+rnWq3uc6jayPHF/Pzdy6dKROx7LMxTjx7asXR6/C9zItyAi315XEqcuXurAP
+RnS4en96/OLF2/rLy5Pj1pe3b07qL6+PX75qvrx5e9T+clx/eXN8EpZ9Gv82
+ORucTa5PL389v/ptpIIIwbt9cu8nvZ6cqTPS54FU/pQ7eMkl/WqtzudkmUVR
+ZH50eFhM46H5rpew3BBuOwzLul55xB30b1YmyaNuEYE/XV3eXJ5eftiSV2T9
+H0moBiLkeKg+6mThilw399pyjuHuhU52rBrUaiIxVgjc33fvIJp21sAfk/eT
+8bsP5wNWuta1VvZXk9uZ1dOk8tGm3j+q+P+Z5rcXk9PLs/PRjli8TS3lD9JO
+p7HO410ehp6r1WpYytIhEvkQceuRg/4wAeT44jGH+zIXodpHneI54JEtlzsi
+9LGFPZvOtpL46Oj4KHiRMvLtmzf1rZOjk+bLT0cvXzZfXp+8bn15iy+9wWCg
+UuDf5/fGxFMdfcX9m4X1ymcmQkgAWKGtwgUtAKyy3GXO6+RAwW50I4O1AZ6q
+gAJ4+q4bQPfPqohhwGYb7sOhtrCsErI2nAx0I5vGqnDYCxtjM4B/SWCt/MKV
+SaymBtiMrzbl48gwdLRWf7XFopxCHF8apQu2TXXwnO9xlErRIBnyWeQPebkf
+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
+CGUuzJgM4s8/9uiKMuz9Cz64Y5ANKAAA
 
 -->
 

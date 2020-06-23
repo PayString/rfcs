@@ -410,7 +410,7 @@
 
   <meta name="dct.creator" content="Fuelling, D." />
   <meta name="dct.identifier" content="urn:ietf:id:draft-fuelling-payid-discovery-01" />
-  <meta name="dct.issued" scheme="ISO8601" content="2020-06-18" />
+  <meta name="dct.issued" scheme="ISO8601" content="2020-06-23" />
   <meta name="dct.abstract" content="This specification defines the PayID Discovery protocol, which can be used to discover information about a 'payid' URI using standard HTTP methods." />
   <meta name="description" content="This specification defines the PayID Discovery protocol, which can be used to discover information about a 'payid' URI using standard HTTP methods." />
 
@@ -431,10 +431,10 @@
 </tr>
 <tr>
 <td class="left">Intended status: Standards Track</td>
-<td class="right">June 18, 2020</td>
+<td class="right">June 23, 2020</td>
 </tr>
 <tr>
-<td class="left">Expires: December 20, 2020</td>
+<td class="left">Expires: December 25, 2020</td>
 <td class="right"></td>
 </tr>
 
@@ -449,12 +449,12 @@
 <p>This specification defines the PayID Discovery protocol, which can be used to discover information about a 'payid' URI using standard HTTP methods.</p>
 <p>The primary use-case of this protocol is to define how to transform a PayID URI into a URL that can be used with other protocols.</p>
 <h1><a>Feedback</a></h1>
-<p>This specification is a part of the <a href="https://payid.org/">PayID Protocol</a> work.  Feedback related to this specification should be sent to <a href="mailto:payid@ripple.com">payid@ripple.com</a>.</p>
+<p>This specification is a draft proposal, and is part of the <a href="https://payid.org/">PayID Protocol</a> initiative. Feedback related to this document should be sent in the form of a Github issue at: https://github.com/payid-org/rfcs/issues.</p>
 <h1 id="rfc.status"><a href="#rfc.status">Status of This Memo</a></h1>
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on December 20, 2020.</p>
+<p>This Internet-Draft will expire on December 25, 2020.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2020 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -548,7 +548,7 @@
 <h1 id="rfc.section.3.1">
 <a href="#rfc.section.3.1">3.1.</a> <a href="#payid-discovery-by-a-wallet" id="payid-discovery-by-a-wallet">PayID Discovery by a Wallet</a>
 </h1>
-<p id="rfc.section.3.1.p.1">Suppose Alice wishes to send a friend some XRP from a web-based wallet provider that Alice has an account on. Alice would log-in to the wallet provider and enter Bob's PayID (say, <samp>bob$receiver.example.com</samp>) into the wallet UI to start the payment.</p>
+<p id="rfc.section.3.1.p.1">Imagine Alice wishes to send a friend some XRP from a web-based wallet provider that Alice has an account on. Alice would log-in to the wallet provider and enter Bob's PayID (say, <samp>bob$receiver.example.com</samp>) into the wallet UI to start the payment.</p>
 <p id="rfc.section.3.1.p.2">The Wallet application would first perform a WebFinger query looking for the PayID Discovery service provider, like this:</p>
 <pre>
  GET /.well-known/webfinger?
@@ -578,7 +578,7 @@
 <h1 id="rfc.section.3.2">
 <a href="#rfc.section.3.2">3.2.</a> <a href="#payid-discovery-with-default-template" id="payid-discovery-with-default-template">PayID Discovery with Default Template</a>
 </h1>
-<p id="rfc.section.3.2.p.1">Suppose Alice, as in the example above, wishes to send a friend some XRP from a web-based wallet provider that Alice has an account on. However, in this example, let's assume that the PayID Alice is wanting to pay doesn't support "interactive" PayID discovery (i.e., the receiver's server doesn't support Webfinger).</p>
+<p id="rfc.section.3.2.p.1">Imagine Alice, as in the example above, wants to send a friend some XRP from a web-based wallet provider that Alice has an account on. However, in this example, let's assume that the PayID Alice is wanting to pay doesn't support "interactive" PayID discovery (i.e., the receiver's server doesn't support Webfinger).</p>
 <p id="rfc.section.3.2.p.2">Alice would log-in to her wallet provider and enter Bob's PayID (say <samp>bob$receiver.example.com</samp>) to make a payment.</p>
 <p id="rfc.section.3.2.p.3">The Wallet application would first attempt a WebFinger query as in the example above, like this:</p>
 <pre>
@@ -907,12 +907,7 @@ PAYID-URI-Template =  *( uri-char / variable )
 	  </span>
 	  <span class="country-name vcardline">US</span>
 	</span>
-	<span class="vcardline">Phone: -----------------</span>
-
-<span class="vcardline">EMail: <a href="mailto:fuelling@ripple.com">fuelling@ripple.com</a></span>
-
-<span class="vcardline">URI: <a href="https://www.ripple.com">https://www.ripple.com</a></span>
-
+	
   </address>
 </div>
 
