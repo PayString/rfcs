@@ -2,7 +2,9 @@
 
 ## Specs
 
-You can find the specs here: https://github.com/payid-org/rfcs/tree/master/dist/spec
+- [You can find the full list of RFCs here](https://github.com/payid-org/rfcs/tree/master/dist/spec)
+
+### List of RFCs
 
 - [PayID Whitepaper](https://payid.org/whitepaper.pdf)
 - [The 'payid' URI Scheme](https://github.com/payid-org/rfcs/blob/master/dist/spec/payid-uri.txt)
@@ -24,20 +26,26 @@ If you would like to update this list, please feel free to open a pull request a
 
 ## Generating the Spec
 
-Uses [kramdown-rfc2629](https://github.com/cabo/kramdown-rfc2629/), [xml2rfc](http://xml2rfc.ietf.org/) and [Grunt](http://gruntjs.com/) with [Grunt kramdown_rfc2629 task](https://github.com/hildjj/grunt-kramdown-rfc2629/)
-
-From root directory of the repo run:
+From the root directory of the repo run:
 
 ```sh
-    # IETF RFC tools
+    # Install IETF RFC tools
     gem install kramdown-rfc2629
     pip3 install xml2rfc
 
-    # PayID RFC dependencies
+    # Install PayID RFC dependencies
     npm install
-    grunt kramdown_rfc2629
+
+    # Generate the spec
+    npm run spec
 ```
 
-To watch edits to `payid-uri.md` or `payid-discovery.md` and auto-generate output when changes are saved run:
+This generates the RFC output files in the `dist` folder using [kramdown-rfc2629](https://github.com/cabo/kramdown-rfc2629/), [xml2rfc](http://xml2rfc.ietf.org/) and [Grunt](http://gruntjs.com/) with the [Grunt kramdown_rfc2629 task](https://github.com/hildjj/grunt-kramdown-rfc2629/)
 
-    grunt watch
+To watch edits to RFC source files and auto-generate output when changes are saved run `npm run watch`.
+
+## Authoring a new RFC
+
+First, write a Pull Request that adds the markdown file for the spec in the [src/spec](https://github.com/payid-org/rfcs/tree/master/src/spec) folder.
+
+Then, add that file to the [Gruntfile](https://github.com/payid-org/rfcs/tree/master/Gruntfile.js) list of RFCs. That way the spec output can be generated for your proposal.
