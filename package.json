@@ -27,6 +27,7 @@
   "main": "index.js",
   "scripts": {
     "spec": "rm -f dist/spec/payid.*; grunt kramdown_rfc2629",
+    "watch": "npm run spec && grunt watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
