@@ -78,9 +78,11 @@ informative:
     
 --- note_Feedback
 
-This specification is a part of the [PayID Protocol](https://payid.org/) work.
- Feedback related to this specification should be sent to <payid@ripple.com>.
-
+  This specification is a draft proposal, and is part of the 
+  [PayID Protocol](https://payid.org/) initiative. Feedback related to this 
+  document should be sent in the form of a Github issue at: 
+  https://github.com/payid-org/rfcs/issues.
+ 
 --- abstract
 This specification defines the verifiable PayID protocol - an extension to [PAYID-PROTOCOL][] that aims to provide payment account(s) information associated with a PayID [PAYID-URI][] while allowing involved parties to exchange `identity` information and provides third-party verifiable cryptographic proof trail of the entire communication. More specifically verifiable PayID protocol provides the following enhancements to Basic PayID protocol[PAYID-PROTOCOL][].
 
