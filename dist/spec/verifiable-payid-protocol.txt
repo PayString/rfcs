@@ -18,7 +18,7 @@ Abstract
    information associated with a PayID [PAYID-URI] while allowing
    involved parties to exchange "identity" information and provides
    third-party verifiable cryptographic proof trail of the entire
-   communication.  More specifically verifiable PayID protocol provides
+   communication. More specifically verifiable PayID protocol provides
    the following enhancements to Basic PayID protocol[PAYID-PROTOCOL].
 
    o  Verifiable Custodial PayID service: It allows custodial wallets
@@ -39,7 +39,7 @@ Abstract
 Feedback
 
    This specification is a draft proposal, and is part of the PayID
-   Protocol [1] initiative.  Feedback related to this document should be
+   Protocol [1] initiative. Feedback related to this document should be
    sent in the form of a Github issue at: https://github.com/payid-
    org/rfcs/issues.
 
@@ -49,7 +49,7 @@ Status of This Memo
    provisions of BCP 78 and BCP 79.
 
    Internet-Drafts are working documents of the Internet Engineering
-   Task Force (IETF).  Note that other groups may also distribute
+   Task Force (IETF). Note that other groups may also distribute
 
 
 
@@ -58,12 +58,12 @@ Malhotra & Schwartz     Expires December 25, 2020               [Page 1]
 Internet-Draft          Verifiable PayID Protocol              June 2020
 
 
-   working documents as Internet-Drafts.  The list of current Internet-
+   working documents as Internet-Drafts. The list of current Internet-
    Drafts is at https://datatracker.ietf.org/drafts/current/.
 
    Internet-Drafts are draft documents valid for a maximum of six months
    and may be updated, replaced, or obsoleted by other documents at any
-   time.  It is inappropriate to use Internet-Drafts as reference
+   time. It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
    This Internet-Draft will expire on December 25, 2020.
@@ -71,14 +71,14 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 Copyright Notice
 
    Copyright (c) 2020 IETF Trust and the persons identified as the
-   document authors.  All rights reserved.
+   document authors. All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
    Provisions Relating to IETF Documents
    (https://trustee.ietf.org/license-info) in effect on the date of
-   publication of this document.  Please review these documents
+   publication of this document. Please review these documents
    carefully, as they describe your rights and restrictions with respect
-   to this document.  Code Components extracted from this document must
+   to this document. Code Components extracted from this document must
    include Simplified BSD License text as described in Section 4.e of
    the Trust Legal Provisions and are provided without warranty as
    described in the Simplified BSD License.
@@ -150,7 +150,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 
 1.  Terminology
 
-   This protocol can be referred to as "Verifiable PayID Protocol".  It
+   This protocol can be referred to as "Verifiable PayID Protocol". It
    uses the following terminology.
 
    o  endpoint: either the client or the server of the connection.
@@ -189,25 +189,25 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
    Basic PayID protocol [PAYID-PROTOCOL] specifies a protocol to
    interact with PayID server and retrieve payment account(s)
    information resource along with other meta-data corresponding to the
-   queried PayID.  The protocol relies on the underlying secure
+   queried PayID. The protocol relies on the underlying secure
    transport (TLS 1.3 [RFC8446]) to ensure message integrity and privacy
-   from network attackers.  There are at least two assumptions in the
+   from network attackers. There are at least two assumptions in the
    security and privacy model of the basic PayID protocol that are less
    desirable.
 
    1.  Trust requirement between the PayID client and PayID server: As
        pointed out in the security considerations section of the
        [PAYID-PROTOCOL], PayID server has full control over the contents
-       of the response message, and may go rogue or be compromised.  The
+       of the response message, and may go rogue or be compromised. The
        PayID client has no way of knowing if the PayID server behaves
-       maliciously.  This implicit trust assumption between the PayID
+       maliciously. This implicit trust assumption between the PayID
        client and server is not ideal in the world where the information
        provided by the PayID server may be used by the PayID client to
        transmit money.
 
    2.  Privacy: Per [PAYID-PROTOCOL], anyone can query the PayID server
        and retrieve the payment account(s) information corresponding to
-       the queried PayID.  The PayID server or PayID owner has no way of
+       the queried PayID. The PayID server or PayID owner has no way of
        deploying access control mechanisms since the "identity" of the
        PayID client and the sender is unknown to the PayID server.
 
@@ -231,7 +231,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 
    2.  Enhance privacy of the PayID protocol by allowing the PayID
        client to share their and sender's "identity" information with
-       the PayID server.  This information could then be used to:
+       the PayID server. This information could then be used to:
 
        *  Give the PayID owner and/or PayID server the ability to decide
           if they want to share their payment account(s) information and
@@ -245,7 +245,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
    3.  Ensure that if the PayID server is compromised, an attacker can
        not swap payment address in the payment account information
        response and redirect funds to the attacker controlled payment
-       network and address.  Allow the PayID server or PayID owner to
+       network and address. Allow the PayID server or PayID owner to
        pre-sign "PaymentInformation" in a cold/airgapped system offline
        instead of online on a hot wallet.
 
@@ -253,7 +253,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
        PayID service by allowing the PayID owners to digitally sign the
        "PaymentInformation" resource locally on their device with their
        off-ledger private keys and send PayID owner's "identity"
-       information in the response.  This information can then be used
+       information in the response. This information can then be used
        by the PayID client and sender to authenticate the PayID owner
        and decide if they want to proceed with the transaction.
 
@@ -283,14 +283,14 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 
 
    parameter "payment-setup-details" with optional payload in JSON
-   format.  We define this resource as "PaymentInformation" resource.
+   format. We define this resource as "PaymentInformation" resource.
 
 3.1.2.  PayID Server Responding to the PaymentInformation Resource
         Request
 
    Upon receiving a request for a "PaymentInformation" resource that the
    PayID server can provide, the PayID server normally returns the
-   requested response.  However, if PayID server does not support
+   requested response. However, if PayID server does not support
    verifiable PayID protocol, the PayID server MAY send back an
    appropriate error code (TBD) to indicate to the PayID client that the
    resource is available via an HTTP "GET" request to an alternate URL.
@@ -306,9 +306,9 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 
 3.2.1.1.  identity
 
-   The type/value of "identity" field is TBD.  We anticipate this being
+   The type/value of "identity" field is TBD. We anticipate this being
    mechanism for the PayID client to transmit their or sender's
-   "identity" information to the PayID server.  This information can
+   "identity" information to the PayID server. This information can
    then be used by the PayID server/PayID owner to * Enhance privacy by
    exercising access control mechanisms such as authorized access via
    accept/deny lists, etc. for the "PaymentInformation" or other
@@ -341,10 +341,10 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 3.2.3.  SignatureWrapper
 
    "SignatureWrapper" is an encapsulating wrapper for any verifiable
-   PayID protocol messages.  It allows for the generation of
+   PayID protocol messages. It allows for the generation of
    cryptographically signed third-party verifiable proofs of the
    contents of the messages exchanged between the participating
-   endpoints.  We define "SignatureWrapper" as JSON object with the
+   endpoints. We define "SignatureWrapper" as JSON object with the
    following name/value pairs:
 
      {
@@ -360,7 +360,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 
    The value of "messageType" is the message type of the signed
    "message". "messageType" is essential for future extensibility of the
-   protocol to include more message types.  We define the following enum
+   protocol to include more message types. We define the following enum
    for message types: enum messageType { PaymentInformation }
 
 3.2.3.2.  message
@@ -372,10 +372,10 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 
    The value of "publicKeyType" is the Public Key Infrastructure
    (PKI)/identity system being used to identify the signing endpoint.
-   e.g.  "X509+SHA512" means an X.509 certificate as described in
+   e.g. "X509+SHA512" means an X.509 certificate as described in
    [RFC5280] and SHA512 hash algorithm used to hash the contents of
-   "message" for signing.  This field defaults to empty string.  We
-   define the following "publicKeyType" values.  One can register more
+   "message" for signing. This field defaults to empty string. We
+   define the following "publicKeyType" values. One can register more
    in future.
 
 
@@ -410,38 +410,38 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
    identify the signing endpoint who creates digital signatures over the
    hash of the contents of the "message". e.g. in the case of X.509
    certificates, it may contain one or more X.509 certificates as a list
-   upto the root trust certificate.  Defaults to empty.
+   upto the root trust certificate. Defaults to empty.
 
 3.2.3.5.  publicKey
 
-   The value of "publicKey" is the contents of the public key.  Defaults
+   The value of "publicKey" is the contents of the public key. Defaults
    to empty.
 
 3.2.3.6.  signature
 
    The value of "signature" is the digital signature over the hash of
    the contents of the "message" using the private key corresponding to
-   the public key in "publicKey".  This is a proof that the "message"
+   the public key in "publicKey". This is a proof that the "message"
    was signed by the corresponding private key holder.
 
 4.  Custodial and Non-Custodial PayID Service Providers
 
    We anticipate that the most common use-case for retrieving
-   "PaymentInformation" resource is to make transactions.  We can
+   "PaymentInformation" resource is to make transactions. We can
    categorize the providers of such services as follows: * Custodial
    wallets and exchanges: Custodial wallets and exchanges hold the
    private keys of their customers on their servers and essentially hold
-   their funds.  There is an implicit trust between the custodial
+   their funds. There is an implicit trust between the custodial
    service provider and their customers.
 
    o  Non-Custodial wallets and exchanges: Non-custodial wallets and
       exchanges do not store their customers' keys on their servers.
       The customers hold their private keys locally on their device.
       [Arguably] there is a no trust requirement between the non-
-      custodial wallets and exchanges and their customers.  Since the
+      custodial wallets and exchanges and their customers. Since the
       customers hold the private keys so the wallets are not liable for
       any consequences coming from the lost, compromised or hacked
-      private keys of the customers.  Nor do they need their customers
+      private keys of the customers. Nor do they need their customers
 
 
 
@@ -454,7 +454,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
       are compromised.
 
    Notice that the custodial and non-custodial service providers operate
-   under different trust models.  To continue operating under the same
+   under different trust models. To continue operating under the same
    trust model, verifiable PayID requires slightly different treatment
    for the two.
 
@@ -486,7 +486,7 @@ Sender  PayID client                                             PayID server   
 5.2.  Step 2: Preparing the PaymentInformation Response
 
    In response, the PayID server returns JSON representation of the
-   "PaymentInformation" resource.  "PaymentInformation" resource is the
+   "PaymentInformation" resource. "PaymentInformation" resource is the
    "signed" payment account(s) information message [PAYID-PROTOCOL] for
    the payment-network and environment requested by PayID client in the
    request "Accept" header field along with other required and optional
@@ -494,7 +494,7 @@ Sender  PayID client                                             PayID server   
 
 5.2.1.  Preparing the payment account(s) information message
 
-   o  Set "payId" to the value of the PayID in the client query.  This
+   o  Set "payId" to the value of the PayID in the client query. This
       is a required field in verifiable PayID protocol.
 
    o  Set "addresses" to the value as described in [PAYID-PROTOCOL]
@@ -541,7 +541,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 5.3.  Step 3: Parse PaymentInformation Response
 
    If the PayID server returns a valid response, the response will
-   contain one or more of the fields defined above.  The PayID client
+   contain one or more of the fields defined above. The PayID client
    will then:
 
    o  Verify the "publicKey" using the information in the
@@ -562,17 +562,17 @@ Malhotra & Schwartz     Expires December 25, 2020              [Page 10]
 Internet-Draft          Verifiable PayID Protocol              June 2020
 
 
-   All the verification steps MUST pass.  The PayID client proceeds to
+   All the verification steps MUST pass. The PayID client proceeds to
    the next step only if the previous step passes, otherwise it
    generates the relevant Error message (//TBD).
 
 6.  Verifiable PayID Protocol for Non-Custodial Wallets and Exchanges
 
    Pre-step at PayID owner's (non-custodial wallet's customer) device
-   locally.  For each "payment-network" and "environment" as described
+   locally. For each "payment-network" and "environment" as described
    in [PAYID-PROTOCOL] that the PayID owner has a payment address for,
    generate the following payment account(s) information message * Set
-   "payId" to the value of the PayID.  This is a required field in
+   "payId" to the value of the PayID. This is a required field in
    verifiable PayID protocol.  * Set "addresses" to the value as
    described in [PAYID-PROTOCOL] * Optionally set "memo" to any
    additional information.  * "identity" field is TBD.  *
@@ -598,9 +598,9 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 6.1.  Discussion Section on distributing PayID owner's keys
 
    In this subsection, we discuss potential ways to distribute the keys
-   of the PayID owner used to sign the message.  Once we reach a
+   of the PayID owner used to sign the message. Once we reach a
    consensus, it will be added to the relevant sections of this document
-   and this subsection will be removed.  Following are the two possible
+   and this subsection will be removed. Following are the two possible
    approaches:
 
 6.1.1.  identity field in payment account(s) information message
@@ -646,7 +646,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
       associates the "PayID owner's identity" as defined by the
       identifier (GiD, HUID, DID, etc.) to the "PayID" and "public key".
       The PayID client can then verify the "public key" using the
-      digital identifier.  This could be a direct retrieval of the
+      digital identifier. This could be a direct retrieval of the
       corresponding "public key" from digital identity service provider
       if PayID is a part of that digital identifier.
 
@@ -665,7 +665,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
    PayID [PAYID-URI] could support non-custodial systems with a fairly
    simple extension to the protocol to run non-custodial PayID servers
    that could not be hacked or tricked into sending money to the wrong
-   place.  The idea is to reserve the hostname "pkh" for "public key
+   place. The idea is to reserve the hostname "pkh" for "public key
 
 
 
@@ -675,10 +675,10 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 
 
    hashes" and support a PayID format like
-   "public_key_hash"$pkh.provider.domain.  PayID client implementations
+   "public_key_hash"$pkh.provider.domain. PayID client implementations
    would require that any "PaymentInformation" resource that resulted
    from the PayID of that form be signed with the "private key"
-   corresponding to that "public key hash".  So only a
+   corresponding to that "public key hash". So only a
    "PaymentInformation" signed by the owner of the PayID would work.
 
    The caveat is that that PayID format is not human-readable anymore.
@@ -687,7 +687,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
    "public_key_hash"$pkh.provider.domain, but the customers may get a
    human-readable PayID from another trusted service providers (say from
    their email provider) that maps to the non-human-readable PayID they
-   got from their non-custodial service-provider.  Non-custodial
+   got from their non-custodial service-provider. Non-custodial
    service-providers could even automate this process by allowing the
    user to choose a mapping provider.
 
@@ -699,7 +699,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 
 6.3.  Step 2: Preparing PaymentInformation Response
 
-   The PayID server MUST parse the request body.  The protocol does not
+   The PayID server MUST parse the request body. The protocol does not
    provide specification on how the PayID server MAY use this
    information.
 
@@ -709,7 +709,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 6.4.  Step 3: Parsing the PaymentInformation Response
 
    The PayID client follows the same verifiation steps as in the
-   previous section.  Details to be decided based on "identity"
+   previous section. Details to be decided based on "identity"
    solution.
 
 7.  Example Use of Verifiable PayID Protocol
@@ -721,7 +721,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 
    Suppose Alice (sender) wishes to send a friend Bob (PayID owner) some
    XRP from a web-based wallet provider (PayID client) that Alice has an
-   account on.  Alice would log-in to the wallet provider and enter
+   account on. Alice would log-in to the wallet provider and enter
 
 
 
@@ -825,7 +825,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 
    In the above example we see that Bob's custodial PayID server wallet
    returned signed X-Addreess on XRPL testnet identified by PayID
-   "bob$receiver.example.com".  This is because Alice's wallet asked for
+   "bob$receiver.example.com". This is because Alice's wallet asked for
    XRPL and testnet payment accounts corresponding to the PayID in the
    "Accept" header.
 
@@ -912,9 +912,9 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
    who the sender wishes to pay.
 
    In the current security model, there is necessarily some existing
-   trust between the sender and the sender's wallet.  The sender's
+   trust between the sender and the sender's wallet. The sender's
    wallet is holding the sender's private keys and consequently their
-   funds before the payment is made.  Similarly, there is necessarily
+   funds before the payment is made. Similarly, there is necessarily
    some existing trust between the receiver and their custodial wallet
    since the receiver has directed that the custodial wallet receive
    their funds.
@@ -922,15 +922,15 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
    Verifiable PayID protocol provides stronger security guarantee: The
    ideal scenario that we strive for is that the sender should be able
    to hold the PayID client wallet legally accountable if the
-   institution provably mishandles their funds.  Similarly, the PayID
+   institution provably mishandles their funds. Similarly, the PayID
    owner/receiver should be able to hold the PayID server wallet legally
-   accountable if their funds are mishandled.  However, this mechanism
+   accountable if their funds are mishandled. However, this mechanism
    requires that it be possible for either wallet to establish that it
    acted properly and that the other wallet acted improperly.
 
    Of course, the preferred outcome of any payment is that nothing goes
    wrong and both the sender and PayID owner/receiver of the payment are
-   satisfied that the payment took place as agreed.  A less desirable
+   satisfied that the payment took place as agreed. A less desirable
    outcome is that the payment cannot take place for some reason and the
    sender still has their money and understands why the payment cannot
    take place.
@@ -971,7 +971,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
    Again, the protocol cannot possibly prevent outcomes 3 or 4 because
    the PayID client wallet can always send the money to the wrong
    address and the PayID server wallet can always refuse to credit the
-   PayID owner/receiver.  It is, however, critical that the PayID client
+   PayID owner/receiver. It is, however, critical that the PayID client
    and PayID server wallets not need to trust each other to ensure that
    one of these four outcomes occurs and that they cannot point blame at
    each other.
@@ -985,7 +985,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 
    Verifiable PayID protocol's security model assumes that the online
    servers can be physically or remotely compromised by an adversary.
-   These are the most attractive attack vectors.  There is sufficient
+   These are the most attractive attack vectors. There is sufficient
    evidence that hot/always online systems are more vulnerable.
 
    There are multiple cryptogrpahic operations that the PayID server
@@ -1001,7 +1001,7 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
       resource are compromised, an attacker may impersonate as the PayID
       server wallet and sign malicious mappings ('Receiver's PayID -->
       attacker controlled payment address') to send to the PayID client
-      wallet.  This may lead to indirection of funds by the PayID client
+      wallet. This may lead to indirection of funds by the PayID client
 
 
 
@@ -1010,7 +1010,7 @@ Malhotra & Schwartz     Expires December 25, 2020              [Page 18]
 Internet-Draft          Verifiable PayID Protocol              June 2020
 
 
-      wallet to the attacker controlled address.  Therefore, it is
+      wallet to the attacker controlled address. Therefore, it is
       extremely important to keep these keys safe offline.
 
    o  Lower-risk impersonation attacks: An attacker can never steal
@@ -1020,10 +1020,10 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 
    These differing security implications warrant a separation of
    generating cryptographically signed proofs and storing the
-   cryptographic keys used to perform these two operations.  Some
+   cryptographic keys used to perform these two operations. Some
    observations that inform us on how we can deal with this is that: *
    generating the cryptographic signatures on "PaymentInformation"
-   resource need not be an online operation.  This can be performed
+   resource need not be an online operation. This can be performed
    offline in a safe cold system with a separate set of keys,
 
    o  All other cryptographic operations need to be performed online
@@ -1043,16 +1043,16 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 8.3.  Security Model for Non-Custodial PayID Server Wallets
 
    In the current security model, non-custodial wallets do not store
-   their customers' keys on their servers.  The customers hold their
-   private keys on their device.  There is a no trust requirement
+   their customers' keys on their servers. The customers hold their
+   private keys on their device. There is a no trust requirement
    between the service provided by the non-custodial wallets and the
-   customers of this service.  Since the customers hold the private
+   customers of this service. Since the customers hold the private
    keys: * the wallets are not liable for any consequences coming from
    the lost, compromised or hacked private keys of the customers.  * the
    non-custodial wallets do not require their customers to trust their
    servers in case wallets servers go malicious or are compromised.
 
-   Verifiable PayID protocol preserves this trust model.  For the non-
+   Verifiable PayID protocol preserves this trust model. For the non-
    custodial PayID server wallets this means that
 
    o  On the receiving side of the payment (as a PayID server) non-
@@ -1067,13 +1067,13 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
 
 
       mappings for their customers that is signed with the private key
-      of the non-custodial PayID server wallet.  The PayID owners or the
+      of the non-custodial PayID server wallet. The PayID owners or the
       customers can generate this signed mapping with their own off-
-      ledger private key locally on their app/device.  The PayID client
+      ledger private key locally on their app/device. The PayID client
       can easily verify this signature based on the trust relationship
       between the sender of the payment (PayID client wallet's customer)
-      and the receiver (non-custodial PayID server's wallet).  The non-
-      custodial PayID server wallet has no role whatsoever.  This
+      and the receiver (non-custodial PayID server's wallet). The non-
+      custodial PayID server wallet has no role whatsoever. This
       eliminates any risk of the non-custodial PayID server wallet
       having lost their private keys, going malicious or getting hacked,
       etc. because if this happens then their customers might lose
@@ -1090,14 +1090,14 @@ Internet-Draft          Verifiable PayID Protocol              June 2020
    PayID protocol MUST not be used to provide "PaymentInformation" or
    any pther resources corresponding to a PayID unless providing that
    data via PayID protocol by the relevant PayID server was explicitly
-   authorized by the PayID owner.  If PayID owner wishes to limit access
+   authorized by the PayID owner. If PayID owner wishes to limit access
    to information, PayID servers MAY provide an interface by which PayID
    owners can select which information is exposed through the PayID
-   server interface.  For example, PayID servers MAY allow PayID owners
+   server interface. For example, PayID servers MAY allow PayID owners
    to mark certain data as "public" and then utilize that marking as a
    means of determining what information to expose via PayID protocol.
    The PayID servers MAY also allow PayID owners to provide a whitelist
-   of users who are authorized to access the specific information.  In
+   of users who are authorized to access the specific information. In
    such a case, the PayID server MUST authenticate the PayID client.
    The additional "identity" field in the PayID client query request
    allows for this.
