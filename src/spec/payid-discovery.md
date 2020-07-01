@@ -257,7 +257,7 @@ informative:
        resource=payid%3Aalice%24example.com
 
 ### Step 2: Query PayID Discovery URL
-  A Webfinger query MUST be performed against the PayID Disovery URL,
+  A Webfinger query MUST be performed against the PayID Discovery URL,
   as described in section 4.2 of Webfinger.
     
   In response, the WebFinger resource returns a JSON Resource Descriptor (JRD)
@@ -414,7 +414,7 @@ The resulting URL is a PayID URL.
 Various security considerations should be taken into account for PayID
 Discovery. 
 
-Among other resource, consult section 9 of [RFC7033][] and section 7 of
+Among other resources, consult section 9 of [RFC7033][] and section 7 of
 [RFC3986][] for important security considerations involved in PayID
 Discovery.
 
