@@ -116,9 +116,9 @@ This specification defines the PayID protocol - an application-layer protocol, w
 # JSON Format Design
   JSON as described in [RFC8259][], defines a test format for serializing structured data. Objects are serialized as an unordered collection of name/value pairs. JSON does not define any semantics around the name/value pairs that make up an object. PayID protocol's JSON format defines name/value pairs that annotate a JSON object, property or array for PayID protocol resources.
 
-  The PayID client MUST request PayID response in JSON format through the `Accept` header with the media type as defined below, optionally followed by format parameters. One of the optional parameters is the case insensitive `q` value as described in Section 5.3.1 of [RFC7231][] to indicate relative preference.
+  The PayID client MUST request a PayID response in JSON format through the `Accept` header with the media type as defined below, optionally followed by format parameters. One of the optional parameters is the case insensitive `q` value as described in Section 5.3.1 of [RFC7231][] to indicate relative preference.
 
-  Each message body is represented as a single JSON object. This object contains name/value pair whose value is the correct representation for a primitive value as described in [RFC8259][], or an array or object as described in the section below.
+  Each message body is represented as a single JSON object. This object contains a name/value pair whose value is the correct representation for a primitive value as described in [RFC8259][], or an array or object as described in the section below.
 
   If the PayID server does not support JSON format, it MUST reply with an appropriate error response.
 
@@ -175,7 +175,7 @@ This specification defines the PayID protocol - an application-layer protocol, w
       optional string tag
     }
 
-      * address: The value of `address` field contains the on-ledger address corresponding ot this owner.
+      * address: The value of `address` field contains the on-ledger address corresponding to this owner.
       * tag: The value of `tag` field is the tag value used by some cryptocurrencies to distinguish accounts contained within a singular address. E.g XRP Ledger's destination tag.
 
   * ACHAddressDetails: This is a JSON object with the following name/value pairs.
@@ -216,10 +216,10 @@ This specification defines the PayID protocol - an application-layer protocol, w
    The `proofOfControlSignature` is an OPTIONAL field in the response.
 
 ## Meaning of Media Type application/* + json
-  `*` may represent different payment-networks and environments. In this document, we propose standards with the media types specific to XRP, ILP, and ACH payment networks. We also propose media type that returns all addresses across all payment networks. Other payment networks MUST establish standard media types for their networks at IANA.
+  `*` may represent different payment-networks and environments. In this document, we propose standards with the media types specific to XRP, ILP, and ACH payment networks. We also a propose media type that returns all addresses across all payment networks. Other payment networks MUST establish standard media types for their networks at IANA.
   
   * Accept: application/payid-json
-  Returns all payment account(s) information correspnding to the requested PayID URI
+  Returns all payment account(s) information corresponding to the requested PayID URI
 
   * Accept: application/xrpl-mainnet+json
   
@@ -245,7 +245,7 @@ This specification defines the PayID protocol - an application-layer protocol, w
   
   Returns account and routing number
   
-  The PayID client MAY specify more than one media types along with the preference parameter. The server MUST respond as described in the Content Negotiation section below.
+  The PayID client MAY specify more than one media type along with the preference parameter. The server MUST respond as described in the Content Negotiation section below.
 
 # Header Fields
   PayID protocol defines semantics around the following request and response headers. Additional headers MAY be defined, but have no unique semantics defined in the PayID protocol. 
@@ -272,7 +272,7 @@ This specification defines the PayID protocol - an application-layer protocol, w
 ### Header Accept
   The PayID client MUST specify the `Accept` request header field with at least one of the registered media types (Section X). The purpose of this header is to indicate what type of content can be understood in the response. It specifies the `payment-network` and `environment` of the payment account and its representation format for which the PayID client wants to receive information. The representation format is always JSON. 
 
-  PayID server MUST reject formats that specify unknown or unsupported format parameters.
+  The PayID server MUST reject formats that specify unknown or unsupported format parameters.
 
 ## Response Headers
   In addition to the Common Headers, the PayID server MUST specify the following response header.
@@ -296,7 +296,7 @@ This specification defines the PayID protocol - an application-layer protocol, w
   A PayID service MUST support JSON format as described above and MAY support additional formats response bodies.
 
 # Basic PayID Protocol
-  Basic PayID protocol is used to request payment account(s) information resource identified by a PayID URI from a PayID-enabled service provider identified by a PayID URL using HTTP over secure transport. When successful, PayID protocol always returns the JSON representation of payment account(s) information resource along with optional metadata. This information can be used for any purposes outside the scope of this document, though it is expected the most common application would be making payment.
+  Basic PayID protocol is used to request a payment account(s) information resource identified by a PayID URI from a PayID-enabled service provider identified by a PayID URL using HTTP over secure transport. When successful, PayID protocol always returns the JSON representation of the payment account(s) information resource along with optional metadata. This information can be used for any purposes outside the scope of this document, though it is expected the most common application would be making payment.
  
   Basic PayID protocol comprises request and response messages, each of which is defined in more detail below. The following is a visual representation of the basic protocol flow:
 
@@ -319,7 +319,7 @@ This specification defines the PayID protocol - an application-layer protocol, w
   The PayID client MUST query the PayID server using HTTPS only. [RFC2818][] defines how HTTPS verifies the PayID server's identity. If the HTTPS connection cannot be established for any reason, then the PayID client MUST accept that the PayID request has failed and MUST NOT attempt to reissue the PayID request using HTTP over a non-secure connection.
 
 ## Step 2: Payment Account Information Response
-  In response, the PayID server returns a JSON object representation of the payment account(s) information resource for the payment-network and environment requested by PayID client in the request `Accept` header field along with other required and/or optional metadata.
+  In response, the PayID server returns a JSON object representation of the payment account(s) information resource for the payment-network and environment requested by the PayID client in the request `Accept` header field along with other required and/or optional metadata.
 
   PayID servers MUST be able to process `application/payid+json` header type.
 
@@ -413,7 +413,7 @@ This specification defines the PayID protocol - an application-layer protocol, w
 
 
 # Common Response Status Codes (TODO)
-  A PayID server MAY respond to request using any valid HTTP response code appropriate for the request. The PayID server SHOULD be as specific as possible in its choice of an HTTP specific status code.
+  A PayID server MAY respond to a request using any valid HTTP response code appropriate for the request. The PayID server SHOULD be as specific as possible in its choice of an HTTP specific status code.
 
 ## Success Responses
   The following response codes represent successful requests.
@@ -443,7 +443,7 @@ This specification defines the PayID protocol - an application-layer protocol, w
      Accept: application/xrpl-testnet+json; q=0.4,
              application/xrpl-mainnet+json; q= 0.1
 
-  In this case, the PayID server MUST respond with the payment account(s) information corresponding to at least one of the payment-networks and environments mentioned in the `Accept` header in the order of client request preference. If none of those exist, PayID server MUST send an appropriate error response.
+  In this case, the PayID server MUST respond with the payment account(s) information corresponding to at least one of the payment-networks and environments mentioned in the `Accept` header in the order of client request preference. If none of those exist, the PayID server MUST send an appropriate error response.
 
   Alternatively, the PayID client MAY combine the above two approaches.
 
@@ -500,7 +500,7 @@ This specification defines the PayID protocol - an application-layer protocol, w
   The PayID client and server should be aware that placing information on the Internet means that any one can access that information. While PayID protocol is an extremely useful tool to discovering payment account(s) information corresponding to a human-rememberable PayID URI, PayID owners should also understand the associated privacy risks. The easy access to payment account information via PayID protocol was a design goal of the protocol, not a limitation.  
 
 ## Access Control
-  PayID protocol MUST NOT be used to provide payment account(s) information corresponding to a PayID URI unless providing that data via PayID protocol by the relevant PayID server was explicitly authorized by the PayID owner. If PayID owner wishes to limit access to information, PayID servers MAY provide an interface by which PayID owners can select which information is exposed through the PayID server interface. For example, PayID servers MAY allow PayID owners to mark certain data as `public` and then utilize that marking as a means of determining what information to expose via PayID protocol. The PayID servers MAY also allow PayID owners to provide a whitelist of users who are authorized to access the specific information. In such a case, the PayID server MUST authenticate the PayID client.  
+  PayID protocol MUST NOT be used to provide payment account(s) information corresponding to a PayID URI unless providing that data via PayID protocol by the relevant PayID server was explicitly authorized by the PayID owner. If the PayID owner wants to limit access to information, PayID servers MAY provide an interface by which PayID owners can select which information is exposed through the PayID server interface. For example, PayID servers MAY allow PayID owners to mark certain data as `public` and then utilize that marking as a means of determining what information to expose via PayID protocol. The PayID servers MAY also allow PayID owners to provide a whitelist of users who are authorized to access the specific information. In such a case, the PayID server MUST authenticate the PayID client.  
 
 ## Payment Address Rotation
   The power of PayID protocol comes from providing a single place where others can find payment account(s) information corresponding to a PayID URI, but PayID owners should be aware of how easily payment account information that one might publish can be used in unintended ways. As one example, one might query a PayID server only to see if a given PayID URI is valid and if so, get the list of associated payment account information. If the PayID server uses the same payment address each time, it becomes easy for a third-party to track one's entire payment history. The PayID server MUST follow the best practice of payment address rotation for every query to mitigate this privacy concern.  
@@ -514,7 +514,7 @@ This specification defines the PayID protocol - an application-layer protocol, w
 ## In the PayID Server
   The Basic PayID protocol data contains no information about the PayID client; however, various transports of PayID queries and responses do provide data that can be used to correlate requests. A Basic PayID protocol implementation is built on IP, TCP, TLS and HTTP. Each layer contains one or more common features that can be used to correlate queries to the same identity. 
 
-  At the IP level, the PayID client address provides obvious correlation information. This can be mitigated by usee of NAT, proxy, VPN, or simple address rotation over time. It may be aggravated  by use of a PayID server that can correlate real-time addressing information with other identifiers, such as when PayID server and other services are operated by the same entity.
+  At the IP level, the PayID client address provides obvious correlation information. This can be mitigated by the use of NAT, proxy, VPN, or simple address rotation over time. It may be aggravated  by use of a PayID server that can correlate real-time addressing information with other identifiers, such as when PayID server and other services are operated by the same entity.
 
   PayID client implementations that use one TCP connection for multiple PayID requests directly group those requests. Long-lived connections have better performance behaviours than short-lived connections; however they group more requests, which can expose more information to correlation and consolidation. TCP-based solutions may also seek performance through the use of TCP Fast Open [RFC7413][]. The cookies used in TCP Fast open may allow PayID servers to correlate TLS connections together.
 
@@ -571,7 +571,7 @@ This specification defines the PayID protocol - an application-layer protocol, w
 
   Security considerations: Security considerations relating to the generation and consumption of PayID protocol messages are discussed in Section X.
 
-  Interoperability considerations:  This document specifies format of conforming messages and the interpretation thereof.
+  Interoperability considerations:  This document specifies format of the conforming messages and the interpretation thereof.
 
   Published specification: This document is the specification for these media types; see Table 1 for the section documenting each media type.
 
