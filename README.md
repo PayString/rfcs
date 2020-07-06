@@ -18,7 +18,7 @@ The source code for each spec is in [src/spec](https://github.com/payid-org/rfcs
 
 Known implementations of PayID and PayID Discovery:
 
-- JavaScript: TBD.
+- [TypeScript](https://github.com/payid-org/payid)
 - Java: TBD.
 - Swift: TBD.
 
