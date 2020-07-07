@@ -405,14 +405,14 @@
 <link href="#rfc.authors" rel="Chapter">
 
 
-  <meta name="generator" content="xml2rfc version 2.10.3 - https://tools.ietf.org/tools/xml2rfc" />
+  <meta name="generator" content="xml2rfc version 2.46.0 - https://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
   <meta name="dct.creator" content="Fuelling, D." />
   <meta name="dct.identifier" content="urn:ietf:id:draft-fuelling-payid-discovery-01" />
-  <meta name="dct.issued" scheme="ISO8601" content="2020-06-23" />
-  <meta name="dct.abstract" content="This specification defines the PayID Discovery protocol, which can be used to discover information about a 'payid' URI using standard HTTP methods." />
-  <meta name="description" content="This specification defines the PayID Discovery protocol, which can be used to discover information about a 'payid' URI using standard HTTP methods." />
+  <meta name="dct.issued" scheme="ISO8601" content="2020-07-07" />
+  <meta name="dct.abstract" content="This specification defines the PayID Discovery protocol, which can be used to discover information about a &#x27;payid&#x27; URI using standard HTTP methods. The primary use-case of this protocol is to define how to transform a PayID URI into a URL that can be used with other protocols. " />
+  <meta name="description" content="This specification defines the PayID Discovery protocol, which can be used to discover information about a &#x27;payid&#x27; URI using standard HTTP methods. The primary use-case of this protocol is to define how to transform a PayID URI into a URL that can be used with other protocols. " />
 
 </head>
 
@@ -431,10 +431,10 @@
 </tr>
 <tr>
 <td class="left">Intended status: Standards Track</td>
-<td class="right">June 23, 2020</td>
+<td class="right">July 07, 2020</td>
 </tr>
 <tr>
-<td class="left">Expires: December 25, 2020</td>
+<td class="left">Expires: January 8, 2021</td>
 <td class="right"></td>
 </tr>
 
@@ -454,7 +454,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on December 25, 2020.</p>
+<p>This Internet-Draft will expire on January 8, 2021.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2020 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -658,7 +658,7 @@
 <h1 id="rfc.section.4.1.2">
 <a href="#rfc.section.4.1.2">4.1.2.</a> <a href="#step-2-query-payid-discovery-url" id="step-2-query-payid-discovery-url">Step 2: Query PayID Discovery URL</a>
 </h1>
-<p id="rfc.section.4.1.2.p.1">A Webfinger query MUST be performed against the PayID Disovery URL, as described in section 4.2 of Webfinger.</p>
+<p id="rfc.section.4.1.2.p.1">A Webfinger query MUST be performed against the PayID Discovery URL, as described in section 4.2 of Webfinger.</p>
 <p id="rfc.section.4.1.2.p.2">In response, the WebFinger resource returns a JSON Resource Descriptor (JRD) as the resource representation to convey information about the requested PayID.</p>
 <p id="rfc.section.4.1.2.p.3">If the Webfinger endpoint returns a non-200 HTTP response status code, then interactive PayID Discovery is considered to have failed. Clients MAY attempt to assemble a PayID URL using "manual" mode as defined in section 4.2.1 of this document.</p>
 <h1 id="rfc.section.4.1.3">
@@ -723,15 +723,15 @@ PAYID-URI-Template =  *( uri-char / variable )
 </h1>
 <p id="rfc.section.4.2.1.p.1">The following is a visual representation of the Fallback Assembly protocol flow:</p>
 <pre>
-+--------------------------+ 
-|        PayID URI         | 
-|    alice$example.com     | 
-+--------------------------+ 
++--------------------------+
+|        PayID URI         |
+|    alice$example.com     |
++--------------------------+
               |              
               v              
-+--------------------------+ 
-|Manual PayID URL Assembly | 
-+--------------------------+ 
++--------------------------+
+|Manual PayID URL Assembly |
++--------------------------+
               |              
               v              
 +---------------------------+

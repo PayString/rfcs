@@ -5,7 +5,7 @@
 Network Working Group                                        A. Malhotra
 Internet-Draft                                               D. Schwartz
 Intended status: Standards Track                                  Ripple
-Expires: December 25, 2020                                 June 23, 2020
+Expires: January 8, 2021                                   July 07, 2020
 
 
                              PayID Protocol
@@ -15,7 +15,7 @@ Abstract
 
    This specification defines the PayID protocol - an application-layer
    protocol, which can be used to interact with a PayID-enabled service
-   provider.  The primary use-case is to discover payment account
+   provider.  The primary use case is to discover payment account
    information along with optional metadata identified by a PayID
    [PAYID-URI].  The protocol is based on HTTP transfer of PayID
    protocol messages over a secure transport.
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 25, 2020.
+   This Internet-Draft will expire on January 8, 2021.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Malhotra & Schwartz     Expires December 25, 2020               [Page 1]
+Malhotra & Schwartz      Expires January 8, 2021                [Page 1]
 
-Internet-Draft               PayID Protocol                    June 2020
+Internet-Draft               PayID Protocol                    July 2020
 
 
    (https://trustee.ietf.org/license-info) in effect on the date of
@@ -74,7 +74,7 @@ Table of Contents
    3.  PayID Server Discovery  . . . . . . . . . . . . . . . . . . .   5
    4.  JSON Format Design  . . . . . . . . . . . . . . . . . . . . .   5
      4.1.  HTTP Method . . . . . . . . . . . . . . . . . . . . . . .   6
-     4.2.  Media Type of Payment Account(s) Information Resource . .   6
+     4.2.  Media Type of the Payment Account(s) Information Resource   6
      4.3.  Response for application/* + json . . . . . . . . . . . .   6
        4.3.1.  payId . . . . . . . . . . . . . . . . . . . . . . . .   6
        4.3.2.  addresses . . . . . . . . . . . . . . . . . . . . . .   6
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Malhotra & Schwartz     Expires December 25, 2020               [Page 2]
+Malhotra & Schwartz      Expires January 8, 2021                [Page 2]
 
-Internet-Draft               PayID Protocol                    June 2020
+Internet-Draft               PayID Protocol                    July 2020
 
 
    10. Content Negotiation . . . . . . . . . . . . . . . . . . . . .  16
@@ -137,8 +137,9 @@ Internet-Draft               PayID Protocol                    June 2020
 
 1.  Terminology
 
-   This protocol can be referred to as "Basic PayID Protocol" or "PayID
-   Protocol".  The following terminology is used by this specification.
+   This protocol can be referred to as the "Basic PayID Protocol" or
+   "PayID Protocol".  The following terminology is used by this
+   specification.
 
    o  Endpoint: either the client or the server of the connection.
 
@@ -148,7 +149,7 @@ Internet-Draft               PayID Protocol                    June 2020
       *  Receiving Endpoint: receiving side of the transaction (wallet
          or exchange).
 
-   o  PayID client: The endpoint that initiates PayID protocol.
+   o  PayID client: The endpoint that initiates the PayID protocol.
 
    o  PayID owner: The owner of the PayID URI as described in
       [PAYID-URI].
@@ -164,10 +165,9 @@ Internet-Draft               PayID Protocol                    June 2020
 
 
 
-
-Malhotra & Schwartz     Expires December 25, 2020               [Page 3]
+Malhotra & Schwartz      Expires January 8, 2021                [Page 3]
 
-Internet-Draft               PayID Protocol                    June 2020
+Internet-Draft               PayID Protocol                    July 2020
 
 
 2.  Introduction
@@ -185,7 +185,7 @@ Internet-Draft               PayID Protocol                    June 2020
    returns a JavaScript Object Notation (JSON) object representing the
    payment account(s) information along with optional metadata
    corresponding to the queried PayID URI [PAYID-URI].  The protocol
-   defines new media formatting types for requests and responses but
+   defines new media formatting types for requests and responses, but
    uses normal HTTP content negotiation mechanisms for selecting
    alternatives that the PayID client and server may prefer in
    anticipation of serving different use cases.
@@ -194,8 +194,8 @@ Internet-Draft               PayID Protocol                    June 2020
 
    o  Extensibility
 
-   Although the primary use-case for the payment account(s) information
-   resource returned via Basic PayID protocol is assumed to be for
+   Although the primary use case for the payment account(s) information
+   resource returned via the Basic PayID protocol is assumed to be for
    making payments, the PayID protocol is designed to be easily
    extensible to facilitate creation and retrieval of other resources
    about the PayID owner, PayID client and/or PayID server that might be
@@ -203,17 +203,17 @@ Internet-Draft               PayID Protocol                    June 2020
 
    o  Neutrality: Currency and Network Agnostic
 
-   PayID protocol is designed to be a fundamentally neutral protocol.
-   PayID protocol is capable of returning a PayID owner's payment
-   account(s) information for any network that they (or their service)
-   can support.  This makes PayID protocol a network and currency
-   agnostic protocol, capable of enabling payments in BTC, XRP, ERC-20
-   tokens, Lightning, ILP, or even fiat networks like ACH.
+   The PayID protocol is designed to be a fundamentally neutral
+   protocol.  The PayID protocol is capable of returning a PayID owner's
+   payment account(s) information for any network that they (or their
+   service) can support.  This makes the PayID protocol a network and
+   currency agnostic protocol, capable of enabling payments in BTC, XRP,
+   ERC-20 tokens, Lightning, ILP, or even fiat networks like ACH.
 
    o  Decentralized & Peer-to-Peer
 
    Just like email servers, anyone can run their own PayID server or use
-   third-party hosted services.  If self-hosted, PayID protocol
+   third-party hosted services.  If self-hosted, the PayID protocol
    introduces no new counterparty risk or changes to a service's
    security or privacy model.  PayID protocol doesn't require new,
    complex, and potentially unreliable peer discovery protocols, instead
@@ -221,9 +221,9 @@ Internet-Draft               PayID Protocol                    June 2020
 
 
 
-Malhotra & Schwartz     Expires December 25, 2020               [Page 4]
+Malhotra & Schwartz      Expires January 8, 2021                [Page 4]
 
-Internet-Draft               PayID Protocol                    June 2020
+Internet-Draft               PayID Protocol                    July 2020
 
 
    parties from the start.  PayID is built on the most successful
@@ -235,10 +235,10 @@ Internet-Draft               PayID Protocol                    June 2020
    o  Service Sovereignty
 
    Each service provider that uses PayID for their users maintains full
-   control of its PayID URL space, PayID service and has the ability to
-   incorporate any policy they choose, including privacy,
+   control of its PayID URL space and PayID service, and has the ability
+   to incorporate any policies they choose, including privacy,
    authentication, and security.  They also have full sovereignty over
-   users on their domain, just like in email.  PayID is highly
+   users on their domain, just like with email.  PayID is highly
    generalized and does not prescribe any particular solution outside of
    the standardized communication, which makes it compatible with
    existing compliance and user management tools and philosophies.
@@ -247,26 +247,26 @@ Internet-Draft               PayID Protocol                    June 2020
 
    To support PayID protocol, the PayID client needs to discover the
    PayID URL corresponding to the PayID URI [PAYID-URI].  This can be
-   obtained either using mechanisms described in [PAYID-DISCOVERY] or
-   could be entered manually.
+   obtained either by using mechanisms described in [PAYID-DISCOVERY] or
+   by manually entering the PayID URL.
 
 4.  JSON Format Design
 
-   JSON as described in [RFC8259][], defines a test format for
+   JSON, as described in [RFC8259][], defines a test format for
    serializing structured data.  Objects are serialized as an unordered
    collection of name/value pairs.  JSON does not define any semantics
    around the name/value pairs that make up an object.  PayID protocol's
    JSON format defines name/value pairs that annotate a JSON object,
    property or array for PayID protocol resources.
 
-   The PayID client MUST request PayID response in JSON format through
+   The PayID client MUST request a PayID response in JSON format through
    the "Accept" header with the media type as defined below, optionally
    followed by format parameters.  One of the optional parameters is the
-   case insensitive "q" value as described in Section 5.3.1 of [RFC7231]
+   case-insensitive "q" value as described in Section 5.3.1 of [RFC7231]
    to indicate relative preference.
 
    Each message body is represented as a single JSON object.  This
-   object contains name/value pair whose value is the correct
+   object contains a name/value pair whose value is the correct
    representation for a primitive value as described in [RFC8259][], or
    an array or object as described in the section below.
 
@@ -277,9 +277,9 @@ Internet-Draft               PayID Protocol                    June 2020
 
 
 
-Malhotra & Schwartz     Expires December 25, 2020               [Page 5]
+Malhotra & Schwartz      Expires January 8, 2021                [Page 5]
 
-Internet-Draft               PayID Protocol                    June 2020
+Internet-Draft               PayID Protocol                    July 2020
 
 
 4.1.  HTTP Method
@@ -290,9 +290,9 @@ Internet-Draft               PayID Protocol                    June 2020
    Following are the media types to request the payment account(s)
    information resource on different payment-networks and environments.
 
-4.2.  Media Type of Payment Account(s) Information Resource
+4.2.  Media Type of the Payment Account(s) Information Resource
 
-   The media type for payment account information resource is
+   The media type for the payment account information resource is
    "application/* + json".
 
 4.3.  Response for application/* + json
@@ -333,9 +333,9 @@ Internet-Draft               PayID Protocol                    June 2020
 
 
 
-Malhotra & Schwartz     Expires December 25, 2020               [Page 6]
+Malhotra & Schwartz      Expires January 8, 2021                [Page 6]
 
-Internet-Draft               PayID Protocol                    June 2020
+Internet-Draft               PayID Protocol                    July 2020
 
 
    o  environment: The value of environment as specified in the client
@@ -364,7 +364,7 @@ Internet-Draft               PayID Protocol                    June 2020
       { required string address, optional string tag }
 
       *  address: The value of "address" field contains the on-ledger
-         address corresponding ot this owner.
+         address corresponding to this owner.
 
       *  tag: The value of "tag" field is the tag value used by some
          cryptocurrencies to distinguish accounts contained within a
@@ -389,9 +389,9 @@ Internet-Draft               PayID Protocol                    June 2020
 
 
 
-Malhotra & Schwartz     Expires December 25, 2020               [Page 7]
+Malhotra & Schwartz      Expires January 8, 2021                [Page 7]
 
-Internet-Draft               PayID Protocol                    June 2020
+Internet-Draft               PayID Protocol                    July 2020
 
 
    The "memo" string is an OPTIONAL field in the response.
@@ -434,20 +434,20 @@ Internet-Draft               PayID Protocol                    June 2020
 
    "*" may represent different payment-networks and environments.  In
    this document, we propose standards with the media types specific to
-   XRP, ILP, and ACH payment networks.  We also propose media type that
-   returns all addresses across all payment networks.  Other payment
+   XRP, ILP, and ACH payment networks.  We also propose media types that
+   return all addresses across all payment networks.  Other payment
    networks MUST establish standard media types for their networks at
    IANA.
 
    o  Accept: application/payid-json Returns all payment account(s)
-      information correspnding to the requested PayID URI
+      information corresponding to the requested PayID URI
 
 
 
 
-Malhotra & Schwartz     Expires December 25, 2020               [Page 8]
+Malhotra & Schwartz      Expires January 8, 2021                [Page 8]
 
-Internet-Draft               PayID Protocol                    June 2020
+Internet-Draft               PayID Protocol                    July 2020
 
 
    o  Accept: application/xrpl-mainnet+json
@@ -474,7 +474,7 @@ Internet-Draft               PayID Protocol                    June 2020
 
    Returns account and routing number
 
-   The PayID client MAY specify more than one media types along with the
+   The PayID client MAY specify more than one media type along with the
    preference parameter.  The server MUST respond as described in the
    Content Negotiation section below.
 
@@ -501,9 +501,9 @@ Internet-Draft               PayID Protocol                    June 2020
 
 
 
-Malhotra & Schwartz     Expires December 25, 2020               [Page 9]
+Malhotra & Schwartz      Expires January 8, 2021                [Page 9]
 
-Internet-Draft               PayID Protocol                    June 2020
+Internet-Draft               PayID Protocol                    July 2020
 
 
 5.1.2.  Header Content-Length
@@ -541,8 +541,8 @@ Internet-Draft               PayID Protocol                    June 2020
    for which the PayID client wants to receive information.  The
    representation format is always JSON.
 
-   PayID server MUST reject formats that specify unknown or unsupported
-   format parameters.
+   The PayID server MUST reject formats that specify unknown or
+   unsupported format parameters.
 
 5.3.  Response Headers
 
@@ -551,15 +551,15 @@ Internet-Draft               PayID Protocol                    June 2020
 
 5.3.1.  Header Cache-Control
 
-   PayID server MUST include the "Cache-Control" header with the max-age
-   limit of 0.  The intermediate hops or PayID client MUST NOT cache the
-   responses.
+   The PayID server MUST include the "Cache-Control" header with the
+   max-age limit of 0.  The intermediate hops or PayID client MUST NOT
+   cache the responses.
 
 
 
-Malhotra & Schwartz     Expires December 25, 2020              [Page 10]
+Malhotra & Schwartz      Expires January 8, 2021               [Page 10]
 
-Internet-Draft               PayID Protocol                    June 2020
+Internet-Draft               PayID Protocol                    July 2020
 
 
 6.  Extensibility
@@ -578,10 +578,10 @@ Internet-Draft               PayID Protocol                    June 2020
 
 6.2.  Header Field Extensibility
 
-   PayID protocol defines semantics around certain HTTP request and
-   response headers.  Services that support a version of PayID protocol
-   conform to the processing requirements for the headers defined by
-   this specification for that version.
+   The PayID protocol defines semantics around certain HTTP request and
+   response headers.  Services that support a version of the PayID
+   protocol conform to the processing requirements for the headers
+   defined by this specification for that version.
 
    Individual services MAY define custom headers.  These headers MUST
    NOT begin with PayID.  Custom headers SHOULD be optional when making
@@ -595,27 +595,27 @@ Internet-Draft               PayID Protocol                    June 2020
 
 7.  Basic PayID Protocol
 
-   Basic PayID protocol is used to request payment account(s)
+   The Basic PayID protocol is used to request a payment account(s)
    information resource identified by a PayID URI from a PayID-enabled
    service provider identified by a PayID URL using HTTP over secure
-   transport.  When successful, PayID protocol always returns the JSON
-   representation of payment account(s) information resource along with
-   optional metadata.  This information can be used for any purposes
-   outside the scope of this document, though it is expected the most
-   common application would be making payment.
+   transport.  When successful, the PayID protocol always returns the
+   JSON representation of a payment account(s) information resource
+   along with optional metadata.  This information can be used for any
+   purposes outside the scope of this document, though it is expected
+   the most common application would be making payment.
 
-   Basic PayID protocol comprises request and response messages, each of
-   which is defined in more detail below.  The following is a visual
-   representation of the basic protocol flow:
-
-
+   The Basic PayID protocol comprises request and response messages,
+   each of which is defined in more detail below.  The following is a
+   visual representation of the basic protocol flow:
 
 
 
 
-Malhotra & Schwartz     Expires December 25, 2020              [Page 11]
+
+
+Malhotra & Schwartz      Expires January 8, 2021               [Page 11]
 
-Internet-Draft               PayID Protocol                    June 2020
+Internet-Draft               PayID Protocol                    July 2020
 
 
 PayID client                                         PayID server
@@ -644,12 +644,12 @@ PayID client                                         PayID server
 7.2.  Step 2: Payment Account Information Response
 
    In response, the PayID server returns a JSON object representation of
-   the payment account(s) information resource for the payment-network
-   and environment requested by PayID client in the request "Accept"
-   header field along with other required and/or optional metadata.
+   a payment account(s) information resource for the payment-network and
+   environment requested by the PayID client in the request "Accept"
+   header field, along with other required and/or optional metadata.
 
-   PayID servers MUST be able to process "application/payid+json" header
-   type.
+   A PayID server MUST be able to process the "application/payid+json"
+   header type.
 
    If the PayID server does not contain the payment account information
    corresponding to the request, the PayID server MUST respond with an
@@ -669,9 +669,9 @@ PayID client                                         PayID server
 
 
 
-Malhotra & Schwartz     Expires December 25, 2020              [Page 12]
+Malhotra & Schwartz      Expires January 8, 2021               [Page 12]
 
-Internet-Draft               PayID Protocol                    June 2020
+Internet-Draft               PayID Protocol                    July 2020
 
 
 8.  Example Use of Basic PayID Protocol
@@ -725,9 +725,9 @@ Internet-Draft               PayID Protocol                    June 2020
 
 
 
-Malhotra & Schwartz     Expires December 25, 2020              [Page 13]
+Malhotra & Schwartz      Expires January 8, 2021               [Page 13]
 
-Internet-Draft               PayID Protocol                    June 2020
+Internet-Draft               PayID Protocol                    July 2020
 
 
  HTTP/1.1 200 OK
@@ -781,9 +781,9 @@ Internet-Draft               PayID Protocol                    June 2020
 
 
 
-Malhotra & Schwartz     Expires December 25, 2020              [Page 14]
+Malhotra & Schwartz      Expires January 8, 2021               [Page 14]
 
-Internet-Draft               PayID Protocol                    June 2020
+Internet-Draft               PayID Protocol                    July 2020
 
 
  HTTP/1.1 200 OK
@@ -809,7 +809,7 @@ Internet-Draft               PayID Protocol                    June 2020
 
 9.  Common Response Status Codes (TODO)
 
-   A PayID server MAY respond to request using any valid HTTP response
+   A PayID server MAY respond to a request using any valid HTTP response
    code appropriate for the request.  The PayID server SHOULD be as
    specific as possible in its choice of an HTTP specific status code.
 
@@ -837,9 +837,9 @@ Internet-Draft               PayID Protocol                    June 2020
 
 
 
-Malhotra & Schwartz     Expires December 25, 2020              [Page 15]
+Malhotra & Schwartz      Expires January 8, 2021               [Page 15]
 
-Internet-Draft               PayID Protocol                    June 2020
+Internet-Draft               PayID Protocol                    July 2020
 
 
 9.2.  Client Error Responses
@@ -870,8 +870,8 @@ Internet-Draft               PayID Protocol                    June 2020
    In this case, the PayID server MUST respond with the payment
    account(s) information corresponding to at least one of the payment-
    networks and environments mentioned in the "Accept" header in the
-   order of client request preference.  If none of those exist, PayID
-   server MUST send an appropriate error response.
+   order of client request preference.  If none of those exist, the
+   PayID server MUST send an appropriate error response.
 
    Alternatively, the PayID client MAY combine the above two approaches.
 
@@ -893,9 +893,9 @@ Internet-Draft               PayID Protocol                    June 2020
 
 
 
-Malhotra & Schwartz     Expires December 25, 2020              [Page 16]
+Malhotra & Schwartz      Expires January 8, 2021               [Page 16]
 
-Internet-Draft               PayID Protocol                    June 2020
+Internet-Draft               PayID Protocol                    July 2020
 
 
 11.  Versioning(TODO)
@@ -918,20 +918,20 @@ Internet-Draft               PayID Protocol                    June 2020
    o  PayID URIs are static and well-known to the PayID client; PayID
       server URLs can be static or discovered.
 
-   The following is considered out-of-scope:
+   The following are considered out-of-scope:
 
    o  Communication between the PayID owner and the wallet or exchange
       (which acts as PayID server) for PayID URI registration, etc.
 
-   o  Communication between the sender of the transaction and PayID
+   o  Communication between the sender of the transaction and the PayID
       client to transfer information such as PayID URI and other
       transaction details, etc.
 
-   o  PayID server URL discovery by PayID client.  Implementations using
-      PayID-Discovery [PAYID-DISCOVERY] MUST consider the security
+   o  PayID server URL discovery by the PayID client.  Implementations
+      using PayID-Discovery [PAYID-DISCOVERY] MUST consider the security
       considerations in the corresponding document.
 
-   o  PayID server URL resolution by PayID client.  Implementations
+   o  PayID server URL resolution by the PayID client.  Implementations
       using DNS, DNSSEC, DoH, DoT, etc.  MUST consider the security
       considerations of the corresponding documents.
 
@@ -949,9 +949,9 @@ Internet-Draft               PayID Protocol                    June 2020
 
 
 
-Malhotra & Schwartz     Expires December 25, 2020              [Page 17]
+Malhotra & Schwartz      Expires January 8, 2021               [Page 17]
 
-Internet-Draft               PayID Protocol                    June 2020
+Internet-Draft               PayID Protocol                    July 2020
 
 
    o  On-path attacker: An on-path attacker can eavesdrop, inject, spoof
@@ -989,10 +989,10 @@ Internet-Draft               PayID Protocol                    June 2020
    integrity of the data provided by PayID server.  A PayID client has
    no way of knowing if data provided in the payment account information
    resource has been manipulated at the PayID server, either due to
-   malicious behaviour on the part of PayID server administrator or as a
-   result of being compromised by an attacker.  As with any information
-   service available on the Internet, PayID clients should be wary of
-   the information received from untrusted sources.
+   malicious behavior on the part of the PayID server administrator or
+   as a result of being compromised by an attacker.  As with any
+   information service available on the Internet, PayID clients should
+   be wary of the information received from untrusted sources.
 
 13.  Privacy Considerations
 
@@ -1005,9 +1005,9 @@ Internet-Draft               PayID Protocol                    June 2020
 
 
 
-Malhotra & Schwartz     Expires December 25, 2020              [Page 18]
+Malhotra & Schwartz      Expires January 8, 2021               [Page 18]
 
-Internet-Draft               PayID Protocol                    June 2020
+Internet-Draft               PayID Protocol                    July 2020
 
 
    risks.  The easy access to payment account information via PayID
@@ -1018,15 +1018,16 @@ Internet-Draft               PayID Protocol                    June 2020
    PayID protocol MUST NOT be used to provide payment account(s)
    information corresponding to a PayID URI unless providing that data
    via PayID protocol by the relevant PayID server was explicitly
-   authorized by the PayID owner.  If PayID owner wishes to limit access
-   to information, PayID servers MAY provide an interface by which PayID
-   owners can select which information is exposed through the PayID
-   server interface.  For example, PayID servers MAY allow PayID owners
-   to mark certain data as "public" and then utilize that marking as a
-   means of determining what information to expose via PayID protocol.
-   The PayID servers MAY also allow PayID owners to provide a whitelist
-   of users who are authorized to access the specific information.  In
-   such a case, the PayID server MUST authenticate the PayID client.
+   authorized by the PayID owner.  If a PayID owner wishes to limit
+   access to information, PayID servers MAY provide an interface by
+   which PayID owners can select which information is exposed through
+   the PayID server interface.  For example, PayID servers MAY allow
+   PayID owners to mark certain data as "public" and then utilize that
+   marking as a means of determining what information to expose via
+   PayID protocol.  The PayID servers MAY also allow PayID owners to
+   provide a whitelist of users who are authorized to access the
+   specific information.  In such a case, the PayID server MUST
+   authenticate the PayID client.
 
 13.2.  Payment Address Rotation
 
@@ -1060,10 +1061,9 @@ Internet-Draft               PayID Protocol                    June 2020
 
 
 
-
-Malhotra & Schwartz     Expires December 25, 2020              [Page 19]
+Malhotra & Schwartz      Expires January 8, 2021               [Page 19]
 
-Internet-Draft               PayID Protocol                    June 2020
+Internet-Draft               PayID Protocol                    July 2020
 
 
 13.4.  In the PayID Server
@@ -1076,11 +1076,11 @@ Internet-Draft               PayID Protocol                    June 2020
    correlate queries to the same identity.
 
    At the IP level, the PayID client address provides obvious
-   correlation information.  This can be mitigated by usee of NAT,
-   proxy, VPN, or simple address rotation over time.  It may be
-   aggravated by use of a PayID server that can correlate real-time
-   addressing information with other identifiers, such as when PayID
-   server and other services are operated by the same entity.
+   correlation information.  This can be mitigated by use of NAT, proxy,
+   VPN, or simple address rotation over time.  It may be aggravated by
+   use of a PayID server that can correlate real-time addressing
+   information with other identifiers, such as when PayID server and
+   other services are operated by the same entity.
 
    PayID client implementations that use one TCP connection for multiple
    PayID requests directly group those requests.  Long-lived connections
@@ -1117,9 +1117,9 @@ Internet-Draft               PayID Protocol                    June 2020
 
 
 
-Malhotra & Schwartz     Expires December 25, 2020              [Page 20]
+Malhotra & Schwartz      Expires January 8, 2021               [Page 20]
 
-Internet-Draft               PayID Protocol                    June 2020
+Internet-Draft               PayID Protocol                    July 2020
 
 
    to be more than HTTP tunnel, but it is at the cost of opening up
@@ -1173,9 +1173,9 @@ Internet-Draft               PayID Protocol                    June 2020
 
 
 
-Malhotra & Schwartz     Expires December 25, 2020              [Page 21]
+Malhotra & Schwartz      Expires January 8, 2021               [Page 21]
 
-Internet-Draft               PayID Protocol                    June 2020
+Internet-Draft               PayID Protocol                    July 2020
 
 
         +-------------+--------------------------+---------------+
@@ -1213,8 +1213,8 @@ Internet-Draft               PayID Protocol                    June 2020
    generation and consumption of PayID protocol messages are discussed
    in Section X.
 
-   Interoperability considerations: This document specifies format of
-   conforming messages and the interpretation thereof.
+   Interoperability considerations: This document specifies the format
+   of conforming messages and the interpretation thereof.
 
    Published specification: This document is the specification for these
    media types; see Table 1 for the section documenting each media type.
@@ -1229,9 +1229,9 @@ Internet-Draft               PayID Protocol                    June 2020
 
 
 
-Malhotra & Schwartz     Expires December 25, 2020              [Page 22]
+Malhotra & Schwartz      Expires January 8, 2021               [Page 22]
 
-Internet-Draft               PayID Protocol                    June 2020
+Internet-Draft               PayID Protocol                    July 2020
 
 
    File extension(s): This document uses the mime type to refer to
@@ -1285,9 +1285,9 @@ Internet-Draft               PayID Protocol                    June 2020
 
 
 
-Malhotra & Schwartz     Expires December 25, 2020              [Page 23]
+Malhotra & Schwartz      Expires January 8, 2021               [Page 23]
 
-Internet-Draft               PayID Protocol                    June 2020
+Internet-Draft               PayID Protocol                    July 2020
 
 
    [RFC7258]  Farrell, S. and H. Tschofenig, "Pervasive Monitoring Is an
@@ -1341,4 +1341,4 @@ Authors' Addresses
 
 
 
-Malhotra & Schwartz     Expires December 25, 2020              [Page 24]
+Malhotra & Schwartz      Expires January 8, 2021               [Page 24]

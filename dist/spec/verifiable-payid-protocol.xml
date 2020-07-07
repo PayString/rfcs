@@ -54,7 +54,7 @@
       </address>
     </author>
 
-    <date year="2020" month="June" day="23"/>
+    <date year="2020" month="July" day="07"/>
 
     <area>security</area>
     
@@ -63,7 +63,7 @@
     <abstract>
 
 
-<t>This specification defines the verifiable PayID protocol - an extension to <xref target="PAYID-PROTOCOL"></xref> that aims to provide payment account(s) information associated with a PayID <xref target="PAYID-URI"></xref> while allowing involved parties to exchange <spanx style="verb">identity</spanx> information and provides third-party verifiable cryptographic proof trail of the entire communication. More specifically verifiable PayID protocol provides the following enhancements to Basic PayID protocol<xref target="PAYID-PROTOCOL"></xref>.</t>
+<t>This specification defines the Verifiable PayID protocol - an extension to <xref target="PAYID-PROTOCOL"></xref> that aims to provide payment account(s) information associated with a PayID <xref target="PAYID-URI"></xref> while allowing involved parties to exchange <spanx style="verb">identity</spanx> information and provides third-party verifiable cryptographic proof trail of the entire communication. More specifically, the Verifiable PayID protocol provides the following enhancements to the Basic PayID protocol<xref target="PAYID-PROTOCOL"></xref>.</t>
 
 <t><list style="symbols">
   <t>Verifiable Custodial PayID service: It allows custodial wallets and exchanges to send payment account(s) address information and other resources digitally signed with their off-ledger private key.</t>
@@ -79,9 +79,9 @@
     <note title="Feedback">
 
 
-<t>This specification is a draft proposal, and is part of the 
-  <eref target="https://payid.org/">PayID Protocol</eref> initiative. Feedback related to this 
-  document should be sent in the form of a Github issue at: 
+<t>This specification is a draft proposal, and is part of the
+  <eref target="https://payid.org/">PayID Protocol</eref> initiative. Feedback related to this
+  document should be sent in the form of a Github issue at:
   https://github.com/payid-org/rfcs/issues.</t>
 
 
@@ -94,7 +94,7 @@
 
 
 <section anchor="terminology" title="Terminology">
-<t>This protocol can be referred to as <spanx style="verb">Verifiable PayID Protocol</spanx>. It uses the following terminology.</t>
+<t>This protocol can be referred to as the <spanx style="verb">Verifiable PayID Protocol</spanx>. It uses the following terminology.</t>
 
 <t><list style="symbols">
   <t>endpoint: either the client or the server of the connection.</t>
@@ -110,14 +110,14 @@
 
 </section>
 <section anchor="motivation" title="Motivation">
-<t>Basic PayID protocol <xref target="PAYID-PROTOCOL"></xref> specifies a protocol to interact with PayID server and retrieve payment account(s) information resource along with other meta-data corresponding to the queried PayID. The protocol relies on the underlying secure transport (TLS 1.3 <xref target="RFC8446"></xref>) to ensure message integrity and privacy from network attackers. There are at least two assumptions in the security and privacy model of the basic PayID protocol that are less desirable.</t>
+<t>Basic PayID protocol <xref target="PAYID-PROTOCOL"></xref> specifies a protocol to interact with a PayID server and retrieve a payment account(s) information resource along with other meta-data corresponding to the queried PayID. The protocol relies on the underlying secure transport (TLS 1.3 <xref target="RFC8446"></xref>) to ensure message integrity and privacy from network attackers. There are at least two assumptions in the security and privacy model of the basic PayID protocol that are less desirable.</t>
 
 <t><list style="numbers">
   <t>Trust requirement between the PayID client and PayID server: As pointed out in the security considerations section of the <xref target="PAYID-PROTOCOL"></xref>, PayID server has full control over the contents of the response message, and may go rogue or be compromised. The PayID client has no way of knowing if the PayID server behaves maliciously. This implicit trust assumption between the PayID client and server is not ideal in the world where the information provided by the PayID server may be used by the PayID client to transmit money.</t>
   <t>Privacy: Per <xref target="PAYID-PROTOCOL"></xref>, anyone can query the PayID server and retrieve the payment account(s) information corresponding to the queried PayID. The PayID server or PayID owner has no way of deploying access control mechanisms since the <spanx style="verb">identity</spanx> of the PayID client and the sender is unknown to the PayID server.</t>
 </list></t>
 
-<t>The motivation for verifiable PayID protocol is threefold:</t>
+<t>The motivation for the Verifiable PayID protocol is threefold:</t>
 
 <t><list style="numbers">
   <t>Eliminate implicit trust assumption between the PayID client and server: While it is not possible for the protocol to prevent PayID server from acting maliciously, the best we can do is to allow for mechanisms in the protocol that enables PayID client to prove this misbehaviour to third-parties and potentially hold the PayID server legally accountable for misbehaving.</t>
@@ -126,23 +126,23 @@
       <t>Give the PayID owner and/or PayID server the ability to decide if they want to share their payment account(s) information and other resources with the PayID client or the sender.</t>
       <t>Allow for an open standards based way for endpoints to keep verifiable records of their financial transactions, to better meet the needs of accounting practices or other reporting and regulatory requirements.</t>
     </list></t>
-  <t>Ensure that if the PayID server is compromised, an attacker can not swap payment address in the payment account information response and redirect funds to the attacker controlled payment network and address. Allow the PayID server or PayID owner to pre-sign <spanx style="verb">PaymentInformation</spanx> in a cold/airgapped system offline instead of online on a hot wallet.</t>
+  <t>Ensure that if the PayID server is compromised, an attacker cannot swap a payment address in the payment account information response and redirect funds to the attacker-controlled payment network and address. Allow the PayID server or PayID owner to pre-sign <spanx style="verb">PaymentInformation</spanx> in a cold/airgapped system offline instead of online on a hot wallet.</t>
   <t>Allows for non-custodial service providers to run non-custodial PayID service by allowing the PayID owners to digitally sign the <spanx style="verb">PaymentInformation</spanx> resource locally on their device with their off-ledger private keys and send PayID owner's <spanx style="verb">identity</spanx> information in the response. This information can then be used by the PayID client and sender to authenticate the PayID owner and decide if they want to proceed with the transaction.</t>
 </list></t>
 
 </section>
 <section anchor="verifiable-payid-protocol-specification" title="Verifiable PayID Protocol Specification">
-<t>The verifiable PayID protocol is designed along the same design principles as <xref target="PAYID-PROTOCOL"></xref>.</t>
+<t>The Verifiable PayID protocol is designed along the same design principles as <xref target="PAYID-PROTOCOL"></xref>.</t>
 
 <section anchor="basic-operations" title="Basic Operations">
-<t>Following are the basic operations performed by the Verifiable PayID client and PayID server to retrieve <spanx style="verb">PaymentInformation</spanx> resource corresponding to PayID.</t>
+<t>Following are the basic operations performed by the verifiable PayID client and PayID server to retrieve <spanx style="verb">PaymentInformation</spanx> resource corresponding to PayID.</t>
 
 <section anchor="payid-client-requesting-the-paymentinformation-resource" title="PayID Client Requesting the PaymentInformation Resource">
-<t>When requesting the payment accounts(s) information resource per <xref target="PAYID-PROTOCOL"></xref> that is digitally signed and requires input paramters, the PayID client uses the HTTP <spanx style="verb">POST</spanx> method with path parameter <spanx style="verb">payment-setup-details</spanx> with optional payload in JSON format. We define this resource as <spanx style="verb">PaymentInformation</spanx> resource.</t>
+<t>When requesting the payment accounts(s) information resource per <xref target="PAYID-PROTOCOL"></xref> that is digitally signed and requires input parameters, the PayID client uses the HTTP <spanx style="verb">POST</spanx> method with path parameter <spanx style="verb">payment-setup-details</spanx> with an optional payload in JSON format. We define this resource as a <spanx style="verb">PaymentInformation</spanx> resource.</t>
 
 </section>
 <section anchor="payid-server-responding-to-the-paymentinformation-resource-request" title="PayID Server Responding to the PaymentInformation Resource Request">
-<t>Upon receiving a request for a <spanx style="verb">PaymentInformation</spanx> resource that the PayID server can provide, the PayID server normally returns the requested response. However, if PayID server does not support verifiable PayID protocol, the PayID server MAY send back an appropriate error code (TBD) to indicate to the PayID client that the resource is available via an HTTP <spanx style="verb">GET</spanx> request to an alternate URL.</t>
+<t>Upon receiving a request for a <spanx style="verb">PaymentInformation</spanx> resource that the PayID server can provide, the PayID server normally returns the requested response. However, if PayID server does not support the Verifiable PayID protocol, the PayID server MAY send back an appropriate error code (TBD) to indicate to the PayID client that the resource is available via an HTTP <spanx style="verb">GET</spanx> request to an alternate URL.</t>
 
 </section>
 </section>
@@ -157,19 +157,19 @@
 ]]></artwork></figure>
 
 <section anchor="identity" title="identity">
-<t>The type/value of <spanx style="verb">identity</spanx> field is TBD. We anticipate this being mechanism for the PayID client to transmit their or sender's <spanx style="verb">identity</spanx> information to the PayID server. This information can then be used by the PayID server/PayID owner to 
-  * Enhance privacy by exercising access control mechanisms such as authorized access via accept/deny lists, etc. for the <spanx style="verb">PaymentInformation</spanx> or other resources for a PayID. 
+<t>The type/value of the <spanx style="verb">identity</spanx> field is TBD. We anticipate this being a mechanism for the PayID client to transmit their or the sender's <spanx style="verb">identity</spanx> information to the PayID server. This information can then be used by the PayID server/PayID owner to
+  * Enhance privacy by exercising access control mechanisms such as authorized access via accept/deny lists, etc. for the <spanx style="verb">PaymentInformation</spanx> or other resources for a PayID.
   * Record-Keeping</t>
 
 </section>
 <section anchor="memo" title="memo">
-<t>The type/value of <spanx style="verb">memo</spanx> field is TBD. <spanx style="verb">memo</spanx> field is a placeholder to ensure protocol extensibility. e.g. for the primary use-case of making payments, the PayID client MAY send information such as amount, scale, etc. necessary to make the payment.
+<t>The type/value of the <spanx style="verb">memo</spanx> field is TBD. <spanx style="verb">memo</spanx> field is a placeholder to ensure protocol extensibility. e.g. for the primary use-case of making payments, the PayID client MAY send information such as amount, scale, etc. necessary to make the payment.
   //TBD: The request body parameters will depend on the use-case.</t>
 
 </section>
 </section>
 <section anchor="payid-server-response-body-for-paymentinformation-resource-request" title="PayID Server Response Body for PaymentInformation Resource Request">
-<t>Refer to payment account(s) information resource in <xref target="PAYID-PROTOCOL"></xref>.</t>
+<t>Refer to the payment account(s) information resource in <xref target="PAYID-PROTOCOL"></xref>.</t>
 
 </section>
 <section anchor="signaturewrapper" title="SignatureWrapper">
@@ -196,7 +196,7 @@
 
 </section>
 <section anchor="message" title="message">
-<t>The value of <spanx style="verb">message</spanx> includes the contents of the verifiable PayID protocol message of the type <spanx style="verb">messageType</spanx> to be signed.</t>
+<t>The value of <spanx style="verb">message</spanx> includes the contents of the Verifiable PayID protocol message of the type <spanx style="verb">messageType</spanx> to be signed.</t>
 
 </section>
 <section anchor="publickeytype" title="publicKeyType">
@@ -230,33 +230,33 @@
 </section>
 </section>
 <section anchor="custodial-and-non-custodial-payid-service-providers" title="Custodial and Non-Custodial PayID Service Providers">
-<t>We anticipate that the most common use-case for retrieving <spanx style="verb">PaymentInformation</spanx> resource is to make transactions. We can categorize the providers of such services as follows: 
+<t>We anticipate that the most common use-case for retrieving the <spanx style="verb">PaymentInformation</spanx> resource is to make transactions. We can categorize the providers of such services as follows:
 * Custodial wallets and exchanges: Custodial wallets and exchanges hold the private keys of their customers on their servers and essentially hold their funds. There is an implicit trust between the custodial service provider and their customers.</t>
 
 <t><list style="symbols">
   <t>Non-Custodial wallets and exchanges: Non-custodial wallets and exchanges do not store their customers’ keys on their servers. The customers hold their private keys locally on their device. [Arguably] there is a no trust requirement between the non-custodial wallets and exchanges and their customers. Since the customers hold the private keys so the wallets are not liable for any consequences coming from the lost, compromised or hacked private keys of the customers. Nor do they need their customers to trust their servers in case wallet's servers go malicious or are compromised.</t>
 </list></t>
 
-<t>Notice that the custodial and non-custodial service providers operate under different trust models. To continue operating under the same trust model, verifiable PayID requires slightly different treatment for the two.</t>
+<t>Notice that the custodial and non-custodial service providers operate under different trust models. To continue operating under the same trust model, verifiable PayID requires slightly different treatment for custodial and non-custodial service providers.</t>
 
 </section>
 <section anchor="verifiable-payid-protocol-for-custodial-wallets-and-exchanges" title="Verifiable PayID Protocol for Custodial Wallets and Exchanges">
 
-<t>Verifiable PayID protocol flow is similar to that of the Basic PayID protocol <xref target="PAYID-PROTOCOL"></xref> with the following modifications.</t>
+<t>The Verifiable PayID protocol flow is similar to that of the Basic PayID protocol <xref target="PAYID-PROTOCOL"></xref> with the following modifications.</t>
 
 <figure><artwork><![CDATA[
 Sender  PayID client                                             PayID server    Receiver
-  |           |                                                          |            | 
+  |           |                                                          |            |
   |PayID, etc.|                                                          |            |
   |---------->|                                                          |            |
   |           |     1.) POST /payment-setup-details request to PayID URL |            |
-  |           |--------------------------------------------------------->|            | 
+  |           |--------------------------------------------------------->|            |
   |           |     2.) 200 Ok                                           |            |
   |           |       Signed PaymentInformation response                 |            |
   |           |<---------------------------------------------------------|  Optional  |
-  |           |                                                          |notification| 
+  |           |                                                          |notification|
   |           |                                                          |----------->|
-  |           |                                                          |            | 
+  |           |                                                          |            |
 ]]></artwork></figure>
 
 <section anchor="step-1-preparing-the-http-request-to-payid-url-using-http-post-method" title="Step 1: Preparing the HTTP Request to PayID URL using HTTP POST Method">
@@ -264,11 +264,11 @@ Sender  PayID client                                             PayID server   
 
 </section>
 <section anchor="step-2-preparing-the-paymentinformation-response" title="Step 2: Preparing the PaymentInformation Response">
-<t>In response, the PayID server returns JSON representation of the <spanx style="verb">PaymentInformation</spanx> resource. <spanx style="verb">PaymentInformation</spanx> resource is the <spanx style="verb">signed</spanx> payment account(s) information message <xref target="PAYID-PROTOCOL"></xref> for the payment-network and environment requested by PayID client in the request <spanx style="verb">Accept</spanx> header field along with other required and optional meta data as <spanx style="verb">message</spanx> field in the <spanx style="verb">SignatureWrapper</spanx>.</t>
+<t>In response, the PayID server returns a JSON representation of the <spanx style="verb">PaymentInformation</spanx> resource. <spanx style="verb">PaymentInformation</spanx> resource is the <spanx style="verb">signed</spanx> payment account(s) information message <xref target="PAYID-PROTOCOL"></xref> for the payment-network and environment requested by PayID client in the request <spanx style="verb">Accept</spanx> header field along with other required and optional metadata as <spanx style="verb">message</spanx> field in the <spanx style="verb">SignatureWrapper</spanx>.</t>
 
 <section anchor="preparing-the-payment-accounts-information-message" title="Preparing the payment account(s) information message">
 <t><list style="symbols">
-  <t>Set <spanx style="verb">payId</spanx> to the value of the PayID in the client query. This is a required field in verifiable PayID protocol.</t>
+  <t>Set <spanx style="verb">payId</spanx> to the value of the PayID in the client query. This is a required field in the Verifiable PayID protocol.</t>
   <t>Set <spanx style="verb">addresses</spanx> to the value as described in <xref target="PAYID-PROTOCOL"></xref></t>
   <t>Optionally set <spanx style="verb">memo</spanx> to any additional information.</t>
   <t><spanx style="verb">identity</spanx> field is optional.</t>
@@ -279,11 +279,11 @@ Sender  PayID client                                             PayID server   
 <section anchor="preparing-signaturewrapper-message" title="Preparing SignatureWrapper message">
 <t><list style="symbols">
   <t>Set <spanx style="verb">messageType</spanx> to <spanx style="verb">PaymentInformation</spanx>.</t>
-  <t>Set <spanx style="verb">message</spanx> to the value of payment account(s) information message as generated above.</t>
+  <t>Set <spanx style="verb">message</spanx> to the value of the payment account(s) information message as generated above.</t>
   <t>Set <spanx style="verb">publicKeyType</spanx> to one of the values described in the Section above.</t>
   <t>Set <spanx style="verb">publicKeyData</spanx> to the data corresponding to the value in <spanx style="verb">publicKeyType</spanx>.</t>
-  <t>Set <spanx style="verb">publicKey</spanx> to value of the public key of the signing endpoint (PayID server.)</t>
-  <t>Sign the <spanx style="verb">message</spanx> using the hash algorithm and the signture scheme corresponding to the value in <spanx style="verb">publicKeyType</spanx></t>
+  <t>Set <spanx style="verb">publicKey</spanx> to the value of the public key of the signing endpoint (PayID server.)</t>
+  <t>Sign the <spanx style="verb">message</spanx> using the hash algorithm and the signature scheme corresponding to the value in <spanx style="verb">publicKeyType</spanx></t>
   <t>Set <spanx style="verb">signature</spanx> to the result of the signature operation in the previous step.</t>
 </list></t>
 
@@ -307,8 +307,8 @@ Sender  PayID client                                             PayID server   
 <section anchor="verifiable-payid-protocol-for-non-custodial-wallets-and-exchanges" title="Verifiable PayID Protocol for Non-Custodial Wallets and Exchanges">
 
 <t>Pre-step at PayID owner's (non-custodial wallet's customer) device locally.
-  For each <spanx style="verb">payment-network</spanx> and <spanx style="verb">environment</spanx> as described in <xref target="PAYID-PROTOCOL"></xref> that the PayID owner has a payment address for, generate the following payment account(s) information message 
-  * Set <spanx style="verb">payId</spanx> to the value of the PayID. This is a required field in verifiable PayID protocol.
+  For each <spanx style="verb">payment-network</spanx> and <spanx style="verb">environment</spanx> as described in <xref target="PAYID-PROTOCOL"></xref> that the PayID owner has a payment address for, generate the following payment account(s) information message
+  * Set <spanx style="verb">payId</spanx> to the value of the PayID. This is a required field in the Verifiable PayID protocol.
   * Set <spanx style="verb">addresses</spanx> to the value as described in <xref target="PAYID-PROTOCOL"></xref>
   * Optionally set <spanx style="verb">memo</spanx> to any additional information.
   * <spanx style="verb">identity</spanx> field is TBD.
@@ -319,11 +319,11 @@ Sender  PayID client                                             PayID server   
   * Set <spanx style="verb">message</spanx> to the value of payment account(s) information message as generated above.
   * Set <spanx style="verb">publicKeyType</spanx> to one of the values described in Section X.
   * Set <spanx style="verb">publicKeyData</spanx> to the data corresponding to the value in <spanx style="verb">publicKeyType</spanx>.
-  * Set <spanx style="verb">publicKey</spanx> to value of the public key of the signing endpoint (PayID server.)
-  * Sign the <spanx style="verb">message</spanx> using the hash algorithm and the signture scheme corresponding to the value in <spanx style="verb">publicKeyType</spanx>
+  * Set <spanx style="verb">publicKey</spanx> to the value of the public key of the signing endpoint (PayID server.)
+  * Sign the <spanx style="verb">message</spanx> using the hash algorithm and the signature scheme corresponding to the value in <spanx style="verb">publicKeyType</spanx>
   * Set <spanx style="verb">signature</spanx> to the result of the signature operation in the previous step.</t>
 
-<t>This signed payment account(s) information message is then securely transferred to the non-custodial PayID server and stored by the PayID server as <spanx style="verb">PaymentInformation</spanx> resource.</t>
+<t>This signed payment account(s) information message is then securely transferred to the non-custodial PayID server and stored by the PayID server as a <spanx style="verb">PaymentInformation</spanx> resource.</t>
 
 <section anchor="discussion-section-on-distributing-payid-owners-keys" title="Discussion Section on distributing PayID owner's keys">
 <t>In this subsection, we discuss potential ways to distribute the keys of the PayID owner used to sign the message. Once we reach a consensus, it will be added to the relevant sections of this document and this subsection will be removed. Following are the two possible approaches:</t>
@@ -345,11 +345,11 @@ Sender  PayID client                                             PayID server   
       <c>URL</c>
       <c>URL for secure retrieval of public key of the PayID owner</c>
       <c>Public key</c>
-      <c>out-of-band preshared public key between PayID client and PayID owner</c>
+      <c>out-of-band pre-shared public key between PayID client and PayID owner</c>
 </texttable>
 
 <t><list style="symbols">
-  <t>Digital identifier: A global digital identifier that uniquely associates the <spanx style="verb">PayID owner's identity</spanx> as defined by the identifier (GiD, HUID, DID, etc.) to the <spanx style="verb">PayID</spanx> and <spanx style="verb">public key</spanx>. The PayID client can then verify the <spanx style="verb">public key</spanx> using the digital identifier. This could be a direct retrieval of the corresponding <spanx style="verb">public key</spanx> from digital identity service provider if PayID is a part of that digital identifier.</t>
+  <t>Digital identifier: A global digital identifier that uniquely associates the <spanx style="verb">PayID owner's identity</spanx> as defined by the identifier (GiD, HUID, DID, etc.) to the <spanx style="verb">PayID</spanx> and <spanx style="verb">public key</spanx>. The PayID client can then verify the <spanx style="verb">public key</spanx> using the digital identifier. This could be a direct retrieval of the corresponding <spanx style="verb">public key</spanx> from a digital identity service provider if PayID is a part of that digital identifier.</t>
   <t>Certificate: An attested certificate that associates digital identifier such as GiD, Human UUID, DID, etc. to the <spanx style="verb">PayID</spanx> and <spanx style="verb">public key</spanx>.</t>
   <t>URL: A URL for secure retrieval of <spanx style="verb">public key</spanx> of the PayID owner.</t>
   <t>Pre-shared public Key: The public key that has been pre-shared out-of-band between the PayID client and PayID owner.</t>
@@ -359,7 +359,7 @@ Sender  PayID client                                             PayID server   
 <section anchor="embed-the-public-key-of-payid-owner-in-the-payid" title="Embed the public key of PayID owner in the PayID">
 <t>PayID <xref target="PAYID-URI"></xref> could support non-custodial systems with a fairly simple extension to the protocol to run non-custodial PayID servers that could not be hacked or tricked into sending money to the wrong place. The idea is to reserve the hostname <spanx style="verb">pkh</spanx> for <spanx style="verb">public key hashes</spanx> and support a PayID format like <spanx style="verb">public_key_hash</spanx>$pkh.provider.domain. PayID client implementations would require that any <spanx style="verb">PaymentInformation</spanx> resource that resulted from the PayID of that form be signed with the <spanx style="verb">private key</spanx> corresponding to that <spanx style="verb">public key hash</spanx>. So only a <spanx style="verb">PaymentInformation</spanx> signed by the owner of the PayID would work.</t>
 
-<t>The caveat is that that PayID format is not human-readable anymore. The solution is simple: the non-custodial wallets and exchanges would provide a non-human-readable PayID of the form <spanx style="verb">public_key_hash</spanx>$pkh.provider.domain, but the customers may get a human-readable PayID from another trusted service providers (say from their email provider) that maps to the non-human-readable PayID they got from their non-custodial service-provider. Non-custodial service-providers could even automate this process by allowing the user to choose a mapping provider.</t>
+<t>The caveat is that the PayID format is not human-readable anymore. The solution is simple: the non-custodial wallets and exchanges would provide a non-human-readable PayID of the form <spanx style="verb">public_key_hash</spanx>$pkh.provider.domain, but the customers may get a human-readable PayID from another trusted service providers (say from their email provider) that maps to the non-human-readable PayID they got from their non-custodial service-provider. Non-custodial service-providers could even automate this process by allowing the user to choose a mapping provider.</t>
 
 <t>// Details TBD</t>
 
@@ -377,12 +377,12 @@ Sender  PayID client                                             PayID server   
 
 </section>
 <section anchor="step-3-parsing-the-paymentinformation-response" title="Step 3: Parsing the PaymentInformation Response">
-<t>The PayID client follows the same verifiation steps as in the previous section. Details to be decided based on <spanx style="verb">identity</spanx> solution.</t>
+<t>The PayID client follows the same verification steps as in the previous section. Details to be decided based on <spanx style="verb">identity</spanx> solution.</t>
 
 </section>
 </section>
-<section anchor="example-use-of-verifiable-payid-protocol" title="Example Use of Verifiable PayID Protocol">
-<t>This section shows sample use of verifiable PayID protocol in several hypothetical scenarios.</t>
+<section anchor="example-use-of-the-verifiable-payid-protocol" title="Example Use of the Verifiable PayID Protocol">
+<t>This section shows sample use of the Verifiable PayID protocol in several hypothetical scenarios.</t>
 
 <section anchor="verifiable-payid-protocol-by-a-custodial-wallet-as-payid-server" title="Verifiable PayID Protocol by a Custodial Wallet as PayID server">
 <t>Suppose Alice (sender) wishes to send a friend Bob (PayID owner) some XRP from a web-based wallet provider (PayID client) that Alice has an account on. Alice would log-in to the wallet provider and enter Bob's PayID (say, <spanx style="verb">bob$receiver.example.com</spanx>) into the wallet UI to start the payment.</t>
@@ -429,10 +429,10 @@ Sender  PayID client                                             PayID server   
       }
     ],
     "memo" : "Additional optional Information",
-    "proofOfControlSignature" : 
+    "proofOfControlSignature" :
     {
       "publicKey" : "sdkfhjasdvkakjnasdv",
-      "payId" : "bob$receiver.example.com", 
+      "payId" : "bob$receiver.example.com",
       "hashAlgorithm" : "SHA512",
       "signature" : "9743b52063cd84097a65d1633f5c74f5"
     }
@@ -444,7 +444,7 @@ Sender  PayID client                                             PayID server   
 }
 ]]></artwork></figure>
 
-<t>In the above example we see that Bob's custodial PayID server wallet returned signed X-Addreess on XRPL testnet identified by PayID <spanx style="verb">bob$receiver.example.com</spanx>. This is because Alice's wallet asked for XRPL and testnet payment accounts corresponding to the PayID in the <spanx style="verb">Accept</spanx> header.</t>
+<t>In the above example we see that Bob's custodial PayID server wallet returned a signed X-Address on XRPL testnet identified by PayID <spanx style="verb">bob$receiver.example.com</spanx>. This is because Alice's wallet asked for XRPL and testnet payment accounts corresponding to the PayID in the <spanx style="verb">Accept</spanx> header.</t>
 
 <t>Alice's Wallet MAY then use the payment account information to make payments.</t>
 
@@ -484,7 +484,7 @@ Sender  PayID client                                             PayID server   
 }
 ]]></artwork></figure>
 
-<t>In the above example, the <spanx style="verb">PaymentInformation</spanx> resource is a pre-signed message with the off-ledger private keys of the PayID owner Bob. Bob's non-custodial wallet retrieves this response and sends to the PayID client.</t>
+<t>In the above example, the <spanx style="verb">PaymentInformation</spanx> resource is a pre-signed message with the off-ledger private keys of the PayID owner Bob. Bob's non-custodial wallet retrieves this response and sends it to the PayID client.</t>
 
 <t>//TODO Add example for PayID owner's public key embedded in PayID.</t>
 
@@ -493,27 +493,27 @@ Sender  PayID client                                             PayID server   
 <section anchor="security-considerations" title="Security Considerations">
 <t>This security considerations section only considers verifiable PayID clients and servers bound to implementations as defined in this document.</t>
 
-<t>The security guarantees mentioned in <xref target="PAYID-PROTOCOL"></xref> applies to verifiable PayID protocol. In this section we discuss security model for verifiable PayID protocol.</t>
+<t>The security guarantees mentioned in <xref target="PAYID-PROTOCOL"></xref> applies to the Verifiable PayID protocol. In this section, we discuss a security model for the Verifiable PayID protocol.</t>
 
 <section anchor="fully-malicious-adversary-model-for-payid-client-wallet-and-custodial-wallets-and-exchanges-as-payid-servers" title="Fully-Malicious Adversary Model for PayID Client Wallet and Custodial Wallets and Exchanges as PayID Servers">
 
-<t>While the verifiable PayID protocol operates between a PayID client and a PayID server, there are actually four parties to any payment. The other two parties are the sender of the payment whose funds are being transferred and the PayID owner or the receiver of the payment who the sender wishes to pay.</t>
+<t>While the Verifiable PayID protocol operates between a PayID client and a PayID server, there are actually four parties to any payment. The other two parties are the sender of the payment whose funds are being transferred and the PayID owner or the receiver of the payment who the sender wishes to pay.</t>
 
 <t>In the current security model, there is necessarily some existing trust between the sender and the sender's wallet. The sender's wallet is holding the sender's private keys and consequently their funds before the payment is made. Similarly, there is necessarily some existing trust between the receiver and their custodial wallet since the receiver has directed that the custodial wallet receive their funds.</t>
 
-<t>Verifiable PayID protocol provides stronger security guarantee: The ideal scenario that we strive for is that the sender should be able to hold the PayID client wallet legally accountable if the institution provably mishandles their funds. Similarly, the PayID owner/receiver should be able to hold the PayID server wallet legally accountable if their funds are mishandled. However, this mechanism requires that it be possible for either wallet to establish that it acted properly and that the other wallet acted improperly.</t>
+<t>The Verifiable PayID protocol provides a stronger security guarantee: The ideal scenario that we strive for is that the sender should be able to hold the PayID client wallet legally accountable if the institution provably mishandles their funds. Similarly, the PayID owner/receiver should be able to hold the PayID server wallet legally accountable if their funds are mishandled. However, this mechanism requires that it be possible for either wallet to establish that it acted properly and that the other wallet acted improperly.</t>
 
 <t>Of course, the preferred outcome of any payment is that nothing goes wrong and both the sender and PayID owner/receiver of the payment are satisfied that the payment took place as agreed. A less desirable outcome is that the payment cannot take place for some reason and the sender still has their money and understands why the payment cannot take place.</t>
 
 <t>While the protocol cannot possibly prevent the PayID client wallet from sending the funds to the wrong address or the PayID server wallet from receiving the funds but refusing to release them to the PayID owner/receiver, it is vital that the institutions not be able to plausibly blame each other for a failure where the sender has been debited but the PayID client/wallet has not been credited.</t>
 
-<t>Accordingly, the security model of verifiable PayID protocol permits four acceptable outcomes:</t>
+<t>Accordingly, the security model of the Verifiable PayID protocol permits four acceptable outcomes:</t>
 
 <t><list style="numbers">
   <t>The payment succeeds, the sender is debited, and the PayID owner/receiver is credited.</t>
   <t>The payment fails, the sender is not debited, and the PayID owner/receiver is not credited.</t>
-  <t>The payment fails, the sender is debited, the PayID owner/receiver is not credited, the sender can show that the PayID client wallet did not follow the protocol.</t>
-  <t>The payment fails, the sender is debited, the PayID owner/receiver is not credited, the sender can show the receiver that their PayID server wallet did not follow the protocol.</t>
+  <t>The payment fails, the sender is debited, the PayID owner/receiver is not credited, and the sender can show that the PayID client wallet did not follow the protocol.</t>
+  <t>The payment fails, the sender is debited, the PayID owner/receiver is not credited, and the sender can show the receiver that their PayID server wallet did not follow the protocol.</t>
 </list></t>
 
 <t>Again, the protocol cannot possibly prevent outcomes 3 or 4 because the PayID client wallet can always send the money to the wrong address and the PayID server wallet can always refuse to credit the PayID owner/receiver. It is, however, critical that the PayID client and PayID server wallets not need to trust each other to ensure that one of these four outcomes occurs and that they cannot point blame at each other.</t>
@@ -526,22 +526,22 @@ Sender  PayID client                                             PayID server   
 </section>
 <section anchor="fully-compromisable-custodial-payid-server-wallet-hotalways-online-systems-adding-another-layer-of-security" title="Fully Compromisable Custodial PayID Server Wallet (hot/always online systems): Adding another Layer of Security.">
 
-<t>Verifiable PayID protocol's security model assumes that the online servers can be physically or remotely compromised by an adversary. These are the most attractive attack vectors. There is sufficient evidence that hot/always online systems are more vulnerable.</t>
+<t>The Verifiable PayID protocol's security model assumes that the online servers can be physically or remotely compromised by an adversary. These are the most attractive attack vectors. There is sufficient evidence that hot/always online systems are more vulnerable.</t>
 
-<t>There are multiple cryptogrpahic operations that the PayID server wallet MUST perform to establish secure communication channels, to generate signed messages as verifiable cryptogrpahic proofs, etc.</t>
+<t>There are multiple cryptographic operations that the PayID server wallet MUST perform to establish secure communication channels, to generate signed messages as verifiable cryptographic proofs, etc.</t>
 
 <t>These operations have very different security requirements and compromising the cryptographic keys required for these operations have different security implications.</t>
 
 <t><list style="symbols">
-  <t>High risk impersonation attack to steal funds: If the PayID server wallet’s cryptographic keys used to sign <spanx style="verb">PaymentInformation</spanx> resource are compromised, an attacker may impersonate as the PayID server wallet and sign malicious mappings (‘Receiver's PayID → attacker controlled payment address’) to send to the PayID client wallet. This may lead to indirection of funds by the PayID client wallet to the attacker controlled address. Therefore, it is extremely important to keep these keys safe offline.</t>
+  <t>High-risk impersonation attack to steal funds: If the PayID server wallet’s cryptographic keys used to sign <spanx style="verb">PaymentInformation</spanx> resource are compromised, an attacker may impersonate as the PayID server wallet and sign malicious mappings (‘Receiver's PayID → attacker controlled payment address’) to send to the PayID client wallet. This may lead to indirection of funds by the PayID client wallet to the attacker-controlled address. Therefore, it is extremely important to keep these keys safe offline.</t>
   <t>Lower-risk impersonation attacks: An attacker can never steal funds if only cryptographic keys used to establish secure network connection between the PayID client wallet and PayID server wallet are compromised.</t>
 </list></t>
 
-<t>These differing security implications warrant a separation of generating cryptographically signed proofs and storing the cryptographic keys used to perform these two operations. Some observations that inform us on how we can deal with this is that:
-  * generating the cryptographic signatures on <spanx style="verb">PaymentInformation</spanx> resource need not be an online operation. This can be performed offline in a safe cold system with a separate set of keys,</t>
+<t>These differing security implications warrant a separation of generating cryptographically signed proofs and storing the cryptographic keys used to perform these two operations. Some observations that inform us on how we can deal with this are that:
+  * Generating the cryptographic signatures on <spanx style="verb">PaymentInformation</spanx> resource need not be an online operation. This can be performed offline in a safe, cold system with a separate set of keys,</t>
 
 <t><list style="symbols">
-  <t>All other cryptographic operations need to be performed online such as signing any additional information needed to fulfil the payment or establishing secure communication channel.</t>
+  <t>All other cryptographic operations need to be performed online, such as signing any additional information needed to fulfill the payment or establishing secure communication channels.</t>
 </list></t>
 
 <t>Based on these observations, we propose to maintain two separate systems (hot and cold) and two separate sets of cryptographic keys for the two operations.</t>
@@ -554,22 +554,22 @@ Sender  PayID client                                             PayID server   
 <section anchor="security-model-for-non-custodial-payid-server-wallets" title="Security Model for Non-Custodial PayID Server Wallets">
 
 <t>In the current security model, non-custodial wallets do not store their customers’ keys on their servers. The customers hold their private keys on their device. There is a no trust requirement between the service provided by the non-custodial wallets and the customers of this service. Since the customers hold the private keys:
-  * the wallets are not liable for any consequences coming from the lost, compromised or hacked private keys of the customers.
-  * the non-custodial wallets do not require their customers to trust their servers in case wallets servers go malicious or are compromised.</t>
+  * The wallets are not liable for any consequences coming from the lost, compromised or hacked private keys of the customers.
+  * The non-custodial wallets do not require their customers to trust their servers in case wallets servers go malicious or are compromised.</t>
 
-<t>Verifiable PayID protocol preserves this trust model. For the non-custodial PayID server wallets this means that</t>
+<t>The Verifiable PayID protocol preserves this trust model. For non-custodial PayID server wallets, this means that</t>
 
 <t><list style="symbols">
-  <t>On the receiving side of the payment (as a PayID server) non-custodial wallets have no liability on their end for providing <spanx style="verb">PaymentInformation</spanx>, i.e. the <spanx style="verb">PayID --&gt; Payment Address</spanx> mappings for their customers that is signed with the private key of the non-custodial PayID server wallet. The PayID owners or the customers can generate this signed mapping with their own off-ledger private key locally on their app/device. The PayID client can easily verify this signature based on the trust relationship between the sender of the payment (PayID client wallet’s customer) and the receiver (non-custodial PayID server's wallet). The non-custodial PayID server wallet has no role whatsoever. This eliminates any risk of the non-custodial PayID server wallet having lost their private keys, going malicious or getting hacked, etc. because if this happens then their customers might lose funds.</t>
+  <t>On the receiving side of the payment (as a PayID server) non-custodial wallets have no liability on their end for providing <spanx style="verb">PaymentInformation</spanx>, that is, the <spanx style="verb">PayID --&gt; Payment Address</spanx> mappings for their customers that are signed with the private key of the non-custodial PayID server wallet. The PayID owners or the customers can generate this signed mapping with their own off-ledger private key locally on their app/device. The PayID client can easily verify this signature based on the trust relationship between the sender of the payment (PayID client wallet’s customer) and the receiver (non-custodial PayID server's wallet). The non-custodial PayID server wallet has no role whatsoever. This eliminates any risk of the non-custodial PayID server wallet having lost their private keys, going malicious, or getting hacked, etc. because if this happens then their customers might lose funds.</t>
 </list></t>
 
 </section>
 </section>
 <section anchor="privacy-considerations" title="Privacy Considerations">
-<t>All privacy guarantess in Privacy Considerations section of <xref target="PAYID-PROTOCOL"></xref> applies to Verifiable PayID protocol and further addresses some of the privacy issues mentioned in <xref target="PAYID-PROTOCOL"></xref>.</t>
+<t>All privacy guarantees in the Privacy Considerations section of <xref target="PAYID-PROTOCOL"></xref> apply to the Verifiable PayID protocol and further address some of the privacy issues mentioned in <xref target="PAYID-PROTOCOL"></xref>.</t>
 
 <section anchor="access-control" title="Access Control">
-<t>PayID protocol MUST not be used to provide <spanx style="verb">PaymentInformation</spanx> or any pther resources corresponding to a PayID unless providing that data via PayID protocol by the relevant PayID server was explicitly authorized by the PayID owner. If PayID owner wishes to limit access to information, PayID servers MAY provide an interface by which PayID owners can select which information is exposed through the PayID server interface. For example, PayID servers MAY allow PayID owners to mark certain data as <spanx style="verb">public</spanx> and then utilize that marking as a means of determining what information to expose via PayID protocol. The PayID servers MAY also allow PayID owners to provide a whitelist of users who are authorized to access the specific information. In such a case, the PayID server MUST authenticate the PayID client. The additional <spanx style="verb">identity</spanx> field in the PayID client query request allows for this.</t>
+<t>PayID protocol MUST not be used to provide <spanx style="verb">PaymentInformation</spanx> or any other resources corresponding to a PayID unless providing that data via PayID protocol by the relevant PayID server was explicitly authorized by the PayID owner. If the PayID owner wishes to limit access to information, PayID servers MAY provide an interface by which PayID owners can select which information is exposed through the PayID server interface. For example, PayID servers MAY allow PayID owners to mark certain data as <spanx style="verb">public</spanx> and then utilize that marking as a means of determining what information to expose via PayID protocol. The PayID servers MAY also allow PayID owners to provide a whitelist of users who are authorized to access the specific information. In such a case, the PayID server MUST authenticate the PayID client. The additional <spanx style="verb">identity</spanx> field in the PayID client query request allows for this.</t>
 
 </section>
 </section>
@@ -666,229 +666,228 @@ Sender  PayID client                                             PayID server   
   </back>
 
 <!-- ##markdown-source:
-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
-FjoSwMRKnhGyLb5SFTUVBZTM1f8PF8JaWVWKAAA=
+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
+2WMjmrBr8V2tqKwotmSu/Ddy+h18nooAAA==
 
 -->
 
