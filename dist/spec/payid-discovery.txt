@@ -4,8 +4,8 @@
 
 Network Working Group                                        D. Fuelling
 Internet-Draft                                                    Ripple
-Intended status: Standards Track                           June 23, 2020
-Expires: December 25, 2020
+Intended status: Standards Track                           July 07, 2020
+Expires: January 8, 2021
 
 
                             PayID Discovery
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 25, 2020.
+   This Internet-Draft will expire on January 8, 2021.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Fuelling                Expires December 25, 2020               [Page 1]
+Fuelling                 Expires January 8, 2021                [Page 1]
 
-Internet-Draft               PayID Discovery                   June 2020
+Internet-Draft               PayID Discovery                   July 2020
 
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Fuelling                Expires December 25, 2020               [Page 2]
+Fuelling                 Expires January 8, 2021                [Page 2]
 
-Internet-Draft               PayID Discovery                   June 2020
+Internet-Draft               PayID Discovery                   July 2020
 
 
    higher-order protocols to discover metadata about a PayID-enabled
@@ -165,9 +165,9 @@ Internet-Draft               PayID Discovery                   June 2020
 
 
 
-Fuelling                Expires December 25, 2020               [Page 3]
+Fuelling                 Expires January 8, 2021                [Page 3]
 
-Internet-Draft               PayID Discovery                   June 2020
+Internet-Draft               PayID Discovery                   July 2020
 
 
 2.  Terminology
@@ -221,9 +221,9 @@ Internet-Draft               PayID Discovery                   June 2020
 
 
 
-Fuelling                Expires December 25, 2020               [Page 4]
+Fuelling                 Expires January 8, 2021                [Page 4]
 
-Internet-Draft               PayID Discovery                   June 2020
+Internet-Draft               PayID Discovery                   July 2020
 
 
    Per [RFC7033], Webfinger requests can be filtered by using a "rel"
@@ -277,9 +277,9 @@ Internet-Draft               PayID Discovery                   June 2020
 
 
 
-Fuelling                Expires December 25, 2020               [Page 5]
+Fuelling                 Expires January 8, 2021                [Page 5]
 
-Internet-Draft               PayID Discovery                   June 2020
+Internet-Draft               PayID Discovery                   July 2020
 
 
    section 2.7.2 [RFC7230].  A PayID URL can be used for any purposes
@@ -333,9 +333,9 @@ Internet-Draft               PayID Discovery                   June 2020
 
 
 
-Fuelling                Expires December 25, 2020               [Page 6]
+Fuelling                 Expires January 8, 2021                [Page 6]
 
-Internet-Draft               PayID Discovery                   June 2020
+Internet-Draft               PayID Discovery                   July 2020
 
 
                        +--------------------------+
@@ -389,9 +389,9 @@ Internet-Draft               PayID Discovery                   June 2020
 
 
 
-Fuelling                Expires December 25, 2020               [Page 7]
+Fuelling                 Expires January 8, 2021                [Page 7]
 
-Internet-Draft               PayID Discovery                   June 2020
+Internet-Draft               PayID Discovery                   July 2020
 
 
    This document defines a PayID Discovery URL as being a Webfinger
@@ -405,7 +405,7 @@ Internet-Draft               PayID Discovery                   June 2020
 
 4.1.2.  Step 2: Query PayID Discovery URL
 
-   A Webfinger query MUST be performed against the PayID Disovery URL,
+   A Webfinger query MUST be performed against the PayID Discovery URL,
    as described in section 4.2 of Webfinger.
 
    In response, the WebFinger resource returns a JSON Resource
@@ -445,9 +445,9 @@ Internet-Draft               PayID Discovery                   June 2020
 
 
 
-Fuelling                Expires December 25, 2020               [Page 8]
+Fuelling                 Expires January 8, 2021                [Page 8]
 
-Internet-Draft               PayID Discovery                   June 2020
+Internet-Draft               PayID Discovery                   July 2020
 
 
    {
@@ -501,9 +501,9 @@ PAYID-URI-Template =  *( uri-char / variable )
 
 
 
-Fuelling                Expires December 25, 2020               [Page 9]
+Fuelling                 Expires January 8, 2021                [Page 9]
 
-Internet-Draft               PayID Discovery                   June 2020
+Internet-Draft               PayID Discovery                   July 2020
 
 
 4.2.  Fallback Mode
@@ -557,9 +557,9 @@ Internet-Draft               PayID Discovery                   June 2020
 
 
 
-Fuelling                Expires December 25, 2020              [Page 10]
+Fuelling                 Expires January 8, 2021               [Page 10]
 
-Internet-Draft               PayID Discovery                   June 2020
+Internet-Draft               PayID Discovery                   July 2020
 
 
 5.1.  JRD for PayID Discovery URL
@@ -613,9 +613,9 @@ Internet-Draft               PayID Discovery                   June 2020
 
 
 
-Fuelling                Expires December 25, 2020              [Page 11]
+Fuelling                 Expires January 8, 2021               [Page 11]
 
-Internet-Draft               PayID Discovery                   June 2020
+Internet-Draft               PayID Discovery                   July 2020
 
 
 6.1.  Hosted PayID Discovery Services
@@ -669,9 +669,9 @@ Internet-Draft               PayID Discovery                   June 2020
 
 
 
-Fuelling                Expires December 25, 2020              [Page 12]
+Fuelling                 Expires January 8, 2021               [Page 12]
 
-Internet-Draft               PayID Discovery                   June 2020
+Internet-Draft               PayID Discovery                   July 2020
 
 
 8.  Acknowledgments
@@ -725,9 +725,9 @@ Internet-Draft               PayID Discovery                   June 2020
 
 
 
-Fuelling                Expires December 25, 2020              [Page 13]
+Fuelling                 Expires January 8, 2021               [Page 13]
 
-Internet-Draft               PayID Discovery                   June 2020
+Internet-Draft               PayID Discovery                   July 2020
 
 
 9.2.  Informative References
@@ -781,4 +781,4 @@ Author's Address
 
 
 
-Fuelling                Expires December 25, 2020              [Page 14]
+Fuelling                 Expires January 8, 2021               [Page 14]

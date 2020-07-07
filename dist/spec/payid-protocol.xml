@@ -54,7 +54,7 @@
       </address>
     </author>
 
-    <date year="2020" month="June" day="23"/>
+    <date year="2020" month="July" day="07"/>
 
     <area>security</area>
     
@@ -63,7 +63,7 @@
     <abstract>
 
 
-<t>This specification defines the PayID protocol - an application-layer protocol, which can be used to interact with a PayID-enabled service provider. The primary use-case is to discover payment account information along with optional metadata identified by a PayID <xref target="PAYID-URI"></xref>. The protocol is based on HTTP transfer of PayID protocol messages over a secure transport.</t>
+<t>This specification defines the PayID protocol - an application-layer protocol, which can be used to interact with a PayID-enabled service provider. The primary use case is to discover payment account information along with optional metadata identified by a PayID <xref target="PAYID-URI"></xref>. The protocol is based on HTTP transfer of PayID protocol messages over a secure transport.</t>
 
 
 
@@ -87,7 +87,7 @@
 
 
 <section anchor="terminology" title="Terminology">
-<t>This protocol can be referred to as <spanx style="verb">Basic PayID Protocol</spanx> or <spanx style="verb">PayID Protocol</spanx>. The following terminology is used by this specification.</t>
+<t>This protocol can be referred to as the <spanx style="verb">Basic PayID Protocol</spanx> or <spanx style="verb">PayID Protocol</spanx>. The following terminology is used by this specification.</t>
 
 <t><list style="symbols">
   <t>Endpoint: either the client or the server of the connection.
@@ -95,7 +95,7 @@
       <t>Sending Endpoint: sending side of the transaction (wallet or exchange).</t>
       <t>Receiving Endpoint: receiving side of the transaction (wallet or exchange).</t>
     </list></t>
-  <t>PayID client: The endpoint that initiates PayID protocol.</t>
+  <t>PayID client: The endpoint that initiates the PayID protocol.</t>
   <t>PayID owner: The owner of the PayID URI as described in <xref target="PAYID-URI"></xref>.</t>
   <t>PayID server: The endpoint that returns payment account information.</t>
 </list></t>
@@ -106,7 +106,7 @@
 <section anchor="introduction" title="Introduction">
 <t><xref target="PAYID-URI"></xref> describes a URI scheme to identify payment account(s) at a service provider. <xref target="PAYID-DISCOVERY"></xref>, on the other hand, defines how to transform a PayID URI into a PayID URL that can be used by other protocols to interact with a PayID-enabled service provider but does not define the protocol(s) to do so.</t>
 
-<t>This document specifies the PayID protocol - an application-layer protocol which can be used to interact with a PayID-enabled service provider identified by a PayID URL using standard HTTP methods over a secure transport. In its most basic mode, a PayID protocol resource returns a JavaScript Object Notation (JSON) object representing the payment account(s) information along with optional metadata corresponding to the queried PayID URI <xref target="PAYID-URI"></xref>. The protocol defines new media formatting types for requests and responses but uses normal HTTP content negotiation mechanisms for selecting alternatives that the PayID client and server may prefer in anticipation of serving different use cases.</t>
+<t>This document specifies the PayID protocol - an application-layer protocol which can be used to interact with a PayID-enabled service provider identified by a PayID URL using standard HTTP methods over a secure transport. In its most basic mode, a PayID protocol resource returns a JavaScript Object Notation (JSON) object representing the payment account(s) information along with optional metadata corresponding to the queried PayID URI <xref target="PAYID-URI"></xref>. The protocol defines new media formatting types for requests and responses, but uses normal HTTP content negotiation mechanisms for selecting alternatives that the PayID client and server may prefer in anticipation of serving different use cases.</t>
 
 <section anchor="design-goals" title="Design Goals">
 
@@ -114,39 +114,39 @@
   <t>Extensibility</t>
 </list></t>
 
-<t>Although the primary use-case for the payment account(s) information resource returned via Basic PayID protocol is assumed to be for making payments, the PayID protocol is designed to be easily extensible to facilitate creation and retrieval of other resources about the PayID owner, PayID client and/or PayID server that might be required for making payments.</t>
+<t>Although the primary use case for the payment account(s) information resource returned via the Basic PayID protocol is assumed to be for making payments, the PayID protocol is designed to be easily extensible to facilitate creation and retrieval of other resources about the PayID owner, PayID client and/or PayID server that might be required for making payments.</t>
 
 <t><list style="symbols">
   <t>Neutrality: Currency and Network Agnostic</t>
 </list></t>
 
-<t>PayID protocol is designed to be a fundamentally neutral protocol. PayID protocol is capable of returning a PayID owner's payment account(s) information for any network that they (or their service) can support. This makes PayID protocol a network and currency agnostic protocol, capable of enabling payments in BTC, XRP, ERC-20 tokens, Lightning, ILP, or even fiat networks like ACH.</t>
+<t>The PayID protocol is designed to be a fundamentally neutral protocol. The PayID protocol is capable of returning a PayID owner's payment account(s) information for any network that they (or their service) can support. This makes the PayID protocol a network and currency agnostic protocol, capable of enabling payments in BTC, XRP, ERC-20 tokens, Lightning, ILP, or even fiat networks like ACH.</t>
 
 <t><list style="symbols">
   <t>Decentralized &amp; Peer-to-Peer</t>
 </list></t>
 
-<t>Just like email servers, anyone can run their own PayID server or use third-party hosted services. If self-hosted, PayID protocol introduces no new counterparty risk or changes to a service’s security or privacy model. PayID protocol doesn’t require new, complex, and potentially unreliable peer discovery protocols, instead establishing direct peer-to-peer connections between communicating parties from the start.
+<t>Just like email servers, anyone can run their own PayID server or use third-party hosted services. If self-hosted, the PayID protocol introduces no new counterparty risk or changes to a service’s security or privacy model. PayID protocol doesn’t require new, complex, and potentially unreliable peer discovery protocols, instead establishing direct peer-to-peer connections between communicating parties from the start.
    PayID is built on the most successful decentralized network: the web. There is no designated centralized authority, or a risk of a patchwork of different standards in different jurisdictions that make a global solution impossibly complex.</t>
 
 <t><list style="symbols">
   <t>Service Sovereignty</t>
 </list></t>
 
-<t>Each service provider that uses PayID for their users maintains full control of its PayID URL space, PayID service and has the ability to incorporate any policy they choose, including privacy, authentication, and security.  They also have full sovereignty over users on their domain, just like in email. PayID is highly generalized and does not prescribe any particular solution outside of the standardized communication, which makes it compatible with existing compliance and user management tools and philosophies.</t>
+<t>Each service provider that uses PayID for their users maintains full control of its PayID URL space and PayID service, and has the ability to incorporate any policies they choose, including privacy, authentication, and security.  They also have full sovereignty over users on their domain, just like with email. PayID is highly generalized and does not prescribe any particular solution outside of the standardized communication, which makes it compatible with existing compliance and user management tools and philosophies.</t>
 
 </section>
 </section>
 <section anchor="payid-server-discovery" title="PayID Server Discovery">
-<t>To support PayID protocol, the PayID client needs to discover the PayID URL corresponding to the PayID URI <xref target="PAYID-URI"></xref>. This can be obtained either using mechanisms described in <xref target="PAYID-DISCOVERY"></xref> or could be entered manually.</t>
+<t>To support PayID protocol, the PayID client needs to discover the PayID URL corresponding to the PayID URI <xref target="PAYID-URI"></xref>. This can be obtained either by using mechanisms described in <xref target="PAYID-DISCOVERY"></xref> or by manually entering the PayID URL.</t>
 
 </section>
 <section anchor="json-format-design" title="JSON Format Design">
-<t>JSON as described in [RFC8259][], defines a test format for serializing structured data. Objects are serialized as an unordered collection of name/value pairs. JSON does not define any semantics around the name/value pairs that make up an object. PayID protocol's JSON format defines name/value pairs that annotate a JSON object, property or array for PayID protocol resources.</t>
+<t>JSON, as described in [RFC8259][], defines a test format for serializing structured data. Objects are serialized as an unordered collection of name/value pairs. JSON does not define any semantics around the name/value pairs that make up an object. PayID protocol's JSON format defines name/value pairs that annotate a JSON object, property or array for PayID protocol resources.</t>
 
-<t>The PayID client MUST request PayID response in JSON format through the <spanx style="verb">Accept</spanx> header with the media type as defined below, optionally followed by format parameters. One of the optional parameters is the case insensitive <spanx style="verb">q</spanx> value as described in Section 5.3.1 of <xref target="RFC7231"></xref> to indicate relative preference.</t>
+<t>The PayID client MUST request a PayID response in JSON format through the <spanx style="verb">Accept</spanx> header with the media type as defined below, optionally followed by format parameters. One of the optional parameters is the case-insensitive <spanx style="verb">q</spanx> value as described in Section 5.3.1 of <xref target="RFC7231"></xref> to indicate relative preference.</t>
 
-<t>Each message body is represented as a single JSON object. This object contains name/value pair whose value is the correct representation for a primitive value as described in [RFC8259][], or an array or object as described in the section below.</t>
+<t>Each message body is represented as a single JSON object. This object contains a name/value pair whose value is the correct representation for a primitive value as described in [RFC8259][], or an array or object as described in the section below.</t>
 
 <t>If the PayID server does not support JSON format, it MUST reply with an appropriate error response.</t>
 
@@ -156,8 +156,8 @@
 <t>Following are the media types to request the payment account(s) information resource on different payment-networks and environments.</t>
 
 </section>
-<section anchor="media-type-of-payment-accounts-information-resource" title="Media Type of Payment Account(s) Information Resource">
-<t>The media type for payment account information resource is <spanx style="verb">application/* + json</spanx>.</t>
+<section anchor="media-type-of-the-payment-accounts-information-resource" title="Media Type of the Payment Account(s) Information Resource">
+<t>The media type for the payment account information resource is <spanx style="verb">application/* + json</spanx>.</t>
 
 </section>
 <section anchor="response-for-application-json" title="Response for application/* + json">
@@ -166,7 +166,7 @@
 <figure><artwork><![CDATA[
   {  
    optional string payId,
-   required Address[] addresses, 
+   required Address[] addresses,
    optional string memo,
    optional string identity,
    optional ProofOfControlSignature proofOfControlSignature
@@ -183,9 +183,9 @@
 <t>The value of <spanx style="verb">addresses</spanx> field is a JSON array of type <spanx style="verb">Address</spanx> of one or more JSON objects with the following name/value pairs.</t>
 
 <figure><artwork><![CDATA[
-  { 
+  {
    required string paymentNetwork,
-   optional string environment, 
+   optional string environment,
    required string addressDetailsType,
    required addressDetailsType addressDetails
   }
@@ -213,7 +213,7 @@
   required string address,
   optional string tag
 }  <list style="symbols">
-      <t>address: The value of <spanx style="verb">address</spanx> field contains the on-ledger address corresponding ot this owner.</t>
+      <t>address: The value of <spanx style="verb">address</spanx> field contains the on-ledger address corresponding to this owner.</t>
       <t>tag: The value of <spanx style="verb">tag</spanx> field is the tag value used by some cryptocurrencies to distinguish accounts contained within a singular address. E.g XRP Ledger's destination tag.</t>
     </list></t>
   <t>ACHAddressDetails: This is a JSON object with the following name/value pairs.  <vspace blankLines='1'/>
@@ -246,7 +246,7 @@
 <figure><artwork><![CDATA[
   {
    required string publicKey,
-   required string payID, 
+   required string payID,
    required string hashAlgorithm,
    required string signature
   }
@@ -264,11 +264,11 @@
 </section>
 </section>
 <section anchor="meaning-of-media-type-application-json" title="Meaning of Media Type application/* + json">
-<t><spanx style="verb">*</spanx> may represent different payment-networks and environments. In this document, we propose standards with the media types specific to XRP, ILP, and ACH payment networks. We also propose media type that returns all addresses across all payment networks. Other payment networks MUST establish standard media types for their networks at IANA.</t>
+<t><spanx style="verb">*</spanx> may represent different payment-networks and environments. In this document, we propose standards with the media types specific to XRP, ILP, and ACH payment networks. We also propose media types that return all addresses across all payment networks. Other payment networks MUST establish standard media types for their networks at IANA.</t>
 
 <t><list style="symbols">
   <t>Accept: application/payid-json
-  Returns all payment account(s) information correspnding to the requested PayID URI</t>
+  Returns all payment account(s) information corresponding to the requested PayID URI</t>
   <t>Accept: application/xrpl-mainnet+json</t>
 </list></t>
 
@@ -304,7 +304,7 @@
 
 <t>Returns account and routing number</t>
 
-<t>The PayID client MAY specify more than one media types along with the preference parameter. The server MUST respond as described in the Content Negotiation section below.</t>
+<t>The PayID client MAY specify more than one media type along with the preference parameter. The server MUST respond as described in the Content Negotiation section below.</t>
 
 </section>
 </section>
@@ -337,7 +337,7 @@
 <section anchor="header-accept" title="Header Accept">
 <t>The PayID client MUST specify the <spanx style="verb">Accept</spanx> request header field with at least one of the registered media types (Section X). The purpose of this header is to indicate what type of content can be understood in the response. It specifies the <spanx style="verb">payment-network</spanx> and <spanx style="verb">environment</spanx> of the payment account and its representation format for which the PayID client wants to receive information. The representation format is always JSON.</t>
 
-<t>PayID server MUST reject formats that specify unknown or unsupported format parameters.</t>
+<t>The PayID server MUST reject formats that specify unknown or unsupported format parameters.</t>
 
 </section>
 </section>
@@ -345,7 +345,7 @@
 <t>In addition to the Common Headers, the PayID server MUST specify the following response header.</t>
 
 <section anchor="header-cache-control" title="Header Cache-Control">
-<t>PayID server MUST include the <spanx style="verb">Cache-Control</spanx> header with the max-age limit of 0. The intermediate hops or PayID client MUST NOT cache the responses.</t>
+<t>The PayID server MUST include the <spanx style="verb">Cache-Control</spanx> header with the max-age limit of 0. The intermediate hops or PayID client MUST NOT cache the responses.</t>
 
 </section>
 </section>
@@ -359,7 +359,7 @@
 
 </section>
 <section anchor="header-field-extensibility" title="Header Field Extensibility">
-<t>PayID protocol defines semantics around certain HTTP request and response headers. Services that support a version of PayID protocol conform to the processing requirements for the headers defined by this specification for that version.</t>
+<t>The PayID protocol defines semantics around certain HTTP request and response headers. Services that support a version of the PayID protocol conform to the processing requirements for the headers defined by this specification for that version.</t>
 
 <t>Individual services MAY define custom headers. These headers MUST NOT begin with PayID. Custom headers SHOULD be optional when making requests to the service. A service MUST NOT require the PayID client to understand custom headers to accurately interpret the response.</t>
 
@@ -370,9 +370,9 @@
 </section>
 </section>
 <section anchor="basic-payid-protocol" title="Basic PayID Protocol">
-<t>Basic PayID protocol is used to request payment account(s) information resource identified by a PayID URI from a PayID-enabled service provider identified by a PayID URL using HTTP over secure transport. When successful, PayID protocol always returns the JSON representation of payment account(s) information resource along with optional metadata. This information can be used for any purposes outside the scope of this document, though it is expected the most common application would be making payment.</t>
+<t>The Basic PayID protocol is used to request a payment account(s) information resource identified by a PayID URI from a PayID-enabled service provider identified by a PayID URL using HTTP over secure transport. When successful, the PayID protocol always returns the JSON representation of a payment account(s) information resource along with optional metadata. This information can be used for any purposes outside the scope of this document, though it is expected the most common application would be making payment.</t>
 
-<t>Basic PayID protocol comprises request and response messages, each of which is defined in more detail below. The following is a visual representation of the basic protocol flow:</t>
+<t>The Basic PayID protocol comprises request and response messages, each of which is defined in more detail below. The following is a visual representation of the basic protocol flow:</t>
 
 <figure><artwork><![CDATA[
 PayID client                                         PayID server
@@ -384,7 +384,7 @@ PayID client                                         PayID server
    |                  Payment account information response    |
    |<---------------------------------------------------------|
    |                                                          |
-   |                                                          | 
+   |                                                          |
 ]]></artwork></figure>
 
 <section anchor="step-1-http-request-to-payid-url-using-http-get-method" title="Step 1: HTTP Request to PayID URL using HTTP GET Method">
@@ -394,9 +394,9 @@ PayID client                                         PayID server
 
 </section>
 <section anchor="step-2-payment-account-information-response" title="Step 2: Payment Account Information Response">
-<t>In response, the PayID server returns a JSON object representation of the payment account(s) information resource for the payment-network and environment requested by PayID client in the request <spanx style="verb">Accept</spanx> header field along with other required and/or optional metadata.</t>
+<t>In response, the PayID server returns a JSON object representation of a payment account(s) information resource for the payment-network and environment requested by the PayID client in the request <spanx style="verb">Accept</spanx> header field, along with other required and/or optional metadata.</t>
 
-<t>PayID servers MUST be able to process <spanx style="verb">application/payid+json</spanx> header type.</t>
+<t>A PayID server MUST be able to process the <spanx style="verb">application/payid+json</spanx> header type.</t>
 
 <t>If the PayID server does not contain the payment account information corresponding to the request, the PayID server MUST respond with an appropriate error message.</t>
 
@@ -412,7 +412,7 @@ PayID client                                         PayID server
 <t>This section shows sample use of Basic PayID protocol in several hypothetical scenarios.</t>
 
 <section anchor="basic-payid-protocol-by-a-wallet" title="Basic PayID Protocol by a Wallet">
-<t>Suppose Alice wishes to send a friend some XRP from a web-based wallet provider that Alice has an account on. Alice would log-in to the wallet provider and enter Bob's PayID (say, <spanx style="verb">bob$receiver.example.com</spanx>) into the wallet UI to start the payment. 
+<t>Suppose Alice wishes to send a friend some XRP from a web-based wallet provider that Alice has an account on. Alice would log-in to the wallet provider and enter Bob's PayID (say, <spanx style="verb">bob$receiver.example.com</spanx>) into the wallet UI to start the payment.
    The Wallet application would first discover the PayID URL for the PayID service-provider using one of the mechanisms described in PayID discovery <xref target="PAYID-DISCOVERY"></xref> protocol.</t>
 
 <t>The Wallet application would then issue an HTTPS GET request:</t>
@@ -459,7 +459,7 @@ PayID client                                         PayID server
  }
 ]]></artwork></figure>
 
-<t>In the above example we see that the PayID server returned a list of payment accounts identified by PayID <spanx style="verb">bob$receiver.example.com</spanx>. This is because Alice's Wallet asked for all the payment accounts corresponding to the PayID in the <spanx style="verb">Accept</spanx> header. 
+<t>In the above example we see that the PayID server returned a list of payment accounts identified by PayID <spanx style="verb">bob$receiver.example.com</spanx>. This is because Alice's Wallet asked for all the payment accounts corresponding to the PayID in the <spanx style="verb">Accept</spanx> header.
   Alice's Wallet MAY then use the payment account information to make payments.</t>
 
 <t>Another example:</t>
@@ -500,7 +500,7 @@ PayID client                                         PayID server
 </section>
 </section>
 <section anchor="common-response-status-codes-todo" title="Common Response Status Codes (TODO)">
-<t>A PayID server MAY respond to request using any valid HTTP response code appropriate for the request. The PayID server SHOULD be as specific as possible in its choice of an HTTP specific status code.</t>
+<t>A PayID server MAY respond to a request using any valid HTTP response code appropriate for the request. The PayID server SHOULD be as specific as possible in its choice of an HTTP specific status code.</t>
 
 <section anchor="success-responses" title="Success Responses">
 <t>The following response codes represent successful requests.</t>
@@ -515,7 +515,7 @@ PayID client                                         PayID server
 </section>
 </section>
 <section anchor="client-error-responses" title="Client Error Responses">
-<t>Error codes in the 4xx range indicate a client error, such as a malformed request. 
+<t>Error codes in the 4xx range indicate a client error, such as a malformed request.
   In the case that a response body is defined for the error code, the body of the error is as defined for the appropriate format.</t>
 
 </section>
@@ -539,7 +539,7 @@ PayID client                                         PayID server
          application/xrpl-mainnet+json; q= 0.1
 ]]></artwork></figure>
 
-<t>In this case, the PayID server MUST respond with the payment account(s) information corresponding to at least one of the payment-networks and environments mentioned in the <spanx style="verb">Accept</spanx> header in the order of client request preference. If none of those exist, PayID server MUST send an appropriate error response.</t>
+<t>In this case, the PayID server MUST respond with the payment account(s) information corresponding to at least one of the payment-networks and environments mentioned in the <spanx style="verb">Accept</spanx> header in the order of client request preference. If none of those exist, the PayID server MUST send an appropriate error response.</t>
 
 <t>Alternatively, the PayID client MAY combine the above two approaches.</t>
 
@@ -568,13 +568,13 @@ PayID client                                         PayID server
   <t>PayID URIs are static and well-known to the PayID client; PayID server URLs can be static or discovered.</t>
 </list></t>
 
-<t>The following is considered out-of-scope:</t>
+<t>The following are considered out-of-scope:</t>
 
 <t><list style="symbols">
   <t>Communication between the PayID owner and the wallet or exchange (which acts as PayID server) for PayID URI registration, etc.</t>
-  <t>Communication between the sender of the transaction and PayID client to transfer information such as PayID URI and other transaction details, etc.</t>
-  <t>PayID server URL discovery by PayID client. Implementations using PayID-Discovery <xref target="PAYID-DISCOVERY"></xref> MUST consider the security considerations in the corresponding document.</t>
-  <t>PayID server URL resolution by PayID client. Implementations using DNS, DNSSEC, DoH, DoT, etc. MUST consider the security considerations of the corresponding documents.</t>
+  <t>Communication between the sender of the transaction and the PayID client to transfer information such as PayID URI and other transaction details, etc.</t>
+  <t>PayID server URL discovery by the PayID client. Implementations using PayID-Discovery <xref target="PAYID-DISCOVERY"></xref> MUST consider the security considerations in the corresponding document.</t>
+  <t>PayID server URL resolution by the PayID client. Implementations using DNS, DNSSEC, DoH, DoT, etc. MUST consider the security considerations of the corresponding documents.</t>
 </list></t>
 
 <section anchor="network-attacks" title="Network Attacks">
@@ -592,7 +592,7 @@ PayID client                                         PayID server
 
 <section anchor="denial-of-service-dos-attacks" title="Denial-of-Service (DoS) attacks">
 <t>As such, cryptography can not defend against DoS attacks because any attacker can stop/interrupt the PayID protocol by:
-  * Dropping network packets, 
+  * Dropping network packets,
   * Exhaustion of resources either at the network level or at PayID client and/or server.</t>
 
 <t>The PayID servers are recommended to follow general best network configuration practices to defend against such attacks <xref target="RFC4732"></xref>.</t>
@@ -600,7 +600,7 @@ PayID client                                         PayID server
 </section>
 </section>
 <section anchor="information-integrity" title="Information Integrity">
-<t>The HTTPS connection provides transport security for the interaction between PayID client and server but does not provide the response integrity of the data provided by PayID server. A PayID client has no way of knowing if data provided in the payment account information resource has been manipulated at the PayID server, either due to malicious behaviour on the part of PayID server administrator or as a result of being compromised by an attacker. As with any information service available on the Internet, PayID clients should be wary of the information received from untrusted sources.</t>
+<t>The HTTPS connection provides transport security for the interaction between PayID client and server but does not provide the response integrity of the data provided by PayID server. A PayID client has no way of knowing if data provided in the payment account information resource has been manipulated at the PayID server, either due to malicious behavior on the part of the PayID server administrator or as a result of being compromised by an attacker. As with any information service available on the Internet, PayID clients should be wary of the information received from untrusted sources.</t>
 
 </section>
 </section>
@@ -608,7 +608,7 @@ PayID client                                         PayID server
 <t>The PayID client and server should be aware that placing information on the Internet means that any one can access that information. While PayID protocol is an extremely useful tool to discovering payment account(s) information corresponding to a human-rememberable PayID URI, PayID owners should also understand the associated privacy risks. The easy access to payment account information via PayID protocol was a design goal of the protocol, not a limitation.</t>
 
 <section anchor="access-control" title="Access Control">
-<t>PayID protocol MUST NOT be used to provide payment account(s) information corresponding to a PayID URI unless providing that data via PayID protocol by the relevant PayID server was explicitly authorized by the PayID owner. If PayID owner wishes to limit access to information, PayID servers MAY provide an interface by which PayID owners can select which information is exposed through the PayID server interface. For example, PayID servers MAY allow PayID owners to mark certain data as <spanx style="verb">public</spanx> and then utilize that marking as a means of determining what information to expose via PayID protocol. The PayID servers MAY also allow PayID owners to provide a whitelist of users who are authorized to access the specific information. In such a case, the PayID server MUST authenticate the PayID client.</t>
+<t>PayID protocol MUST NOT be used to provide payment account(s) information corresponding to a PayID URI unless providing that data via PayID protocol by the relevant PayID server was explicitly authorized by the PayID owner. If a PayID owner wishes to limit access to information, PayID servers MAY provide an interface by which PayID owners can select which information is exposed through the PayID server interface. For example, PayID servers MAY allow PayID owners to mark certain data as <spanx style="verb">public</spanx> and then utilize that marking as a means of determining what information to expose via PayID protocol. The PayID servers MAY also allow PayID owners to provide a whitelist of users who are authorized to access the specific information. In such a case, the PayID server MUST authenticate the PayID client.</t>
 
 </section>
 <section anchor="payment-address-rotation" title="Payment Address Rotation">
@@ -625,7 +625,7 @@ PayID client                                         PayID server
 <section anchor="in-the-payid-server" title="In the PayID Server">
 <t>The Basic PayID protocol data contains no information about the PayID client; however, various transports of PayID queries and responses do provide data that can be used to correlate requests. A Basic PayID protocol implementation is built on IP, TCP, TLS and HTTP. Each layer contains one or more common features that can be used to correlate queries to the same identity.</t>
 
-<t>At the IP level, the PayID client address provides obvious correlation information. This can be mitigated by usee of NAT, proxy, VPN, or simple address rotation over time. It may be aggravated  by use of a PayID server that can correlate real-time addressing information with other identifiers, such as when PayID server and other services are operated by the same entity.</t>
+<t>At the IP level, the PayID client address provides obvious correlation information. This can be mitigated by use of NAT, proxy, VPN, or simple address rotation over time. It may be aggravated  by use of a PayID server that can correlate real-time addressing information with other identifiers, such as when PayID server and other services are operated by the same entity.</t>
 
 <t>PayID client implementations that use one TCP connection for multiple PayID requests directly group those requests. Long-lived connections have better performance behaviours than short-lived connections; however they group more requests, which can expose more information to correlation and consolidation. TCP-based solutions may also seek performance through the use of TCP Fast Open <xref target="RFC7413"></xref>. The cookies used in TCP Fast open may allow PayID servers to correlate TLS connections together.</t>
 
@@ -702,7 +702,7 @@ PayID client                                         PayID server
 
 <t>Security considerations: Security considerations relating to the generation and consumption of PayID protocol messages are discussed in Section X.</t>
 
-<t>Interoperability considerations:  This document specifies format of conforming messages and the interpretation thereof.</t>
+<t>Interoperability considerations:  This document specifies the format of conforming messages and the interpretation thereof.</t>
 
 <t>Published specification: This document is the specification for these media types; see Table 1 for the section documenting each media type.</t>
 
@@ -780,245 +780,244 @@ PayID client                                         PayID server
   </back>
 
 <!-- ##markdown-source:
-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
-rzLR7gTfKfSXFdlaB8AQbuFuvGuDBQp51wGd6BuVkeESoI4b3pnGsm7QUKLN
-ljBFEiPPHz9/hmaV7/Uin4Dnb5/lBEG4jA45H+TpsFX2QvIXSZmoe1iptB4a
-NF+PX2cmJZGYYrco23lXIukrOGUiAkLpNdWY+u+rsq58RuWqDR2520YxfIiR
-+j+T6CoaPW9adjSGDbaUyk/aWjt7K7Y3SIKCvbYDWw3cOwf79e7ICgqfN/ap
-WZJikknz39a+POcn2dXstUzJt0lbvJ72UudJ+gpK/bTqHbuXj9vFLZTcNMJP
-tZck+3hGcqDLisZqv7nEfXyQCyfGauKbGk/odXL1PTzitBsRHjnG0M/pG7sh
-BA54TZ+VoYQWLynYUei6vJEmbDSXOpZbY/8her+4SfuDSS2INI/Etxt0UcNP
-4DsgJ5UopwSTA1jKzzyu/PysLupplVyIPz83l/zzXrOHyw0dXdq3YM60Yvdn
-1ckNjcvpfzZNPQ3P9j+atB1Wux/1FV3dXXceTXsaN9bcbn9y45uNHXQniZmv
-nfXgqeMBvSH8T14jtJLTY+K4FTscP05pZBE5OD/xgPvrCTuLnU7GqnioiZ11
-P1UX7r0oZnbOcciUiYx33iE+yvrzzKctkloWalZ8HHm/Xf62nyA52h+GTLOD
-Z/KhexXzHNuL2XFDsXIVc0Ol72tqWHrbputu9/2iWMfP3Kx2rvlVvm+ldxxA
-jLRbaYDYAdWuz8lLqzRuAop/sGzz04oPMHRp8z50Uxq7YOdB7bu+NHrctREm
-a8Y1op+XlZeEtfyZnObCVMJJ+URRPyAlBfOHBcN5JVy65bsgnhmfHLcblrTz
-Edte01SX5+LK13oJ5gpbfPfdAxhRsBWkTW58O0pb8L0mLIJvfo3eH+6uj7Vz
-IgZ6Tt+n6gTJ7lvvabVoTDeSxc2wbYNb8V2aAatyGgt9CxsHgP67fCY6fL3I
-BhmEsPf1VikAkAqMCDT3mQ8hmZDNG1CS4ic17gHeOTp7/frsDTMClPFiitsi
-PCEL44HvNkuPOI3B+RfFErQK9hpfavcBDXLMDcL9VnYM6L/8a2aqxciWywf8
-8Zs9jCljCgeyVsp13Nv7v06/tDPxjAAA
+H4sIALlaBF8AA+196XIb15Xwfz7FLWpqJDkAJGqLgkymQpNSRJsSFZGK7VG5
+Bg3gAmir0Rfu200KiV01rzGvN08yZ7tbd4OkbKe+78ewyjLZy13OPfvWw+Fw
+b2bmebkcq6ZeDJ/v7dV5XeixepttT47V28rUZmaKvbmZldkars+rbFEPs6yc
+rbJiuMm2+Xy4kaeGDw/2Zlmtl6bajpWt53t7m3ysPsDNgbKmqiu9sPDbds2/
+zMx6rcvafr9n11lV/+ePjam1HSuzWOztZZXOYBA9a6q83u5lTb0y1XhvT6kh
+/KdUXsKThyP1OitWpq4yushrPOTVpbdMBXt8l282haa/LaxG12P1+OCpem3K
+emnWutqqc7pMT8xg3rE6z0r1soIRczszdL3Sy9yUY3V0yI+ZOcz5hycHD5/I
+301ZIwDen9Pfm5Up4YFh+4du6nWWF2OVrWWpf65ohSMADd2HzY/Vqq43dvzg
+wdXV1Si6n4LieKTOZ6srgOPfI1AcZ5f5PL3x/zUg5rjezwJCaap1VueXekzP
+vnt59Ojg4A/hj+cHz/0fz588eeb/+P2jp8+jPx4fhD+eHDz2fzx79Owp//H2
+8LuT4+H7dyf8p1JCKvsXK63uEincVXAbwa3Xet89lVVLhK/bQD2dj/SnbC07
+eCCPOQRX8uMO9WWjiwII1N9YNEURH27yAK/x+OT86OxvL959114pU/UxnuAl
+HPL+bzb3Xl4uOgfx5PePHwHFwhGrEij7P19qPZ9ms497exer3Cq70bN8kQPH
+ACxScCFj7qKAn2yMzYqByso53tgA8gJXUDUA+kOLM31/zwGWTmAE6P3gvroy
+1UdYv0wImFoAX5qr2sAYnantyjTFfE9NNfCbssan/q1azOyf/Yj/PuJtZFOg
+lmxW921grhd5qS0tktfo+KKCF0uVAc7Ks8Mi2+rK3x+oq1U+W6kZPAVraCyv
+NC9rjZOpq7xeAXBo0KEus2kBD1hdXeYzjYPASehqpBANN1UOrHSLY8Bw8A8s
+E4aay4kDJLfIclU2I+pU/thgA1lhyiVPZjZ4BVjoWtfZPKszBVOUNWwWZp5u
+3WLkMJAmvv/wvVuBbBpmnma4FRj61cXFWwWQK+0CFgEn2QLQWlubLQF4tMiM
+2b7mNzYgOEaAUHwC63w+B8a1d0dd6Gqdl6Ywyy0gHB2IH08gCWJGVxVDM+OT
+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
 
 -->
 
