@@ -64,7 +64,7 @@ informative:
 This specification is a draft proposal, and is part of the [PayID Protocol](https://payid.org/) initiative. Feedback related to this document should be sent in the form of a Github issue at: https://github.com/payid-org/rfcs/issues.
  
 --- abstract
-This specification defines the PayID Easy Checkout protocol, which can be used to allow two parties to transact money in a formalized way for some means of doing business with one another.
+This specification defines the PayID Easy Checkout Protocol, which can be used to allow two parties to transact money in a formalized way for some means of doing business with one another.
 
 The primary use-case of this protocol is to define how to two parties use a PayID in the context of knowing how to sent a user to their wallet to send funds to a recipient (for example, a merchant, charity, etc).   
 
@@ -72,9 +72,43 @@ The primary use-case of this protocol is to define how to two parties use a PayI
 
 # Terminology
 
+This protocol can be referred to as the `PayId Easy Checkout Protocol`. It uses the following terminology:
+* PayID client: the endpoint that initiates PayID protocol/sending side of the transaction.
+* PayID server: the endpoint that returns payment account(s) information/receiving side of the transaction (custodial or non-custodial wallets, exchanges, etc).
+* receiver: individual or entity receiving the transaction/owner of the PayID[PayID-URI][].
+* sender: individual or entity originating the transaction.
+* wallet: the host of the funds of the `sender`; may or may not be custodied.
+
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC2119][] and [RFC9174][].
+
 # Introduction
 
+The PayID Easy Checkout Protocol is designed to provided the floor required to transact money between two entities in a way that requires:
+* minimal effort for the user initiating the transaction.
+* no server-side software specific to PayID or its protocols for servicing the transaction.
+* only UI-based solutions.
+
+## Motivation
+
+Given the absence of a consistent and broadly adopted pattern for transacting crypto under the conditions of exchanging goods, services, or some other impetus, and given the ability for the PayID Protocol and PayID Discovery Protocol to allow for determination of where to send a user to complete a transaction, we felt the pieces existed to create a protocol that allowed for making this approach to transactions easier to instrument.
+
+Clients wishing to adopt this pattern should only need to implement UI-level changes in order to make the flow function as intended. 
+
 ## Design Goals
+
+### Minimal effort for the user initiating the transaction
+
+The PayID Easy Checkout protocol requires a small number of points of data from the user:
+* Their PayID
+* Identifying themselves with the wallet they end up redirected to in order to approve transfer of funds to the receiver.
+
+### No server-side software specific to PayID or its protocols for servicing the transaction
+
+The PayID Easy Checkout Protocol does not require server-side software to be run by either the sender or receiver for a transaction. The PayID server is capable of providing details of where to send the user via the PayID Discovery Protocol. Assuming the wallet used by the sender has implemented support in their UI for the PayID Easy Checkout Protocol, the sender can be redirected to their wallet within the browser to complete their transaction.
+
+### Only UI-based solutions
+
+Since the flow of PayID Easy Checkout is predicated on using the PayID Discovery Protocol and then redirecting the sender away from the site of the receiver, all of the flow can be instrumented in the browser and doesn't require server-side resources. 
 
 # Extensibility
 
