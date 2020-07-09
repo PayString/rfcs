@@ -66,7 +66,7 @@ This specification is a draft proposal, and is part of the [PayID Protocol](http
 --- abstract
 This specification defines the PayID Easy Checkout Protocol, which can be used to allow two parties to transact money in a formalized way for some means of doing business with one another.
 
-The primary use-case of this protocol is to define how to two parties use a PayID in the context of knowing how to sent a user to their wallet to send funds to a recipient (for example, a merchant, charity, etc).   
+The primary use-case of this protocol is to define how two parties use a PayID in the context of knowing how to send a user to their wallet to send funds to a recipient (for example, a merchant, charity, etc).   
 
 --- middle
 
@@ -75,15 +75,15 @@ The primary use-case of this protocol is to define how to two parties use a PayI
 This protocol can be referred to as the `PayId Easy Checkout Protocol`. It uses the following terminology:
 * PayID client: the endpoint that initiates PayID protocol/sending side of the transaction.
 * PayID server: the endpoint that returns payment account(s) information/receiving side of the transaction (custodial or non-custodial wallets, exchanges, etc).
-* receiver: individual or entity receiving the transaction/owner of the PayID[PayID-URI][].
-* sender: individual or entity originating the transaction.
+* receiver: individual or entity receiving the transaction.
+* sender: individual or entity originating the transaction/owner of the PayID[PayID-URI][].
 * wallet: the host of the funds of the `sender`; may or may not be custodied.
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC2119][] and [RFC9174][].
 
 # Introduction
 
-The PayID Easy Checkout Protocol is designed to provided the floor required to transact money between two entities in a way that requires:
+The PayID Easy Checkout Protocol is a minimal protocol designed to provide a set of standard APIs and flows, which can be used to transact money between two entities in a way that requires:
 * minimal effort for the user initiating the transaction.
 * no server-side software specific to PayID or its protocols for servicing the transaction.
 * only UI-based solutions.
@@ -110,8 +110,16 @@ The PayID Easy Checkout Protocol does not require server-side software to be run
 
 Since the flow of PayID Easy Checkout is predicated on using the PayID Discovery Protocol and then redirecting the sender away from the site of the receiver, all of the flow can be instrumented in the browser and doesn't require server-side resources. 
 
-# Extensibility
+# Example Usage
+TODO: example flow.
 
+# PayID Easy Checkout Protocol
+TODO: define protocol.
+## Template Syntax
+TODO: define url template params.
+
+# PayID Easy Checkout JRDs
+TODO: define JRD Link
 
 # Common Response Status Codes (TODO)
   A PayID server MAY respond to a request using any valid HTTP response code appropriate for the request. The PayID server SHOULD be as specific as possible in its choice of an HTTP specific status code.
@@ -166,7 +174,16 @@ Since the flow of PayID Easy Checkout is predicated on using the PayID Discovery
 
 
 # IANA Considerations
-  This document defines registries for PayID protocol version and application/* +json media types.
+  ## New Link Relation Types
+  This document defines the following Link relation types per [RFC7033][].
+  See section 3 for examples of each type of Link.
+  
+  ### PayID Discovery URI Template
+  
+    * Relation Type ('rel'): `https://payid.org/ns/payid-easy-checkout-uri/1.0`
+    * Media Type: `application/jrd+json`
+    * Description: PayID Discovery URI Template, version 1.0
+
 
 
 # Acknowledgments
