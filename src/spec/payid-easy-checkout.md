@@ -83,16 +83,26 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 # Introduction
 
-The PayID Easy Checkout Protocol is a minimal protocol designed to provide a set of standard APIs and flows, which can be used to transact money between two entities in a way that requires:
+The PayID Easy Checkout Protocol is a minimal protocol designed to provide a set of standard APIs and flows, 
+which can be used to transact money between two entities in a way that requires:
 * minimal effort for the user initiating the transaction.
 * no server-side software specific to PayID or its protocols for servicing the transaction.
 * only UI-based solutions.
 
 ## Motivation
 
-Given the absence of a consistent and broadly adopted pattern for transacting crypto under the conditions of exchanging goods, services, or some other impetus, and given the ability for the PayID Protocol and PayID Discovery Protocol to allow for determination of where to send a user to complete a transaction, we felt the pieces existed to create a protocol that allowed for making this approach to transactions easier to instrument.
+The PayID Easy Checkout Protocol aims to correct the current absence of a consistent and broadly adopted pattern for 
+paying for goods and services via a digital wallet on an e-commerce website.
+Given the ability to assign arbitrary metadata to a PayID as defined in [PayID-Discovery][], there is an opportunity
+to standardize the set of interactions between receiver and sender, specifically the process by which a receiver
+directs a sender to their digital wallet to complete a payment.
+We believe this protocol will enable a largely improved user experience in e-commerce transactions by reducing the number
+of steps a user must take to complete a transaction, creating a consistent and familiar checkout pattern, and lowering
+the barrier to entry use for cryptocurrency novices.
 
-Clients wishing to adopt this pattern should only need to implement UI-level changes in order to make the flow function as intended. 
+The second priority of PayID Easy Checkout is to limit the engineering effort needed to implement the protocol. 
+Clients wishing to adopt this pattern should only need to implement UI-level changes in order to make the flow function 
+as intended, which may aid in expanding overall adoption, further enhancing the protocol's user experience benefits. 
 
 ## Design Goals
 
