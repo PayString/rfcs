@@ -114,11 +114,14 @@ The PayID Easy Checkout protocol requires a small number of points of data from 
 
 ### No server-side software specific to PayID or its protocols for servicing the transaction
 
-The PayID Easy Checkout Protocol does not require server-side software to be run by either the sender or receiver for a transaction. The PayID server is capable of providing details of where to send the user via the PayID Discovery Protocol. Assuming the wallet used by the sender has implemented support in their UI for the PayID Easy Checkout Protocol, the sender can be redirected to their wallet within the browser to complete their transaction.
+Since the flow of PayID Easy Checkout is predicated on using the PayID Discovery Protocol and then redirecting the 
+sender away from the site of the receiver, all of the flow can be instrumented in the browser and doesn't require server-side resources. 
 
-### Only UI-based solutions
-
-Since the flow of PayID Easy Checkout is predicated on using the PayID Discovery Protocol and then redirecting the sender away from the site of the receiver, all of the flow can be instrumented in the browser and doesn't require server-side resources. 
+Apart from a PayID Discovery compliant PayID Server, The PayID Easy Checkout Protocol does not require server-side 
+software to be run by either the sender or receiver for a transaction. The PayID server is capable of providing details 
+of where to send the user via the PayID Discovery Protocol. Assuming the wallet used by the sender has implemented 
+support in their UI for the PayID Easy Checkout Protocol, the sender can be redirected to their wallet within the 
+browser to complete their transaction.
 
 # Example Usage
 TODO: example flow.
