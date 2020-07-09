@@ -124,7 +124,63 @@ support in their UI for the PayID Easy Checkout Protocol, the sender can be redi
 browser to complete their transaction.
 
 # Example Usage
-TODO: example flow.
+This section shows the canonical PayID Easy Checkout flow between a hypothetical merchant and customer. The merchant
+accepts payments at the PayID pay$merchant.com, and the customer has the PayID alice$wallet.com.
+
+## PayID Easy Checkout Initiation
+In this example, the customer might place some items in their online cart on the merchant's website, then choose
+to checkout.  The merchant would then render a form asking for the customer's PayID, as well as a "Checkout with PayID"
+button.  Once the user inputs their PayID alice$wallet.com and clicked the "Checkout with PayID" button, the merchant
+site begins the PayID Easy Checkout flow.
+
+## PayID Easy Checkout Wallet Discovery
+The merchant site would resolve the customer's PayID to a host as defined in [PAYID-URI][], in this case resolving
+alice$wallet.com to https://wallet.com. The merchant site would then perform PayID Discovery as defined in
+[PAYID-DISCOVERY][] to receive a PayID Easy Checkout JRD like this:
+    
+    GET /.well-known/webfinger?resource=payid%3Aalice%24wallet.com
+    Host: wallet.com
+    
+If the server has enabled PayID Easy Checkout in their wallet, they would respond with something like this:
+     
+     HTTP/1.1 200 OK
+     Access-Control-Allow-Origin: *
+     Content-Type: application/jrd+json
+
+     {
+       "subject" : "payid:alice$wallet.com",
+       "links" :
+       [
+         {  
+           "rel": "https://payid.org/ns/payid-easy-checkout/1.0",
+           "template": "https://wallet.com/checkout?amount={amount}&receiverPayId={receiverPayId}&currency={currency}&nextUrl={nextUrl}"
+         }
+       ]
+     }
+
+## Expand Wallet Discovery URL Template
+The merchant would parse the PayID Discovery response and iterate over the "links" collection to find the link with 
+the Relation Type of "https://payid.org/ns/payid-easy-checkout/1.0". The site can then do a search and replace on
+the "template" field value in the link, replacing all occurrences of the predefined query parameter template names with 
+the values they want to send to the customer's wallet. One query parameter of note is the "nextUrl" parameter, which
+allows the merchant to supply a redirect or callback URL for the sender's wallet to call once the customer has confirmed
+the payment.
+
+## Redirect Customer to Their Wallet
+Once the merchant populates the required query parameters in the URL template, they would redirect the customer to 
+the resulting URL. In this example, the merchant would like to display a "Thank You" page, and replaces `{nextUrl}` with 
+`https://wallet.com/checkout?amount=10&receiverPayId=payid%2Apay%24merchant.com&currency=XRP&nextUrl=https://merchant.com/thankyou`.
+
+## Customer Confirms Payment
+After the customer clicks the "Pay with PayID" button the merchant's site, and the merchant performs the previous steps,
+the customer will be redirected to their wallet at the URL from the previous step.  The wallet front end can
+read the query parameters from the redirect URL and render a confirmation page or modal with all of the required fields
+pre-populated.
+
+Once the customer confirms the payment, the wallet would perform a PayID address lookup on the "receiverPayId" query
+parameter to get the payment address of the merchant and submit a transaction to the underlying ledger or payment system.
+The merchant can then redirect the user back to the URL specified in the "nextUrl" query parameter, which will display
+the "Thank You" page of the merchant.
 
 # PayID Easy Checkout Protocol
 TODO: define protocol.
