@@ -261,25 +261,26 @@ Once obtained, PayID Easy Checkout Discovery is considered to have completed suc
 ### Template Syntax
 TODO: Update this for PayID Easy Checkout URI Template
 
-This specification defines a simple template syntax for PayID URI
+This specification defines a simple template syntax for PayID Easy Checkout URI
 transformation.  A template is a string containing brace-enclosed
 ("{}") variable names marking the parts of the string that are to be
 substituted by the corresponding variable values.
 
-This specification defines a one variable -- "acctpart" -- which
-corresponds to the 'acctpart' of a PayID URI as defined in [PAYID-URI][].
-
-When substituting the 'acctpart' value into a URI 'path' as defined by
-[RFC3986][], values MUST NOT be percent or otherwise encoded because the
-'acctpart' value of a PayID URI always conforms to the character set
-allowed by paths in [RFC3986][].
-
-However, before substituting template variables into a URI 'query' part,
-values MUST be encoded using UTF-8, and any character other than
-unreserved (as defined by [RFC3986]) MUST be percent-encoded per [RFC3986].
+This specification defines several variables, MAY or MAY NOT be present in every PayID Easy Checkout URI Template.
+These variables are as follows:
+    
+    'amount': The amount that should be sent by the sender to the receiver
+    'receiverPayID': The PayID URI of the receiver
+    'currency': The currency that the sender should send (TODO: define currency enum or use rfc)
+    'network': The network that the sender should send payment over (TODO: define network enum or use rfc)
+    'nextURL': A URL that the sender's wallet can use after completing the payment
+    
+When substituting values into a URI 'path' or 'query' part as defined by
+[RFC3986][], values with characters outside the character set allows by paths or query parameters in [RFC3986][], 
+respectively, MUST be percent or otherwise encoded.
 
 Protocols MAY define additional variables and syntax rules, but MUST NOT
-change the meaning of the 'acctpart' variable. If a client is unable to
+change the meaning of the variables specified in this document. If a client is unable to
 successfully process a template (e.g., unknown variable names, unknown or
 incompatible syntax), the JRD SHOULD be ignored.
 
@@ -287,16 +288,22 @@ The template syntax ABNF is as follows:
 
     uri-char     =  ( reserved / unreserved / pct-encoded )
     var-char     =  ALPHA / DIGIT / "." / "_"
-    var-name     =  %x61.63.63.74.70.61.72.74 / ( 1*var-char ) ; "acctpart" or
-                                                                  other names
+    var-name     =  %x61.63.63.74.70.61.72.74 / ( 1*var-char )
     variable     =  "{" var-name "}"
     PAYID-URI-Template =  *( uri-char / variable )
 
 For example:
 
-    Input:    alice$example.org
-    Template: https://example.org/{acctpart}
-    Output:   https://example.org/alice
+    Input:    alice$wallet.com
+              amount = 10
+              receiverPayID=pay$merchant.com
+              currency=XRP
+              network=XRPL
+              nextUrl=https://merchant.com/thankyou
+    Template: https://wallet.com/checkout?amount={amount}&receiverPayId={receiverPayID}&currency={currency}&network={network}&nextUrl={nextURL}
+    Output:   https://wallet.com/checkout?amount=10&receiverPayId=payid%2Apay%24merchant.com&currency=XRP&network=XRPL&nextUrl=https://merchant.com/thankyou
+
+TODO: Should we define acceptable URL template variables for the redirect?
 
 # PayID Easy Checkout JRDs
 TODO: define JRD Link
