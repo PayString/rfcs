@@ -1,7 +1,7 @@
 ---
 coding: utf-8
 
-title: PayID Easy Checkout Protocol
+title: Draft 1: PayID Easy Checkout Protocol
 docname: payid-easy-checkout-protocol
 category: std
 
@@ -10,20 +10,6 @@ smart_quotes: off
 
 area: security
 author:
-
-  -
-    ins: I. Simpson
-    name: Ian Simpson
-    org: Ripple
-    street: 315 Montgomery Street
-    city: San Francisco
-    region: CA
-    code: 94104
-    country: US
-    phone: -----------------
-    email: isimpson@ripple.com
-    uri: https://www.ripple.com
-
   -
     ins: N. Kramer
     name: Noah Kramer
@@ -35,6 +21,18 @@ author:
     country: US
     phone: -----------------
     email: nkramer@ripple.com
+    uri: https://www.ripple.com
+  -
+    ins: I. Simpson
+    name: Ian Simpson
+    org: Ripple
+    street: 315 Montgomery Street
+    city: San Francisco
+    region: CA
+    code: 94104
+    country: US
+    phone: -----------------
+    email: isimpson@ripple.com
     uri: https://www.ripple.com
 
 normative:
@@ -183,64 +181,131 @@ The merchant can then redirect the user back to the URL specified in the "nextUr
 the "Thank You" page of the merchant.
 
 # PayID Easy Checkout Protocol
-TODO: define protocol.
-## Template Syntax
-TODO: define url template params.
+The PayID Easy Checkout Protocol can be used to facilitate an end-to-end checkout flow for users transacting
+with an e-commerce entity.
+
+The protocol is comprised of two parts:
+1) PayID Easy Checkout Discovery
+2) Checkout flow and auxiliary e-commerce logic.
+
+While PayID Easy Checkout Discovery and the general user flow must be standardized to create a uniform API across 
+all participants the manner by which e-commerce entities and digital wallets handle specific parts of the flow, along
+with individual entities' business logic around checkout, is out of scope for this RFC. However, this paper will
+recommend best practices for building PayID Easy Checkout flows.
+
+## PayID Easy Checkout Discovery
+The primary benefit of an e-commerce entity using the PayID Easy Checkout Protocol is its ability to automatically
+redirect customers to their digital wallet to complete the checkout process. If merchants and payment
+processors were instead forced to create one-off integrations with each wallet, implementing this functionality would
+quickly become an untenable undertaking. On the other side of the protocol, individual wallets will likely want to
+maintain control over resource locations on their individual domains.
+
+In order to meet the technical needs of both wallets and e-commerce receivers, PayID Easy Checkout extends [PAYID-DISCOVERY][]
+by defining a new Link Relation type in the PayID metadata returned by a PayID Discovery query.
+
+E-commerce receivers who wish to perform Easy Checkout MUST query the PayID Discovery server to obtain a PayID Easy Checkout
+URL. Digital wallets who wish to enable Easy Checkout for their users MUST host a PayID Discovery server and MUST
+respond to PayID Discovery queries with an Easy Checkout URL.
+
+E-commerce receivers SHOULD implement fallback measures to complete checkout if a user's wallet does not support PayID Easy Checkout.
+
+### Assemble PayID Easy Checkout Discovery URL
+The process of assembling a PayID Discovery URL is defined in section 4.1.1 of [PAYID-DISCOVERY][].
+
+### Step 2: Query PayID Discovery URL
+A Webfinger query MUST be performed against the PayID Easy Checkout Discovery URL,
+as described in section 4.2 of Webfinger.
+
+In response, the WebFinger resource returns a JSON Resource Descriptor (JRD)
+as the resource representation to convey information about the requested
+PayID.
+
+If the Webfinger endpoint returns a non-200 HTTP response status code, or if the resulting JRD does not contain
+a link with a PayID Easy Checkout URL Template, then PayID Easy Checkout is considered to have failed. Clients
+SHOULD implement fallback measures to complete checkout in this case.
+
+### Parse PayID Easy Checkout Metadata
+If a wallet supports PayID Easy Checkout, the PayID server MUST respond with a HTTP status code 200 and a JSON payload
+containing a JSON Resource Descriptor (JRD) as defined in section 5.2 of [PAYID-DISCOVERY][]. Along with any other
+PayID Metadata, the PayID server's response MUST contain a Link Relation conforming to the Link Relation definition
+in the (TODO: link to section) section of this paper.
+
+For example, a PayID server might respond to a PayID Easy Checkout discovery query with the following payload:
+
+     {
+        "subject": "payid:alice$wallet.com",
+        "links": [
+            {
+                "rel" : "https://payid.org/ns/payid-easy-checkout/1.0",
+                "template": "https://wallet.com/checkout?amount={amount}&receiverPayId={receiverPayId}&currency={currency}&nextUrl={nextUrl}"
+            }
+        ]
+     }
+     
+The e-commerce receiver must parse this response, and find a link whose "rel" field has a value of 
+"https://payid.org/ns/payid-easy-checkout/1.0". Any link with this relation MUST have a corresponding URI template,
+as defined in (TODO: link to template syntax) the Template Syntax section of this document.
+
+### Assembling PayID Easy Checkout URL
+The PayID Easy Checkout URL is constructed by applying various values, determined by the receiver, to the PayID Easy Checkout 
+URI template found in the previous step.
+
+The PayID Checkout URI template MAY not contain the complete set of variables specified in section (TODO link section) 
+of this document.  However, PayID Easy Checkout clients MUST replace each variable instance with a value. It is RECOMMENDED
+that PayID Easy Checkout clients have values available for every variable defined, in the case that the PayID Easy Checkout
+URI Template contains the complete set of specified variables.
+
+The result of replacing all template variables in the PayID Easy Checkout URI Template with values is a PayID Easy Checkout URL.
+Once obtained, PayID Easy Checkout Discovery is considered to have completed successfully.
+
+### Template Syntax
+TODO: Update this for PayID Easy Checkout URI Template
+
+This specification defines a simple template syntax for PayID URI
+transformation.  A template is a string containing brace-enclosed
+("{}") variable names marking the parts of the string that are to be
+substituted by the corresponding variable values.
+
+This specification defines a one variable -- "acctpart" -- which
+corresponds to the 'acctpart' of a PayID URI as defined in [PAYID-URI][].
+
+When substituting the 'acctpart' value into a URI 'path' as defined by
+[RFC3986][], values MUST NOT be percent or otherwise encoded because the
+'acctpart' value of a PayID URI always conforms to the character set
+allowed by paths in [RFC3986][].
+
+However, before substituting template variables into a URI 'query' part,
+values MUST be encoded using UTF-8, and any character other than
+unreserved (as defined by [RFC3986]) MUST be percent-encoded per [RFC3986].
+
+Protocols MAY define additional variables and syntax rules, but MUST NOT
+change the meaning of the 'acctpart' variable. If a client is unable to
+successfully process a template (e.g., unknown variable names, unknown or
+incompatible syntax), the JRD SHOULD be ignored.
+
+The template syntax ABNF is as follows:
+
+    uri-char     =  ( reserved / unreserved / pct-encoded )
+    var-char     =  ALPHA / DIGIT / "." / "_"
+    var-name     =  %x61.63.63.74.70.61.72.74 / ( 1*var-char ) ; "acctpart" or
+                                                                  other names
+    variable     =  "{" var-name "}"
+    PAYID-URI-Template =  *( uri-char / variable )
+
+For example:
+
+    Input:    alice$example.org
+    Template: https://example.org/{acctpart}
+    Output:   https://example.org/alice
 
 # PayID Easy Checkout JRDs
 TODO: define JRD Link
 
-# Common Response Status Codes (TODO)
-  A PayID server MAY respond to a request using any valid HTTP response code appropriate for the request. The PayID server SHOULD be as specific as possible in its choice of an HTTP specific status code.
+## Recommended Checkout Flow 
+TODO: Describe recommended checkout flow
 
-## Success Responses
-  The following response codes represent successful requests.
-
-### Response Code 200 OK
- A request that does not create a resource returns 200 OK if it is completed successfully and the value of the resource is not null. null. In this case, the response body MUST contain the value of the resource specified in the request URL.
-
-## Client Error Responses
-  Error codes in the 4xx range indicate a client error, such as a malformed request.
-  In the case that a response body is defined for the error code, the body of the error is as defined for the appropriate format.
-
-# Content Negotiation
-
-# Security Considerations
-
-## Network Attacks
-  PayID Easy Checkout protocol's security model assumes the following network attackers:
-
-  * Off-path attacker: An off-path attacker can be anywhere on the network. She can inject and spoof packets but can not observe, or tamper with the legitimate traffic between the PayID Easy Checkout client and the server.
-
-  * On-path attacker: An on-path attacker can eavesdrop, inject, spoof and replay packets, but can not drop, delay or tamper with the legitimate traffic.
-
-  * In-path or Man-in-the-middle (MiTM) attacker: An MiTM is the most powerful network attacker. An MiTM has full access to the communication path between the PayID Easy Checkout client and the server. She can observe, modify, delay and drop network packets.
-
-  Additionally we assume that the attacker has enough resources to mount an attack but can not break the security guarantees provided by the cryptographic primitives of the underlying secure transport.
-
-  The basic PayID Easy Checkout protocol runs over HTTPS and thus relies on the security of the underlying transport. Implementations utilizing TLS 1.3 benefit from the TLS security profile defined in [RFC8446][] against all the above network attackers.
-
-### Denial-of-Service (DoS) attacks
-  As such, cryptography can not defend against DoS attacks because any attacker can stop/interrupt the PayID Easy Checkout protocol by:
-  * Dropping network packets,
-  * Exhaustion of resources either at the network level or at PayID Easy Checkout client and/or server.
-
-  The PayID Easy Checkout servers are recommended to follow general best network configuration practices to defend against such attacks [RFC4732][].
-
-## Information Integrity
-  The HTTPS connection provides transport security for the interaction between PayID Easy Checkout client and server but does not provide the response integrity of the data provided by PayID Easy Checkout server. A PayID Easy Checkout client has no way of knowing if data provided in the payment account information resource has been manipulated at the PayID Easy Checkout server, either due to malicious behavior on the part of the PayID server administrator or as a result of being compromised by an attacker. As with any information service available on the Internet, PayID Easy Checkout clients should be wary of the information received from untrusted sources.  
-
-# Privacy Considerations
-  The PayID Easy Checkout client and server should be aware that placing information on the Internet means that any one can access that information. While PayID Easy Checkout protocol is an extremely useful tool to discovering payment account(s) information corresponding to a human-rememberable PayID URI, PayID owners should also understand the associated privacy risks. The easy access to payment account information via PayID protocol was a design goal of the protocol, not a limitation.  
-
-## Access Control (TODO)
-
-## On the Wire
-  PayID Easy Checkout protocol over HTTPS encrypts the traffic and requires mutual authentication of the PayID client and the PayID server. This mitigates both passive surveillance [RFC7258][] and the active attacks that attempt to divert PayID Easy Checkout protocol queries to rogue servers.
-
-  Additionally, the use of the HTTPS default port 443 and the ability
-  to mix PayID protocol traffic with other HTTPS traffic on the same connection can deter unprivileged on-path devices from interfering with PayID Easy Checkout operations and make PayID Easy Checkout traffic analysis more difficult.
-
+### Payment Detection and Correlation
+TODO: Describe recommendations for correlating payments to "invoices"
 
 # IANA Considerations
   ## New Link Relation Types
