@@ -88,100 +88,6 @@ which can be used to send payments between two entities in a way that requires:
 * no server-side software specific to PayID or its protocols for servicing the transaction.
 * only UI-based solutions.
 
-## Motivation
-
-The PayID Easy Checkout Protocol aims to enable a consistent user experience for customers paying for goods
-in an e-commerce by standardizing the interaction between merchants and customer wallets.
-Given the ability to assign arbitrary metadata to a PayID as defined in [PayID-Discovery][], there is an opportunity
-to standardize the set of interactions between merchant and customer, specifically the process by which a merchant
-directs a customer to their digital wallet to complete a payment.
-We believe this protocol will enable an improved paying experience by reducing the number
-of steps a customer must take to complete a transaction and creating a consistent and familiar checkout pattern
-for customers.
-
-The second priority of PayID Easy Checkout is to limit the engineering effort needed to implement the protocol. 
-Clients wishing to adopt this pattern should only need to implement UI-level changes in order to make the flow function 
-as intended, which may aid in expanding overall adoption, further enhancing the protocol's user experience benefits. 
-
-## Design Goals
-
-### Minimal effort for the customer
-
-In order for a customer to checkout using the PayID Easy Checkout protocol, the customer only needs to provide a merchant
-with their PayID Easy Checkout enabled PayID.
-
-### No server-side software not already covered by the PayID Protocol
-
-Because the flow of PayID Easy Checkout is predicated on using the PayID Discovery Protocol and then redirecting the 
-customer away from the merchant, all of the flow can be instrumented on the front end and doesn't require server-side resources. 
-
-Apart from a PayID Discovery compliant PayID Server, The PayID Easy Checkout Protocol does not require server-side 
-software to be run by either the customer or merchant for a payment. The PayID server is capable of providing details 
-of where to send the customer via the PayID Discovery Protocol. Assuming the wallet used by the customer has implemented 
-support in their UI for the PayID Easy Checkout Protocol, the customer can be redirected to their wallet 
-to complete their transaction.
-
-# Example Usage
-This section shows a non-normative example of PayID Easy Checkout between a hypothetical merchant and customer. The merchant
-accepts payments using the PayID pay$merchant.com, and the customer controls the PayID alice$wallet.com.
-
-## PayID Easy Checkout Initiation
-In this example, the customer might place some items in an online shopping cart on the merchant's UI, then choose
-to checkout.  The merchant UI would then render a form asking for the customer's PayID, as well as a "Checkout with PayID"
-button.  Once the customer inputs their PayID alice$wallet.com and clicks the "Checkout with PayID" button, the merchant
-UI begins the PayID Easy Checkout flow.
-
-## PayID Easy Checkout Wallet Discovery
-The merchant UI would first assemble the PayID Discovery URL as defined in section 4.1.1 of [PAYID-DISCOVERY][],
-yielding the URL `https://wallet.com/.well-known/webfinger?resource=payid%3Aalice%24wallet.com`. 
-The merchant UI would then query the assembled URL as defined in section 4.1.2 of [PAYID-DISCOVERY][].
-
-The HTTP request in this example would look like this:
-    
-    GET /.well-known/webfinger?resource=payid%3Aalice%24wallet.com
-    Host: wallet.com
-    
-If the customer's PayID server has enabled PayID Easy Checkout in their wallet, the server would respond with something like this:
-     
-     HTTP/1.1 200 OK
-     Access-Control-Allow-Origin: *
-     Content-Type: application/jrd+json
-
-     {
-       "subject" : "payid:alice$wallet.com",
-       "links" :
-       [
-         {  
-           "rel": "https://payid.org/ns/payid-easy-checkout/1.0",
-           "template": "https://wallet.com/checkout?amount={amount}&receiverPayId={receiverPayId}&currency={currency}&nextUrl={nextUrl}"
-         }
-       ]
-     }
-
-## Expand Wallet Discovery URL Template
-The merchant UI would parse the PayID Discovery response and iterate over the "links" collection to find the link with 
-the Relation Type of "https://payid.org/ns/payid-easy-checkout/1.0". The UI can then do a search and replace on
-the "template" field value in the link, replacing all occurrences of the predefined query parameter template names with 
-the values they want to send to the customer's wallet. One query parameter of note is the "nextUrl" parameter, which
-allows the merchant to supply a redirect or callback URL for the sender's wallet to call once the customer has confirmed
-the payment. In this example, the merchant would like to display a "Thank You" page, and replaces `{nextUrl}` 
-with `https://merchant.com/thankyou`.
-
-## Redirect Customer to Their Wallet
-Once the merchant UI populates the required query parameters in the URL template, the merchant UI redirects the customer to 
-the Redirect URL so that the customer can confirm the payment.
-
-## Customer Confirms Payment
-After the customer clicks the "Pay with PayID" button the merchant's UI, and the merchant performs the previous steps,
-the customer will be redirected to the Redirect URL, which is a front end resource of the wallet. The wallet UI can
-read the query parameters from the Redirect URL and render a confirmation page or modal with all of the required fields
-pre-populated.
-
-Once the customer confirms the payment, the wallet would perform a PayID address lookup on the "receiverPayId" query
-parameter to get the payment address of the merchant and submit a transaction to the underlying ledger or payment system.
-The merchant can then redirect the user back to the URL specified in the "nextUrl" query parameter, which will display
-the "Thank You" page of the merchant.
-
 # PayID Easy Checkout Protocol
 The PayID Easy Checkout Protocol can be used to facilitate an end-to-end checkout flow between a recipient client, such
 as an online merchant UI, and a wallet client.
@@ -326,3 +232,98 @@ TODO: define JRD Link
 
 
 # Acknowledgments
+
+# Appendix
+
+## Motivation
+The PayID Easy Checkout Protocol aims to enable a consistent user experience for customers paying for goods
+in an e-commerce by standardizing the interaction between merchants and customer wallets.
+Given the ability to assign arbitrary metadata to a PayID as defined in [PayID-Discovery][], there is an opportunity
+to standardize the set of interactions between merchant and customer, specifically the process by which a merchant
+directs a customer to their digital wallet to complete a payment.
+We believe this protocol will enable an improved paying experience by reducing the number
+of steps a customer must take to complete a transaction and creating a consistent and familiar checkout pattern
+for customers.
+
+The second priority of PayID Easy Checkout is to limit the engineering effort needed to implement the protocol. 
+Clients wishing to adopt this pattern should only need to implement UI-level changes in order to make the flow function 
+as intended, which may aid in expanding overall adoption, further enhancing the protocol's user experience benefits. 
+
+### Design Goals
+
+#### Minimal effort for the customer
+
+In order for a customer to checkout using the PayID Easy Checkout protocol, the customer only needs to provide a merchant
+with their PayID Easy Checkout enabled PayID.
+
+#### No server-side software not already covered by the PayID Protocol
+
+Because the flow of PayID Easy Checkout is predicated on using the PayID Discovery Protocol and then redirecting the 
+customer away from the merchant, all of the flow can be instrumented on the front end and doesn't require server-side resources. 
+
+Apart from a PayID Discovery compliant PayID Server, The PayID Easy Checkout Protocol does not require server-side 
+software to be run by either the customer or merchant for a payment. The PayID server is capable of providing details 
+of where to send the customer via the PayID Discovery Protocol. Assuming the wallet used by the customer has implemented 
+support in their UI for the PayID Easy Checkout Protocol, the customer can be redirected to their wallet 
+to complete their transaction.
+
+## Example Usage
+This section shows a non-normative example of PayID Easy Checkout between a hypothetical merchant and customer. The merchant
+accepts payments using the PayID pay$merchant.com, and the customer controls the PayID alice$wallet.com.
+
+### PayID Easy Checkout Initiation
+In this example, the customer might place some items in an online shopping cart on the merchant's UI, then choose
+to checkout.  The merchant UI would then render a form asking for the customer's PayID, as well as a "Checkout with PayID"
+button.  Once the customer inputs their PayID alice$wallet.com and clicks the "Checkout with PayID" button, the merchant
+UI begins the PayID Easy Checkout flow.
+
+### PayID Easy Checkout Wallet Discovery
+The merchant UI would first assemble the PayID Discovery URL as defined in section 4.1.1 of [PAYID-DISCOVERY][],
+yielding the URL `https://wallet.com/.well-known/webfinger?resource=payid%3Aalice%24wallet.com`. 
+The merchant UI would then query the assembled URL as defined in section 4.1.2 of [PAYID-DISCOVERY][].
+
+The HTTP request in this example would look like this:
+    
+    GET /.well-known/webfinger?resource=payid%3Aalice%24wallet.com
+    Host: wallet.com
+    
+If the customer's PayID server has enabled PayID Easy Checkout in their wallet, the server would respond with something like this:
+     
+     HTTP/1.1 200 OK
+     Access-Control-Allow-Origin: *
+     Content-Type: application/jrd+json
+
+     {
+       "subject" : "payid:alice$wallet.com",
+       "links" :
+       [
+         {  
+           "rel": "https://payid.org/ns/payid-easy-checkout/1.0",
+           "template": "https://wallet.com/checkout?amount={amount}&receiverPayId={receiverPayId}&currency={currency}&nextUrl={nextUrl}"
+         }
+       ]
+     }
+
+### Expand Wallet Discovery URL Template
+The merchant UI would parse the PayID Discovery response and iterate over the "links" collection to find the link with 
+the Relation Type of "https://payid.org/ns/payid-easy-checkout/1.0". The UI can then do a search and replace on
+the "template" field value in the link, replacing all occurrences of the predefined query parameter template names with 
+the values they want to send to the customer's wallet. One query parameter of note is the "nextUrl" parameter, which
+allows the merchant to supply a redirect or callback URL for the sender's wallet to call once the customer has confirmed
+the payment. In this example, the merchant would like to display a "Thank You" page, and replaces `{nextUrl}` 
+with `https://merchant.com/thankyou`.
+
+### Redirect Customer to Their Wallet
+Once the merchant UI populates the required query parameters in the URL template, the merchant UI redirects the customer to 
+the Redirect URL so that the customer can confirm the payment.
+
+### Customer Confirms Payment
+After the customer clicks the "Pay with PayID" button the merchant's UI, and the merchant performs the previous steps,
+the customer will be redirected to the Redirect URL, which is a front end resource of the wallet. The wallet UI can
+read the query parameters from the Redirect URL and render a confirmation page or modal with all of the required fields
+pre-populated.
+
+Once the customer confirms the payment, the wallet would perform a PayID address lookup on the "receiverPayId" query
+parameter to get the payment address of the merchant and submit a transaction to the underlying ledger or payment system.
+The merchant can then redirect the user back to the URL specified in the "nextUrl" query parameter, which will display
+the "Thank You" page of the merchant.

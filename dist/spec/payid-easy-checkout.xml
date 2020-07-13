@@ -106,8 +106,174 @@ which can be used to send payments between two entities in a way that requires:
 * no server-side software specific to PayID or its protocols for servicing the transaction.
 * only UI-based solutions.</t>
 
-<section anchor="motivation" title="Motivation">
+</section>
+<section anchor="payid-easy-checkout-protocol" title="PayID Easy Checkout Protocol">
+<t>The PayID Easy Checkout Protocol can be used to facilitate an end-to-end checkout flow between a recipient client, such
+as an online merchant UI, and a wallet client.</t>
 
+<t>The protocol is comprised of several parts:
+1) PayID Easy Checkout Discovery
+2) Recipient client redirection to wallet client
+3) Payment confirmation
+4) Wallet client redirection to recipient client</t>
+
+<t>While PayID Easy Checkout Discovery and the general user flow must be standardized to create a uniform API across 
+all participants, the manner by which recipient clients and wallet clients handle displaying parts of the checkout flow,
+along with individual entities' business logic around checkout, is out of scope for this RFC.</t>
+
+<section anchor="payid-easy-checkout-discovery" title="PayID Easy Checkout Discovery">
+<t>PayID Easy Checkout extends <xref target="PAYID-DISCOVERY"></xref> by defining a new link in the PayID metadata JRD
+returned by a PayID Discovery query. This link, defined in section (TODO: link to jrd section) 
+of this specification, includes the PayID Easy Checkout URI Template necessary to redirect a customer to their wallet
+client.</t>
+
+<t>E-commerce receivers who wish to perform Easy Checkout MUST query the PayID Discovery server to obtain a PayID Easy Checkout
+URL. Digital wallets who wish to enable PayID Easy Checkout JRD Link, as defined in section (TODO: link to jrd section) 
+of this paper.</t>
+
+<t>E-commerce receivers SHOULD implement fallback measures to complete checkout if a user's wallet does not support PayID Easy Checkout.</t>
+
+<t>The following steps describe how a PayID client can query a PayID server to obtain a PayID Easy Checkout JRD Link,
+as well as how to assemble the PayID Easy Checkout URL from that template URI.</t>
+
+<section anchor="step-1-assemble-payid-easy-checkout-discovery-url" title="Step 1: Assemble PayID Easy Checkout Discovery URL">
+<t>The process of assembling a PayID Discovery URL is defined in section 4.1.1 of <xref target="PAYID-DISCOVERY"></xref>, and is
+the same as for PayID Easy Checkout Discovery. The result of assembling this URL is the PayID Easy Checkout Discovery URL.</t>
+
+</section>
+<section anchor="step-2-query-payid-discovery-url" title="Step 2: Query PayID Discovery URL">
+<t>A Webfinger query MUST be performed against the PayID Easy Checkout Discovery URL,
+as described in section 4.2 of Webfinger.</t>
+
+<t>In response, the WebFinger resource returns a JSON Resource Descriptor (JRD)
+as the resource representation to convey information about the requested
+PayID.</t>
+
+<t>If the Webfinger endpoint returns a non-200 HTTP response status code, or if the resulting JRD does not contain
+a link with a PayID Easy Checkout URL Template, then PayID Easy Checkout is considered to have failed. Clients
+SHOULD implement fallback measures to complete checkout in this case.</t>
+
+</section>
+<section anchor="step-3-parse-payid-easy-checkout-metadata" title="Step 3: Parse PayID Easy Checkout Metadata">
+<t>If a wallet supports PayID Easy Checkout, the PayID server MUST respond with a HTTP status code 200 and a JSON payload
+containing a JSON Resource Descriptor (JRD) as defined in section 5.2 of <xref target="PAYID-DISCOVERY"></xref>. Along with any other
+PayID Metadata, the PayID server's response MUST contain a link conforming to the link definition
+in section (TODO: link to section) of this paper.</t>
+
+<t>For example, a PayID server might respond to a PayID Easy Checkout Discovery query with the following payload:</t>
+
+<figure><artwork><![CDATA[
+ {
+    "subject": "payid:alice$wallet.com",
+    "links": [
+        {
+            "rel" : "https://payid.org/ns/payid-easy-checkout/1.0",
+            "template": "https://wallet.com/checkout?amount={amount}&receiverPayId={receiverPayId}&currency={currency}&nextUrl={nextUrl}"
+        }
+    ]
+ }
+]]></artwork></figure>
+
+<t>The receiver client must parse this response, and find a link whose "rel" field has a value of 
+"https://payid.org/ns/payid-easy-checkout/1.0". Any link with this relation MUST have a corresponding PayID Easy Checkout
+URI Template, as defined in section (TODO: link to template syntax) of this document.</t>
+
+</section>
+<section anchor="step-4-assembling-payid-easy-checkout-url" title="Step 4: Assembling PayID Easy Checkout URL">
+<t>The PayID Easy Checkout URL is constructed by applying the values corresponding to the variables specified in
+section (TODO: link to template section) to the PayID Easy Checkout URI Template.</t>
+
+<t>The PayID Checkout URI template MAY not contain the complete set of variables specified in section (TODO link section) 
+of this document.  However, PayID Easy Checkout clients MUST replace each variable present in the template URI with a value. 
+It is RECOMMENDED that PayID Easy Checkout clients have values available for every variable defined, 
+in the case that the PayID Easy Checkout URI Template contains the complete set of specified variables.</t>
+
+<t>The result of replacing all template variables in the PayID Easy Checkout URI Template with values is a PayID Easy Checkout URL.
+Once obtained, PayID Easy Checkout Discovery is considered to have completed successfully.</t>
+
+</section>
+<section anchor="template-syntax" title="Template Syntax">
+<t>This specification defines a simple template syntax for PayID Easy Checkout URI Template
+transformation.  A template is a string containing brace-enclosed
+("{}") variable names marking the parts of the string that are to be
+substituted by the corresponding variable values.</t>
+
+<t>This specification defines several variables, which MAY or MAY NOT be present in every PayID Easy Checkout URI Template.
+These variables are as follows:</t>
+
+<figure><artwork><![CDATA[
+'amount': The amount that should be sent by the sender to the receiver
+'receiverPayID': The PayID URI of the receiver
+'currency': The currency that the sender should send (TODO: define currency enum or use rfc)
+'network': The network that the sender should send payment over (TODO: define network enum or use rfc)
+'nextURL': A URL that the sender's wallet can use after completing the payment
+]]></artwork></figure>
+
+<t>When substituting values into a URI 'path' or 'query' part as defined by
+[RFC3986][], values with characters outside the character set allowed by paths or query parameters in [RFC3986][], 
+respectively, MUST be percent or otherwise encoded.</t>
+
+<t>Protocols MAY define additional variables and syntax rules, but MUST NOT
+change the meaning of the variables specified in this document. If a client is unable to
+successfully process a template (e.g., unknown variable names, unknown or
+incompatible syntax), the link SHOULD be ignored.</t>
+
+<t>The template syntax ABNF is as follows:</t>
+
+<figure><artwork><![CDATA[
+uri-char     =  ( reserved / unreserved / pct-encoded )
+var-char     =  ALPHA / DIGIT / "." / "_"
+var-name     =  %x61.63.63.74.70.61.72.74 / ( 1*var-char )
+variable     =  "{" var-name "}"
+PAYID-EASY-CHECKOUT-URI-Template =  *( uri-char / variable )
+]]></artwork></figure>
+
+<t>For example:</t>
+
+<figure><artwork><![CDATA[
+Input:    alice$wallet.com
+          amount = 10
+          receiverPayID=pay$merchant.com
+          currency=XRP
+          network=XRPL
+          nextUrl=https://merchant.com/thankyou
+Template: https://wallet.com/checkout?amount={amount}&receiverPayId={receiverPayID}&currency={currency}&network={network}&nextUrl={nextURL}
+Output:   https://wallet.com/checkout?amount=10&receiverPayId=payid%2Apay%24merchant.com&currency=XRP&network=XRPL&nextUrl=https://merchant.com/thankyou
+]]></artwork></figure>
+
+<t>TODO: Should we define acceptable URL template variable values for the redirect?</t>
+
+</section>
+</section>
+<section anchor="payid-easy-checkout-redirection" title="PayID Easy Checkout Redirection">
+<t>TODO: Describe redirecting to user wallet</t>
+
+</section>
+</section>
+<section anchor="payid-easy-checkout-jrds" title="PayID Easy Checkout JRDs">
+<t>TODO: define JRD Link</t>
+
+</section>
+<section anchor="iana-considerations" title="IANA Considerations">
+<t>## New Link Relation Types
+  This document defines the following Link relation type per [RFC7033][].
+  See section 3 for examples of each type of Link.</t>
+
+<t>### PayID Discovery URI Template</t>
+
+<figure><artwork><![CDATA[
+* Relation Type ('rel'): `https://payid.org/ns/payid-easy-checkout-uri/1.0`
+* Media Type: `application/jrd+json`
+* Description: PayID Discovery URI Template, version 1.0
+]]></artwork></figure>
+
+</section>
+<section anchor="acknowledgments" title="Acknowledgments">
+
+</section>
+<section anchor="appendix" title="Appendix">
+
+<section anchor="motivation" title="Motivation">
 <t>The PayID Easy Checkout Protocol aims to enable a consistent user experience for customers paying for goods
 in an e-commerce by standardizing the interaction between merchants and customer wallets.
 Given the ability to assign arbitrary metadata to a PayID as defined in <xref target="PAYID-DISCOVERY"></xref>, there is an opportunity
@@ -121,7 +287,6 @@ for customers.</t>
 Clients wishing to adopt this pattern should only need to implement UI-level changes in order to make the flow function 
 as intended, which may aid in expanding overall adoption, further enhancing the protocol's user experience benefits.</t>
 
-</section>
 <section anchor="design-goals" title="Design Goals">
 
 <section anchor="minimal-effort-for-the-customer" title="Minimal effort for the customer">
@@ -215,174 +380,6 @@ the "Thank You" page of the merchant.</t>
 
 </section>
 </section>
-<section anchor="payid-easy-checkout-protocol" title="PayID Easy Checkout Protocol">
-<t>The PayID Easy Checkout Protocol can be used to facilitate an end-to-end checkout flow for users transacting
-with an e-commerce entity.</t>
-
-<t>The protocol is comprised of two parts:
-1) PayID Easy Checkout Discovery
-2) Checkout flow and auxiliary e-commerce logic.</t>
-
-<t>While PayID Easy Checkout Discovery and the general user flow must be standardized to create a uniform API across 
-all participants the manner by which e-commerce entities and digital wallets handle specific parts of the flow, along
-with individual entities' business logic around checkout, is out of scope for this RFC. However, this paper will
-recommend best practices for building PayID Easy Checkout flows.</t>
-
-<section anchor="payid-easy-checkout-discovery" title="PayID Easy Checkout Discovery">
-<t>The primary benefit of an e-commerce entity using the PayID Easy Checkout Protocol is its ability to automatically
-redirect customers to their digital wallet to complete the checkout process. If merchants and payment
-processors were instead forced to create one-off integrations with each wallet, implementing this functionality would
-quickly become an untenable undertaking. On the other side of the protocol, individual wallets will likely want to
-maintain control over resource locations on their individual domains.</t>
-
-<t>In order to meet the technical needs of both wallets and e-commerce receivers, PayID Easy Checkout extends <xref target="PAYID-DISCOVERY"></xref>
-by defining a new Link Relation type in the PayID metadata returned by a PayID Discovery query.</t>
-
-<t>E-commerce receivers who wish to perform Easy Checkout MUST query the PayID Discovery server to obtain a PayID Easy Checkout
-URL. Digital wallets who wish to enable Easy Checkout for their users MUST host a PayID Discovery server and MUST
-respond to PayID Discovery queries with an Easy Checkout URL.</t>
-
-<t>E-commerce receivers SHOULD implement fallback measures to complete checkout if a user's wallet does not support PayID Easy Checkout.</t>
-
-<section anchor="step-1-assemble-payid-easy-checkout-discovery-url" title="Step 1: Assemble PayID Easy Checkout Discovery URL">
-<t>The process of assembling a PayID Discovery URL is defined in section 4.1.1 of <xref target="PAYID-DISCOVERY"></xref>.</t>
-
-</section>
-<section anchor="step-2-query-payid-discovery-url" title="Step 2: Query PayID Discovery URL">
-<t>A Webfinger query MUST be performed against the PayID Easy Checkout Discovery URL,
-as described in section 4.2 of Webfinger.</t>
-
-<t>In response, the WebFinger resource returns a JSON Resource Descriptor (JRD)
-as the resource representation to convey information about the requested
-PayID.</t>
-
-<t>If the Webfinger endpoint returns a non-200 HTTP response status code, or if the resulting JRD does not contain
-a link with a PayID Easy Checkout URL Template, then PayID Easy Checkout is considered to have failed. Clients
-SHOULD implement fallback measures to complete checkout in this case.</t>
-
-</section>
-<section anchor="step-3-parse-payid-easy-checkout-metadata" title="Step 3: Parse PayID Easy Checkout Metadata">
-<t>If a wallet supports PayID Easy Checkout, the PayID server MUST respond with a HTTP status code 200 and a JSON payload
-containing a JSON Resource Descriptor (JRD) as defined in section 5.2 of <xref target="PAYID-DISCOVERY"></xref>. Along with any other
-PayID Metadata, the PayID server's response MUST contain a Link Relation conforming to the Link Relation definition
-in the (TODO: link to section) section of this paper.</t>
-
-<t>For example, a PayID server might respond to a PayID Easy Checkout discovery query with the following payload:</t>
-
-<figure><artwork><![CDATA[
- {
-    "subject": "payid:alice$wallet.com",
-    "links": [
-        {
-            "rel" : "https://payid.org/ns/payid-easy-checkout/1.0",
-            "template": "https://wallet.com/checkout?amount={amount}&receiverPayId={receiverPayId}&currency={currency}&nextUrl={nextUrl}"
-        }
-    ]
- }
-]]></artwork></figure>
-
-<t>The e-commerce receiver must parse this response, and find a link whose "rel" field has a value of 
-"https://payid.org/ns/payid-easy-checkout/1.0". Any link with this relation MUST have a corresponding URI template,
-as defined in (TODO: link to template syntax) the Template Syntax section of this document.</t>
-
-</section>
-<section anchor="step-4-assembling-payid-easy-checkout-url" title="Step 4: Assembling PayID Easy Checkout URL">
-<t>The PayID Easy Checkout URL is constructed by applying various values, determined by the receiver, to the PayID Easy Checkout 
-URI template found in the previous step.</t>
-
-<t>The PayID Checkout URI template MAY not contain the complete set of variables specified in section (TODO link section) 
-of this document.  However, PayID Easy Checkout clients MUST replace each variable instance with a value. It is RECOMMENDED
-that PayID Easy Checkout clients have values available for every variable defined, in the case that the PayID Easy Checkout
-URI Template contains the complete set of specified variables.</t>
-
-<t>The result of replacing all template variables in the PayID Easy Checkout URI Template with values is a PayID Easy Checkout URL.
-Once obtained, PayID Easy Checkout Discovery is considered to have completed successfully.</t>
-
-</section>
-<section anchor="template-syntax" title="Template Syntax">
-<t>TODO: Update this for PayID Easy Checkout URI Template</t>
-
-<t>This specification defines a simple template syntax for PayID Easy Checkout URI
-transformation.  A template is a string containing brace-enclosed
-("{}") variable names marking the parts of the string that are to be
-substituted by the corresponding variable values.</t>
-
-<t>This specification defines several variables, MAY or MAY NOT be present in every PayID Easy Checkout URI Template.
-These variables are as follows:</t>
-
-<figure><artwork><![CDATA[
-'amount': The amount that should be sent by the sender to the receiver
-'receiverPayID': The PayID URI of the receiver
-'currency': The currency that the sender should send (TODO: define currency enum or use rfc)
-'network': The network that the sender should send payment over (TODO: define network enum or use rfc)
-'nextURL': A URL that the sender's wallet can use after completing the payment
-]]></artwork></figure>
-
-<t>When substituting values into a URI 'path' or 'query' part as defined by
-[RFC3986][], values with characters outside the character set allows by paths or query parameters in [RFC3986][], 
-respectively, MUST be percent or otherwise encoded.</t>
-
-<t>Protocols MAY define additional variables and syntax rules, but MUST NOT
-change the meaning of the variables specified in this document. If a client is unable to
-successfully process a template (e.g., unknown variable names, unknown or
-incompatible syntax), the JRD SHOULD be ignored.</t>
-
-<t>The template syntax ABNF is as follows:</t>
-
-<figure><artwork><![CDATA[
-uri-char     =  ( reserved / unreserved / pct-encoded )
-var-char     =  ALPHA / DIGIT / "." / "_"
-var-name     =  %x61.63.63.74.70.61.72.74 / ( 1*var-char )
-variable     =  "{" var-name "}"
-PAYID-URI-Template =  *( uri-char / variable )
-]]></artwork></figure>
-
-<t>For example:</t>
-
-<figure><artwork><![CDATA[
-Input:    alice$wallet.com
-          amount = 10
-          receiverPayID=pay$merchant.com
-          currency=XRP
-          network=XRPL
-          nextUrl=https://merchant.com/thankyou
-Template: https://wallet.com/checkout?amount={amount}&receiverPayId={receiverPayID}&currency={currency}&network={network}&nextUrl={nextURL}
-Output:   https://wallet.com/checkout?amount=10&receiverPayId=payid%2Apay%24merchant.com&currency=XRP&network=XRPL&nextUrl=https://merchant.com/thankyou
-]]></artwork></figure>
-
-<t>TODO: Should we define acceptable URL template variables for the redirect?</t>
-
-</section>
-</section>
-</section>
-<section anchor="payid-easy-checkout-jrds" title="PayID Easy Checkout JRDs">
-<t>TODO: define JRD Link</t>
-
-<section anchor="recommended-checkout-flow" title="Recommended Checkout Flow">
-<t>TODO: Describe recommended checkout flow</t>
-
-<section anchor="payment-detection-and-correlation" title="Payment Detection and Correlation">
-<t>TODO: Describe recommendations for correlating payments to "invoices"</t>
-
-</section>
-</section>
-</section>
-<section anchor="iana-considerations" title="IANA Considerations">
-<t>## New Link Relation Types
-  This document defines the following Link relation types per [RFC7033][].
-  See section 3 for examples of each type of Link.</t>
-
-<t>### PayID Discovery URI Template</t>
-
-<figure><artwork><![CDATA[
-* Relation Type ('rel'): `https://payid.org/ns/payid-easy-checkout-uri/1.0`
-* Media Type: `application/jrd+json`
-* Description: PayID Discovery URI Template, version 1.0
-]]></artwork></figure>
-
-</section>
-<section anchor="acknowledgments" title="Acknowledgments">
-
 </section>
 
 
@@ -432,133 +429,130 @@ Output:   https://wallet.com/checkout?amount=10&receiverPayId=payid%2Apay%24merc
   </back>
 
 <!-- ##markdown-source:
-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
+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
+rVqHgU4ySI6suWCz3jEYXQTD4F8sJhzAiD8AAA==
 
 -->
 
