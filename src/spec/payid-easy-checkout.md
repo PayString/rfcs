@@ -207,7 +207,7 @@ For example:
 
 TODO: Should we define acceptable URL template variable values for the redirect?
 
-### PayID Easy Checkout URL Assembly
+## PayID Easy Checkout URL Assembly
 The PayID Easy Checkout URL is constructed by expanding the PayID Easy Checkout URI Template as defined in section 3 of
 [RFC6570][] buy applying values corresponding to the variables specified in
 section (TODO: link to template section) to the Template.
@@ -224,7 +224,47 @@ The PayID Easy Checkout URL SHOULD be parsed to retrieve the values set by the r
 that wallet UIs use these values to pre-populate a payment transaction.
 
 # PayID Easy Checkout JRDs
-TODO: define JRD Link
+ This section defines the PayID Easy Checkout Link, which conforms to section 4.4 of the
+ Webfinger RFC.  In order for a PayID server to enable PayID Easy Checkout, a PayID Discovery query to the server
+ MUST return a JRD containing a PayID Easy Checkout Link.
+ 
+ The Link MUST include the Link Relation Type of section (TODO: link to link type section) in the object's 'rel' field.
+ The Link MUST also include a PayID Easy Checkout URI Template in the 'template' field of the link.
+ 
+    * 'rel': `https://payid.org/ns/payid-easy-checkout-uri/1.0`
+    * 'template': A PayID Easy Checkout URI Template
+    
+ The following is an example of a PayID Easy Checkout Link that indicates a PayID Easy Checkout URI Template:
+ 
+    {
+        "rel": "https://payid.org/ns/payid-easy-checkout-uri/1.0",
+        "template": https://wallet.com/checkout?amount={amount}&receiverPayId={receiverPayID}&currency={currency}&network={network}&nextUrl={nextURL}
+    }
+
+# Security Considerations
+Various security considerations should be taken into account for PayID
+Easy Checkout.
+
+The security considerations for PayID Easy Checkout Discovery are discussed in 
+section 6 of [PAYID-DISCOVERY][].
+
+## PayID Easy Checkout Redirection URI Manipulation
+When a customer uses the resource located at the PayID Easy Checkout URL, a hijacker could manipulate
+the data encoded in the URL to trick the sender into sending a payment to a different PayID than was originally
+requested, or manipulate other points of PayID Easy Checkout data to trick the sender. 
+
+Additionally, if a hijacker gained access to the merchant client, they could replace the PayID Easy Checkout URI Template 
+for the purposes of a phishing attack.
+
+Current work on the PayID Protocol and its extensions may prove useful in mitigating these risks. 
+
+## Access Control
+As with all web resources, access to the PayID Discovery resource could
+require authentication. See section 6 of [RFC7033][] for Access Control
+considerations.
+
+Furthermore, it is RECOMMENDED that PayID servers only expose PayID Easy Checkout URI Templates
+which resolve to a protected resource.  
 
 # IANA Considerations
   ## New Link Relation Types
