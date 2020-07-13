@@ -72,6 +72,7 @@ donation flow.
 # Terminology
 
 This protocol can be referred to as the `PayId Easy Checkout Protocol`. It uses the following terminology:
+   
 * PayID client: a client that queries a PayID server using the PayID Protocol as defined in [PAYID-PROTOCOL][].
 * PayID server: the endpoint that returns payment account(s) information, which conforms to the PayID Protocol.
 * merchant: individual or entity receiving the payment (ie e-commerce merchant, charity).
@@ -101,8 +102,9 @@ The PayID Easy Checkout Protocol can be used to facilitate an end-to-end checkou
 as an online merchant UI, and a wallet client.
 
 The protocol is comprised of two parts:
-1) PayID Easy Checkout Discovery
-2) Assembly of PayID Easy Checkout URL
+
+1. PayID Easy Checkout Discovery
+2. Assembly of PayID Easy Checkout URL
 
 The result of the protocol is a URL, which can be used by clients to complete a payment with minimal user interaction.
 However, the PayID Easy Checkout protocol does not define how a PayID Easy Checkout URL can or should be used. Instead,
