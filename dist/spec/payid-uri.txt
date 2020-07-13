@@ -4,8 +4,8 @@
 
 Network Working Group                                        D. Fuelling
 Internet-Draft                                                    Ripple
-Intended status: Standards Track                           July 09, 2020
-Expires: January 10, 2021
+Intended status: Standards Track                           July 07, 2020
+Expires: January 8, 2021
 
 
                          The 'payid' URI Scheme
@@ -39,7 +39,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on January 10, 2021.
+   This Internet-Draft will expire on January 8, 2021.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Fuelling                Expires January 10, 2021                [Page 1]
+Fuelling                 Expires January 8, 2021                [Page 1]
 
 Internet-Draft           The 'payid' URI Scheme                July 2020
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Fuelling                Expires January 10, 2021                [Page 2]
+Fuelling                 Expires January 8, 2021                [Page 2]
 
 Internet-Draft           The 'payid' URI Scheme                July 2020
 
@@ -165,7 +165,7 @@ Internet-Draft           The 'payid' URI Scheme                July 2020
 
 
 
-Fuelling                Expires January 10, 2021                [Page 3]
+Fuelling                 Expires January 8, 2021                [Page 3]
 
 Internet-Draft           The 'payid' URI Scheme                July 2020
 
@@ -221,7 +221,7 @@ Internet-Draft           The 'payid' URI Scheme                July 2020
 
 
 
-Fuelling                Expires January 10, 2021                [Page 4]
+Fuelling                 Expires January 8, 2021                [Page 4]
 
 Internet-Draft           The 'payid' URI Scheme                July 2020
 
@@ -277,7 +277,7 @@ Internet-Draft           The 'payid' URI Scheme                July 2020
 
 
 
-Fuelling                Expires January 10, 2021                [Page 5]
+Fuelling                 Expires January 8, 2021                [Page 5]
 
 Internet-Draft           The 'payid' URI Scheme                July 2020
 
@@ -333,7 +333,7 @@ Internet-Draft           The 'payid' URI Scheme                July 2020
 
 
 
-Fuelling                Expires January 10, 2021                [Page 6]
+Fuelling                 Expires January 8, 2021                [Page 6]
 
 Internet-Draft           The 'payid' URI Scheme                July 2020
 
@@ -389,7 +389,7 @@ Internet-Draft           The 'payid' URI Scheme                July 2020
 
 
 
-Fuelling                Expires January 10, 2021                [Page 7]
+Fuelling                 Expires January 8, 2021                [Page 7]
 
 Internet-Draft           The 'payid' URI Scheme                July 2020
 
@@ -445,4 +445,4 @@ Author's Address
 
 
 
-Fuelling                Expires January 10, 2021                [Page 8]
+Fuelling                 Expires January 8, 2021                [Page 8]
