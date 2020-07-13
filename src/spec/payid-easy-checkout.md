@@ -82,11 +82,18 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 # Introduction
 
-The PayID Easy Checkout Protocol is a minimal protocol designed to provide a set of standard APIs and flows, 
-which can be used to send payments between two entities in a way that requires:
-* minimal effort for the user initiating the transaction.
-* no server-side software specific to PayID or its protocols for servicing the transaction.
-* only UI-based solutions.
+The PayID Easy Checkout Protocol is a minimal protocol designed to provide a standard method of sending a customer
+to their digital wallet from a merchant UI for the purposes of completing a payment. Furthermore, implementations
+of the protocol should require little to no server-side engineering efforts, while creating an improved and uniform
+user experience for customers.
+
+The main focus of the Protocol is on PayID Easy Checkout Discovery, which defines how a PayID client can use a PayID
+to retrieve a URI template which, when expanded, constitutes a PayID Easy Checkout URL representing a resource that 
+the customer client can use to complete a payment. 
+
+Though section (TODO: link to appendix example usage section) of this specification provides an example usage of the 
+PayID Easy Checkout URL using Web Redirects, supplemental RFCs are needed to define the different ways in which a PayID
+client can utilize the PayID Easy Checkout URL. 
 
 # PayID Easy Checkout Protocol
 The PayID Easy Checkout Protocol can be used to facilitate an end-to-end checkout flow between a recipient client, such
