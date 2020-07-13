@@ -388,10 +388,10 @@
 <link href="#rfc.section.3.5" rel="Chapter" title="3.5 Customer Confirms Payment">
 <link href="#rfc.section.4" rel="Chapter" title="4 PayID Easy Checkout Protocol">
 <link href="#rfc.section.4.1" rel="Chapter" title="4.1 PayID Easy Checkout Discovery">
-<link href="#rfc.section.4.1.1" rel="Chapter" title="4.1.1 Assemble PayID Easy Checkout Discovery URL">
+<link href="#rfc.section.4.1.1" rel="Chapter" title="4.1.1 Step 1: Assemble PayID Easy Checkout Discovery URL">
 <link href="#rfc.section.4.1.2" rel="Chapter" title="4.1.2 Step 2: Query PayID Discovery URL">
-<link href="#rfc.section.4.1.3" rel="Chapter" title="4.1.3 Parse PayID Easy Checkout Metadata">
-<link href="#rfc.section.4.1.4" rel="Chapter" title="4.1.4 Assembling PayID Easy Checkout URL">
+<link href="#rfc.section.4.1.3" rel="Chapter" title="4.1.3 Step 3: Parse PayID Easy Checkout Metadata">
+<link href="#rfc.section.4.1.4" rel="Chapter" title="4.1.4 Step 4: Assembling PayID Easy Checkout URL">
 <link href="#rfc.section.4.1.5" rel="Chapter" title="4.1.5 Template Syntax">
 <link href="#rfc.section.5" rel="Chapter" title="5 PayID Easy Checkout JRDs">
 <link href="#rfc.section.5.1" rel="Chapter" title="5.1 Recommended Checkout Flow">
@@ -490,13 +490,13 @@
 </li>
 <ul><li>4.1.   <a href="#rfc.section.4.1">PayID Easy Checkout Discovery</a>
 </li>
-<ul><li>4.1.1.   <a href="#rfc.section.4.1.1">Assemble PayID Easy Checkout Discovery URL</a>
+<ul><li>4.1.1.   <a href="#rfc.section.4.1.1">Step 1: Assemble PayID Easy Checkout Discovery URL</a>
 </li>
 <li>4.1.2.   <a href="#rfc.section.4.1.2">Step 2: Query PayID Discovery URL</a>
 </li>
-<li>4.1.3.   <a href="#rfc.section.4.1.3">Parse PayID Easy Checkout Metadata</a>
+<li>4.1.3.   <a href="#rfc.section.4.1.3">Step 3: Parse PayID Easy Checkout Metadata</a>
 </li>
-<li>4.1.4.   <a href="#rfc.section.4.1.4">Assembling PayID Easy Checkout URL</a>
+<li>4.1.4.   <a href="#rfc.section.4.1.4">Step 4: Assembling PayID Easy Checkout URL</a>
 </li>
 <li>4.1.5.   <a href="#rfc.section.4.1.5">Template Syntax</a>
 </li>
@@ -609,7 +609,7 @@ Host: wallet.com
 <p id="rfc.section.4.1.p.3">E-commerce receivers who wish to perform Easy Checkout MUST query the PayID Discovery server to obtain a PayID Easy Checkout URL. Digital wallets who wish to enable Easy Checkout for their users MUST host a PayID Discovery server and MUST respond to PayID Discovery queries with an Easy Checkout URL.</p>
 <p id="rfc.section.4.1.p.4">E-commerce receivers SHOULD implement fallback measures to complete checkout if a user's wallet does not support PayID Easy Checkout.</p>
 <h1 id="rfc.section.4.1.1">
-<a href="#rfc.section.4.1.1">4.1.1.</a> <a href="#assemble-payid-easy-checkout-discovery-url" id="assemble-payid-easy-checkout-discovery-url">Assemble PayID Easy Checkout Discovery URL</a>
+<a href="#rfc.section.4.1.1">4.1.1.</a> <a href="#step-1-assemble-payid-easy-checkout-discovery-url" id="step-1-assemble-payid-easy-checkout-discovery-url">Step 1: Assemble PayID Easy Checkout Discovery URL</a>
 </h1>
 <p id="rfc.section.4.1.1.p.1">The process of assembling a PayID Discovery URL is defined in section 4.1.1 of <a href="#PAYID-DISCOVERY" class="xref">[PAYID-DISCOVERY]</a>.</p>
 <h1 id="rfc.section.4.1.2">
@@ -619,7 +619,7 @@ Host: wallet.com
 <p id="rfc.section.4.1.2.p.2">In response, the WebFinger resource returns a JSON Resource Descriptor (JRD) as the resource representation to convey information about the requested PayID.</p>
 <p id="rfc.section.4.1.2.p.3">If the Webfinger endpoint returns a non-200 HTTP response status code, or if the resulting JRD does not contain a link with a PayID Easy Checkout URL Template, then PayID Easy Checkout is considered to have failed. Clients SHOULD implement fallback measures to complete checkout in this case.</p>
 <h1 id="rfc.section.4.1.3">
-<a href="#rfc.section.4.1.3">4.1.3.</a> <a href="#parse-payid-easy-checkout-metadata" id="parse-payid-easy-checkout-metadata">Parse PayID Easy Checkout Metadata</a>
+<a href="#rfc.section.4.1.3">4.1.3.</a> <a href="#step-3-parse-payid-easy-checkout-metadata" id="step-3-parse-payid-easy-checkout-metadata">Step 3: Parse PayID Easy Checkout Metadata</a>
 </h1>
 <p id="rfc.section.4.1.3.p.1">If a wallet supports PayID Easy Checkout, the PayID server MUST respond with a HTTP status code 200 and a JSON payload containing a JSON Resource Descriptor (JRD) as defined in section 5.2 of <a href="#PAYID-DISCOVERY" class="xref">[PAYID-DISCOVERY]</a>. Along with any other PayID Metadata, the PayID server's response MUST contain a Link Relation conforming to the Link Relation definition in the (TODO: link to section) section of this paper.</p>
 <p id="rfc.section.4.1.3.p.2">For example, a PayID server might respond to a PayID Easy Checkout discovery query with the following payload:</p>
@@ -636,7 +636,7 @@ Host: wallet.com
 </pre>
 <p id="rfc.section.4.1.3.p.3">The e-commerce receiver must parse this response, and find a link whose "rel" field has a value of "https://payid.org/ns/payid-easy-checkout/1.0". Any link with this relation MUST have a corresponding URI template, as defined in (TODO: link to template syntax) the Template Syntax section of this document.</p>
 <h1 id="rfc.section.4.1.4">
-<a href="#rfc.section.4.1.4">4.1.4.</a> <a href="#assembling-payid-easy-checkout-url" id="assembling-payid-easy-checkout-url">Assembling PayID Easy Checkout URL</a>
+<a href="#rfc.section.4.1.4">4.1.4.</a> <a href="#step-4-assembling-payid-easy-checkout-url" id="step-4-assembling-payid-easy-checkout-url">Step 4: Assembling PayID Easy Checkout URL</a>
 </h1>
 <p id="rfc.section.4.1.4.p.1">The PayID Easy Checkout URL is constructed by applying various values, determined by the receiver, to the PayID Easy Checkout URI template found in the previous step.</p>
 <p id="rfc.section.4.1.4.p.2">The PayID Checkout URI template MAY not contain the complete set of variables specified in section (TODO link section) of this document.  However, PayID Easy Checkout clients MUST replace each variable instance with a value. It is RECOMMENDED that PayID Easy Checkout clients have values available for every variable defined, in the case that the PayID Easy Checkout URI Template contains the complete set of specified variables.</p>

@@ -211,7 +211,7 @@ respond to PayID Discovery queries with an Easy Checkout URL.
 
 E-commerce receivers SHOULD implement fallback measures to complete checkout if a user's wallet does not support PayID Easy Checkout.
 
-### Assemble PayID Easy Checkout Discovery URL
+### Step 1: Assemble PayID Easy Checkout Discovery URL
 The process of assembling a PayID Discovery URL is defined in section 4.1.1 of [PAYID-DISCOVERY][].
 
 ### Step 2: Query PayID Discovery URL
@@ -226,7 +226,7 @@ If the Webfinger endpoint returns a non-200 HTTP response status code, or if the
 a link with a PayID Easy Checkout URL Template, then PayID Easy Checkout is considered to have failed. Clients
 SHOULD implement fallback measures to complete checkout in this case.
 
-### Parse PayID Easy Checkout Metadata
+### Step 3: Parse PayID Easy Checkout Metadata
 If a wallet supports PayID Easy Checkout, the PayID server MUST respond with a HTTP status code 200 and a JSON payload
 containing a JSON Resource Descriptor (JRD) as defined in section 5.2 of [PAYID-DISCOVERY][]. Along with any other
 PayID Metadata, the PayID server's response MUST contain a Link Relation conforming to the Link Relation definition
@@ -248,7 +248,7 @@ The e-commerce receiver must parse this response, and find a link whose "rel" fi
 "https://payid.org/ns/payid-easy-checkout/1.0". Any link with this relation MUST have a corresponding URI template,
 as defined in (TODO: link to template syntax) the Template Syntax section of this document.
 
-### Assembling PayID Easy Checkout URL
+### Step 4: Assembling PayID Easy Checkout URL
 The PayID Easy Checkout URL is constructed by applying various values, determined by the receiver, to the PayID Easy Checkout 
 URI template found in the previous step.
 

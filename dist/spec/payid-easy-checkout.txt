@@ -82,10 +82,10 @@ Table of Contents
      3.5.  Customer Confirms Payment . . . . . . . . . . . . . . . .   5
    4.  PayID Easy Checkout Protocol  . . . . . . . . . . . . . . . .   6
      4.1.  PayID Easy Checkout Discovery . . . . . . . . . . . . . .   6
-       4.1.1.  Assemble PayID Easy Checkout Discovery URL  . . . . .   7
+       4.1.1.  Step 1: Assemble PayID Easy Checkout Discovery URL  .   7
        4.1.2.  Step 2: Query PayID Discovery URL . . . . . . . . . .   7
-       4.1.3.  Parse PayID Easy Checkout Metadata  . . . . . . . . .   7
-       4.1.4.  Assembling PayID Easy Checkout URL  . . . . . . . . .   8
+       4.1.3.  Step 3: Parse PayID Easy Checkout Metadata  . . . . .   7
+       4.1.4.  Step 4: Assembling PayID Easy Checkout URL  . . . . .   8
        4.1.5.  Template Syntax . . . . . . . . . . . . . . . . . . .   8
    5.  PayID Easy Checkout JRDs  . . . . . . . . . . . . . . . . . .   9
      5.1.  Recommended Checkout Flow . . . . . . . . . . . . . . . .   9
@@ -341,7 +341,7 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
    E-commerce receivers SHOULD implement fallback measures to complete
    checkout if a user's wallet does not support PayID Easy Checkout.
 
-4.1.1.  Assemble PayID Easy Checkout Discovery URL
+4.1.1.  Step 1: Assemble PayID Easy Checkout Discovery URL
 
    The process of assembling a PayID Discovery URL is defined in section
    4.1.1 of [PAYID-DISCOVERY].
@@ -361,7 +361,7 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
    have failed.  Clients SHOULD implement fallback measures to complete
    checkout in this case.
 
-4.1.3.  Parse PayID Easy Checkout Metadata
+4.1.3.  Step 3: Parse PayID Easy Checkout Metadata
 
    If a wallet supports PayID Easy Checkout, the PayID server MUST
    respond with a HTTP status code 200 and a JSON payload containing a
@@ -398,7 +398,7 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
    URI template, as defined in (TODO: link to template syntax) the
    Template Syntax section of this document.
 
-4.1.4.  Assembling PayID Easy Checkout URL
+4.1.4.  Step 4: Assembling PayID Easy Checkout URL
 
    The PayID Easy Checkout URL is constructed by applying various
    values, determined by the receiver, to the PayID Easy Checkout URI
