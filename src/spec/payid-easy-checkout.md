@@ -1,7 +1,7 @@
 ---
 coding: utf-8
 
-title: Draft 1: PayID Easy Checkout Protocol
+title: Draft 1 - PayID Easy Checkout Protocol
 docname: payid-easy-checkout-protocol
 category: std
 
