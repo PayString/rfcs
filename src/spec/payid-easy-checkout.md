@@ -183,36 +183,37 @@ The merchant can then redirect the user back to the URL specified in the "nextUr
 the "Thank You" page of the merchant.
 
 # PayID Easy Checkout Protocol
-The PayID Easy Checkout Protocol can be used to facilitate an end-to-end checkout flow for users transacting
-with an e-commerce entity.
+The PayID Easy Checkout Protocol can be used to facilitate an end-to-end checkout flow between a recipient client, such
+as an online merchant UI, and a wallet client.
 
-The protocol is comprised of two parts:
+The protocol is comprised of several parts:
 1) PayID Easy Checkout Discovery
-2) Checkout flow and auxiliary e-commerce logic.
+2) Recipient client redirection to wallet client
+3) Payment confirmation
+4) Wallet client redirection to recipient client
 
 While PayID Easy Checkout Discovery and the general user flow must be standardized to create a uniform API across 
-all participants the manner by which e-commerce entities and digital wallets handle specific parts of the flow, along
-with individual entities' business logic around checkout, is out of scope for this RFC. However, this paper will
-recommend best practices for building PayID Easy Checkout flows.
+all participants, the manner by which recipient clients and wallet clients handle displaying parts of the checkout flow,
+along with individual entities' business logic around checkout, is out of scope for this RFC.
 
 ## PayID Easy Checkout Discovery
-The primary benefit of an e-commerce entity using the PayID Easy Checkout Protocol is its ability to automatically
-redirect customers to their digital wallet to complete the checkout process. If merchants and payment
-processors were instead forced to create one-off integrations with each wallet, implementing this functionality would
-quickly become an untenable undertaking. On the other side of the protocol, individual wallets will likely want to
-maintain control over resource locations on their individual domains.
-
-In order to meet the technical needs of both wallets and e-commerce receivers, PayID Easy Checkout extends [PAYID-DISCOVERY][]
-by defining a new Link Relation type in the PayID metadata returned by a PayID Discovery query.
+PayID Easy Checkout extends [PAYID-DISCOVERY][] by defining a new link in the PayID metadata JRD
+returned by a PayID Discovery query. This link, defined in section (TODO: link to jrd section) 
+of this specification, includes the PayID Easy Checkout URI Template necessary to redirect a customer to their wallet
+client.
 
 E-commerce receivers who wish to perform Easy Checkout MUST query the PayID Discovery server to obtain a PayID Easy Checkout
-URL. Digital wallets who wish to enable Easy Checkout for their users MUST host a PayID Discovery server and MUST
-respond to PayID Discovery queries with an Easy Checkout URL.
+URL. Digital wallets who wish to enable PayID Easy Checkout JRD Link, as defined in section (TODO: link to jrd section) 
+of this paper.
 
 E-commerce receivers SHOULD implement fallback measures to complete checkout if a user's wallet does not support PayID Easy Checkout.
 
+The following steps describe how a PayID client can query a PayID server to obtain a PayID Easy Checkout JRD Link,
+as well as how to assemble the PayID Easy Checkout URL from that template URI. 
+
 ### Step 1: Assemble PayID Easy Checkout Discovery URL
-The process of assembling a PayID Discovery URL is defined in section 4.1.1 of [PAYID-DISCOVERY][].
+The process of assembling a PayID Discovery URL is defined in section 4.1.1 of [PAYID-DISCOVERY][], and is
+the same as for PayID Easy Checkout Discovery. The result of assembling this URL is the PayID Easy Checkout Discovery URL.
 
 ### Step 2: Query PayID Discovery URL
 A Webfinger query MUST be performed against the PayID Easy Checkout Discovery URL,
@@ -229,10 +230,10 @@ SHOULD implement fallback measures to complete checkout in this case.
 ### Step 3: Parse PayID Easy Checkout Metadata
 If a wallet supports PayID Easy Checkout, the PayID server MUST respond with a HTTP status code 200 and a JSON payload
 containing a JSON Resource Descriptor (JRD) as defined in section 5.2 of [PAYID-DISCOVERY][]. Along with any other
-PayID Metadata, the PayID server's response MUST contain a Link Relation conforming to the Link Relation definition
-in the (TODO: link to section) section of this paper.
+PayID Metadata, the PayID server's response MUST contain a link conforming to the link definition
+in section (TODO: link to section) of this paper.
 
-For example, a PayID server might respond to a PayID Easy Checkout discovery query with the following payload:
+For example, a PayID server might respond to a PayID Easy Checkout Discovery query with the following payload:
 
      {
         "subject": "payid:alice$wallet.com",
@@ -244,31 +245,29 @@ For example, a PayID server might respond to a PayID Easy Checkout discovery que
         ]
      }
      
-The e-commerce receiver must parse this response, and find a link whose "rel" field has a value of 
-"https://payid.org/ns/payid-easy-checkout/1.0". Any link with this relation MUST have a corresponding URI template,
-as defined in (TODO: link to template syntax) the Template Syntax section of this document.
+The receiver client must parse this response, and find a link whose "rel" field has a value of 
+"https://payid.org/ns/payid-easy-checkout/1.0". Any link with this relation MUST have a corresponding PayID Easy Checkout
+URI Template, as defined in section (TODO: link to template syntax) of this document.
 
 ### Step 4: Assembling PayID Easy Checkout URL
-The PayID Easy Checkout URL is constructed by applying various values, determined by the receiver, to the PayID Easy Checkout 
-URI template found in the previous step.
+The PayID Easy Checkout URL is constructed by applying the values corresponding to the variables specified in
+section (TODO: link to template section) to the PayID Easy Checkout URI Template.
 
 The PayID Checkout URI template MAY not contain the complete set of variables specified in section (TODO link section) 
-of this document.  However, PayID Easy Checkout clients MUST replace each variable instance with a value. It is RECOMMENDED
-that PayID Easy Checkout clients have values available for every variable defined, in the case that the PayID Easy Checkout
-URI Template contains the complete set of specified variables.
+of this document.  However, PayID Easy Checkout clients MUST replace each variable present in the template URI with a value. 
+It is RECOMMENDED that PayID Easy Checkout clients have values available for every variable defined, 
+in the case that the PayID Easy Checkout URI Template contains the complete set of specified variables.
 
 The result of replacing all template variables in the PayID Easy Checkout URI Template with values is a PayID Easy Checkout URL.
 Once obtained, PayID Easy Checkout Discovery is considered to have completed successfully.
 
 ### Template Syntax
-TODO: Update this for PayID Easy Checkout URI Template
-
-This specification defines a simple template syntax for PayID Easy Checkout URI
+This specification defines a simple template syntax for PayID Easy Checkout URI Template
 transformation.  A template is a string containing brace-enclosed
 ("{}") variable names marking the parts of the string that are to be
 substituted by the corresponding variable values.
 
-This specification defines several variables, MAY or MAY NOT be present in every PayID Easy Checkout URI Template.
+This specification defines several variables, which MAY or MAY NOT be present in every PayID Easy Checkout URI Template.
 These variables are as follows:
     
     'amount': The amount that should be sent by the sender to the receiver
@@ -278,13 +277,13 @@ These variables are as follows:
     'nextURL': A URL that the sender's wallet can use after completing the payment
     
 When substituting values into a URI 'path' or 'query' part as defined by
-[RFC3986][], values with characters outside the character set allows by paths or query parameters in [RFC3986][], 
+[RFC3986][], values with characters outside the character set allowed by paths or query parameters in [RFC3986][], 
 respectively, MUST be percent or otherwise encoded.
 
 Protocols MAY define additional variables and syntax rules, but MUST NOT
 change the meaning of the variables specified in this document. If a client is unable to
 successfully process a template (e.g., unknown variable names, unknown or
-incompatible syntax), the JRD SHOULD be ignored.
+incompatible syntax), the link SHOULD be ignored.
 
 The template syntax ABNF is as follows:
 
@@ -292,7 +291,7 @@ The template syntax ABNF is as follows:
     var-char     =  ALPHA / DIGIT / "." / "_"
     var-name     =  %x61.63.63.74.70.61.72.74 / ( 1*var-char )
     variable     =  "{" var-name "}"
-    PAYID-URI-Template =  *( uri-char / variable )
+    PAYID-EASY-CHECKOUT-URI-Template =  *( uri-char / variable )
 
 For example:
 
@@ -305,20 +304,17 @@ For example:
     Template: https://wallet.com/checkout?amount={amount}&receiverPayId={receiverPayID}&currency={currency}&network={network}&nextUrl={nextURL}
     Output:   https://wallet.com/checkout?amount=10&receiverPayId=payid%2Apay%24merchant.com&currency=XRP&network=XRPL&nextUrl=https://merchant.com/thankyou
 
-TODO: Should we define acceptable URL template variables for the redirect?
+TODO: Should we define acceptable URL template variable values for the redirect?
+
+## PayID Easy Checkout Redirection
+TODO: Describe redirecting to user wallet
 
 # PayID Easy Checkout JRDs
 TODO: define JRD Link
 
-## Recommended Checkout Flow 
-TODO: Describe recommended checkout flow
-
-### Payment Detection and Correlation
-TODO: Describe recommendations for correlating payments to "invoices"
-
 # IANA Considerations
   ## New Link Relation Types
-  This document defines the following Link relation types per [RFC7033][].
+  This document defines the following Link relation type per [RFC7033][].
   See section 3 for examples of each type of Link.
   
   ### PayID Discovery URI Template
