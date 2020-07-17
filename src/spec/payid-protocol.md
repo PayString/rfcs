@@ -186,7 +186,7 @@ This specification defines the PayID protocol - an application-layer protocol, w
     }
 
       * accountNumber: The value of `accountNumber` contains the fiat bank account number.
-      * routingNumber: The value of `routingNumber` is is the routing number used by some fiat payment networks.
+      * routingNumber: The value of `routingNumber` is the routing number used by some fiat payment networks.
 
 ### memo
    The `memo` string may specify additional metadata corresponding to a payment.
