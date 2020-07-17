@@ -184,11 +184,11 @@ This specification defines the Verifiable PayID protocol - an extension to [PAYI
 #### publicKeyType
    The value of `publicKeyType` is the Public Key Infrastructure (PKI)/identity system being used to identify the signing endpoint. e.g. `X509+SHA512` means an X.509 certificate as described in [RFC5280][] and SHA512 hash algorithm used to hash the contents of `message` for signing. This field defaults to empty string. We define the following `publicKeyType` values. One can register more in future.
 
-   | publicKeyType   | Description                  
+   | publicKeyType   | Description
    |-----------------|-----------------------------------------------------
-   | X509+SHA512     | A X.509 certificate [RFC5280][]        
-   | pgp+SHA512      | An OpenPGP certificate        
-   | ecdsa+SHA256    | A secp256k1 ECDSA public key [RFC6979][] [RFC8422][]        
+   | X509+SHA512     | A X.509 certificate [RFC5280][]
+   | pgp+SHA512      | An OpenPGP certificate
+   | ecdsa+SHA256    | A secp256k1 ECDSA public key [RFC6979][] [RFC8422][]
 
 #### publicKeyData
    The value of `publicKeyData` is the PKI-system/identity data used to identify the signing endpoint who creates digital signatures over the hash of the contents of the `message`. e.g. in the case of X.509 certificates, it may contain one or more X.509 certificates as a list upto the root trust certificate. Defaults to empty.
@@ -285,11 +285,11 @@ This signed payment account(s) information message is then securely transferred 
 ### identity field in payment account(s) information message
  The following table enumerates the possible ways to share the public key of PayID owner using `identity` field.
 
- | identity                                   | Description               
+ | identity                                   | Description
 |--------------------------------------------|---------------------------------
-| Global Identifier (GiD) [Gid][]                   | digital identifier              
-| Human Universally Unique Identifier (Human UUID) [HUUID][] | digital identifier              
-| Digital Identifier (DID) [DID][]                  | digital identifier              
+| Global Identifier (GiD) [Gid][]                   | digital identifier
+| Human Universally Unique Identifier (Human UUID) [HUUID][] | digital identifier
+| Digital Identifier (DID) [DID][]                  | digital identifier
 | Certificate                                | attested certificate that associates digital identifier to PayID and public key
 | URL                                        | URL for secure retrieval of public key of the PayID owner
 | Public key                                 | out-of-band pre-shared public key between PayID client and PayID owner
@@ -356,7 +356,7 @@ This signed payment account(s) information message is then securely transferred 
        "payId" : "bob$receiver.example.com",
        "addresses" :
        [
-         {  
+         {
            "paymentNetwork" : "xrpl",
            "environment" : "testnet",
            "addressDetailsType" : "CryptoAddressDetails",
@@ -402,7 +402,7 @@ This signed payment account(s) information message is then securely transferred 
        "payId" : "bob$receiver.example.com",
        "addresses" :
        [
-         {  
+         {
            "paymentNetwork" : "xrpl",
            "environment" : "testnet",
            "addressDetailsType" : "CryptoAddressDetails",
@@ -424,7 +424,7 @@ This signed payment account(s) information message is then securely transferred 
 # Security Considerations
   This security considerations section only considers verifiable PayID clients and servers bound to implementations as defined in this document.
 
-  The security guarantees mentioned in [PAYID-PROTOCOL][] applies to the Verifiable PayID protocol. In this section, we discuss a security model for the Verifiable PayID protocol.  
+  The security guarantees mentioned in [PAYID-PROTOCOL][] applies to the Verifiable PayID protocol. In this section, we discuss a security model for the Verifiable PayID protocol.
 
 ## Fully-Malicious Adversary Model for PayID Client Wallet and Custodial Wallets and Exchanges as PayID Servers
 
