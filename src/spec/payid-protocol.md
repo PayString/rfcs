@@ -67,7 +67,7 @@ This specification is a draft proposal, and is part of the [PayID Protocol
  be sent to <rfcs@payid.org>.
 
 --- abstract
-This specification defines the PayID protocol - an application-layer protocol, which can be used to interact with a PayID-enabled service provider. The primary use case is to discover payment account information along with optional metadata identified by a PayID [PayID-URI][]. The protocol is based on HTTP transfer of PayID protocol messages over a secure transport.   
+This specification defines the PayID protocol - an application-layer protocol, which can be used to interact with a PayID-enabled service provider. The primary use case is to discover payment account information along with optional metadata identified by a PayID [PayID-URI][]. The protocol is based on HTTP transfer of PayID protocol messages over a secure transport.
 
 --- middle
 
@@ -93,20 +93,20 @@ This specification defines the PayID protocol - an application-layer protocol, w
 
 ## Design Goals
 
-   * Extensibility  
+   * Extensibility
 
    Although the primary use case for the payment account(s) information resource returned via the Basic PayID protocol is assumed to be for making payments, the PayID protocol is designed to be easily extensible to facilitate creation and retrieval of other resources about the PayID owner, PayID client and/or PayID server that might be required for making payments.
 
-   * Neutrality: Currency and Network Agnostic  
+   * Neutrality: Currency and Network Agnostic
 
    The PayID protocol is designed to be a fundamentally neutral protocol. The PayID protocol is capable of returning a PayID owner's payment account(s) information for any network that they (or their service) can support. This makes the PayID protocol a network and currency agnostic protocol, capable of enabling payments in BTC, XRP, ERC-20 tokens, Lightning, ILP, or even fiat networks like ACH.
 
-   * Decentralized & Peer-to-Peer  
+   * Decentralized & Peer-to-Peer
 
    Just like email servers, anyone can run their own PayID server or use third-party hosted services. If self-hosted, the PayID protocol introduces no new counterparty risk or changes to a service’s security or privacy model. PayID protocol doesn’t require new, complex, and potentially unreliable peer discovery protocols, instead establishing direct peer-to-peer connections between communicating parties from the start.
    PayID is built on the most successful decentralized network: the web. There is no designated centralized authority, or a risk of a patchwork of different standards in different jurisdictions that make a global solution impossibly complex.
 
-   * Service Sovereignty  
+   * Service Sovereignty
 
    Each service provider that uses PayID for their users maintains full control of its PayID URL space and PayID service, and has the ability to incorporate any policies they choose, including privacy, authentication, and security.  They also have full sovereignty over users on their domain, just like with email. PayID is highly generalized and does not prescribe any particular solution outside of the standardized communication, which makes it compatible with existing compliance and user management tools and philosophies.
 
@@ -133,7 +133,7 @@ This specification defines the PayID protocol - an application-layer protocol, w
 ## Response for application/* + json
   The response body for `application/* + json` is a JSON object with the following name/value pairs.
 
-      {  
+      {
        optional string payId,
        required Address[] addresses,
        optional string memo,
@@ -196,7 +196,7 @@ This specification defines the PayID protocol - an application-layer protocol, w
 ### identity
    The `identity` string may specify any additional identity information about the PayID owner or PayID server.
 
-   The `identity` string is an OPTIONAL field in the response.   
+   The `identity` string is an OPTIONAL field in the response.
 
 ### proofOfControlSignature
   The value of `proofOfControlSignature` field is a JSON object of type `ProofOfControlSignature` with the following name/value pairs.
@@ -328,7 +328,7 @@ This specification defines the PayID protocol - an application-layer protocol, w
   A PayID server MAY redirect the PayID client; if it does, the redirection MUST only be to an `https` URI and the PayID client MUST perform certificate validation again when redirected.
 
 ## Step 3: Parse Payment Account Information Response
-  If the PayID server returns a valid response, the response will contain one or more of the fields defined above.  
+  If the PayID server returns a valid response, the response will contain one or more of the fields defined above.
 
 # Example Use of Basic PayID Protocol
    This section shows sample use of Basic PayID protocol in several hypothetical scenarios.
@@ -356,7 +356,7 @@ This specification defines the PayID protocol - an application-layer protocol, w
        "payId" : "bob$receiver.example.com",
        "addresses" :
        [
-         {  
+         {
            "paymentNetwork" : "xrpl",
            "environment" : "testnet",
            "addressDetailsType" : "CryptoAddressDetails",
@@ -400,7 +400,7 @@ This specification defines the PayID protocol - an application-layer protocol, w
        "payId" : "bob$receiver.example.com",
        "addresses" :
        [
-         {  
+         {
            "paymentNetwork" : "xrpl",
            "environment" : "testnet",
            "addressDetailsType" : "CryptoAddressDetails",
@@ -433,7 +433,7 @@ This specification defines the PayID protocol - an application-layer protocol, w
   The PayID client MAY choose to query for all possible payment addresses corresponding to a PayID URI
 
      GET / HTTP/1.1
-     Accept: application/all+json		  
+     Accept: application/all+json
 
   In this case, the PayID server MAY respond with all payment account(s) information associated with the queried PayID.
 
@@ -469,7 +469,7 @@ This specification defines the PayID protocol - an application-layer protocol, w
   The following are considered out-of-scope:
 
   * Communication between the PayID owner and the wallet or exchange (which acts as PayID server) for PayID URI registration, etc.
-  * Communication between the sender of the transaction and the PayID client to transfer information such as PayID URI and other transaction details, etc.  
+  * Communication between the sender of the transaction and the PayID client to transfer information such as PayID URI and other transaction details, etc.
   * PayID server URL discovery by the PayID client. Implementations using PayID-Discovery [PAYID-DISCOVERY][] MUST consider the security considerations in the corresponding document.
   * PayID server URL resolution by the PayID client. Implementations using DNS, DNSSEC, DoH, DoT, etc. MUST consider the security considerations of the corresponding documents.
 
@@ -494,16 +494,16 @@ This specification defines the PayID protocol - an application-layer protocol, w
   The PayID servers are recommended to follow general best network configuration practices to defend against such attacks [RFC4732][].
 
 ## Information Integrity
-  The HTTPS connection provides transport security for the interaction between PayID client and server but does not provide the response integrity of the data provided by PayID server. A PayID client has no way of knowing if data provided in the payment account information resource has been manipulated at the PayID server, either due to malicious behavior on the part of the PayID server administrator or as a result of being compromised by an attacker. As with any information service available on the Internet, PayID clients should be wary of the information received from untrusted sources.  
+  The HTTPS connection provides transport security for the interaction between PayID client and server but does not provide the response integrity of the data provided by PayID server. A PayID client has no way of knowing if data provided in the payment account information resource has been manipulated at the PayID server, either due to malicious behavior on the part of the PayID server administrator or as a result of being compromised by an attacker. As with any information service available on the Internet, PayID clients should be wary of the information received from untrusted sources.
 
 # Privacy Considerations
-  The PayID client and server should be aware that placing information on the Internet means that any one can access that information. While PayID protocol is an extremely useful tool to discovering payment account(s) information corresponding to a human-rememberable PayID URI, PayID owners should also understand the associated privacy risks. The easy access to payment account information via PayID protocol was a design goal of the protocol, not a limitation.  
+  The PayID client and server should be aware that placing information on the Internet means that any one can access that information. While PayID protocol is an extremely useful tool to discovering payment account(s) information corresponding to a human-rememberable PayID URI, PayID owners should also understand the associated privacy risks. The easy access to payment account information via PayID protocol was a design goal of the protocol, not a limitation.
 
 ## Access Control
-  PayID protocol MUST NOT be used to provide payment account(s) information corresponding to a PayID URI unless providing that data via PayID protocol by the relevant PayID server was explicitly authorized by the PayID owner. If a PayID owner wishes to limit access to information, PayID servers MAY provide an interface by which PayID owners can select which information is exposed through the PayID server interface. For example, PayID servers MAY allow PayID owners to mark certain data as `public` and then utilize that marking as a means of determining what information to expose via PayID protocol. The PayID servers MAY also allow PayID owners to provide a whitelist of users who are authorized to access the specific information. In such a case, the PayID server MUST authenticate the PayID client.  
+  PayID protocol MUST NOT be used to provide payment account(s) information corresponding to a PayID URI unless providing that data via PayID protocol by the relevant PayID server was explicitly authorized by the PayID owner. If a PayID owner wishes to limit access to information, PayID servers MAY provide an interface by which PayID owners can select which information is exposed through the PayID server interface. For example, PayID servers MAY allow PayID owners to mark certain data as `public` and then utilize that marking as a means of determining what information to expose via PayID protocol. The PayID servers MAY also allow PayID owners to provide a whitelist of users who are authorized to access the specific information. In such a case, the PayID server MUST authenticate the PayID client.
 
 ## Payment Address Rotation
-  The power of PayID protocol comes from providing a single place where others can find payment account(s) information corresponding to a PayID URI, but PayID owners should be aware of how easily payment account information that one might publish can be used in unintended ways. As one example, one might query a PayID server only to see if a given PayID URI is valid and if so, get the list of associated payment account information. If the PayID server uses the same payment address each time, it becomes easy for a third-party to track one's entire payment history. The PayID server MUST follow the best practice of payment address rotation for every query to mitigate this privacy concern.  
+  The power of PayID protocol comes from providing a single place where others can find payment account(s) information corresponding to a PayID URI, but PayID owners should be aware of how easily payment account information that one might publish can be used in unintended ways. As one example, one might query a PayID server only to see if a given PayID URI is valid and if so, get the list of associated payment account information. If the PayID server uses the same payment address each time, it becomes easy for a third-party to track one's entire payment history. The PayID server MUST follow the best practice of payment address rotation for every query to mitigate this privacy concern.
 
 ## On the Wire
   PayID protocol over HTTPS encrypts the traffic and requires mutual authentication of the PayID client and the PayID server. This mitigates both passive surveillance [RFC7258][] and the active attacks that attempt to divert PayID protocol queries to rogue servers.
@@ -555,7 +555,7 @@ This specification defines the PayID protocol - an application-layer protocol, w
 | application | xrpl-testnet+json        |
 | application | xrpl-devnet+json         |
 | application | ach+json                 |
-| application | interledger-mainnet+json |               
+| application | interledger-mainnet+json |
 | application | interledger-testnet+json |
 | application | payid+json               |
 
