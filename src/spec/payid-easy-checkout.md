@@ -63,9 +63,8 @@ informative:
 This specification is a draft proposal, and is part of the [PayID Protocol](https://payid.org/) initiative. Feedback related to this document should be sent in the form of a Github issue at: https://github.com/payid-org/rfcs/issues.
  
 --- abstract
-This specification formalizes how a payment recipient, such as a merchant or a non-profit, can automatically navigate 
-a user to the user's wallet using only a PayID for the purposes of completing an online payment such as a checkout or
-donation flow.
+This specification formalizes how a payment recipient, such as a merchant or a non-profit, can automatically 
+initiate a payment from a customer using only the customer's PayID. 
 
 --- middle
 
@@ -84,14 +83,14 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 # Introduction
 
-The PayID Easy Checkout Protocol is a minimal protocol designed to provide a standard method of sending a customer
-to their digital wallet from a merchant UI for the purposes of completing a payment. Implementations
+The PayID Easy Checkout Protocol is a minimal protocol designed to provide a standard method for online merchants to
+request a payment from a customer using only the customer's PayID. Implementations
 of the protocol should require little to no server-side engineering efforts, while creating an improved and uniform
 user experience for customers.
 
 The main focus of the Protocol is on PayID Easy Checkout Discovery, which defines how a PayID client can use a PayID
-to retrieve a URI template which, when expanded, constitutes a PayID Easy Checkout URL representing a resource that 
-the customer client can use to complete a payment. 
+to retrieve a PayID Easy Checkout URI Template which, when expanded, constitutes a PayID Easy Checkout URL 
+representing a resource that the customer's digital wallet can use to initiate a payment to the merchant. 
 
 Though section (TODO: link to appendix example usage section) of this specification provides an example usage of a 
 PayID Easy Checkout URL using Web Redirects, supplemental RFCs are needed to define the different ways in which a PayID
@@ -118,13 +117,12 @@ be used to complete a payment.
 
 E-commerce receivers who wish to perform Easy Checkout MUST query the PayID Discovery server to obtain a PayID Easy Checkout
 URI Template. Digital wallets and PayID server operators who wish to enable PayID Easy Checkout MUST include a JRD Link
-conforming to the definition in section (TODO: link to jrd section) of this paper in a PayID Easy Checkout Discovery 
-response.
+conforming to the definition in section (TODO: link to jrd section) of this paper in all PayID Easy Checkout Discovery 
+responses.
 
 E-commerce receivers SHOULD implement fallback measures to complete checkout if a user's wallet does not support PayID Easy Checkout.
 
-The following steps describe how a PayID client can query a PayID server to obtain a PayID Easy Checkout JRD Link,
-as well as how to assemble the PayID Easy Checkout URL from the PayID Easy Checkout URI Template contained in that Link. 
+The following steps describe how a PayID client can query a PayID server to obtain a PayID Easy Checkout URI Template. 
 
 ### Step 1: Assemble PayID Easy Checkout Discovery URL
 The process of assembling a PayID Discovery URL is defined in section 4.1.1 of [PAYID-DISCOVERY][], and is
@@ -145,7 +143,6 @@ have failed. Clients SHOULD implement fallback measures to complete checkout in 
 If a wallet supports PayID Easy Checkout, the PayID server MUST respond with a HTTP status code 200 and a JSON payload
 containing a JSON Resource Descriptor (JRD) as defined in section (TODO: link to jrd section) of this document. 
 The JRD MUST contain a link conforming to the link definition in section (TODO: link to section) of this paper.
-
 
 For example, a PayID server might respond to a PayID Easy Checkout Discovery query with the following payload:
 
@@ -227,18 +224,18 @@ The PayID Easy Checkout URL SHOULD be parsed to retrieve the values set by the r
 that wallet UIs use these values to pre-populate a payment transaction.
 
 # PayID Easy Checkout JRDs
- This section defines the PayID Easy Checkout Link, which conforms to section 4.4 of the
- Webfinger RFC.  In order for a PayID server to enable PayID Easy Checkout, a PayID Discovery query to the server
- MUST return a JRD containing a PayID Easy Checkout Link.
- 
- The Link MUST include the Link Relation Type of section (TODO: link to link type section) in the object's 'rel' field.
- The Link MUST also include a PayID Easy Checkout URI Template in the 'template' field of the link.
- 
+This section defines the PayID Easy Checkout Link, which conforms to section 4.4 of the
+Webfinger RFC.  In order for a PayID server to enable PayID Easy Checkout, a PayID Discovery query to the server
+MUST return a JRD containing a PayID Easy Checkout Link.
+
+The Link MUST include the Link Relation Type of section (TODO: link to link type section) in the object's 'rel' field.
+The Link MUST also include a PayID Easy Checkout URI Template in the 'template' field of the link.
+
     * 'rel': `https://payid.org/ns/payid-easy-checkout-uri/1.0`
     * 'template': A PayID Easy Checkout URI Template
-    
- The following is an example of a PayID Easy Checkout Link that indicates a PayID Easy Checkout URI Template:
- 
+
+The following is an example of a PayID Easy Checkout Link that indicates a PayID Easy Checkout URI Template:
+
     {
         "rel": "https://payid.org/ns/payid-easy-checkout-uri/1.0",
         "template": https://wallet.com/checkout?amount={amount}&receiverPayId={receiverPayID}&currency={currency}&network={network}&nextUrl={nextURL}
