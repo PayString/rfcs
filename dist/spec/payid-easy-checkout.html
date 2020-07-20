@@ -409,9 +409,9 @@
 
   <meta name="dct.creator" content="Kramer, N. and I. Simpson" />
   <meta name="dct.identifier" content="urn:ietf:id:payid-easy-checkout-protocol" />
-  <meta name="dct.issued" scheme="ISO8601" content="2020-07-14" />
-  <meta name="dct.abstract" content="This specification formalizes how a payment recipient, such as a merchant or a non-profit, can automatically navigate a user to the user&#x27;s wallet using only a PayID for the purposes of completing an online payment such as a checkout or donation flow. " />
-  <meta name="description" content="This specification formalizes how a payment recipient, such as a merchant or a non-profit, can automatically navigate a user to the user&#x27;s wallet using only a PayID for the purposes of completing an online payment such as a checkout or donation flow. " />
+  <meta name="dct.issued" scheme="ISO8601" content="2020-07-20" />
+  <meta name="dct.abstract" content="This specification formalizes how a payment recipient, such as a merchant or a non-profit, can automatically initiate a payment from a customer using only the customer&#x27;s PayID. " />
+  <meta name="description" content="This specification formalizes how a payment recipient, such as a merchant or a non-profit, can automatically initiate a payment from a customer using only the customer&#x27;s PayID. " />
 
 </head>
 
@@ -433,8 +433,8 @@
 <td class="right">Ripple</td>
 </tr>
 <tr>
-<td class="left">Expires: January 15, 2021</td>
-<td class="right">July 14, 2020</td>
+<td class="left">Expires: January 21, 2021</td>
+<td class="right">July 20, 2020</td>
 </tr>
 
     	
@@ -445,14 +445,14 @@
   <span class="filename">payid-easy-checkout-protocol</span></p>
   
   <h1 id="rfc.abstract"><a href="#rfc.abstract">Abstract</a></h1>
-<p>This specification formalizes how a payment recipient, such as a merchant or a non-profit, can automatically navigate a user to the user's wallet using only a PayID for the purposes of completing an online payment such as a checkout or donation flow.</p>
+<p>This specification formalizes how a payment recipient, such as a merchant or a non-profit, can automatically initiate a payment from a customer using only the customer's PayID.</p>
 <h1><a>Feedback</a></h1>
 <p>This specification is a draft proposal, and is part of the <a href="https://payid.org/">PayID Protocol</a> initiative. Feedback related to this document should be sent in the form of a Github issue at: https://github.com/payid-org/rfcs/issues.</p>
 <h1 id="rfc.status"><a href="#rfc.status">Status of This Memo</a></h1>
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on January 15, 2021.</p>
+<p>This Internet-Draft will expire on January 21, 2021.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2020 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -540,8 +540,8 @@
 <h1 id="rfc.section.2">
 <a href="#rfc.section.2">2.</a> <a href="#introduction" id="introduction">Introduction</a>
 </h1>
-<p id="rfc.section.2.p.1">The PayID Easy Checkout Protocol is a minimal protocol designed to provide a standard method of sending a customer to their digital wallet from a merchant UI for the purposes of completing a payment. Implementations of the protocol should require little to no server-side engineering efforts, while creating an improved and uniform user experience for customers.</p>
-<p id="rfc.section.2.p.2">The main focus of the Protocol is on PayID Easy Checkout Discovery, which defines how a PayID client can use a PayID to retrieve a URI template which, when expanded, constitutes a PayID Easy Checkout URL representing a resource that the customer client can use to complete a payment.</p>
+<p id="rfc.section.2.p.1">The PayID Easy Checkout Protocol is a minimal protocol designed to provide a standard method for online merchants to request a payment from a customer using only the customer's PayID. Implementations of the protocol should require little to no server-side engineering efforts, while creating an improved and uniform user experience for customers.</p>
+<p id="rfc.section.2.p.2">The main focus of the Protocol is on PayID Easy Checkout Discovery, which defines how a PayID client can use a PayID to retrieve a PayID Easy Checkout URI Template which, when expanded, constitutes a PayID Easy Checkout URL representing a resource that the customer's digital wallet can use to initiate a payment to the merchant.</p>
 <p id="rfc.section.2.p.3">Though section (TODO: link to appendix example usage section) of this specification provides an example usage of a PayID Easy Checkout URL using Web Redirects, supplemental RFCs are needed to define the different ways in which a PayID client can utilize a PayID Easy Checkout URL.</p>
 <h1 id="rfc.section.3">
 <a href="#rfc.section.3">3.</a> <a href="#payid-easy-checkout-protocol" id="payid-easy-checkout-protocol">PayID Easy Checkout Protocol</a>
@@ -559,9 +559,9 @@
 <a href="#rfc.section.3.1">3.1.</a> <a href="#payid-easy-checkout-discovery" id="payid-easy-checkout-discovery">PayID Easy Checkout Discovery</a>
 </h1>
 <p id="rfc.section.3.1.p.1">PayID Easy Checkout extends <a href="#PAYID-DISCOVERY" class="xref">[PAYID-DISCOVERY]</a> by defining a new link in the PayID metadata JRD returned by a PayID Discovery query. This link, defined in section (TODO: link to jrd section) of this specification, includes the PayID Easy Checkout URI Template representing a resource on the wallet which can be used to complete a payment.</p>
-<p id="rfc.section.3.1.p.2">E-commerce receivers who wish to perform Easy Checkout MUST query the PayID Discovery server to obtain a PayID Easy Checkout URI Template. Digital wallets and PayID server operators who wish to enable PayID Easy Checkout MUST include a JRD Link conforming to the definition in section (TODO: link to jrd section) of this paper in a PayID Easy Checkout Discovery response.</p>
+<p id="rfc.section.3.1.p.2">E-commerce receivers who wish to perform Easy Checkout MUST query the PayID Discovery server to obtain a PayID Easy Checkout URI Template. Digital wallets and PayID server operators who wish to enable PayID Easy Checkout MUST include a JRD Link conforming to the definition in section (TODO: link to jrd section) of this paper in all PayID Easy Checkout Discovery responses.</p>
 <p id="rfc.section.3.1.p.3">E-commerce receivers SHOULD implement fallback measures to complete checkout if a user's wallet does not support PayID Easy Checkout.</p>
-<p id="rfc.section.3.1.p.4">The following steps describe how a PayID client can query a PayID server to obtain a PayID Easy Checkout JRD Link, as well as how to assemble the PayID Easy Checkout URL from the PayID Easy Checkout URI Template contained in that Link.</p>
+<p id="rfc.section.3.1.p.4">The following steps describe how a PayID client can query a PayID server to obtain a PayID Easy Checkout URI Template.</p>
 <h1 id="rfc.section.3.1.1">
 <a href="#rfc.section.3.1.1">3.1.1.</a> <a href="#step-1-assemble-payid-easy-checkout-discovery-url" id="step-1-assemble-payid-easy-checkout-discovery-url">Step 1: Assemble PayID Easy Checkout Discovery URL</a>
 </h1>
