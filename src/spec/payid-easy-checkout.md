@@ -38,11 +38,11 @@ author:
 normative:
     RFC2119:
     RFC2818:
-    RFC8446:
+    RFC6265:
     RFC7231:
     RFC7413:
-    RFC6265:
     RFC6570:
+    RFC8446:
     PAYID-URI:
       title: "The 'payid' URI Scheme"
       target: https://tbd.example.com/
@@ -84,9 +84,9 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 # Introduction
 
 The PayID Easy Checkout Protocol is a minimal protocol designed to provide a standard method for online merchants to
-request a payment from a customer using only the customer's PayID. Implementations
-of the protocol should require little to no server-side engineering efforts, while creating an improved and uniform
-user experience for customers.
+request a payment from a customer using only the customer's PayID. This protocol will help create a uniform user 
+experience for customers with minimal technical effort from both wallets and merchants.
+
 
 The main focus of the Protocol is on PayID Easy Checkout Discovery, which defines how a PayID client can use a PayID
 to retrieve a PayID Easy Checkout URI Template which, when expanded, constitutes a PayID Easy Checkout URL 
