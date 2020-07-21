@@ -98,7 +98,7 @@ client can utilize a PayID Easy Checkout URL.
 
 # PayID Easy Checkout Protocol
 The PayID Easy Checkout Protocol can be used to facilitate an end-to-end checkout flow between a recipient client, such
-as an online merchant UI, and a wallet client.
+as an online merchant UI, and a sending client, such as a wallet.
 
 The protocol is comprised of two parts:
 
