@@ -77,7 +77,8 @@ This protocol can be referred to as the `PayId Easy Checkout Protocol`. It uses 
 * Merchant: Individual or entity receiving a payment (e.g., e-commerce merchant, charity).
 * Payer: Individual or entity originating a payment to a `merchant`.
 * Wallet: A device or application that holds funds (may be a non-custodial wallet).
-* Redirect URL: The URL that is the result of the PayID Easy Checkout protocol; can be used to redirect a client to a wallet corresponding to a particular PayID.
+* PayID Easy Checkout URI Template: The URI Template that is the result of PayID Easy Checkout Discovery 
+* PayID Easy Checkout URL: The URL that is the result of the PayID Easy Checkout protocol; can be used to redirect a client to a wallet corresponding to a particular PayID.
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC2119][] and [RFC9174][].
 
@@ -94,7 +95,7 @@ representing a resource that the payer's digital wallet can use to initiate a pa
 
 Though section (TODO: link to appendix example usage section) of this specification provides an example usage of a 
 PayID Easy Checkout URL using Web Redirects, supplemental RFCs are needed to define the different ways in which a PayID
-client can utilize a PayID Easy Checkout URL. 
+client can utilize a PayID Easy Checkout URL.
 
 # PayID Easy Checkout Protocol
 The PayID Easy Checkout Protocol can be used to facilitate an end-to-end checkout flow between a recipient client, such
@@ -106,8 +107,6 @@ The protocol is comprised of two parts:
 2. PayID Easy Checkout URL Assembly
 
 The result of the protocol is a URL, which can be used by sending clients to complete a payment.
-However, the PayID Easy Checkout protocol does not define how a PayID Easy Checkout URL can or should be used. Instead,
-we defer those specifications to future RFCs. 
 
 ## PayID Easy Checkout Discovery
 PayID Easy Checkout extends [PAYID-DISCOVERY][] by defining a new link in the PayID metadata JRD
@@ -115,10 +114,10 @@ returned by a PayID Discovery query. This link, defined in section (TODO: link t
 of this specification, includes the PayID Easy Checkout URI Template representing a resource on the wallet which can
 be used to complete a payment.
 
-E-commerce merchants who wish to initiate an Easy Checkout flow MUST query the sender's PayID Discovery server to obtain a PayID Easy Checkout
-URI Template. Digital wallets and PayID server operators who wish to enable PayID Easy Checkout MUST include a JRD Link
-conforming to the definition in section (TODO: link to jrd section) of this paper in all PayID Easy Checkout Discovery 
-responses.
+E-commerce merchants who wish to initiate an Easy Checkout flow MUST query the sender's PayID Discovery server to 
+obtain a PayID Easy Checkout URI Template. Digital wallets and PayID server operators who wish to enable PayID Easy
+Checkout MUST include a JRD Link conforming to the definition in section (TODO: link to jrd section) of this paper 
+in all PayID Easy Checkout Discovery responses.
 
 E-commerce merchants SHOULD implement fallback measures to complete a checkout flow if a user's wallet does not support PayID Easy Checkout.
 
@@ -128,16 +127,11 @@ The following steps describe how a PayID client can query a PayID server to obta
 The process of assembling a PayID Discovery URL is defined in section 4.1.1 of [PAYID-DISCOVERY][], and is
 the same as for PayID Easy Checkout Discovery.
 
-### Step 2: Query PayID Discovery URL
-A Webfinger query MUST be performed against the PayID Discovery URL assembled in the previous section,
-as described in section 4.2 of Webfinger.
+### Step 2: Query PayID Easy Checkout Discovery URL
+Querying the PayID Discovery URL is defined in section 4.1.2 of [PAYID-DISCOVERY][], and is performed
+in the same way for the PayID Easy Checkout Discovery URL.
 
-In response, the WebFinger resource returns a JSON Resource Descriptor (JRD)
-as the resource representation to convey information about the requested
-PayID.
-
-If the Webfinger endpoint returns a non-200 HTTP response status code, then PayID Easy Checkout is considered to 
-have failed. Clients SHOULD implement fallback measures to complete checkout in this case.
+Clients SHOULD implement fallback measures to complete checkout if the PayID Easy Checkout Discovery query fails.
 
 ### Step 3: Parse PayID Easy Checkout Metadata
 If a wallet supports PayID Easy Checkout, the PayID server MUST respond with a HTTP status code 200 and a JSON payload
@@ -173,8 +167,8 @@ These variables are as follows:
     
     'amount': The amount that should be sent by the sender to the receiver
     'receiverPayID': The PayID URI of the receiver
-    'currency': The ISO-4217 currency code that the sender should send
-    'network': The network that the sender should send payment over (TODO: define network enum or use rfc)
+    'assetCode': The ISO-4217 currency code that the sender should send
+    'paymentNetwork': The payment network, as defined in [PAYID-PROTOCOL][], that the sender should send payment over.
     'nextURL': A URL that the sender's wallet can use after completing the payment
     
 When substituting values into a URI 'path' or 'query' part as defined by
@@ -290,10 +284,9 @@ Given the ability to assign arbitrary metadata to a PayID as defined in [PayID-D
 to standardize the set of interactions between merchant and payer, specifically the process by which a merchant
 directs a payer to their digital wallet to complete a payment.
 We believe this protocol will enable an improved paying experience by reducing the number
-of steps a payer must take to complete a transaction and creating a consistent and familiar checkout pattern
-for payers.
+of steps a payer must take to complete a transaction.
 
-The second priority of PayID Easy Checkout is to limit the engineering effort needed to implement the protocol. 
+PayID Easy Checkout also limits the engineering effort needed to implement the protocol. 
 Clients wishing to adopt this pattern should only need to implement UI-level changes in order to make the flow function 
 as intended, which may aid in expanding overall adoption, further enhancing the protocol's user experience benefits. 
 
@@ -305,9 +298,6 @@ In order for a payer to checkout using the PayID Easy Checkout protocol, the pay
 with their PayID Easy Checkout enabled PayID.
 
 #### No New Server-Side Software
-
-Because the flow of PayID Easy Checkout is predicated on using the PayID Discovery Protocol and then redirecting the 
-payer away from the merchant, all of the flow can be instrumented on the front end and doesn't require new server-side resources. 
 
 Apart from a PayID Discovery compliant PayID Server, The PayID Easy Checkout Protocol does not require server-side 
 software to be run by either the payer or merchant for a payment. The PayID server is capable of providing details 
