@@ -105,7 +105,7 @@ The protocol is comprised of two parts:
 1. PayID Easy Checkout Discovery
 2. PayID Easy Checkout URL Assembly
 
-The result of the protocol is a URL, which can be used by clients to complete a payment with minimal user interaction.
+The result of the protocol is a URL, which can be used by sending clients to complete a payment.
 However, the PayID Easy Checkout protocol does not define how a PayID Easy Checkout URL can or should be used. Instead,
 we defer those specifications to future RFCs. 
 
@@ -115,12 +115,12 @@ returned by a PayID Discovery query. This link, defined in section (TODO: link t
 of this specification, includes the PayID Easy Checkout URI Template representing a resource on the wallet which can
 be used to complete a payment.
 
-E-commerce receivers who wish to perform Easy Checkout MUST query the PayID Discovery server to obtain a PayID Easy Checkout
+E-commerce merchants who wish to initiate an Easy Checkout flow MUST query the sender's PayID Discovery server to obtain a PayID Easy Checkout
 URI Template. Digital wallets and PayID server operators who wish to enable PayID Easy Checkout MUST include a JRD Link
 conforming to the definition in section (TODO: link to jrd section) of this paper in all PayID Easy Checkout Discovery 
 responses.
 
-E-commerce receivers SHOULD implement fallback measures to complete checkout if a user's wallet does not support PayID Easy Checkout.
+E-commerce merchants SHOULD implement fallback measures to complete a checkout flow if a user's wallet does not support PayID Easy Checkout.
 
 The following steps describe how a PayID client can query a PayID server to obtain a PayID Easy Checkout URI Template. 
 
@@ -156,7 +156,7 @@ For example, a PayID server might respond to a PayID Easy Checkout Discovery que
         ]
      }
      
-The receiver client must parse this response to find the PayID Easy Checkout Link. 
+The receiver PayID Discovery client must parse this response to find the PayID Easy Checkout Link. 
 If the JRD returned from the PayID Easy Checkout Discovery query does not contain a 
 PayID Easy Checkout Link in its 'links' collection, PayID Easy Checkout is considered to have failed.
 Once a PayID Easy Checkout URI Template has been obtained from the PayID Easy Checkout Link by the PayID client, 
@@ -285,7 +285,7 @@ which resolve to a protected resource.
 
 ## Motivation
 The PayID Easy Checkout Protocol aims to enable a consistent user experience for customers paying for goods
-in an e-commerce by standardizing the interaction between merchants and customer wallets.
+or services by standardizing the interaction between merchants/non-profits and customer/donor wallets.
 Given the ability to assign arbitrary metadata to a PayID as defined in [PayID-Discovery][], there is an opportunity
 to standardize the set of interactions between merchant and customer, specifically the process by which a merchant
 directs a customer to their digital wallet to complete a payment.
@@ -304,10 +304,10 @@ as intended, which may aid in expanding overall adoption, further enhancing the 
 In order for a customer to checkout using the PayID Easy Checkout protocol, the customer only needs to provide a merchant
 with their PayID Easy Checkout enabled PayID.
 
-#### No server-side software not already covered by the PayID Protocol
+#### No New Server-Side Software
 
 Because the flow of PayID Easy Checkout is predicated on using the PayID Discovery Protocol and then redirecting the 
-customer away from the merchant, all of the flow can be instrumented on the front end and doesn't require server-side resources. 
+customer away from the merchant, all of the flow can be instrumented on the front end and doesn't require new server-side resources. 
 
 Apart from a PayID Discovery compliant PayID Server, The PayID Easy Checkout Protocol does not require server-side 
 software to be run by either the customer or merchant for a payment. The PayID server is capable of providing details 
@@ -321,9 +321,9 @@ accepts payments using the PayID pay$merchant.com, and the customer controls the
 
 ### PayID Easy Checkout Initiation
 In this example, the customer might place some items in an online shopping cart on the merchant's web-site, then choose
-to checkout.  The merchant UI would then render a form asking for the customer's PayID, as well as a "Checkout with PayID"
-button.  Once the customer inputs their PayID alice$wallet.com and clicks the "Checkout with PayID" button, the merchant
-UI begins the PayID Easy Checkout flow.
+to checkout.  The merchant would then render a form asking for the customer's PayID, as well as a "Checkout with PayID"
+button.  Once the customer inputs their PayID `alice$wallet.com` and clicks the "Checkout with PayID" button, the merchant
+begins the PayID Easy Checkout flow.
 
 ### PayID Easy Checkout Wallet Discovery
 The merchant UI would first assemble the PayID Discovery URL as defined in section 4.1.1 of [PAYID-DISCOVERY][],
