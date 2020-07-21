@@ -103,7 +103,7 @@ as an online merchant UI, and a sending client, such as a wallet.
 The protocol is comprised of two parts:
 
 1. PayID Easy Checkout Discovery
-2. Assembly of PayID Easy Checkout URL
+2. PayID Easy Checkout URL Assembly
 
 The result of the protocol is a URL, which can be used by clients to complete a payment with minimal user interaction.
 However, the PayID Easy Checkout protocol does not define how a PayID Easy Checkout URL can or should be used. Instead,
