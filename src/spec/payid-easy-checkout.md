@@ -83,7 +83,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 # Introduction
 
-The PayID Easy Checkout Protocol is a minimal protocol designed to provide a standard method for online merchants to
+The PayID Easy Checkout Protocol is a minimal protocol that allows an online merchant to
 request a payment from a customer using only the customer's PayID. Implementations
 of the protocol should require little to no server-side engineering efforts, while creating an improved and uniform
 user experience for customers.
