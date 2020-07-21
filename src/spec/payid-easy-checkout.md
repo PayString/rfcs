@@ -325,6 +325,22 @@ One query parameter of note is the "nextUrl" parameter, which allows the merchan
 for the sender's wallet to call once the payer has confirmed the payment. In this example, the merchant would like 
 to display a "Thank You" page, and replaces `{nextUrl}` with `https://merchant.com/thankyou`.
 
+#### Correlating a Payment to an Invoice
+Merchants and non-profits will often times need to correlate discrete layer 1 payments to invoice or transaction entities
+in the merchants' native systems. The merchant in this example may have an invoice tracking system, on which an invoice
+gets created for the goods that the payer is buying with a unique identifier of `1045464`. A common practice for correlating
+layer 1 payments to a specific transaction or invoice is to accept payments on a different layer 1 address for each invoice
+so that the merchant can listen for payments into that address and tie the payment to the invoice.  However, because
+the PayID Easy Checkout URL only provides the receiver's PayID, there is currently no way to associate the address that
+is given to the payer to the invoice.
+
+In order to accomplish this, a merchant could provide a unique PayID containing the invoice identifier 
+for each PayID Easy Checkout transaction. In this example, the merchant would first associate a payment address with the
+invoice ID, and would then redirect the payer to their wallet with the `receiverPayID` query parameter set to `pay-1045464$merchant.com`.
+When the merchant PayID server receives a query for the address associated with that PayID, they could return the previously
+stored payment address. When the merchant receives a payment to that address, they can then associate the layer 1 payment
+with the invoice.
+
 ### Redirect Payer to Their Wallet
 Once the merchant UI populates the required query parameters in the URL template, the merchant UI redirects the payer to 
 the Redirect URL so that the payer can confirm the payment.
