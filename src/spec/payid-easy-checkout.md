@@ -320,7 +320,7 @@ This section shows a non-normative example of PayID Easy Checkout between a hypo
 accepts payments using the PayID pay$merchant.com, and the customer controls the PayID alice$wallet.com.
 
 ### PayID Easy Checkout Initiation
-In this example, the customer might place some items in an online shopping cart on the merchant's UI, then choose
+In this example, the customer might place some items in an online shopping cart on the merchant's web-site, then choose
 to checkout.  The merchant UI would then render a form asking for the customer's PayID, as well as a "Checkout with PayID"
 button.  Once the customer inputs their PayID alice$wallet.com and clicks the "Checkout with PayID" button, the merchant
 UI begins the PayID Easy Checkout flow.
