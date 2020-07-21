@@ -76,7 +76,7 @@ This protocol can be referred to as the `PayId Easy Checkout Protocol`. It uses 
 * PayID server: the endpoint that returns payment account(s) information, which conforms to the PayID Protocol.
 * Merchant: Individual or entity receiving a payment (e.g., e-commerce merchant, charity).
 * Customer: Individual or entity originating a payment to a `merchant`.
-* wallet: the holder of funds for the `sender` (may or may not be custodied).
+* Wallet: A device or application that holds funds (may be a non-custodial wallet).
 * Redirect URL: The URL that is the result of the PayID Easy Checkout protocol, and which can be used to redirect a client to a wallet corresponding to a particular PayID.
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC2119][] and [RFC9174][].
