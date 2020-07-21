@@ -77,7 +77,6 @@ This protocol can be referred to as the `PayId Easy Checkout Protocol`. It uses 
 * Merchant: Individual or entity receiving a payment (e.g., e-commerce merchant, charity).
 * Payer: Individual or entity originating a payment to a `merchant`.
 * Wallet: A device or application that holds funds (may be a non-custodial wallet).
-* PayID Easy Checkout URI Template: The URI Template that is the result of PayID Easy Checkout Discovery 
 * PayID Easy Checkout URL: The URL that is the result of the PayID Easy Checkout protocol; can be used to redirect a client to a wallet corresponding to a particular PayID.
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC2119][] and [RFC9174][].
@@ -90,8 +89,8 @@ of the protocol should require little to no server-side engineering efforts, whi
 user experience for payers.
 
 The main focus of the Protocol is on PayID Easy Checkout Discovery, which defines how a PayID client can use a PayID
-to retrieve a PayID Easy Checkout URI Template which, when expanded, constitutes a PayID Easy Checkout URL 
-representing a resource that the payer's digital wallet can use to initiate a payment to the merchant. 
+to retrieve a PayID Easy Checkout URL which represents a resource that the payer's digital wallet can use to initiate 
+a payment to the merchant. 
 
 Though section (TODO: link to appendix example usage section) of this specification provides an example usage of a 
 PayID Easy Checkout URL using Web Redirects, supplemental RFCs are needed to define the different ways in which a PayID
@@ -106,22 +105,20 @@ The protocol is comprised of two parts:
 1. PayID Easy Checkout Discovery
 2. PayID Easy Checkout URL Assembly
 
-The result of the protocol is a URL, which can be used by sending clients to complete a payment.
-
 ## PayID Easy Checkout Discovery
 PayID Easy Checkout extends [PAYID-DISCOVERY][] by defining a new link in the PayID metadata JRD
 returned by a PayID Discovery query. This link, defined in section (TODO: link to jrd section) 
-of this specification, includes the PayID Easy Checkout URI Template representing a resource on the wallet which can
+of this specification, includes the PayID Easy Checkout URL representing a resource on the wallet which can
 be used to complete a payment.
 
 E-commerce merchants who wish to initiate an Easy Checkout flow MUST query the sender's PayID Discovery server to 
-obtain a PayID Easy Checkout URI Template. Digital wallets and PayID server operators who wish to enable PayID Easy
+obtain a PayID Easy Checkout URL. Digital wallets and PayID server operators who wish to enable PayID Easy
 Checkout MUST include a JRD Link conforming to the definition in section (TODO: link to jrd section) of this paper 
 in all PayID Easy Checkout Discovery responses.
 
 E-commerce merchants SHOULD implement fallback measures to complete a checkout flow if a user's wallet does not support PayID Easy Checkout.
 
-The following steps describe how a PayID client can query a PayID server to obtain a PayID Easy Checkout URI Template. 
+The following steps describe how a PayID client can query a PayID server to obtain a PayID Easy Checkout URL. 
 
 ### Step 1: Assemble PayID Easy Checkout Discovery URL
 The process of assembling a PayID Discovery URL is defined in section 4.1.1 of [PAYID-DISCOVERY][], and is
@@ -145,7 +142,7 @@ For example, a PayID server might respond to a PayID Easy Checkout Discovery que
         "links": [
             {
                 "rel" : "https://payid.org/ns/payid-easy-checkout/1.0",
-                "template": "https://wallet.com/checkout?amount={amount}&receiverPayId={receiverPayId}&currency={currency}&nextUrl={nextUrl}"
+                "href": "https://wallet.com/checkout"
             }
         ]
      }
@@ -153,40 +150,39 @@ For example, a PayID server might respond to a PayID Easy Checkout Discovery que
 The receiver PayID Discovery client must parse this response to find the PayID Easy Checkout Link. 
 If the JRD returned from the PayID Easy Checkout Discovery query does not contain a 
 PayID Easy Checkout Link in its 'links' collection, PayID Easy Checkout is considered to have failed.
-Once a PayID Easy Checkout URI Template has been obtained from the PayID Easy Checkout Link by the PayID client, 
+Once a PayID Easy Checkout URL has been obtained from the PayID Easy Checkout Link by the PayID client, 
 PayID Easy Checkout Discovery is considered to be complete. 
 
-### Template Syntax
-This specification defines a simple template syntax for PayID Easy Checkout URI Template
-transformation.  A template is a string containing brace-enclosed
-("{}") variable names marking the parts of the string that are to be
-substituted by the corresponding variable values.
+## PayID Easy Checkout URL Assembly
+The PayID Easy Checkout URL resulting from PayID Easy Checkout Discovery represents the resource on the wallet that can
+be used to complete a payment. However, before directing a payer to their sending client, the PayID Easy Checkout client 
+MUST append all of the query parameters defined in section (TODO: link to section).
 
-This specification defines several variables, which MAY or MAY NOT be present in every PayID Easy Checkout URI Template.
-These variables are as follows:
+The PayID Easy Checkout URL SHOULD be parsed by the wallet client to retrieve the values set by the recipient client. 
+It is RECOMMENDED that wallet clients use these values to pre-populate a payment transaction.
+
+### PayID Easy Checkout URL Query Parameters
+This specification defines several query parameter names and corresponding datatypes which MUST be added to the
+PayID Easy Checkout URL before redirecting a payer to their wallet client.
     
-    'amount': The amount that should be sent by the sender to the receiver
-    'receiverPayID': The PayID URI of the receiver
-    'assetCode': The ISO-4217 currency code that the sender should send
-    'paymentNetwork': The payment network, as defined in [PAYID-PROTOCOL][], that the sender should send payment over.
-    'nextURL': A URL that the sender's wallet can use after completing the payment
+    +----------------+------------------+----------------------------------------------------------------------+
+    | Name           | Type             | Description                                                          |
+    +----------------+------------------+----------------------------------------------------------------------+
+    | amount         | integer          | The amount that should be sent by the sender to the receiver         |
+    | receiverPayID  | string           | The PayID URI of the receiver                                        |
+    | assetCode      | string           | The ISO-4217 currency code that the sender should send               |
+    | assetScale     | short            | Defines how many units make up one regular unit of the assetCode     |
+    | paymentNetwork | string           | The payment network, as defined in [PAYID-PROTOCOL][], that the      | 
+    |                |                  | sender should send payment over.                                     |
+    | nextUrl        | HTTP Url string  | A URL that the sender's wallet can use after completing the payment  |
+    +----------------+------------------+----------------------------------------------------------------------+
     
-When substituting values into a URI 'path' or 'query' part as defined by
-[RFC3986][], values with characters outside the character set allowed by paths or query parameters in [RFC3986][], 
-respectively, MUST be percent or otherwise encoded.
+When adding values into a URI 'query' part as defined by
+[RFC3986][], values with characters outside the character set allowed by query parameters in [RFC3986][]
+MUST be percent or otherwise encoded.
 
-Protocols MAY define additional variables and syntax rules, but MUST NOT
-change the meaning of the variables specified in this document. If a client is unable to
-successfully process a template (e.g., unknown variable names, unknown or
-incompatible syntax), the link SHOULD be ignored.
-
-The template syntax ABNF is as follows:
-
-    uri-char     =  ( reserved / unreserved / pct-encoded )
-    var-char     =  ALPHA / DIGIT / "." / "_"
-    var-name     =  %x61.63.63.74.70.61.72.74 / ( 1*var-char )
-    variable     =  "{" var-name "}"
-    PAYID-EASY-CHECKOUT-URI-Template =  *( uri-char / variable )
+Protocols MAY define additional query parameter names and syntax rules, but MUST NOT
+change the meaning of the variables specified in this document.
 
 For example:
 
@@ -196,26 +192,8 @@ For example:
               currency=XRP
               network=XRPL
               nextUrl=https://merchant.com/thankyou
-    Template: https://wallet.com/checkout?amount={amount}&receiverPayId={receiverPayID}&currency={currency}&network={network}&nextUrl={nextURL}
-    Output:   https://wallet.com/checkout?amount=10&receiverPayId=payid%2Apay%24merchant.com&currency=XRP&network=XRPL&nextUrl=https://merchant.com/thankyou
-
-TODO: Should we define acceptable URL template variable values for the redirect?
-
-## PayID Easy Checkout URL Assembly
-The PayID Easy Checkout URL is constructed by expanding the PayID Easy Checkout URI Template as defined in section 3 of
-[RFC6570][] buy applying values corresponding to the variables specified in
-section (TODO: link to template section) to the Template.
-
-The PayID Checkout URI template MAY not contain the complete set of variables specified in section (TODO link section) 
-of this document.  However, PayID Easy Checkout clients MUST replace each variable present in the URI Template with a value. 
-PayID Easy Checkout clients MAY replace URI Template values with an empty string, however it is RECOMMENDED that each
-variable be replaced with a non-empty value.
-
-The result of expanding the PayID Easy Checkout URI Template is a PayID Easy Checkout URL.
-This URL SHOULD represent a resource that the payer can use to complete a payment. As previously stated, the
-ways in which the payer and merchant use that resource is outside the scope of this protocol.
-The PayID Easy Checkout URL SHOULD be parsed to retrieve the values set by the recipient client. It is RECOMMENDED
-that wallet UIs use these values to pre-populate a payment transaction.
+    PayID Easy Checkout URL: https://wallet.com/checkout
+    Output:   https://wallet.com/checkout?amount=100000&receiverPayId=payid%2Apay%24merchant.com&assetCode=XRP&assetScale=6&paymentNetwork=XRPL&nextUrl=https://merchant.com/thankyou
 
 # PayID Easy Checkout JRDs
 This section defines the PayID Easy Checkout Link, which conforms to section 4.4 of the
@@ -223,16 +201,16 @@ Webfinger RFC.  In order for a PayID server to enable PayID Easy Checkout, a Pay
 MUST return a JRD containing a PayID Easy Checkout Link.
 
 The Link MUST include the Link Relation Type of section (TODO: link to link type section) in the object's 'rel' field.
-The Link MUST also include a PayID Easy Checkout URI Template in the 'template' field of the link.
+The Link MUST also include a PayID Easy Checkout URL in the 'href' field of the link.
 
     * 'rel': `https://payid.org/ns/payid-easy-checkout-uri/1.0`
-    * 'template': A PayID Easy Checkout URI Template
+    * 'href': A PayID Easy Checkout URL
 
-The following is an example of a PayID Easy Checkout Link that indicates a PayID Easy Checkout URI Template:
+The following is an example of a PayID Easy Checkout Link that indicates a PayID Easy Checkout URL:
 
     {
         "rel": "https://payid.org/ns/payid-easy-checkout-uri/1.0",
-        "template": https://wallet.com/checkout?amount={amount}&receiverPayId={receiverPayID}&currency={currency}&network={network}&nextUrl={nextURL}
+        "href": "https://wallet.com/checkout"
     }
 
 # Security Considerations
@@ -247,7 +225,7 @@ When a payer uses the resource located at the PayID Easy Checkout URL, a hijacke
 the data encoded in the URL to trick the sender into sending a payment to a different PayID than was originally
 requested, or manipulate other points of PayID Easy Checkout data to trick the sender. 
 
-Additionally, if a hijacker gained access to the merchant client, they could replace the PayID Easy Checkout URI Template 
+Additionally, if a hijacker gained access to the merchant client, they could replace the PayID Easy Checkout URL
 for the purposes of a phishing attack.
 
 Current work on the PayID Protocol and its extensions may prove useful in mitigating these risks. 
@@ -257,7 +235,7 @@ As with all web resources, access to the PayID Discovery resource could
 require authentication. See section 6 of [RFC7033][] for Access Control
 considerations.
 
-Furthermore, it is RECOMMENDED that PayID servers only expose PayID Easy Checkout URI Templates
+Furthermore, it is RECOMMENDED that PayID servers only expose PayID Easy Checkout URLs
 which resolve to a protected resource.  
 
 # IANA Considerations
@@ -265,13 +243,11 @@ which resolve to a protected resource.
   This document defines the following Link relation type per [RFC7033][].
   See section 3 for examples of each type of Link.
   
-  ### PayID Discovery URI Template
+  ### PayID Easy Checkout URL
   
-    * Relation Type ('rel'): `https://payid.org/ns/payid-easy-checkout-uri/1.0`
+    * Relation Type ('rel'): `https://payid.org/ns/payid-easy-checkout/1.0`
     * Media Type: `application/jrd+json`
-    * Description: PayID Discovery URI Template, version 1.0
-
-
+    * Description: PayID Easy Checkout URL, version 1.0
 
 # Acknowledgments
 
@@ -316,9 +292,9 @@ button.  Once the payer inputs their PayID `alice$wallet.com` and clicks the "Ch
 begins the PayID Easy Checkout flow.
 
 ### PayID Easy Checkout Wallet Discovery
-The merchant UI would first assemble the PayID Discovery URL as defined in section 4.1.1 of [PAYID-DISCOVERY][],
+The merchant UI would first assemble the PayID Easy Checkout URL as defined in (TODO: link to section),
 yielding the URL `https://wallet.com/.well-known/webfinger?resource=payid%3Aalice%24wallet.com`. 
-The merchant UI would then query the assembled URL as defined in section 4.1.2 of [PAYID-DISCOVERY][].
+The merchant UI would then query the assembled URL as defined in (TODO: link to section).
 
 The HTTP request in this example would look like this:
     
@@ -337,19 +313,18 @@ If the payer's PayID server has enabled PayID Easy Checkout in their wallet, the
        [
          {  
            "rel": "https://payid.org/ns/payid-easy-checkout/1.0",
-           "template": "https://wallet.com/checkout?amount={amount}&receiverPayId={receiverPayId}&currency={currency}&nextUrl={nextUrl}"
+           "template": "https://wallet.com/checkout"
          }
        ]
      }
 
-### Expand Wallet Discovery URL Template
-The merchant UI would parse the PayID Discovery response and iterate over the "links" collection to find the link with 
-the Relation Type of "https://payid.org/ns/payid-easy-checkout/1.0". The UI can then do a search and replace on
-the "template" field value in the link, replacing all occurrences of the predefined query parameter template names with 
-the values they want to send to the payer's wallet. One query parameter of note is the "nextUrl" parameter, which
-allows the merchant to supply a redirect or callback URL for the sender's wallet to call once the payer has confirmed
-the payment. In this example, the merchant would like to display a "Thank You" page, and replaces `{nextUrl}` 
-with `https://merchant.com/thankyou`.
+### Assemble PayID Easy Checkout URL with Query Parameters
+The merchant UI would parse the PayID Discovery response and iterate over the 'links' collection to find the link with 
+the Relation Type of "https://payid.org/ns/payid-easy-checkout/1.0". The merchant UI would then add all of the query
+parameters defined in section (TODO: link to query params section) to the URL included in the JRD Link. 
+One query parameter of note is the "nextUrl" parameter, which allows the merchant to supply a redirect or callback URL 
+for the sender's wallet to call once the payer has confirmed the payment. In this example, the merchant would like 
+to display a "Thank You" page, and replaces `{nextUrl}` with `https://merchant.com/thankyou`.
 
 ### Redirect Payer to Their Wallet
 Once the merchant UI populates the required query parameters in the URL template, the merchant UI redirects the payer to 
