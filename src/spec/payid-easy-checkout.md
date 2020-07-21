@@ -165,17 +165,15 @@ It is RECOMMENDED that wallet clients use these values to pre-populate a payment
 This specification defines several query parameter names and corresponding datatypes which MUST be added to the
 PayID Easy Checkout URL before redirecting a payer to their wallet client.
     
-    +----------------+------------------+----------------------------------------------------------------------+
-    | Name           | Type             | Description                                                          |
-    +----------------+------------------+----------------------------------------------------------------------+
-    | amount         | integer          | The amount that should be sent by the sender to the receiver         |
-    | receiverPayID  | string           | The PayID URI of the receiver                                        |
-    | assetCode      | string           | The ISO-4217 currency code that the sender should send               |
-    | assetScale     | short            | Defines how many units make up one regular unit of the assetCode     |
-    | paymentNetwork | string           | The payment network, as defined in [PAYID-PROTOCOL][], that the      | 
-    |                |                  | sender should send payment over.                                     |
-    | nextUrl        | HTTP Url string  | A URL that the sender's wallet can use after completing the payment  |
-    +----------------+------------------+----------------------------------------------------------------------+
+| Name           | Type             | Description                                                          |
+|----------------|------------------|----------------------------------------------------------------------|
+| amount         | integer          | The amount that should be sent by the sender to the receiver         |
+| receiverPayID  | string           | The PayID URI of the receiver                                        |
+| assetCode      | string           | The ISO-4217 currency code that the sender should send               |
+| assetScale     | short            | Defines how many units make up one regular unit of the assetCode     |
+| paymentNetwork | string           | The payment network, as defined in [PAYID-PROTOCOL][], that the sender should send payment over. |
+| nextUrl        | HTTP Url string  | A URL that the sender's wallet can use after completing the payment  |
+|----------------|------------------|----------------------------------------------------------------------|
     
 When adding values into a URI 'query' part as defined by
 [RFC3986][], values with characters outside the character set allowed by query parameters in [RFC3986][]
@@ -187,9 +185,10 @@ change the meaning of the variables specified in this document.
 For example:
 
     Input:    alice$wallet.com
-              amount = 10
+              amount=10
               receiverPayID=pay$merchant.com
-              currency=XRP
+              assetCode=XRP
+              assetScale=6
               network=XRPL
               nextUrl=https://merchant.com/thankyou
     PayID Easy Checkout URL: https://wallet.com/checkout
