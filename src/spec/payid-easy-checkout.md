@@ -74,7 +74,7 @@ This protocol can be referred to as the `PayId Easy Checkout Protocol`. It uses 
    
 * PayID client: a client that queries a PayID server using the PayID Protocol as defined in [PAYID-PROTOCOL][].
 * PayID server: the endpoint that returns payment account(s) information, which conforms to the PayID Protocol.
-* merchant: individual or entity receiving the payment (ie e-commerce merchant, charity).
+* Merchant: Individual or entity receiving a payment (e.g., e-commerce merchant, charity).
 * customer: individual or entity originating the payment to the `merchant`.
 * wallet: the holder of funds for the `sender` (may or may not be custodied).
 * Redirect URL: The URL that is the result of the PayID Easy Checkout protocol, and which can be used to redirect a client to a wallet corresponding to a particular PayID.
