@@ -112,7 +112,7 @@ of this specification, includes the PayID Easy Checkout URL representing a resou
 be used to complete a payment.
 
 Payment receivers who wish to initiate an Easy Checkout flow MUST query the sender's PayID Discovery server to 
-obtain a PayID Easy Checkout URL. Digital wallets and PayID server operators who wish to enable PayID Easy
+obtain a PayID Easy Checkout URL. PayID servers that wish to enable PayID Easy
 Checkout MUST include a JRD Link conforming to the definition in the [JRD section](#payid-easy-checkout-jrds) of this paper 
 in all PayID Easy Checkout Discovery responses.
 
