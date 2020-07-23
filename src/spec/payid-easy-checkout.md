@@ -116,7 +116,7 @@ obtain a PayID Easy Checkout URL. Digital wallets and PayID server operators who
 Checkout MUST include a JRD Link conforming to the definition in the [JRD section](#payid-easy-checkout-jrds) of this paper 
 in all PayID Easy Checkout Discovery responses.
 
-E-commerce merchants SHOULD implement fallback measures to complete a checkout flow if a user's wallet does not support PayID Easy Checkout.
+Payment receivers SHOULD implement fallback measures to complete a checkout flow if a user's wallet does not support PayID Easy Checkout.
 
 The following steps describe how a PayID client can query a PayID server to obtain a PayID Easy Checkout URL. 
 
