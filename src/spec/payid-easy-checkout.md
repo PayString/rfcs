@@ -157,12 +157,13 @@ A PayID Easy Checkout URL represents the resource on a wallet that can
 be used by a sender to complete a payment. However, before directing a payer to their sending client, the payment receiver
 MUST append all of the query parameters defined in the [following section](#payid-easy-checkout-url-query-parameters).
 
-The PayID Easy Checkout URL SHOULD be parsed by the wallet in order to retrieve any values set by the payment recipient. 
-It is RECOMMENDED that wallets use these values to pre-populate a payment transaction.
+Once a PayID Easy Checkout URL is assembled, PayID Easy Checkout is considered to be complete.
 
 ### PayID Easy Checkout URL Query Parameters
 This specification defines several query parameter names and corresponding datatypes which MUST be added to the
-PayID Easy Checkout URL before redirecting a payer to their wallet client.
+PayID Easy Checkout URL before redirecting a payer to their wallet client. The PayID Easy Checkout URL SHOULD be parsed 
+by the wallet in order to retrieve any values set by the payment recipient. It is RECOMMENDED that wallets use these 
+values to pre-populate a payment transaction.
     
 | Name           | Type             | Description                                                          |
 |----------------|------------------|----------------------------------------------------------------------|
