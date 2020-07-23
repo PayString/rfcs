@@ -5,7 +5,7 @@
 Network Working Group                                          N. Kramer
 Internet-Draft                                                I. Simpson
 Intended status: Standards Track                                  Ripple
-Expires: January 22, 2021                                  July 21, 2020
+Expires: January 24, 2021                                  July 23, 2020
 
 
                  Draft 1 - PayID Easy Checkout Protocol
@@ -39,7 +39,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on January 22, 2021.
+   This Internet-Draft will expire on January 24, 2021.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Kramer & Simpson        Expires January 22, 2021                [Page 1]
+Kramer & Simpson        Expires January 24, 2021                [Page 1]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
@@ -75,15 +75,15 @@ Table of Contents
        3.1.3.  Step 3: Parse PayID Easy Checkout Metadata  . . . . .   4
      3.2.  PayID Easy Checkout URL Assembly  . . . . . . . . . . . .   5
        3.2.1.  PayID Easy Checkout URL Query Parameters  . . . . . .   5
-   4.  PayID Easy Checkout JRDs  . . . . . . . . . . . . . . . . . .   6
+   4.  PayID Easy Checkout JRDs  . . . . . . . . . . . . . . . . . .   7
    5.  Security Considerations . . . . . . . . . . . . . . . . . . .   7
      5.1.  PayID Easy Checkout Redirection URI Manipulation  . . . .   7
-     5.2.  Access Control  . . . . . . . . . . . . . . . . . . . . .   7
+     5.2.  Access Control  . . . . . . . . . . . . . . . . . . . . .   8
    6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   8
    7.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .   8
    8.  Appendix  . . . . . . . . . . . . . . . . . . . . . . . . . .   8
      8.1.  Motivation  . . . . . . . . . . . . . . . . . . . . . . .   8
-       8.1.1.  Design Goals  . . . . . . . . . . . . . . . . . . . .   8
+       8.1.1.  Design Goals  . . . . . . . . . . . . . . . . . . . .   9
      8.2.  Example Usage . . . . . . . . . . . . . . . . . . . . . .   9
        8.2.1.  PayID Easy Checkout Initiation  . . . . . . . . . . .   9
        8.2.2.  PayID Easy Checkout Wallet Discovery  . . . . . . . .   9
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Kramer & Simpson        Expires January 22, 2021                [Page 2]
+Kramer & Simpson        Expires January 24, 2021                [Page 2]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
@@ -117,10 +117,11 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
    o  PayID server: the endpoint that returns payment account(s)
       information, which conforms to the PayID Protocol.
 
-   o  Merchant: Individual or entity receiving a payment (e.g.,
+   o  Recipient: Individual or entity receiving a payment (e.g.,
       e-commerce merchant, charity).
 
-   o  Payer: Individual or entity originating a payment to a "merchant".
+   o  Payer: Individual or entity originating a payment to a
+      "recipient".
 
    o  Wallet: A device or application that holds funds (may be a non-
       custodial wallet).
@@ -136,11 +137,12 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 2.  Introduction
 
-   The PayID Easy Checkout Protocol is a minimal protocol that allows an
-   online merchant to request a payment from a payer using only the
-   payer's PayID.  Implementations of the protocol should require little
-   to no server-side engineering efforts, while creating an improved and
-   uniform user experience for payers.
+   The PayID Easy Checkout Protocol is a minimal protocol that allows a
+   recipient (e.g., an online merchant or a charity) to request a
+   payment from a payer using only the payer's PayID.  Implementations
+   of the protocol should require little to no server-side engineering
+   efforts, while creating an improved and uniform user experience for
+   payers.
 
    The main focus of the Protocol is on PayID Easy Checkout Discovery,
    which defines how a PayID client can use a PayID to retrieve a PayID
@@ -155,39 +157,39 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 3.  PayID Easy Checkout Protocol
 
    The PayID Easy Checkout Protocol can be used to facilitate an end-to-
-   end checkout flow between a recipient client, such as an online
-   merchant UI, and a sending client, such as a wallet.
+   end checkout flow between a payment recipient, such as an online
+   merchant, and a sending client, such as a wallet.
 
    The protocol is comprised of two parts:
 
-   1.  PayID Easy Checkout Discovery
 
 
 
-
-Kramer & Simpson        Expires January 22, 2021                [Page 3]
+Kramer & Simpson        Expires January 24, 2021                [Page 3]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
+
+   1.  PayID Easy Checkout Discovery
 
    2.  PayID Easy Checkout URL Assembly
 
 3.1.  PayID Easy Checkout Discovery
 
-   PayID Easy Checkout extends [PAYID-DISCOVERY] by defining a new link
-   in the PayID metadata JRD returned by a PayID Discovery query.  This
-   link, defined in the JRD section (Section 4) of this specification,
-   includes the PayID Easy Checkout URL representing a resource on the
-   wallet which can be used to complete a payment.
+   PayID Easy Checkout Discovery extends [PAYID-DISCOVERY] by defining a
+   new link in the PayID metadata JRD returned by a PayID Discovery
+   query.  This link, defined in the JRD section (Section 4) of this
+   specification, includes the PayID Easy Checkout URL representing a
+   resource on the wallet which can be used to complete a payment.
 
-   E-commerce merchants who wish to initiate an Easy Checkout flow MUST
+   Payment receivers who wish to initiate an Easy Checkout flow MUST
    query the sender's PayID Discovery server to obtain a PayID Easy
-   Checkout URL.  Digital wallets and PayID server operators who wish to
-   enable PayID Easy Checkout MUST include a JRD Link conforming to the
-   definition in the JRD section (Section 4) of this paper in all PayID
-   Easy Checkout Discovery responses.
+   Checkout URL.  PayID servers that wish to enable PayID Easy Checkout
+   MUST include a JRD Link conforming to the definition in the JRD
+   section (Section 4) of this paper in all PayID Easy Checkout
+   Discovery responses.
 
-   E-commerce merchants SHOULD implement fallback measures to complete a
+   Payment receivers SHOULD implement fallback measures to complete a
    checkout flow if a user's wallet does not support PayID Easy
    Checkout.
 
@@ -197,31 +199,29 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 3.1.1.  Step 1: Assemble PayID Easy Checkout Discovery URL
 
    The process of assembling a PayID Discovery URL is defined in section
-   4.1.1 of [PAYID-DISCOVERY], and is the same as for PayID Easy
-   Checkout Discovery.
+   4.1.1 of [PAYID-DISCOVERY], and is the same as for this protocol.
 
 3.1.2.  Step 2: Query PayID Easy Checkout Discovery URL
 
    Querying the PayID Discovery URL is defined in section 4.1.2 of
-   [PAYID-DISCOVERY], and is performed in the same way for the PayID
-   Easy Checkout Discovery URL.
+   [PAYID-DISCOVERY], and is performed in the same way as this protocol.
 
    Clients SHOULD implement fallback measures to complete checkout if
    the PayID Easy Checkout Discovery query fails.
 
 3.1.3.  Step 3: Parse PayID Easy Checkout Metadata
 
-   If a wallet supports PayID Easy Checkout, the PayID server MUST
-   respond with a HTTP status code 200 and a JSON payload containing a
-   JSON Resource Descriptor (JRD) containing a link conforming to the
-   JRD section (Section 4) of this paper.
+   If PayID Easy Checkout is supported, a PayID Discovery server MUST
+   respond with an HTTP status code "200" and a JSON payload containing
+   a JSON Resource Descriptor (JRD) that contains a link conforming to
+   the JRD section (Section 4) of this document.
 
-   For example, a PayID server might respond to a PayID Easy Checkout
-   Discovery query with the following payload:
+   For example, a PayID server might respond to a PayID Discovery query
+   with the following payload:
 
 
 
-Kramer & Simpson        Expires January 22, 2021                [Page 4]
+Kramer & Simpson        Expires January 24, 2021                [Page 4]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
@@ -236,32 +236,33 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
        ]
     }
 
-   The receiver PayID Discovery client must parse this response to find
-   the PayID Easy Checkout Link.  If the JRD returned from the PayID
-   Easy Checkout Discovery query does not contain a PayID Easy Checkout
-   Link in its 'links' collection, PayID Easy Checkout is considered to
-   have failed.  Once a PayID Easy Checkout URL has been obtained from
-   the PayID Easy Checkout Link by the PayID client, PayID Easy Checkout
-   Discovery is considered to be complete.
+   A PayID Discovery client MUST parse this response to find the PayID
+   Easy Checkout Link.  If the JRD returned from the PayID Discovery
+   query does not contain a PayID Easy Checkout Link in its 'links'
+   collection, PayID Easy Checkout is considered to have failed.  Once a
+   PayID Easy Checkout URL has been obtained from the PayID Easy
+   Checkout Link, PayID Easy Checkout Discovery is considered to be
+   complete.
 
 3.2.  PayID Easy Checkout URL Assembly
 
-   The PayID Easy Checkout URL resulting from PayID Easy Checkout
-   Discovery represents the resource on the wallet that can be used to
-   complete a payment.  However, before directing a payer to their
-   sending client, the PayID Easy Checkout client MUST append all of the
-   query parameters defined in the following section (Section 3.2.1).
+   A PayID Easy Checkout URL represents the resource on a wallet that
+   can be used by a sender to complete a payment.  However, before
+   directing a payer to their sending client, the payment receiver MUST
+   append all of the query parameters defined in the following section
+   (Section 3.2.1).
 
-   The PayID Easy Checkout URL SHOULD be parsed by the wallet client to
-   retrieve the values set by the recipient client.  It is RECOMMENDED
-   that wallet clients use these values to pre-populate a payment
-   transaction.
+   Once a PayID Easy Checkout URL is assembled, PayID Easy Checkout is
+   considered to be complete.
 
 3.2.1.  PayID Easy Checkout URL Query Parameters
 
    This specification defines several query parameter names and
    corresponding datatypes which MUST be added to the PayID Easy
-   Checkout URL before redirecting a payer to their wallet client.
+   Checkout URL before redirecting a payer to their wallet client.  The
+   PayID Easy Checkout URL SHOULD be parsed by the wallet in order to
+   retrieve any values set by the payment recipient.  It is RECOMMENDED
+   that wallets use these values to pre-populate a payment transaction.
 
 
 
@@ -276,8 +277,7 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 
 
-
-Kramer & Simpson        Expires January 22, 2021                [Page 5]
+Kramer & Simpson        Expires January 24, 2021                [Page 5]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
@@ -288,21 +288,22 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
    | amount         | integer | The amount that should be sent by the  |
    |                |         | sender to the receiver                 |
    |                |         |                                        |
-   | receiverPayID  | string  | The PayID URI of the receiver          |
+   | receiverPayID  | string  | The (PayID URI)[PAYID-URI] of the      |
+   |                |         | receiver                               |
    |                |         |                                        |
-   | assetCode      | string  | The ISO-4217 currency code that the    |
-   |                |         | sender should send                     |
+   | assetCode      | string  | The ISO-4217 currency code that        |
+   |                |         | denominates the amount                 |
    |                |         |                                        |
    | assetScale     | short   | Defines how many units make up one     |
    |                |         | regular unit of the assetCode          |
    |                |         |                                        |
    | paymentNetwork | string  | The payment network, as defined in     |
    |                |         | [PAYID-PROTOCOL][], that the sender    |
-   |                |         | should send payment over.              |
+   |                |         | should use to send a payment.          |
    |                |         |                                        |
-   | nextUrl        | HTTP    | A URL that the sender's wallet can use |
-   |                | Url     | after completing the payment           |
-   |                | string  |                                        |
+   | nextUrl        | HTTP    | A URL that the sender's wallet can     |
+   |                | Url     | navigate a sender to after the sender  |
+   |                | string  | completes a payment                    |
    +----------------+---------+----------------------------------------+
 
    When adding values into a URI 'query' part as defined by [RFC3986][],
@@ -325,19 +326,22 @@ Input:    alice$wallet.com
 PayID Easy Checkout URL: https://wallet.com/checkout
 Output:   https://wallet.com/checkout?amount=100000&receiverPayId=payid%2Apay%24merchant.com&assetCode=XRP&assetScale=6&paymentNetwork=XRPL&nextUrl=https://merchant.com/thankyou
 
-4.  PayID Easy Checkout JRDs
-
-   This section defines the PayID Easy Checkout Link, which conforms to
-   section 4.4 of the Webfinger RFC.  In order for a PayID server to
 
 
 
 
-Kramer & Simpson        Expires January 22, 2021                [Page 6]
+
+
+
+Kramer & Simpson        Expires January 24, 2021                [Page 6]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 
+4.  PayID Easy Checkout JRDs
+
+   This section defines the PayID Easy Checkout Link, which conforms to
+   section 4.4 of the Webfinger RFC.  In order for a PayID server to
    enable PayID Easy Checkout, a PayID Discovery query to the server
    MUST return a JRD containing a PayID Easy Checkout Link.
 
@@ -349,8 +353,7 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
    * 'rel': `https://payid.org/ns/payid-easy-checkout-uri/1.0`
    * 'href': A PayID Easy Checkout URL
 
-   The following is an example of a PayID Easy Checkout Link that
-   indicates a PayID Easy Checkout URL:
+   The following is an example of a PayID Easy Checkout Link:
 
    {
        "rel": "https://payid.org/ns/payid-easy-checkout-uri/1.0",
@@ -380,19 +383,22 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
    Current work on the PayID Protocol and its extensions may prove
    useful in mitigating these risks.
 
+
+
+
+
+
+
+Kramer & Simpson        Expires January 24, 2021                [Page 7]
+
+Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
+
+
 5.2.  Access Control
 
    As with all web resources, access to the PayID Discovery resource
    could require authentication.  See section 6 of [RFC7033][] for
    Access Control considerations.
-
-
-
-
-Kramer & Simpson        Expires January 22, 2021                [Page 7]
-
-Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
-
 
    Furthermore, it is RECOMMENDED that PayID servers only expose PayID
    Easy Checkout URLs which resolve to a protected resource.
@@ -432,6 +438,18 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
    function as intended, which may aid in expanding overall adoption,
    further enhancing the protocol's user experience benefits.
 
+
+
+
+
+
+
+
+Kramer & Simpson        Expires January 24, 2021                [Page 8]
+
+Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
+
+
 8.1.1.  Design Goals
 
 8.1.1.1.  Minimal effort for the Payer
@@ -439,16 +457,6 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
    In order for a payer to checkout using the PayID Easy Checkout
    protocol, the payer only needs to provide a merchant with their PayID
    Easy Checkout enabled PayID.
-
-
-
-
-
-
-Kramer & Simpson        Expires January 22, 2021                [Page 8]
-
-Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
-
 
 8.1.1.2.  No New Server-Side Software
 
@@ -490,21 +498,16 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
    GET /.well-known/webfinger?resource=payid%3Aalice%24wallet.com
    Host: wallet.com
 
-   If the payer's PayID server has enabled PayID Easy Checkout in their
-   wallet, the server would respond with something like this:
 
 
 
-
-
-
-
-
-
-Kramer & Simpson        Expires January 22, 2021                [Page 9]
+Kramer & Simpson        Expires January 24, 2021                [Page 9]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
+
+   If the payer's PayID server has enabled PayID Easy Checkout in their
+   wallet, the server would respond with something like this:
 
     HTTP/1.1 200 OK
     Access-Control-Allow-Origin: *
@@ -550,18 +553,19 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
    currently no way to associate the address that is given to the payer
    to the invoice.
 
-   In order to accomplish this, a merchant could provide a unique PayID
-   containing the invoice identifier for each PayID Easy Checkout
-   transaction.  In this example, the merchant would first associate a
-   payment address with the invoice ID, and would then redirect the
 
 
 
-Kramer & Simpson        Expires January 22, 2021               [Page 10]
+
+Kramer & Simpson        Expires January 24, 2021               [Page 10]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 
+   In order to accomplish this, a merchant could provide a unique PayID
+   containing the invoice identifier for each PayID Easy Checkout
+   transaction.  In this example, the merchant would first associate a
+   payment address with the invoice ID, and would then redirect the
    payer to their wallet with the "receiverPayID" query parameter set to
    "pay-1045464$merchant.com".  When the merchant PayID server receives
    a query for the address associated with that PayID, they could return
@@ -607,16 +611,16 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
 
-   [RFC2818]  Rescorla, E., "HTTP Over TLS", RFC 2818,
-              DOI 10.17487/RFC2818, May 2000,
-              <https://www.rfc-editor.org/info/rfc2818>.
 
 
-
-Kramer & Simpson        Expires January 22, 2021               [Page 11]
+Kramer & Simpson        Expires January 24, 2021               [Page 11]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
+
+   [RFC2818]  Rescorla, E., "HTTP Over TLS", RFC 2818,
+              DOI 10.17487/RFC2818, May 2000,
+              <https://www.rfc-editor.org/info/rfc2818>.
 
    [RFC6265]  Barth, A., "HTTP State Management Mechanism", RFC 6265,
               DOI 10.17487/RFC6265, April 2011,
@@ -665,11 +669,7 @@ Authors' Addresses
 
 
 
-
-
-
-
-Kramer & Simpson        Expires January 22, 2021               [Page 12]
+Kramer & Simpson        Expires January 24, 2021               [Page 12]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
@@ -725,4 +725,4 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 
 
-Kramer & Simpson        Expires January 22, 2021               [Page 13]
+Kramer & Simpson        Expires January 24, 2021               [Page 13]

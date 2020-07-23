@@ -54,7 +54,7 @@
       </address>
     </author>
 
-    <date year="2020" month="July" day="21"/>
+    <date year="2020" month="July" day="23"/>
 
     <area>security</area>
     
@@ -92,8 +92,8 @@ initiate a payment from a payer using only the payer's PayID.</t>
 <t><list style="symbols">
   <t>PayID client: a client that queries a PayID server using the PayID Protocol as defined in [PAYID-PROTOCOL][].</t>
   <t>PayID server: the endpoint that returns payment account(s) information, which conforms to the PayID Protocol.</t>
-  <t>Merchant: Individual or entity receiving a payment (e.g., e-commerce merchant, charity).</t>
-  <t>Payer: Individual or entity originating a payment to a <spanx style="verb">merchant</spanx>.</t>
+  <t>Recipient: Individual or entity receiving a payment (e.g., e-commerce merchant, charity).</t>
+  <t>Payer: Individual or entity originating a payment to a <spanx style="verb">recipient</spanx>.</t>
   <t>Wallet: A device or application that holds funds (may be a non-custodial wallet).</t>
   <t>PayID Easy Checkout URL: The URL that is the result of the PayID Easy Checkout protocol; can be used to redirect a client to a wallet corresponding to a particular PayID.</t>
 </list></t>
@@ -103,7 +103,7 @@ initiate a payment from a payer using only the payer's PayID.</t>
 </section>
 <section anchor="introduction" title="Introduction">
 
-<t>The PayID Easy Checkout Protocol is a minimal protocol that allows an online merchant to
+<t>The PayID Easy Checkout Protocol is a minimal protocol that allows a recipient (e.g., an online merchant or a charity) to
 request a payment from a payer using only the payer's PayID. Implementations
 of the protocol should require little to no server-side engineering efforts, while creating an improved and uniform
 user experience for payers.</t>
@@ -118,8 +118,8 @@ client can utilize a PayID Easy Checkout URL.</t>
 
 </section>
 <section anchor="payid-easy-checkout-protocol" title="PayID Easy Checkout Protocol">
-<t>The PayID Easy Checkout Protocol can be used to facilitate an end-to-end checkout flow between a recipient client, such
-as an online merchant UI, and a sending client, such as a wallet.</t>
+<t>The PayID Easy Checkout Protocol can be used to facilitate an end-to-end checkout flow between a payment recipient, such
+as an online merchant, and a sending client, such as a wallet.</t>
 
 <t>The protocol is comprised of two parts:</t>
 
@@ -129,37 +129,37 @@ as an online merchant UI, and a sending client, such as a wallet.</t>
 </list></t>
 
 <section anchor="payid-easy-checkout-discovery" title="PayID Easy Checkout Discovery">
-<t>PayID Easy Checkout extends <xref target="PAYID-DISCOVERY"></xref> by defining a new link in the PayID metadata JRD
+<t>PayID Easy Checkout Discovery extends <xref target="PAYID-DISCOVERY"></xref> by defining a new link in the PayID metadata JRD
 returned by a PayID Discovery query. This link, defined in the <xref target="payid-easy-checkout-jrds">JRD section</xref> 
 of this specification, includes the PayID Easy Checkout URL representing a resource on the wallet which can
 be used to complete a payment.</t>
 
-<t>E-commerce merchants who wish to initiate an Easy Checkout flow MUST query the sender's PayID Discovery server to 
-obtain a PayID Easy Checkout URL. Digital wallets and PayID server operators who wish to enable PayID Easy
+<t>Payment receivers who wish to initiate an Easy Checkout flow MUST query the sender's PayID Discovery server to 
+obtain a PayID Easy Checkout URL. PayID servers that wish to enable PayID Easy
 Checkout MUST include a JRD Link conforming to the definition in the <xref target="payid-easy-checkout-jrds">JRD section</xref> of this paper 
 in all PayID Easy Checkout Discovery responses.</t>
 
-<t>E-commerce merchants SHOULD implement fallback measures to complete a checkout flow if a user's wallet does not support PayID Easy Checkout.</t>
+<t>Payment receivers SHOULD implement fallback measures to complete a checkout flow if a user's wallet does not support PayID Easy Checkout.</t>
 
 <t>The following steps describe how a PayID client can query a PayID server to obtain a PayID Easy Checkout URL.</t>
 
 <section anchor="step-1-assemble-payid-easy-checkout-discovery-url" title="Step 1: Assemble PayID Easy Checkout Discovery URL">
 <t>The process of assembling a PayID Discovery URL is defined in section 4.1.1 of <xref target="PAYID-DISCOVERY"></xref>, and is
-the same as for PayID Easy Checkout Discovery.</t>
+the same as for this protocol.</t>
 
 </section>
 <section anchor="step-2-query-payid-easy-checkout-discovery-url" title="Step 2: Query PayID Easy Checkout Discovery URL">
 <t>Querying the PayID Discovery URL is defined in section 4.1.2 of <xref target="PAYID-DISCOVERY"></xref>, and is performed
-in the same way for the PayID Easy Checkout Discovery URL.</t>
+in the same way as this protocol.</t>
 
 <t>Clients SHOULD implement fallback measures to complete checkout if the PayID Easy Checkout Discovery query fails.</t>
 
 </section>
 <section anchor="step-3-parse-payid-easy-checkout-metadata" title="Step 3: Parse PayID Easy Checkout Metadata">
-<t>If a wallet supports PayID Easy Checkout, the PayID server MUST respond with a HTTP status code 200 and a JSON payload
-containing a JSON Resource Descriptor (JRD) containing a link conforming to the <xref target="payid-easy-checkout-jrds">JRD section</xref> of this paper.</t>
+<t>If PayID Easy Checkout is supported, a PayID Discovery server MUST respond with an HTTP status code <spanx style="verb">200</spanx> and a JSON payload
+containing a JSON Resource Descriptor (JRD) that contains a link conforming to the <xref target="payid-easy-checkout-jrds">JRD section</xref> of this document.</t>
 
-<t>For example, a PayID server might respond to a PayID Easy Checkout Discovery query with the following payload:</t>
+<t>For example, a PayID server might respond to a PayID Discovery query with the following payload:</t>
 
 <figure><artwork><![CDATA[
  {
@@ -173,25 +173,26 @@ containing a JSON Resource Descriptor (JRD) containing a link conforming to the 
  }
 ]]></artwork></figure>
 
-<t>The receiver PayID Discovery client must parse this response to find the PayID Easy Checkout Link. 
-If the JRD returned from the PayID Easy Checkout Discovery query does not contain a 
+<t>A PayID Discovery client MUST parse this response to find the PayID Easy Checkout Link. 
+If the JRD returned from the PayID Discovery query does not contain a 
 PayID Easy Checkout Link in its 'links' collection, PayID Easy Checkout is considered to have failed.
-Once a PayID Easy Checkout URL has been obtained from the PayID Easy Checkout Link by the PayID client, 
+Once a PayID Easy Checkout URL has been obtained from the PayID Easy Checkout Link, 
 PayID Easy Checkout Discovery is considered to be complete.</t>
 
 </section>
 </section>
 <section anchor="payid-easy-checkout-url-assembly" title="PayID Easy Checkout URL Assembly">
-<t>The PayID Easy Checkout URL resulting from PayID Easy Checkout Discovery represents the resource on the wallet that can
-be used to complete a payment. However, before directing a payer to their sending client, the PayID Easy Checkout client 
+<t>A PayID Easy Checkout URL represents the resource on a wallet that can
+be used by a sender to complete a payment. However, before directing a payer to their sending client, the payment receiver
 MUST append all of the query parameters defined in the <xref target="payid-easy-checkout-url-query-parameters">following section</xref>.</t>
 
-<t>The PayID Easy Checkout URL SHOULD be parsed by the wallet client to retrieve the values set by the recipient client. 
-It is RECOMMENDED that wallet clients use these values to pre-populate a payment transaction.</t>
+<t>Once a PayID Easy Checkout URL is assembled, PayID Easy Checkout is considered to be complete.</t>
 
 <section anchor="payid-easy-checkout-url-query-parameters" title="PayID Easy Checkout URL Query Parameters">
 <t>This specification defines several query parameter names and corresponding datatypes which MUST be added to the
-PayID Easy Checkout URL before redirecting a payer to their wallet client.</t>
+PayID Easy Checkout URL before redirecting a payer to their wallet client. The PayID Easy Checkout URL SHOULD be parsed 
+by the wallet in order to retrieve any values set by the payment recipient. It is RECOMMENDED that wallets use these 
+values to pre-populate a payment transaction.</t>
 
 <texttable>
       <ttcol align='left'>Name</ttcol>
@@ -202,19 +203,19 @@ PayID Easy Checkout URL before redirecting a payer to their wallet client.</t>
       <c>The amount that should be sent by the sender to the receiver</c>
       <c>receiverPayID</c>
       <c>string</c>
-      <c>The PayID URI of the receiver</c>
+      <c>The (PayID URI)<xref target="PAYID-URI"></xref> of the receiver</c>
       <c>assetCode</c>
       <c>string</c>
-      <c>The ISO-4217 currency code that the sender should send</c>
+      <c>The ISO-4217 currency code that denominates the amount</c>
       <c>assetScale</c>
       <c>short</c>
       <c>Defines how many units make up one regular unit of the assetCode</c>
       <c>paymentNetwork</c>
       <c>string</c>
-      <c>The payment network, as defined in [PAYID-PROTOCOL][], that the sender should send payment over.</c>
+      <c>The payment network, as defined in [PAYID-PROTOCOL][], that the sender should use to send a payment.</c>
       <c>nextUrl</c>
       <c>HTTP Url string</c>
-      <c>A URL that the sender's wallet can use after completing the payment</c>
+      <c>A URL that the sender's wallet can navigate a sender to after the sender completes a payment</c>
 </texttable>
 
 <t>When adding values into a URI 'query' part as defined by
@@ -254,7 +255,7 @@ The Link MUST also include a PayID Easy Checkout URL in the 'href' field of the 
 * 'href': A PayID Easy Checkout URL
 ]]></artwork></figure>
 
-<t>The following is an example of a PayID Easy Checkout Link that indicates a PayID Easy Checkout URL:</t>
+<t>The following is an example of a PayID Easy Checkout Link:</t>
 
 <figure><artwork><![CDATA[
 {
@@ -480,138 +481,138 @@ the "Thank You" page of the merchant.</t>
   </back>
 
 <!-- ##markdown-source:
-H4sIAJBfF18AA81be3PbNrb/n58C427rpFeSY8dNU93J7PXYaevd2M76sb2d
-TGYNkZCEmiK0BGlF2/S73/MAQJCi7CRzZ2czs1uLDwDn/TsPDofDJDWZLmZj
-UVfT4cskqXSVq7E4KeW0EvtiKN7K9emJeC3tWhzPVXpn6kq8LU1lUpMnmUkL
-uYDnl3Kts6GCp4ape2q49E+lslIzU67HwlZZkiz1WLyDOwNhTVmVamrhr/WC
-/0jNYqGKyr5P7EKW1T/+WZtK2bEw02mSyFJJWESldamrdSLram7KcSLEEP4n
-hC7gwfOR+GsJZyrpEp/u3Mh5fNWUQPClXi5zRb8tnEJVY/F8/ztxZopqZuDJ
-tbiiy/RECvuNxZUsxI+lLFJtU0PXSzXTphiL4yN+zGSw3Q+H+88O3e+6qJDw
-myv6vZybAh4Ydv/RTbWQOh+L4o4O+j8lnW8EDKG7QPJYzKtqacd7e6vVatS6
-HzHgdCSu9GJpTRFx4BROHl/9j+aAtnzSz2FBUphyISt9r8b07OWPxwf7+z80
-P17uvww/Xhy8+C78+P7g+X7z43D/efPYd98/Cz9eHh6+4B9vj349PRneXJ7y
-TyGczexcz5XYJUvYFXBbXIEpLNSOf0qWM2SxJ6CaZCP1QS4cBXvusUap+R/J
-9GQkfqxVnoOlhhvTOs9ZuCfyXmftB/iMJ6dXxxd/f335a/ekbNQnKMR7kPPO
-/9veiS6mG4L47oeXwPsEpCwKsOZ//KhUNpHpXZJcz7UVdqlSPdXgJUCRQPhC
-iozcDziQpbEyHwhZZHhjCR4BPIGogNHvmAbvit4/8XwlAYxAwfeeAgG60nQY
-IMLtChqbg0PKRGVgIVgVnFiNPkfYuanzTEwUuBj4qQvaCOnBTaX4SVfzegIH
-sbUSMhLljG6QFNkR4u7lNLV79KwdJYKolxOwM5lWfXQT23L9L2XF3KxgN1iJ
-TlXCU0sNf4GXrNO5kMggsM50LuGuKeFXYQr0tlMNz6RgoSBHgzJIZZ6vReK4
-oKJFp6VZ8E9VitqC6IQp4FkkmC7uWvb8I8GCW+gsA1+RfCWuVbnQhcnNbO0E
-6B097Q3cA0+uypI5DKfFNW9xsWxLGLkdidMKTqGsY3iemxUeqWq2ImVKvnXh
-KM2RIWOggP+C92Ql/lmrUitkDz9lVXkfyMOV2yqDZ8vUVBdwUpD1O7aZt5cX
-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
-6exGAAA=
+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
 
 -->
 
