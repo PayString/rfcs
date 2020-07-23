@@ -3,9 +3,10 @@
 
 
 Network Working Group                                          N. Kramer
-Internet-Draft                                                I. Simpson
-Intended status: Standards Track                                  Ripple
-Expires: January 24, 2021                                  July 23, 2020
+Internet-Draft                                               D. Fuelling
+Intended status: Standards Track                              I. Simpson
+Expires: January 24, 2021                                         Ripple
+                                                           July 23, 2020
 
 
                  Draft 1 - PayID Easy Checkout Protocol
@@ -49,15 +50,15 @@ Copyright Notice
    This document is subject to BCP 78 and the IETF Trust's Legal
    Provisions Relating to IETF Documents
    (https://trustee.ietf.org/license-info) in effect on the date of
-   publication of this document.  Please review these documents
 
 
 
-Kramer & Simpson        Expires January 24, 2021                [Page 1]
+Kramer, et al.          Expires January 24, 2021                [Page 1]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 
+   publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
    to this document.  Code Components extracted from this document must
    include Simplified BSD License text as described in Section 4.e of
@@ -108,8 +109,7 @@ Table of Contents
 
 
 
-
-Kramer & Simpson        Expires January 24, 2021                [Page 2]
+Kramer, et al.          Expires January 24, 2021                [Page 2]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
@@ -165,7 +165,7 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 
 
-Kramer & Simpson        Expires January 24, 2021                [Page 3]
+Kramer, et al.          Expires January 24, 2021                [Page 3]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
@@ -221,7 +221,7 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 
 
-Kramer & Simpson        Expires January 24, 2021                [Page 4]
+Kramer, et al.          Expires January 24, 2021                [Page 4]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
@@ -277,7 +277,7 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 
 
-Kramer & Simpson        Expires January 24, 2021                [Page 5]
+Kramer, et al.          Expires January 24, 2021                [Page 5]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
@@ -333,7 +333,7 @@ Output:   https://wallet.com/checkout?amount=100000&receiverPayId=payid%2Apay%24
 
 
 
-Kramer & Simpson        Expires January 24, 2021                [Page 6]
+Kramer, et al.          Expires January 24, 2021                [Page 6]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
@@ -389,7 +389,7 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 
 
-Kramer & Simpson        Expires January 24, 2021                [Page 7]
+Kramer, et al.          Expires January 24, 2021                [Page 7]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
@@ -445,7 +445,7 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 
 
-Kramer & Simpson        Expires January 24, 2021                [Page 8]
+Kramer, et al.          Expires January 24, 2021                [Page 8]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
@@ -501,7 +501,7 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 
 
-Kramer & Simpson        Expires January 24, 2021                [Page 9]
+Kramer, et al.          Expires January 24, 2021                [Page 9]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
@@ -557,7 +557,7 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 
 
-Kramer & Simpson        Expires January 24, 2021               [Page 10]
+Kramer, et al.          Expires January 24, 2021               [Page 10]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
@@ -613,7 +613,7 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 
 
-Kramer & Simpson        Expires January 24, 2021               [Page 11]
+Kramer, et al.          Expires January 24, 2021               [Page 11]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
@@ -669,9 +669,20 @@ Authors' Addresses
 
 
 
-Kramer & Simpson        Expires January 24, 2021               [Page 12]
+Kramer, et al.          Expires January 24, 2021               [Page 12]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
+
+
+   David Fuelling
+   Ripple
+   315 Montgomery Street
+   San Francisco, CA  94104
+   US
+
+   Phone: -----------------
+   Email: fuelling@ripple.com
+   URI:   https://www.ripple.com
 
 
    Ian Simpson
@@ -714,15 +725,4 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-Kramer & Simpson        Expires January 24, 2021               [Page 13]
+Kramer, et al.          Expires January 24, 2021               [Page 13]

@@ -23,6 +23,18 @@ author:
     email: nkramer@ripple.com
     uri: https://www.ripple.com
   -
+    ins: D. Fuelling
+    name: David Fuelling
+    org: Ripple
+    street: 315 Montgomery Street
+    city: San Francisco
+    region: CA
+    code: 94104
+    country: US
+    phone: -----------------
+    email: fuelling@ripple.com
+    uri: https://www.ripple.com
+  -
     ins: I. Simpson
     name: Ian Simpson
     org: Ripple
