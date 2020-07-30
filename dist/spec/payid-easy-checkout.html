@@ -409,7 +409,7 @@
 
   <meta name="dct.creator" content="Kramer, N., Fuelling, D., and I. Simpson" />
   <meta name="dct.identifier" content="urn:ietf:id:payid-easy-checkout-protocol" />
-  <meta name="dct.issued" scheme="ISO8601" content="2020-07-28" />
+  <meta name="dct.issued" scheme="ISO8601" content="2020-07-30" />
   <meta name="dct.abstract" content="This specification formalizes how a payment recipient, such as a merchant or a non-profit, can automatically initiate a payment from a payer using only the payer&#x27;s PayID. " />
   <meta name="description" content="This specification formalizes how a payment recipient, such as a merchant or a non-profit, can automatically initiate a payment from a payer using only the payer&#x27;s PayID. " />
 
@@ -433,12 +433,12 @@
 <td class="right">I. Simpson</td>
 </tr>
 <tr>
-<td class="left">Expires: January 29, 2021</td>
+<td class="left">Expires: January 31, 2021</td>
 <td class="right">Ripple</td>
 </tr>
 <tr>
 <td class="left"></td>
-<td class="right">July 28, 2020</td>
+<td class="right">July 30, 2020</td>
 </tr>
 
     	
@@ -456,7 +456,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on January 29, 2021.</p>
+<p>This Internet-Draft will expire on January 31, 2021.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2020 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -613,7 +613,7 @@
 <td class="left">The amount that should be sent by the payer to the recipient</td>
 </tr>
 <tr>
-<td class="left">receiverPayID</td>
+<td class="left">receiverPayId</td>
 <td class="left">string</td>
 <td class="left">The <a href="#PAYID-URI" class="xref">[PAYID-URI]</a> of the receiver</td>
 </tr>
@@ -646,7 +646,7 @@
 <pre>
 Input:    alice$wallet.com
           amount=10
-          receiverPayID=pay$merchant.com
+          receiverPayId=pay$merchant.com
           assetCode=XRP
           assetScale=6
           network=XRPL
@@ -760,7 +760,7 @@ Host: wallet.com
 <a href="#rfc.section.8.2.3.1">8.2.3.1.</a> <a href="#correlating-a-payment-to-an-invoice" id="correlating-a-payment-to-an-invoice">Correlating a Payment to an Invoice</a>
 </h1>
 <p id="rfc.section.8.2.3.1.p.1">Merchants and non-profits will often times need to correlate discrete layer 1 payments to invoice or transaction entities in the merchants' native systems. The merchant in this example may have an invoice tracking system, on which an invoice gets created for the goods that the payer is buying with a unique identifier of <samp>1045464</samp>. A common practice for correlating layer 1 payments to a specific transaction or invoice is to accept payments on a different layer 1 address for each invoice so that the merchant can listen for payments into that address and tie the payment to the invoice.  However, because the PayID Easy Checkout URL only provides the receiver's PayID, there is currently no way to associate the address that is given to the payer to the invoice.</p>
-<p id="rfc.section.8.2.3.1.p.2">In order to accomplish this, a merchant could provide a unique PayID containing the invoice identifier for each PayID Easy Checkout transaction. In this example, the merchant would first associate a payment address with the invoice ID, and would then redirect the payer to their wallet with the <samp>receiverPayID</samp> query parameter set to <samp>pay-1045464$merchant.com</samp>.  When the merchant PayID Discovery Server receives a query for the address associated with that PayID, they could return the previously stored payment address. When the merchant receives a payment to that address, they can then associate the layer 1 payment with the invoice.</p>
+<p id="rfc.section.8.2.3.1.p.2">In order to accomplish this, a merchant could provide a unique PayID containing the invoice identifier for each PayID Easy Checkout transaction. In this example, the merchant would first associate a payment address with the invoice ID, and would then redirect the payer to their wallet with the <samp>receiverPayId</samp> query parameter set to <samp>pay-1045464$merchant.com</samp>.  When the merchant PayID Discovery Server receives a query for the address associated with that PayID, they could return the previously stored payment address. When the merchant receives a payment to that address, they can then associate the layer 1 payment with the invoice.</p>
 <h1 id="rfc.section.8.2.4">
 <a href="#rfc.section.8.2.4">8.2.4.</a> <a href="#redirect-payer-to-their-wallet" id="redirect-payer-to-their-wallet">Redirect Payer to Their Wallet</a>
 </h1>

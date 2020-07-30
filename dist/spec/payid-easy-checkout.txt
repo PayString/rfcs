@@ -5,8 +5,8 @@
 Network Working Group                                          N. Kramer
 Internet-Draft                                               D. Fuelling
 Intended status: Standards Track                              I. Simpson
-Expires: January 29, 2021                                         Ripple
-                                                           July 28, 2020
+Expires: January 31, 2021                                         Ripple
+                                                           July 30, 2020
 
 
                  Draft 1 - PayID Easy Checkout Protocol
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on January 29, 2021.
+   This Internet-Draft will expire on January 31, 2021.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Kramer, et al.          Expires January 29, 2021                [Page 1]
+Kramer, et al.          Expires January 31, 2021                [Page 1]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Kramer, et al.          Expires January 29, 2021                [Page 2]
+Kramer, et al.          Expires January 31, 2021                [Page 2]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
@@ -165,7 +165,7 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 
 
-Kramer, et al.          Expires January 29, 2021                [Page 3]
+Kramer, et al.          Expires January 31, 2021                [Page 3]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
@@ -221,7 +221,7 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 
 
-Kramer, et al.          Expires January 29, 2021                [Page 4]
+Kramer, et al.          Expires January 31, 2021                [Page 4]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
@@ -277,7 +277,7 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 
 
-Kramer, et al.          Expires January 29, 2021                [Page 5]
+Kramer, et al.          Expires January 31, 2021                [Page 5]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
@@ -288,7 +288,7 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
    | amount         | integer | The amount that should be sent by the  |
    |                |         | payer to the recipient                 |
    |                |         |                                        |
-   | receiverPayID  | string  | The [PAYID-URI] of the receiver        |
+   | receiverPayId  | string  | The [PAYID-URI] of the receiver        |
    |                |         |                                        |
    | assetCode      | string  | The currency code that denominates the |
    |                |         | amount as defined in [PAYID-PROTOCOL]  |
@@ -317,7 +317,7 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 Input:    alice$wallet.com
           amount=10
-          receiverPayID=pay$merchant.com
+          receiverPayId=pay$merchant.com
           assetCode=XRP
           assetScale=6
           network=XRPL
@@ -333,7 +333,7 @@ Output:   https://wallet.com/checkout?amount=100000&receiverPayId=payid%2Apay%24
 
 
 
-Kramer, et al.          Expires January 29, 2021                [Page 6]
+Kramer, et al.          Expires January 31, 2021                [Page 6]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
@@ -389,7 +389,7 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 
 
-Kramer, et al.          Expires January 29, 2021                [Page 7]
+Kramer, et al.          Expires January 31, 2021                [Page 7]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
@@ -445,7 +445,7 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 
 
-Kramer, et al.          Expires January 29, 2021                [Page 8]
+Kramer, et al.          Expires January 31, 2021                [Page 8]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
@@ -501,7 +501,7 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 
 
-Kramer, et al.          Expires January 29, 2021                [Page 9]
+Kramer, et al.          Expires January 31, 2021                [Page 9]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
@@ -557,12 +557,12 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 
 
-Kramer, et al.          Expires January 29, 2021               [Page 10]
+Kramer, et al.          Expires January 31, 2021               [Page 10]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 
-   payer to their wallet with the "receiverPayID" query parameter set to
+   payer to their wallet with the "receiverPayId" query parameter set to
    "pay-1045464$merchant.com".  When the merchant PayID Discovery Server
    receives a query for the address associated with that PayID, they
    could return the previously stored payment address.  When the
@@ -613,7 +613,7 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 
 
-Kramer, et al.          Expires January 29, 2021               [Page 11]
+Kramer, et al.          Expires January 31, 2021               [Page 11]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
@@ -669,7 +669,7 @@ Authors' Addresses
 
 
 
-Kramer, et al.          Expires January 29, 2021               [Page 12]
+Kramer, et al.          Expires January 31, 2021               [Page 12]
 
 Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
@@ -725,4 +725,4 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 
 
-Kramer, et al.          Expires January 29, 2021               [Page 13]
+Kramer, et al.          Expires January 31, 2021               [Page 13]

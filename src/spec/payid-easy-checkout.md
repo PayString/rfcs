@@ -188,7 +188,7 @@ values to pre-populate a payment transaction.
 | Name           | Type             | Description                                                          |
 |----------------|------------------|----------------------------------------------------------------------|
 | amount         | integer          | The amount that should be sent by the payer to the recipient         |
-| receiverPayID  | string           | The [PAYID-URI][] of the receiver                           |
+| receiverPayId  | string           | The [PAYID-URI][] of the receiver                           |
 | assetCode      | string           | The currency code that denominates the amount as defined in [PAYID-PROTOCOL][] |
 | assetScale     | short            | Defines how many units make up one regular unit of the assetCode     |
 | paymentNetwork | string           | The payment network, as defined in [PAYID-PROTOCOL][], that the sender should use to send a payment. |
@@ -206,7 +206,7 @@ For example:
 
     Input:    alice$wallet.com
               amount=10
-              receiverPayID=pay$merchant.com
+              receiverPayId=pay$merchant.com
               assetCode=XRP
               assetScale=6
               network=XRPL
@@ -356,7 +356,7 @@ is given to the payer to the invoice.
 
 In order to accomplish this, a merchant could provide a unique PayID containing the invoice identifier 
 for each PayID Easy Checkout transaction. In this example, the merchant would first associate a payment address with the
-invoice ID, and would then redirect the payer to their wallet with the `receiverPayID` query parameter set to `pay-1045464$merchant.com`.
+invoice ID, and would then redirect the payer to their wallet with the `receiverPayId` query parameter set to `pay-1045464$merchant.com`.
 When the merchant PayID Discovery Server receives a query for the address associated with that PayID, they could return the previously
 stored payment address. When the merchant receives a payment to that address, they can then associate the layer 1 payment
 with the invoice.
