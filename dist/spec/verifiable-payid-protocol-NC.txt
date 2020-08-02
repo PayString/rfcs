@@ -1,0 +1,896 @@
+
+
+
+
+Network Working Group                                        A. Malhotra
+Internet-Draft                                               D. Schwartz
+Intended status: Standards Track                                  Ripple
+Expires: January 31, 2021                                  July 30, 2020
+
+
+                  Verifiable PayID Protocol Extension
+             draft-aanchal-verifiable-payid-protocol-ext-01
+
+Abstract
+
+   This specification defines one of the extensions of the verifiable
+   PayID protocol [VER-PAYID-PROTOCOL] that aims to enable trust
+   minimized PayID service that has applications in non-custodial
+   settings.  More specifically this extension of verifiable PayID
+   protocol eliminates the trust requirement between the PayID owner and
+   their PayID service provider by allowing the non-custodial PayID
+   service providers (wallets and exchanges) to send payment account(s)
+   address information associated with a PayID [PAYID-URI] that is
+   digitally signed with the PayID private key of the PayID owner along
+   with PayID owner's "identity" information and other meta-data needed
+   to verify the signature.
+
+Feedback
+
+   This specification is a draft proposal, and is part of the PayID
+   Protocol [1] initiative.  Feedback related to this document should be
+   sent in the form of a Github issue at: https://github.com/payid-
+   org/rfcs/issues.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on January 31, 2021.
+
+
+
+
+
+Malhotra & Schwartz     Expires January 31, 2021                [Page 1]
+
+Internet-Draft     Verifiable PayID Protocol Extension         July 2020
+
+
+Copyright Notice
+
+   Copyright (c) 2020 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents
+   (https://trustee.ietf.org/license-info) in effect on the date of
+   publication of this document.  Please review these documents
+   carefully, as they describe your rights and restrictions with respect
+   to this document.  Code Components extracted from this document must
+   include Simplified BSD License text as described in Section 4.e of
+   the Trust Legal Provisions and are provided without warranty as
+   described in the Simplified BSD License.
+
+Table of Contents
+
+   1.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   3
+   2.  Motivation  . . . . . . . . . . . . . . . . . . . . . . . . .   3
+   3.  Verifiable PayID Protocol Extension Specification . . . . . .   4
+     3.1.  PaymentInformation Resource as JSON Web Signatures  . . .   4
+       3.1.1.  JOSE Protected Header . . . . . . . . . . . . . . . .   4
+       3.1.2.  JWS Payload . . . . . . . . . . . . . . . . . . . . .   6
+       3.1.3.  JWS signature . . . . . . . . . . . . . . . . . . . .   8
+     3.2.  End-to-End Verifiable PayID Protocol Flow for Non-
+           Custodial Wallets and Exchanges . . . . . . . . . . . . .   8
+       3.2.1.  Generating PayID Key-pair . . . . . . . . . . . . . .   8
+       3.2.2.  Generating JWS Token  . . . . . . . . . . . . . . . .   8
+       3.2.3.  Posting signed response to non-custodial PayID
+               service Provider's server . . . . . . . . . . . . . .  10
+     3.3.  Basic Operations  . . . . . . . . . . . . . . . . . . . .  10
+       3.3.1.  PayID Client Requesting the PaymentInformation
+               Resource  . . . . . . . . . . . . . . . . . . . . . .  10
+       3.3.2.  PayID Server Responding to the PaymentInformation
+               Resource Request  . . . . . . . . . . . . . . . . . .  10
+       3.3.3.  Parsing the PaymentInformation Response . . . . . . .  11
+   4.  Example Use of the Verifiable PayID Protocol  . . . . . . . .  11
+     4.1.  Verifiable PayID Protocol by a Non-Custodial Wallet as
+           PayID Server  . . . . . . . . . . . . . . . . . . . . . .  11
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  13
+     5.1.  Security Model for Non-Custodial PayID Service Providers   13
+     5.2.  Using JWTs  . . . . . . . . . . . . . . . . . . . . . . .  13
+     5.3.  Using addresses Array . . . . . . . . . . . . . . . . . .  14
+   6.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  14
+   7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  14
+     7.1.  Normative References  . . . . . . . . . . . . . . . . . .  14
+     7.2.  Informative References  . . . . . . . . . . . . . . . . .  16
+     7.3.  URIs  . . . . . . . . . . . . . . . . . . . . . . . . . .  16
+
+
+
+Malhotra & Schwartz     Expires January 31, 2021                [Page 2]
+
+Internet-Draft     Verifiable PayID Protocol Extension         July 2020
+
+
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  16
+
+1.  Terminology
+
+   This protocol can be referred to as the "Verifiable PayID Protocol
+   Extension for Non-Custodial Services".  It uses the following
+   terminology.
+
+   o  Endpoint: either the client or the server of the connection.
+
+   o  Sender: individual or entity originating the transaction.
+
+   o  PayID client: the endpoint that initiates PayID protocol/sending
+      side of the transaction.
+
+   o  PayID server: the endpoint that returns payment account(s)
+      information/receiving side of the transaction (non-custodial
+      wallets, exchanges, etc).
+
+   o  PayID owner: individual or entity receiving the transaction/owner
+      of the PayID[PAYID-URI].
+
+   o  Digital Signture: As defined in [RFC4949].
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   [RFC2119] and [RFC9174][].
+
+2.  Motivation
+
+   We anticipate that the most common use-case for retrieving the
+   payment account(s) address information is to make transactions.
+   Providers of such services can be categorized as custodial and non-
+   custodial each of which operate under different security models.
+   Non-custodial wallets and exchanges do not store their customers' on-
+   ledger private keys on their servers.  The customers hold their
+   private keys locally on their device and hence are in full control of
+   their funds.  As such, there is no trust requirement between the non-
+   custodial wallets and exchanges and their customers.  Additionally,
+   since the customers hold the private keys so the wallets are not
+   liable for any consequences coming from the lost, compromised or
+   hacked private keys of the customers.  Nor do they need their
+   customers to trust their servers in case wallet's servers go
+   malicious or are compromised.
+
+   Basic PayID protocol [PAYID-PROTOCOL] specifies a protocol to
+   interact with a PayID server and retrieve a payment account(s)
+
+
+
+Malhotra & Schwartz     Expires January 31, 2021                [Page 3]
+
+Internet-Draft     Verifiable PayID Protocol Extension         July 2020
+
+
+   information resource along with other meta-data corresponding to the
+   queried PayID.  One of the assumptions in the security model of the
+   basic PayID protocol that is less desirable is the trust requirement
+   between the PayID owner and their PayID server to provide correct
+   payment account(s) address information resource.  As such, PayID
+   server has full control over the contents of the response message,
+   and may go rogue or be compromised.  The PayID owner has no way of
+   knowing if the PayID server behaves maliciously.  This implicit trust
+   assumption between the PayID owner and PayID server is not ideal in
+   the non-custodial settings.
+
+   The motivation for this extension of verifiable PayID protocol is to
+   enable non-custodial service providers to provide non-custodial PayID
+   service while preserving their existing security model.  More
+   specifically, this extension allows PayID owners to digitally sign
+   the payment account(s) information resource locally on their
+   application/device with their PayID private key (which never leaves
+   their device).  This signed payment account(s) information resource
+   can then be securely transferred to the non-custodial PayID service
+   providers' servers who can then send this to the PayID client in
+   response to a PayID query along with PayID owner's "identity"
+   information.  The PayID client and/or the sender of the transaction
+   can use this information to verify if the payment account(s) address
+   information is signed by the PayID owner and decide if they want to
+   proceed with the transaction.
+
+3.  Verifiable PayID Protocol Extension Specification
+
+   The Verifiable PayID protocol is designed along the same design
+   principles as [PAYID-PROTOCOL].
+
+3.1.  PaymentInformation Resource as JSON Web Signatures
+
+   We describe the payment accounts(s) information resource per
+   [PAYID-PROTOCOL] that is digitally signed as "PaymentInformation"
+   resource represented as a signed JSON Web Tokens (JWT) [RFC7519]
+   known as JSON Web Signature (JWS) [RFC7515].  JWT is a compact, URL-
+   safe means of representing claims to be transferred between two
+   parties.  JWTs encode claims as a JSON object that is used as the
+   payload of a JWS structure enabling the claims to be digitally
+   signed.  Below we define the three components of JWS.
+
+3.1.1.  JOSE Protected Header
+
+   For JWS, the members of the JSON object represented by the JOSE
+   Header describe the cryptographic operations applied to the JWS
+   Protected header and the JWS payload and optionally additional
+   properties of the JWS.
+
+
+
+Malhotra & Schwartz     Expires January 31, 2021                [Page 4]
+
+Internet-Draft     Verifiable PayID Protocol Extension         July 2020
+
+
+   For a complete list of members of this object, refer to [RFC7519] and
+   [RFC7515].  Following is an example of a JWT object representing JOSE
+   header parameters for JWS JSON Serialization syntax.
+
+   {
+          "name": "identityKey",
+          "alg" : "ES256K",
+          "typ" : "JOSE+JSON",
+          "b64" : "false",
+          "crit": ["b64"],
+          "jwk" :  {
+               "kty": "EC",
+               "use": "sig",
+               "crv": "secp256k1",
+               "x"  : "0",
+               "y". : "0",
+                   },
+   }
+
+3.1.1.1.  name
+
+   The "name" Header Parameter identifies the type of signature.  It is
+   a new OPTIONAL header parameter that is not defined in the IANA JSON
+   Web Signature and Encryption Header Parameters Registry.
+
+3.1.1.2.  alg
+
+   The "alg" (algorithm) Header Parameter identifies the cryptographic
+   algorithm used to secure the JWS.  This is a required field as
+   described in [RFC7515].  We RECOMMEND using "ES256K" which is
+   Elliptic Curve Digital Signature Algorithm (ECDSA) using secp256k1
+   curve-type and SHA-256 hash-type as defined in IANA JSON Web
+   Signature and Encryption Header Parameters Registry.
+
+3.1.1.3.  typ
+
+   The "typ" (type) Header Parameter is used by JWS applications to
+   declare the media type of the complete JWS.  This is an optional
+   field as described in [RFC7515].
+
+3.1.1.4.  b64
+
+   The "b64" (base64url-encode) Header Parameter is an extension to JWS
+   specification that determines how payload is represented in the JWS
+   and the JWS signing input.  When the "b64" value is "false", the
+   payload is represented simply as the JWS Payload value with no
+   encoding; otherwise, it is represented as ASCII(BASE64URL(JWS
+   Payload)).  This is an optional field as described in [RFC7797].
+
+
+
+Malhotra & Schwartz     Expires January 31, 2021                [Page 5]
+
+Internet-Draft     Verifiable PayID Protocol Extension         July 2020
+
+
+3.1.1.5.  crit
+
+   The "crit" (critical) Header Parameter indicates that extensions to
+   JWS specification are being used that MUST be understood and
+   processed.  This is a required field to be used with "b64" parameter
+   as described in [RFC7797].
+
+3.1.1.6.  jwk
+
+   The "jwk" (JSON Web Key) Header Parameter represents the public key
+   that is used to digitally sign the JOSE header and JWS payload.  This
+   parameter is represented as a JSON Web Key as specified in [RFC7517].
+   In the header above, members of "jwk" represent the properties of the
+   public key, including its value that corresponds to the algorithm
+   "ES256K".
+
+   o  kty: The "kty" (key type) parameter identifies the cryptographic
+      algorithm family used with the key, such as "EC" for Elliptic
+      Curve.
+
+   o  use: The "use" (public key use) parameter identifies the intended
+      use of the public key such as "sig" for signature.
+
+   o  crv : The "crv" (Curve) parameter represents the elliptic curve-
+      type and the hash-type such as "secp256k1" represents curve-type
+      "secp256k1" and the hash-type "SHA-256".
+
+   o  x : Since we assume the "alg" parameter as "ES256K" which is one
+      from the ECDSA family, so "x" parameter represents the
+      X-coordinate of the corresponding public key.
+
+   o  y : Since we assume the "alg" parameter as "ES256K" which is one
+      from the ECDSA family, so "y" parameter represents the
+      Y-coordinate of the corresponding public key.
+
+   Note: "jwk" is one way way of embedding public key in the JOSE
+   header.  For more details on other possible options for "alg" and
+   representing public keys refer to [RFC7515].
+
+3.1.2.  JWS Payload
+
+   The JWS payload is the message that needs to be signed.
+
+
+
+
+
+
+
+
+
+Malhotra & Schwartz     Expires January 31, 2021                [Page 6]
+
+Internet-Draft     Verifiable PayID Protocol Extension         July 2020
+
+
+  {
+          "exp"  : "",
+          "payId": "bob$wallet.com",
+          "payIdAddress": {
+            "expTime": "",
+            "paymentNetwork": "XRPL",
+            "environment": "TESTNET",
+            "addressDetailsType": "CryptoAddressDetails",
+            "addressDetails": {
+              "address": "T7CKYKhRujaxEs9fSxQwJApHsQVPKUgD7EtLWCGTAFBwTha"
+            }
+          }
+  }
+
+3.1.2.1.  exp
+
+   The "exp" field is an optional field as described in [RFC7797].  If
+   used, it SHOULD be set to the expiration time of the cryptographic
+   key used to generate the digital signature.
+
+3.1.2.2.  payId
+
+   The "payId" field is a required field.  The value of "payId" field is
+   the PayID URI in the client request that identifies the payment
+   account information that the JSON object describes.
+
+3.1.2.3.  PayIDAddress
+
+   The "PayIDAddress" is a required field.  The value of "PayIDAddress"
+   field is a JSON object with the following keys:
+
+   o  "expTime": This is an optionl field.  The value of "expTime"
+      string is set to the maximum time upto which the payment address
+      in the "address" field is valid.
+
+   o  "paymentNetwork": The value of the "paymentNetwork" is the value
+      of payment-network string as specified in the client request's
+      "Accept" header.
+
+   o  "environment": The value of "environment" string is the value of
+      environment as specified in the client request's "Accept" header.
+
+   o  "addressDetailsType": The value of "addressDetailsType" is one of
+      the following strings:
+
+      *  CryptoAddressDetails
+
+      *  FiatAddressDetails
+
+
+
+Malhotra & Schwartz     Expires January 31, 2021                [Page 7]
+
+Internet-Draft     Verifiable PayID Protocol Extension         July 2020
+
+
+   o  "addressDetails": The value of "addressDetails" is the address
+      information necessary to send payment on a specific
+      "paymentNetwork" and "environment".
+
+   The "address" field MUST be present in the JWS payload.
+
+3.1.3.  JWS signature
+
+   The JWS signature is the digital signature which is calculated over
+   the JOSE header and the JWS payload.
+
+    "signature": "base64Signature"
+
+3.1.3.1.  signature
+
+   The value of "signature" field is computed as described in [RFC7515].
+
+3.2.  End-to-End Verifiable PayID Protocol Flow for Non-Custodial
+      Wallets and Exchanges
+
+   A pre-requisite for this extension of Verifiable PayID protocol
+   requires the PayID owner to transfer signed "PaymentInformation" to
+   the PayID server.  In this document we specify one such way of doing
+   this.
+
+   Following are the pre-steps at PayID owner's (non-custodial wallet's
+   customer) device locally:
+
+3.2.1.  Generating PayID Key-pair
+
+   We RECOMMEND using elliptic curve (EC) key type with Elliptic Curve
+   Digital Signature Algorithm (ECDSA) with secp256k1 curve for
+   signature.
+
+3.2.2.  Generating JWS Token
+
+   For each "payment-network" and "environment" that the PayID owner has
+   a payment address for, generate the JOSE header, JWS Payload and JWS
+   Signature as described above.  A complete "PaymentInformation"
+   response might look like:
+
+   {
+
+
+
+
+
+
+
+
+
+Malhotra & Schwartz     Expires January 31, 2021                [Page 8]
+
+Internet-Draft     Verifiable PayID Protocol Extension         July 2020
+
+
+ "payId": "bob$wallet.com",
+ "addresses": [],
+ "verifiedAddresses": [
+    {
+        "signatures": [
+          {
+            "protected": {
+              "name": "identityKey",
+              "alg": "ES256K",
+              "typ": "JOSE+JSON",
+              "b64": "false",
+              "crit": ["b64"],
+              "jwk": {
+                  "kty": "EC",
+                  "use": "sig",
+                  "crv": "secp256k1",
+                  "x": "b8w36l6eCf7GyD5fvXp0Xj7ugdFuvYYcnmb1VRjBl5g=",
+                  "y": "Tp8RPAf4dWkd+K/BApSW/Ey5UJs53NOPJRqDNZzItPc=",
+              },
+            },
+            "signature": "base64Signature",
+          }
+          ]
+        "payload": {
+            "exp" :
+            "payId": "bob$wallet.com",
+            "payIdAddress": {
+              "expTime":
+              "paymentNetwork": "XRPL",
+              "environment": "TESTNET",
+              "addressDetailsType": "CryptoAddressDetails",
+              "addressDetails": {
+                "address": "T7CKYKhRujaxEs9fSxQwJApHsQVPKUgD7EtLWCGTAFBwTha"
+               }
+             }
+          }
+        }
+      ]
+    }
+
+   o  addresses: The "addresses" array is an OPTIONAL field.  The
+      implementations MAY choose to populate this field with payment
+      address(es) information as per [PAYID-PROTOCOL].  The
+      implementations SHOULD refer to Security Considerations sections
+      for the possible security trade-offs while using this field.
+
+   o  VerifiedAddresses: The "VerifiedAddresses" is a required field.
+
+
+
+
+Malhotra & Schwartz     Expires January 31, 2021                [Page 9]
+
+Internet-Draft     Verifiable PayID Protocol Extension         July 2020
+
+
+3.2.3.  Posting signed response to non-custodial PayID service
+        Provider's server
+
+   Implementations SHOULD use a secure communication channel to transfer
+   these resources to the PayID server.
+
+3.3.  Basic Operations
+
+   Following are the basic operations performed by the verifiable PayID
+   client and PayID server to retrieve "PaymentInformation" resource
+   corresponding to PayID.
+
+3.3.1.  PayID Client Requesting the PaymentInformation Resource
+
+   When requesting the "PaymentInformation" resource, a verifiable PayID
+   client MAY use the same HTTP "GET" method as in [PAYID-PROTOCOL] to
+   the PayID URL without any query parameters and body.
+
+   The PayID client MUST query the PayID server using HTTPS only.
+   [RFC2818] defines how HTTPS verifies the PayID server's identity.  If
+   the HTTPS connection cannot be established for any reason, then the
+   PayID client MUST accept that the PayID request has failed and MUST
+   NOT attempt to reissue the PayID request using HTTP over a non-secure
+   connection.
+
+3.3.2.  PayID Server Responding to the PaymentInformation Resource
+        Request
+
+   Upon receiving a "GET" request for a payment accounts(s) information
+   resource or a "PaymentInformation" resource, a PayID server that
+   supports Verifiable PayID protocol returns the "PaymentInformation"
+   resource for the "payment-network" and "environment" requested by the
+   PayID client in the request "Accept" header field, along with other
+   required and/or optional metadata.
+
+   However, if PayID server does not support the Verifiable PayID
+   protocol, the PayID server sends back a response as described in
+   [PAYID-PROTOCOL].
+
+   If the PayID server does not contain the payment accounts(s)
+   information resource or a "PaymentInformation" resource resource
+   corresponding to the request, the PayID server MUST respond with an
+   appropriate error message.
+
+
+
+
+
+
+
+
+Malhotra & Schwartz     Expires January 31, 2021               [Page 10]
+
+Internet-Draft     Verifiable PayID Protocol Extension         July 2020
+
+
+3.3.3.  Parsing the PaymentInformation Response
+
+   The PayID client MUST conform to the verification of JWS as specified
+   in [RFC7515] and [RFC7519].
+
+4.  Example Use of the Verifiable PayID Protocol
+
+   This section shows sample use of this extension of verifiable PayID
+   protocol in a hypothetical scenario.
+
+4.1.  Verifiable PayID Protocol by a Non-Custodial Wallet as PayID
+      Server
+
+   Suppose Alice wishes to send a friend some XRP from a web-based
+   wallet provider that Alice has an account on.  Alice would log-in to
+   the wallet provider and enter Bob's PayID (say, "bob$wallet.com")
+   into the wallet UI to start the payment.  The Wallet application
+   would first discover the PayID URL for the PayID service-provider
+   using one of the mechanisms described in PayID discovery
+   [PAYID-DISCOVERY] protocol.
+
+   The Wallet application would then issue an HTTPS GET request:
+
+    GET /users/bob HTTP/1.1
+    Host: www.wallet.com
+    Accept: application/xrpl-testnet+json
+    PayID-version: 1.0
+
+   Bob's wallet who is a non-custodial PayID server might respond like
+   this:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Malhotra & Schwartz     Expires January 31, 2021               [Page 11]
+
+Internet-Draft     Verifiable PayID Protocol Extension         July 2020
+
+
+ HTTP/1.1 200 OK
+ Content-Type: application/json
+ Content-Length: 403
+ PayID-Version: 1.0
+ Cache-Control: "no-store"
+ Server: Apache/1.3.11
+{
+ "payId": "bob$wallet.com",
+ "addresses": [],
+ "verifiedAddresses": [
+    {
+        "signatures": [
+          {
+            "protected": {
+              "name": "identityKey",
+              "alg": "ES256K",
+              "typ": "JOSE+JSON",
+              "b64": "false",
+              "crit": ["b64"],
+              "jwk": {
+                  "kty": "EC",
+                  "use": "sig",
+                  "crv": "secp256k1",
+                  "x": "b8w36l6eCf7GyD5fvXp0Xj7ugdFuvYYcnmb1VRjBl5g=",
+                  "y": "Tp8RPAf4dWkd+K/BApSW/Ey5UJs53NOPJRqDNZzItPc=",
+              },
+            },
+            "signature": "base64Signature",
+          }
+          ]
+        "payload": {
+            "exp" : "1234574940",
+            "payId": "bob$wallet.com",
+            "payIdAddress": {
+              "expTime": "34874613475",
+              "paymentNetwork": "XRPL",
+              "environment": "TESTNET",
+              "addressDetailsType": "CryptoAddressDetails",
+              "addressDetails": {
+                "address": "T7CKYKhRujaxEs9fSxQwJApHsQVPKUgD7EtLWCGTAFBwTha"
+               }
+             }
+          }
+        }
+      ]
+  }
+
+
+
+
+
+Malhotra & Schwartz     Expires January 31, 2021               [Page 12]
+
+Internet-Draft     Verifiable PayID Protocol Extension         July 2020
+
+
+   In the above example, the "PaymentInformation" resource is a pre-
+   signed message with the PayID private keys of the PayID owner Bob.
+   Bob's non-custodial wallet retrieves this response and sends it to
+   the PayID client.
+
+5.  Security Considerations
+
+   This security considerations section only considers verifiable PayID
+   clients and servers bound to implementations as defined in this
+   document.
+
+   The security guarantees mentioned in [PAYID-PROTOCOL] applies to this
+   extension of verifiable PayID protocol.  In this section, we discuss
+   a security model for the Verifiable PayID protocol for non-custodial
+   service providers.
+
+5.1.  Security Model for Non-Custodial PayID Service Providers
+
+   In the current security model, non-custodial wallets do not store
+   their customers' keys on their servers.  The customers hold their
+   private keys on their device.  There is a no trust requirement
+   between the service provided by the non-custodial wallets and the
+   customers of this service.  Since the customers hold the private
+   keys: * The wallets are not liable for any consequences coming from
+   the lost, compromised or hacked private keys of the customers.  * The
+   non-custodial wallets do not require their customers to trust their
+   servers in case wallets servers go malicious or are compromised.
+
+   This extension of verifiable PayID protocol preserves this trust
+   model.  Consequently, a non-custodial wallet running a PayID server
+   has no liability for providing accurate "PaymentInformation" for
+   their customers that is signed with the private key of the non-
+   custodial PayID server wallet.  Instead, the PayID owners can
+   generate these signed mappings with their own PayID private key
+   locally on their app/device.  The sender of the payment (PayID client
+   wallet's customer) can easily verify these signatures based on the
+   trust relationship between the sender and the receiver (PayID owner).
+   This eliminates any risk of the non-custodial PayID server wallet
+   losing its private keys, going malicious, getting hacked, or becoming
+   otherwise compromised in a way that customers might lose funds.
+
+5.2.  Using JWTs
+
+   The implementations of this extension of Verifiable PayID protocol
+   MUST refer to the Security Considerations sections of [RFC7515] and
+
+
+
+
+
+
+Malhotra & Schwartz     Expires January 31, 2021               [Page 13]
+
+Internet-Draft     Verifiable PayID Protocol Extension         July 2020
+
+
+5.3.  Using addresses Array
+
+   The "addresses" array in the "PaymentInformation" response is an
+   array of unsigned payment addresses.  Implementations of this
+   extension of verifiable PayID that choose to populate this array
+   along with the "verifiedAddresses" array MAY be vulnerable to
+   downgrade attacks.  We RECOMMEND against populating this array unless
+   absolutely necessary depending on the use-case.  ALso, note that this
+   approach is not backwards-compatible with the PayID clients that do
+   not understand verifiable PayID.
+
+6.  Privacy Considerations
+
+   All privacy guarantees in the Privacy Considerations section of
+   [PAYID-PROTOCOL] apply to this extension of verifiable PayID
+   protocol.
+
+7.  References
+
+7.1.  Normative References
+
+   [DID]      "Digital Identity Alliance", n.d.,
+              <https://www.didalliance.org/>.
+
+   [GiD]      "Global identity", n.d., <https://www.global.id/>.
+
+   [HUUID]    "Human Universally Unique Identifier", n.d.,
+              <https://github.com/codetsunami/HumanUUID>.
+
+   [PAYID-DISCOVERY]
+              Fuelling, D., "PayID Discovery", n.d..
+
+   [PAYID-PROTOCOL]
+              Schwartz, D., "PayID Protocol", n.d..
+
+   [PAYID-URI]
+              Fuelling, D., "The 'payid' URI Scheme", n.d.,
+              <https://tbd.example.com/>.
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
+
+   [RFC2818]  Rescorla, E., "HTTP Over TLS", RFC 2818,
+              DOI 10.17487/RFC2818, May 2000,
+              <https://www.rfc-editor.org/info/rfc2818>.
+
+
+
+
+Malhotra & Schwartz     Expires January 31, 2021               [Page 14]
+
+Internet-Draft     Verifiable PayID Protocol Extension         July 2020
+
+
+   [RFC4949]  Shirey, R., "Internet Security Glossary, Version 2",
+              FYI 36, RFC 4949, DOI 10.17487/RFC4949, August 2007,
+              <https://www.rfc-editor.org/info/rfc4949>.
+
+   [RFC5280]  Cooper, D., Santesson, S., Farrell, S., Boeyen, S.,
+              Housley, R., and W. Polk, "Internet X.509 Public Key
+              Infrastructure Certificate and Certificate Revocation List
+              (CRL) Profile", RFC 5280, DOI 10.17487/RFC5280, May 2008,
+              <https://www.rfc-editor.org/info/rfc5280>.
+
+   [RFC6979]  Pornin, T., "Deterministic Usage of the Digital Signature
+              Algorithm (DSA) and Elliptic Curve Digital Signature
+              Algorithm (ECDSA)", RFC 6979, DOI 10.17487/RFC6979, August
+              2013, <https://www.rfc-editor.org/info/rfc6979>.
+
+   [RFC7258]  Farrell, S. and H. Tschofenig, "Pervasive Monitoring Is an
+              Attack", BCP 188, RFC 7258, DOI 10.17487/RFC7258, May
+              2014, <https://www.rfc-editor.org/info/rfc7258>.
+
+   [RFC7515]  Jones, M., Bradley, J., and N. Sakimura, "JSON Web
+              Signature (JWS)", RFC 7515, DOI 10.17487/RFC7515, May
+              2015, <https://www.rfc-editor.org/info/rfc7515>.
+
+   [RFC7517]  Jones, M., "JSON Web Key (JWK)", RFC 7517,
+              DOI 10.17487/RFC7517, May 2015,
+              <https://www.rfc-editor.org/info/rfc7517>.
+
+   [RFC7519]  Jones, M., Bradley, J., and N. Sakimura, "JSON Web Token
+              (JWT)", RFC 7519, DOI 10.17487/RFC7519, May 2015,
+              <https://www.rfc-editor.org/info/rfc7519>.
+
+   [RFC7797]  Jones, M., "JSON Web Signature (JWS) Unencoded Payload
+              Option", RFC 7797, DOI 10.17487/RFC7797, February 2016,
+              <https://www.rfc-editor.org/info/rfc7797>.
+
+   [RFC8422]  Nir, Y., Josefsson, S., and M. Pegourie-Gonnard, "Elliptic
+              Curve Cryptography (ECC) Cipher Suites for Transport Layer
+              Security (TLS) Versions 1.2 and Earlier", RFC 8422,
+              DOI 10.17487/RFC8422, August 2018,
+              <https://www.rfc-editor.org/info/rfc8422>.
+
+   [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
+              Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
+              <https://www.rfc-editor.org/info/rfc8446>.
+
+   [VER-PAYID-PROTOCOL]
+              Schwartz, D., "Verifiable PayID Protocol", n.d..
+
+
+
+
+Malhotra & Schwartz     Expires January 31, 2021               [Page 15]
+
+Internet-Draft     Verifiable PayID Protocol Extension         July 2020
+
+
+7.2.  Informative References
+
+   [RFC4732]  Handley, M., Ed., Rescorla, E., Ed., and IAB, "Internet
+              Denial-of-Service Considerations", RFC 4732,
+              DOI 10.17487/RFC4732, December 2006,
+              <https://www.rfc-editor.org/info/rfc4732>.
+
+7.3.  URIs
+
+   [1] https://payid.org/
+
+Authors' Addresses
+
+   Aanchal Malhotra
+   Ripple
+   315 Montgomery Street
+   San Francisco, CA  94104
+   US
+
+   Phone: -----------------
+   Email: amalhotra@ripple.com
+   URI:   https://www.ripple.com
+
+
+   David Schwartz
+   Ripple
+   315 Montgomery Street
+   San Francisco, CA  94104
+   US
+
+   Phone: -----------------
+   Email: david@ripple.com
+   URI:   https://www.ripple.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Malhotra & Schwartz     Expires January 31, 2021               [Page 16]
