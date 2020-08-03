@@ -5,8 +5,8 @@
 Network Working Group                                          N. Kramer
 Internet-Draft                                               D. Fuelling
 Intended status: Standards Track                              I. Simpson
-Expires: January 31, 2021                                         Ripple
-                                                           July 30, 2020
+Expires: February 4, 2021                                         Ripple
+                                                         August 03, 2020
 
 
                  Draft 1 - PayID Easy Checkout Protocol
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on January 31, 2021.
+   This Internet-Draft will expire on February 4, 2021.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Kramer, et al.          Expires January 31, 2021                [Page 1]
+Kramer, et al.          Expires February 4, 2021                [Page 1]
 
-Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
+Internet-Draft   Draft 1 - PayID Easy Checkout Protocol      August 2020
 
 
    publication of this document.  Please review these documents
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Kramer, et al.          Expires January 31, 2021                [Page 2]
+Kramer, et al.          Expires February 4, 2021                [Page 2]
 
-Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
+Internet-Draft   Draft 1 - PayID Easy Checkout Protocol      August 2020
 
 
    o  PayID Discovery Server: the endpoint that returns a PayID
@@ -165,9 +165,9 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 
 
-Kramer, et al.          Expires January 31, 2021                [Page 3]
+Kramer, et al.          Expires February 4, 2021                [Page 3]
 
-Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
+Internet-Draft   Draft 1 - PayID Easy Checkout Protocol      August 2020
 
 
    The protocol is comprised of two parts:
@@ -221,23 +221,23 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 
 
-Kramer, et al.          Expires January 31, 2021                [Page 4]
+Kramer, et al.          Expires February 4, 2021                [Page 4]
 
-Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
+Internet-Draft   Draft 1 - PayID Easy Checkout Protocol      August 2020
 
 
    For example, a PayID Discovery Server might respond to a PayID
    Discovery query with the following payload:
 
-    {
-       "subject": "payid:alice$wallet.com",
-       "links": [
-           {
-               "rel" : "https://payid.org/ns/payid-easy-checkout/1.0",
-               "href": "https://wallet.com/checkout"
-           }
-       ]
-    }
+  {
+     "subject": "payid:alice$wallet.com",
+     "links": [
+         {
+             "rel" : "https://payid.org/ns/payid-easy-checkout-uri/1.0",
+             "href": "https://wallet.com/checkout"
+         }
+     ]
+  }
 
    A PayID Easy Checkout client MUST parse this response to find the
    PayID Easy Checkout Link.  If the JRD returned from the PayID
@@ -277,9 +277,9 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 
 
-Kramer, et al.          Expires January 31, 2021                [Page 5]
+Kramer, et al.          Expires February 4, 2021                [Page 5]
 
-Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
+Internet-Draft   Draft 1 - PayID Easy Checkout Protocol      August 2020
 
 
    +----------------+---------+----------------------------------------+
@@ -333,9 +333,9 @@ Output:   https://wallet.com/checkout?amount=100000&receiverPayId=payid%2Apay%24
 
 
 
-Kramer, et al.          Expires January 31, 2021                [Page 6]
+Kramer, et al.          Expires February 4, 2021                [Page 6]
 
-Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
+Internet-Draft   Draft 1 - PayID Easy Checkout Protocol      August 2020
 
 
    Server to enable PayID Easy Checkout, a PayID Discovery query to the
@@ -389,9 +389,9 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 
 
-Kramer, et al.          Expires January 31, 2021                [Page 7]
+Kramer, et al.          Expires February 4, 2021                [Page 7]
 
-Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
+Internet-Draft   Draft 1 - PayID Easy Checkout Protocol      August 2020
 
 
    Furthermore, it is RECOMMENDED that PayID Discovery Servers only
@@ -406,9 +406,9 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
    ### PayID Easy Checkout URL
 
- * Relation Type ('rel'): `https://payid.org/ns/payid-easy-checkout/1.0`
- * Media Type: `application/jrd+json`
- * Description: PayID Easy Checkout URL, version 1.0
+* Relation Type ('rel'): `https://payid.org/ns/payid-easy-checkout-uri/1.0`
+* Media Type: `application/jrd+json`
+* Description: PayID Easy Checkout URL, version 1.0
 
 7.  Acknowledgments
 
@@ -445,9 +445,9 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 
 
-Kramer, et al.          Expires January 31, 2021                [Page 8]
+Kramer, et al.          Expires February 4, 2021                [Page 8]
 
-Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
+Internet-Draft   Draft 1 - PayID Easy Checkout Protocol      August 2020
 
 
 8.1.1.2.  No New Server-Side Software
@@ -501,9 +501,9 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 
 
-Kramer, et al.          Expires January 31, 2021                [Page 9]
+Kramer, et al.          Expires February 4, 2021                [Page 9]
 
-Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
+Internet-Draft   Draft 1 - PayID Easy Checkout Protocol      August 2020
 
 
     HTTP/1.1 200 OK
@@ -515,7 +515,7 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
       "links" :
       [
         {
-          "rel": "https://payid.org/ns/payid-easy-checkout/1.0",
+          "rel": "https://payid.org/ns/payid-easy-checkout-uri/1.0",
           "template": "https://wallet.com/checkout"
         }
       ]
@@ -525,8 +525,8 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
    The merchant UI would parse the PayID Discovery response and iterate
    over the 'links' collection to find the link with the Relation Type
-   of "https://payid.org/ns/payid-easy-checkout/1.0".  The merchant UI
-   would then add all of the query parameters defined in PayID Easy
+   of "https://payid.org/ns/payid-easy-checkout-uri/1.0".  The merchant
+   UI would then add all of the query parameters defined in PayID Easy
    Checkout URL Query Parameters (Section 3.2.1) to the URL included in
    the JRD Link.  One query parameter of note is the "nextUrl"
    parameter, which allows the merchant to supply a redirect or callback
@@ -557,9 +557,9 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 
 
-Kramer, et al.          Expires January 31, 2021               [Page 10]
+Kramer, et al.          Expires February 4, 2021               [Page 10]
 
-Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
+Internet-Draft   Draft 1 - PayID Easy Checkout Protocol      August 2020
 
 
    payer to their wallet with the "receiverPayId" query parameter set to
@@ -613,9 +613,9 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 
 
-Kramer, et al.          Expires January 31, 2021               [Page 11]
+Kramer, et al.          Expires February 4, 2021               [Page 11]
 
-Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
+Internet-Draft   Draft 1 - PayID Easy Checkout Protocol      August 2020
 
 
    [RFC2818]  Rescorla, E., "HTTP Over TLS", RFC 2818,
@@ -669,9 +669,9 @@ Authors' Addresses
 
 
 
-Kramer, et al.          Expires January 31, 2021               [Page 12]
+Kramer, et al.          Expires February 4, 2021               [Page 12]
 
-Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
+Internet-Draft   Draft 1 - PayID Easy Checkout Protocol      August 2020
 
 
    Noah Kramer
@@ -725,4 +725,4 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol        July 2020
 
 
 
-Kramer, et al.          Expires January 31, 2021               [Page 13]
+Kramer, et al.          Expires February 4, 2021               [Page 13]

@@ -409,7 +409,7 @@
 
   <meta name="dct.creator" content="Kramer, N., Fuelling, D., and I. Simpson" />
   <meta name="dct.identifier" content="urn:ietf:id:payid-easy-checkout-protocol" />
-  <meta name="dct.issued" scheme="ISO8601" content="2020-07-30" />
+  <meta name="dct.issued" scheme="ISO8601" content="2020-08-03" />
   <meta name="dct.abstract" content="This specification formalizes how a payment recipient, such as a merchant or a non-profit, can automatically initiate a payment from a payer using only the payer&#x27;s PayID. " />
   <meta name="description" content="This specification formalizes how a payment recipient, such as a merchant or a non-profit, can automatically initiate a payment from a payer using only the payer&#x27;s PayID. " />
 
@@ -433,12 +433,12 @@
 <td class="right">I. Simpson</td>
 </tr>
 <tr>
-<td class="left">Expires: January 31, 2021</td>
+<td class="left">Expires: February 4, 2021</td>
 <td class="right">Ripple</td>
 </tr>
 <tr>
 <td class="left"></td>
-<td class="right">July 30, 2020</td>
+<td class="right">August 03, 2020</td>
 </tr>
 
     	
@@ -456,7 +456,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on January 31, 2021.</p>
+<p>This Internet-Draft will expire on February 4, 2021.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2020 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -584,7 +584,7 @@
     "subject": "payid:alice$wallet.com",
     "links": [
         {
-            "rel" : "https://payid.org/ns/payid-easy-checkout/1.0",
+            "rel" : "https://payid.org/ns/payid-easy-checkout-uri/1.0",
             "href": "https://wallet.com/checkout"
         }
     ]
@@ -692,7 +692,7 @@ Output:   https://wallet.com/checkout?amount=100000&amp;receiverPayId=payid%2Apa
 <p id="rfc.section.6.p.1">## New Link Relation Types This document defines the following Link relation type per [RFC7033][].  See section 3 for examples of each type of Link.</p>
 <p id="rfc.section.6.p.2">### PayID Easy Checkout URL</p>
 <pre>
-* Relation Type ('rel'): `https://payid.org/ns/payid-easy-checkout/1.0`
+* Relation Type ('rel'): `https://payid.org/ns/payid-easy-checkout-uri/1.0`
 * Media Type: `application/jrd+json`
 * Description: PayID Easy Checkout URL, version 1.0
 </pre>
@@ -746,7 +746,7 @@ Host: wallet.com
    "links" :
    [
      {  
-       "rel": "https://payid.org/ns/payid-easy-checkout/1.0",
+       "rel": "https://payid.org/ns/payid-easy-checkout-uri/1.0",
        "template": "https://wallet.com/checkout"
      }
    ]
@@ -755,7 +755,7 @@ Host: wallet.com
 <h1 id="rfc.section.8.2.3">
 <a href="#rfc.section.8.2.3">8.2.3.</a> <a href="#assemble-payid-easy-checkout-url-with-query-parameters" id="assemble-payid-easy-checkout-url-with-query-parameters">Assemble PayID Easy Checkout URL with Query Parameters</a>
 </h1>
-<p id="rfc.section.8.2.3.p.1">The merchant UI would parse the PayID Discovery response and iterate over the 'links' collection to find the link with the Relation Type of "https://payid.org/ns/payid-easy-checkout/1.0". The merchant UI would then add all of the query parameters defined in <a href="#payid-easy-checkout-url-query-parameters" class="xref">PayID Easy Checkout URL Query Parameters</a> to the URL included in the JRD Link.  One query parameter of note is the "nextUrl" parameter, which allows the merchant to supply a redirect or callback URL for the sender's wallet to call once the payer has confirmed the payment. In this example, the merchant would like to display a "Thank You" page, and replaces <samp>{nextUrl}</samp> with <samp>https://merchant.com/thankyou</samp>.</p>
+<p id="rfc.section.8.2.3.p.1">The merchant UI would parse the PayID Discovery response and iterate over the 'links' collection to find the link with the Relation Type of "https://payid.org/ns/payid-easy-checkout-uri/1.0". The merchant UI would then add all of the query parameters defined in <a href="#payid-easy-checkout-url-query-parameters" class="xref">PayID Easy Checkout URL Query Parameters</a> to the URL included in the JRD Link.  One query parameter of note is the "nextUrl" parameter, which allows the merchant to supply a redirect or callback URL for the sender's wallet to call once the payer has confirmed the payment. In this example, the merchant would like to display a "Thank You" page, and replaces <samp>{nextUrl}</samp> with <samp>https://merchant.com/thankyou</samp>.</p>
 <h1 id="rfc.section.8.2.3.1">
 <a href="#rfc.section.8.2.3.1">8.2.3.1.</a> <a href="#correlating-a-payment-to-an-invoice" id="correlating-a-payment-to-an-invoice">Correlating a Payment to an Invoice</a>
 </h1>

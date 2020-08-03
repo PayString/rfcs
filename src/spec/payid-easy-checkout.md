@@ -160,7 +160,7 @@ For example, a PayID Discovery Server might respond to a PayID Discovery query w
         "subject": "payid:alice$wallet.com",
         "links": [
             {
-                "rel" : "https://payid.org/ns/payid-easy-checkout/1.0",
+                "rel" : "https://payid.org/ns/payid-easy-checkout-uri/1.0",
                 "href": "https://wallet.com/checkout"
             }
         ]
@@ -264,7 +264,7 @@ which resolve to a protected resource.
   
   ### PayID Easy Checkout URL
   
-    * Relation Type ('rel'): `https://payid.org/ns/payid-easy-checkout/1.0`
+    * Relation Type ('rel'): `https://payid.org/ns/payid-easy-checkout-uri/1.0`
     * Media Type: `application/jrd+json`
     * Description: PayID Easy Checkout URL, version 1.0
 
@@ -331,7 +331,7 @@ If the payer's PayID Discovery Server has enabled PayID Easy Checkout in their w
        "links" :
        [
          {  
-           "rel": "https://payid.org/ns/payid-easy-checkout/1.0",
+           "rel": "https://payid.org/ns/payid-easy-checkout-uri/1.0",
            "template": "https://wallet.com/checkout"
          }
        ]
@@ -339,7 +339,7 @@ If the payer's PayID Discovery Server has enabled PayID Easy Checkout in their w
 
 ### Assemble PayID Easy Checkout URL with Query Parameters
 The merchant UI would parse the PayID Discovery response and iterate over the 'links' collection to find the link with 
-the Relation Type of "https://payid.org/ns/payid-easy-checkout/1.0". The merchant UI would then add all of the query
+the Relation Type of "https://payid.org/ns/payid-easy-checkout-uri/1.0". The merchant UI would then add all of the query
 parameters defined in [PayID Easy Checkout URL Query Parameters](#payid-easy-checkout-url-query-parameters) to the URL included in the JRD Link. 
 One query parameter of note is the "nextUrl" parameter, which allows the merchant to supply a redirect or callback URL 
 for the sender's wallet to call once the payer has confirmed the payment. In this example, the merchant would like 
