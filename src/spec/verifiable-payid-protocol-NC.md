@@ -136,7 +136,7 @@ The `name` Header Parameter identifies the type of signature. It is a new OPTION
 The `alg` (algorithm) Header Parameter identifies the cryptographic algorithm used to secure the JWS. This is a required field as described in [RFC7515][]. We RECOMMEND using "ES256K" which is Elliptic Curve Digital Signature Algorithm (ECDSA) using secp256k1 curve-type and SHA-256 hash-type as defined in IANA JSON Web Signature and Encryption Header Parameters Registry.
 
 #### typ
-The "typ" (type) Header Parameter is used by JWS applications to declare the media type of the complete JWS. This is an optional field as described in [RFC7515][].
+The `typ` (type) Header Parameter is used by JWS applications to declare the media type of the complete JWS. This is an optional field as described in [RFC7515][].
 
 #### b64
 The "b64" (base64url-encode) Header Parameter is an extension to JWS specification that determines how a payload is represented in the JWS and the JWS signing input. When the "b64" value is `false`, the payload is represented simply as the JWS Payload value with no encoding; otherwise, it is represented as ASCII(BASE64URL(JWS Payload)). This is an optional field as described in [RFC7797][].
