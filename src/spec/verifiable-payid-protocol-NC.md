@@ -108,7 +108,7 @@ This specification defines one of the extensions of the Basic PayID protocol [PA
 ## PaymentInformation Resource as JSON Web Signatures
   The PayID Protocol [PAYID-PROTOCOL] defines a Payment Account(s) Information Resource that contains information about a particular PayID. This document further refines this definition to allow this information to be digitally signed, and then represented as a JSON Web Signature (JWS) [RFC7515] using JWS JSON Serialization.
 
-  Below, this document further defines the structure of each JWS component, for the purposes of Verifiable PayID.
+  Below, this document further defines the structure of each JWS component, for the purposes of Self-Sovereign Verifiable PayID protocol.
 
 ### JOSE Protected Header
   For JWS, the members of the JSON object represented by the JOSE Header describe the cryptographic operations applied to the JWS Protected header and the JWS payload and optionally additional properties of the JWS.
@@ -211,7 +211,7 @@ The JWS signature is the digital signature which is calculated over the JOSE hea
 #### signature
 The value of `signature` is computed as described in [RFC7515][].
 
-## End-to-End Verifiable PayID Protocol Flow for Non-Custodial Wallets/Exchanges
+## End-to-End Self-Sovereign Verifiable PayID protocol Flow
 A pre-requisite for this protocol requires the PayID owner to transfer signed `PaymentInformation` to the PayID server. This document specifies one such way of doing this. 
 
 The following are the pre-steps that a PayID owner's device should perform locally:
@@ -273,24 +273,24 @@ For each `payment-network` and `environment` that the PayID owner has a payment 
 Implementations SHOULD use a secure communication channel to transfer these resources to the PayID server.
 
 ## Basic Operations
-  Following are the basic operations performed by the verifiable PayID client and PayID server to retrieve `PaymentInformation` resource corresponding to PayID.
+  Following are the basic operations performed by a Self-Sovereign Verifiable PayID client and server to retrieve `PaymentInformation` resource corresponding to a PayID.
 
 ### PayID Client Requesting the PaymentInformation Resource
-  When requesting the `PaymentInformation` resource, a verifiable PayID client MAY use the same HTTP `GET` method as in [PAYID-PROTOCOL][] to the PayID URL without any query parameters and body.
+  When requesting the `PaymentInformation` resource, a Self-Sovereign Verifiable PayID client MAY use the same HTTP `GET` method as in [PAYID-PROTOCOL][] to the PayID URL without any query parameters and body.
 
   The PayID client MUST query the PayID server using HTTPS only. [RFC2818][] defines how HTTPS verifies the PayID server's identity. If the HTTPS connection cannot be established for any reason, then the PayID client MUST accept that the PayID request has failed and MUST NOT attempt to reissue the PayID request using HTTP over a non-secure connection.
 
 ### PayID Server Responding to the PaymentInformation Resource Request
-  Upon receiving a `GET` request for a payment accounts(s) information resource or a `PaymentInformation` resource, a PayID server that supports Verifiable PayID protocol returns the `PaymentInformation` resource for the `payment-network` and `environment` requested by the PayID client in the request `Accept` header field, along with other required and/or optional metadata.
+  Upon receiving a `GET` request for a payment accounts(s) information resource or a `PaymentInformation` resource, a PayID server that supports Self-Sovereign Verifiable PayID protocol returns the `PaymentInformation` resource for the `payment-network` and `environment` requested by the PayID client in the request `Accept` header field, along with other required and/or optional metadata.
 
-  However, if the PayID server does not support the Verifiable PayID protocol, the PayID server sends back a response as described in [PAYID-PROTOCOL][].
+  However, if the PayID server does not support the Self-Sovereign Verifiable PayID protocol, the PayID server sends back a response as described in [PAYID-PROTOCOL][].
 
   If the PayID server does not contain the payment accounts(s) information resource or a `PaymentInformation` resource resource corresponding to the request, the PayID server MUST respond with an appropriate error message. 
 
 ### Parsing the PaymentInformation Response
    The PayID client MUST conform to the verification of JWS as specified in [RFC7515][].
 
-# Example Use of the Verifiable PayID Protocol
+# Example Use of the Self-Sovereign Verifiable PayID Protocol
   This section shows sample use of this extension of Basic PayID protocol in a hypothetical scenario.
 
 ## Verifiable PayID Protocol by a Non-Custodial Wallet as PayID Server
@@ -356,7 +356,7 @@ Implementations SHOULD use a secure communication channel to transfer these reso
  In the above example, the `PaymentInformation` resource is a pre-signed message with the PayID private keys of the PayID owner Bob. Bob's non-custodial wallet retrieves this response and sends it to the PayID client.
 
 # Security Considerations
-  This security considerations section only considers verifiable PayID clients and servers bound to implementations as defined in this document.
+  This security considerations section only considers PayID clients and servers bound to implementations as defined in this document.
 
   The security guarantees mentioned in [PAYID-PROTOCOL][] apply to this protocol. In this section, we discuss a security model for the Verifiable PayID protocol for non-custodial service providers.
 
@@ -373,7 +373,7 @@ The implementations of this extension of Basic PayID protocol MUST refer to the 
 
 ## Using addresses Array
 The `addresses` array in the PayID response is an array of unsigned payment addresses. Implementations of this extension of Basic PayID that choose to populate this array along with the `verifiedAddresses` array MAY be vulnerable to downgrade attacks. We RECOMMEND against populating this array unless absolutely necessary depending on the use-case.
-Also, note that this approach is not backwards-compatible with the PayID clients that do not understand verifiable PayID.
+Also, note that this approach is not backwards-compatible with the PayID clients that do not understand Self-Sovereign Verifiable PayID protocol.
 
 # Privacy Considerations
 All privacy guarantees in the Privacy Considerations section of [PAYID-PROTOCOL][] apply to this extension of Basic PayID protocol.
