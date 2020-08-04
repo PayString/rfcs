@@ -193,7 +193,7 @@ The `PayIDAddress` is a required field. The value of `PayIDAddress` field is a J
 
   * "environment": The value of `environment` string is the value of environment as specified in the client request's `Accept` header.
 
-  * "addressDetailsType": The value of `addressDetailsType` is one of the following strings:
+  * "addressDetailsType": The value of `addressDetailsType` is one of the following strings as described in [PAYID-PROTOCOL][]:
 
        * CryptoAddressDetails
 
@@ -290,7 +290,7 @@ Implementations SHOULD use a secure communication channel to transfer these reso
 ### Parsing the PaymentInformation Response
    The PayID client MUST conform to the verification of JWS as specified in [RFC7515][].
 
-# Example Use of the Self-Sovereign Verifiable PayID Protocol
+# Example Use of Self-Sovereign Verifiable PayID Protocol
   This section shows sample use of this extension of Basic PayID protocol in a hypothetical scenario.
 
 ## Verifiable PayID Protocol by a Non-Custodial Wallet as PayID Server
