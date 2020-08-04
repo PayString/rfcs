@@ -122,7 +122,7 @@ Internet-Draft     Verifiable PayID Protocol Extension         July 2020
   for Non-Custodial Services".  It uses the following
    terminology.
 
-   o  Endpoint: either the client or the server of the connection.
+   o  Endpoint: either the client or the server of a connection.
 
    o  Sender: individual or entity originating the transaction.
 
