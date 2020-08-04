@@ -95,7 +95,7 @@ This specification defines one of the extensions of the Basic PayID protocol [PA
 
 # Motivation
 
-   We anticipate that the most common use-case for retrieving the payment account(s) address information is to make transactions. Providers of such services can be categorized as custodial and non-custodial, each of which operate under different security models. Non-custodial wallets/exchanges do not store their customers’ on-ledger private keys on their servers. Instead, these customers hold their private keys and hence are in full control of their funds. As such, there is no trust requirement between non-custodial wallets/exchanges and their customers, and these services are not responsible for any for lost, compromised or stolen private keys of their customers. Likewise, customers of non-custodial wallets/exchanges do not need to worry if the servers of those wallets/exchanges go malicious or are compromised.
+   Providers of PayID-enabled payment services can be broadly categorized as custodial and non-custodial, each of which operate under different security models. Non-custodial wallets/exchanges do not store their customers’ on-ledger private keys on their servers. Instead, these customers hold their private keys and hence are in full control of their funds. As such, there is no trust requirement between non-custodial wallets/exchanges and their customers, and these services are not responsible for any for lost, compromised or stolen private keys of their customers. Likewise, customers of non-custodial wallets/exchanges do not need to worry if the servers of those wallets/exchanges are compromised.
 
    Basic PayID protocol [PAYID-PROTOCOL][] specifies a protocol to interact with a PayID server and retrieve a payment account(s) address information resource along with other meta-data corresponding to the queried PayID. One of the security assumptions made by the basic PayID protocol that may be less desirable for some applications is that the owner of the PayID must trust their PayID server to provide correct and untampered responses. Under this model, the PayID server has full control over the contents of any PayID response message, with potentially adverse effects if the server goes rogue or is compromised. The PayID owner has no way of knowing if the PayID server behaves maliciously. This implicit trust assumption between the PayID owner and their PayID server is often unacceptable in a non-custodial setting.
    
@@ -376,4 +376,3 @@ ALso, note that this approach is not backwards-compatible with the PayID clients
 
 # Privacy Considerations
 All privacy guarantees in the Privacy Considerations section of [PAYID-PROTOCOL][] apply to this extension of Basic PayID protocol.
-
