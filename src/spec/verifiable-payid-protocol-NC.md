@@ -152,7 +152,7 @@ The `jwk` (JSON Web Key) Header Parameter represents the public key that is used
 
   * `use`: Identifies the intended use of the public key, such as "sig" for signature.
 
-  * crv : The "crv" (Curve) parameter represents the elliptic curve-type and the hash-type such as "secp256k1" represents curve-type `secp256k1` and the hash-type `SHA-256`. 
+  * `crv` : Indicates the elliptic curve and the hash type (e.g., "secp256k1" represents curve-type `secp256k1` and the hash-type `SHA-256`). 
 
   * `x` : Indicates the X-coordinate of the corresponding public key. For "alg" parameter values of "ES256K" (which is from the ECDSA family), `x` contains the X-coordinate of the corresponding public key.
 
