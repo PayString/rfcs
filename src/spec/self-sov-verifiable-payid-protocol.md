@@ -2,7 +2,7 @@
 coding: utf-8
 
 title: Self-Sovereign Verifiable PayID
-docname: draft-aanchal-verifiable-payid-protocol-ext-01
+docname: draft-aanchal-self-sov-verifiable-payid-protocol
 category: std
 
 pi: [toc, sortrefs, symrefs, comments]
