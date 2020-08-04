@@ -130,7 +130,7 @@ Internet-Draft     Verifiable PayID Protocol Extension         July 2020
       side of the transaction.
 
    o  PayID server: the endpoint that returns payment account(s)
-      information/receiving side of the transaction (non-custodial
+      information in response to a PayID protocol request.
       wallets, exchanges, etc).
 
    o  PayID owner: individual or entity receiving the transaction/owner
