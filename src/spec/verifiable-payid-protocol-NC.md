@@ -368,8 +368,8 @@ Implementations SHOULD use a secure communication channel to transfer these reso
 
   This extension of Basic PayID protocol preserves this trust model. Rather than requiring the PayID server to provide accurate PayID response for their customers, the PayID owners can generate these signed mappings with their own PayID private key locally on their app/device. The sender of the payment (PayID client wallet’s customer) can easily verify these signatures out-of-band with the receiver (i.e., PayID owner). This eliminates any risk of the non-custodial PayID server wallet losing its private keys, going malicious, getting hacked, or becoming otherwise compromised in a way that customers might lose funds.
 
-## Using JWTs
-The implementations of this extension of Basic PayID protocol MUST refer to the Security Considerations sections of [RFC7515][] and 
+## Using JSON Web Signatures
+The implementations of this extension of Basic PayID protocol MUST refer to the Security Considerations sections of [RFC7515][] and [RFC7519][].
 
 ## Using addresses Array
 The `addresses` array in the PayID response is an array of unsigned payment addresses. Implementations of this extension of Basic PayID that choose to populate this array along with the `verifiedAddresses` array MAY be vulnerable to downgrade attacks. We RECOMMEND against populating this array unless absolutely necessary depending on the use-case.
