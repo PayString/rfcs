@@ -8,7 +8,7 @@ Intended status: Standards Track                                  Ripple
 Expires: January 31, 2021                                  July 30, 2020
 
 
-                  Verifiable PayID Protocol Extension
+                  Verifiable PayID Protocol for Non-Custodial Services
              draft-aanchal-verifiable-payid-protocol-ext-01
 
 Abstract
