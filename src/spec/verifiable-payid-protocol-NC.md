@@ -1,7 +1,7 @@
 ---
 coding: utf-8
 
-title: Verifiable PayID Protocol for Non-Custodial Services
+title: Self-Sovereign Verifiable PayID
 docname: draft-aanchal-verifiable-payid-protocol-ext-01
 category: std
 
@@ -40,11 +40,13 @@ author:
 normative:
     RFC2119:
     RFC2818:
+    RFC4949:
     RFC5280:
     RFC6979:
     RFC7515:
+    RFC7519:
     RFC7797:
-    RFC4949:
+    
     RFC7517:
     PAYID-URI:
       title: "The 'payid' URI Scheme"
