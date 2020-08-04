@@ -373,7 +373,7 @@ The implementations of this extension of Basic PayID protocol MUST refer to the 
 
 ## Using addresses Array
 The `addresses` array in the PayID response is an array of unsigned payment addresses. Implementations of this extension of Basic PayID that choose to populate this array along with the `verifiedAddresses` array MAY be vulnerable to downgrade attacks. We RECOMMEND against populating this array unless absolutely necessary depending on the use-case.
-ALso, note that this approach is not backwards-compatible with the PayID clients that do not understand verifiable PayID.
+Also, note that this approach is not backwards-compatible with the PayID clients that do not understand verifiable PayID.
 
 # Privacy Considerations
 All privacy guarantees in the Privacy Considerations section of [PAYID-PROTOCOL][] apply to this extension of Basic PayID protocol.
