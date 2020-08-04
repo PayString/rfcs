@@ -145,7 +145,7 @@ The `b64` (base64url-encode) Header Parameter is an extension to JWS specificati
 The `crit` (critical) Header Parameter indicates that extensions to JWS specification are being used that MUST be understood and processed. This is a required field to be used with "b64" parameter as described in [RFC7797][].
 
 #### jwk 
-The "jwk" (JSON Web Key) Header Parameter represents the public key that is used to digitally sign the JOSE header and JWS payload. This parameter is represented as a JSON Web Key as specified in [RFC7517][]. In the header above, members of "jwk" represent the properties of the public key, including its value that corresponds to the algorithm "ES256K".
+The `jwk` (JSON Web Key) Header Parameter represents the public key that is used to digitally sign the JOSE header and JWS payload. This parameter is represented as a JSON Web Key as specified in [RFC7517][]. In the header above, members of "jwk" represent the properties of the public key, including its value that corresponds to the algorithm "ES256K".
 
   * kty: The "kty" (key type) parameter identifies the cryptographic algorithm family used with the key, such as "EC" for Elliptic Curve.
 
