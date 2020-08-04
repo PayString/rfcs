@@ -142,7 +142,7 @@ The `typ` (type) Header Parameter is used by JWS applications to declare the med
 The `b64` (base64url-encode) Header Parameter is an extension to JWS specification that determines how a payload is represented in the JWS and the JWS signing input. When the "b64" value is `false`, the payload is represented simply as the JWS Payload value with no encoding; otherwise, it is represented as ASCII(BASE64URL(JWS Payload)). This is an optional field as described in [RFC7797][].
 
 #### crit
-The "crit" (critical) Header Parameter indicates that extensions to JWS specification are being used that MUST be understood and processed. This is a required field to be used with "b64" parameter as described in [RFC7797][].
+The `crit` (critical) Header Parameter indicates that extensions to JWS specification are being used that MUST be understood and processed. This is a required field to be used with "b64" parameter as described in [RFC7797][].
 
 #### jwk 
 The "jwk" (JSON Web Key) Header Parameter represents the public key that is used to digitally sign the JOSE header and JWS payload. This parameter is represented as a JSON Web Key as specified in [RFC7517][]. In the header above, members of "jwk" represent the properties of the public key, including its value that corresponds to the algorithm "ES256K".
