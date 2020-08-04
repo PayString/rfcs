@@ -124,7 +124,7 @@ Internet-Draft     Verifiable PayID Protocol Extension         July 2020
 
    o  Endpoint: either the client or the server of a connection.
 
-   o  Sender: individual or entity originating the transaction.
+   o  Sender: individual or entity originating a transaction.
 
    o  PayID client: the endpoint that initiates PayID protocol/sending
       side of the transaction.
