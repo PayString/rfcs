@@ -155,7 +155,7 @@ The `jwk` (JSON Web Key) Header Parameter represents the public key that is used
 
   * `x` : Indicates the X-coordinate of the corresponding public key. For "alg" parameter values of "ES256K" (which is from the ECDSA family), `x` contains the X-coordinate of the corresponding public key.
 
-  * y : Since we assume the "alg" parameter as "ES256K" which is one from the ECDSA family, so "y" parameter represents the Y-coordinate of the corresponding public key.
+  * `y` : Indicates the Y-coordinate of the corresponding public key. For "alg" parameter values of "ES256K" (which is from the ECDSA family), `y` contains the Y-coordinate of the corresponding public key.
 
 Note: "jwk" is one way way of embedding public key in the JOSE header. For more details on other possible options for "alg" and representing public keys refer to [RFC7515][]. 
 
