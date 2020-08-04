@@ -133,7 +133,7 @@ This specification defines one of the extensions of the Basic PayID protocol [PA
 The `name` Header Parameter identifies the type of signature. It is a new OPTIONAL header parameter that is not defined in the IANA JSON Web Signature and Encryption Header Parameters Registry.
 
 #### alg
-The "alg" (algorithm) Header Parameter identifies the cryptographic algorithm used to secure the JWS. This is a required field as described in [RFC7515][]. We RECOMMEND using "ES256K" which is Elliptic Curve Digital Signature Algorithm (ECDSA) using secp256k1 curve-type and SHA-256 hash-type as defined in IANA JSON Web Signature and Encryption Header Parameters Registry.
+The `alg` (algorithm) Header Parameter identifies the cryptographic algorithm used to secure the JWS. This is a required field as described in [RFC7515][]. We RECOMMEND using "ES256K" which is Elliptic Curve Digital Signature Algorithm (ECDSA) using secp256k1 curve-type and SHA-256 hash-type as defined in IANA JSON Web Signature and Encryption Header Parameters Registry.
 
 #### typ
 The "typ" (type) Header Parameter is used by JWS applications to declare the media type of the complete JWS. This is an optional field as described in [RFC7515][].
