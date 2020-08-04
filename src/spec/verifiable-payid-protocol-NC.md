@@ -126,7 +126,7 @@ This specification defines one of the extensions of the Basic PayID protocol [PA
                 "crv": "secp256k1", 
                 "x"  : "0", 
                 "y"  : "0",
-                    },
+            },
     }
 
 #### name
