@@ -147,7 +147,7 @@ The `crit` (critical) Header Parameter indicates that extensions to JWS specific
 #### jwk 
 The `jwk` (JSON Web Key) Header Parameter represents the public key that is used to digitally sign the JOSE header and JWS payload. This parameter is represented as a JSON Web Key as specified in [RFC7517][]. In the header above, members of "jwk" represent the properties of the public key, including its value that corresponds to the algorithm "ES256K".
 
-  * kty: The "kty" (key type) parameter identifies the cryptographic algorithm family used with the key, such as "EC" for Elliptic Curve.
+  * `kty`: Identifies the cryptographic algorithm family used with the key, such as "EC" for Elliptic Curve.
 
   * use: The "use" (public key use) parameter identifies the intended use of the public key such as "sig" for signature.
 
