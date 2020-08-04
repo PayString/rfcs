@@ -119,7 +119,7 @@ Internet-Draft     Verifiable PayID Protocol Extension         July 2020
 1.  Terminology
 
    This protocol can be referred to as the "Verifiable PayID Protocol
-   Extension for Non-Custodial Services".  It uses the following
+  for Non-Custodial Services".  It uses the following
    terminology.
 
    o  Endpoint: either the client or the server of the connection.
