@@ -149,7 +149,7 @@ The `jwk` (JSON Web Key) Header Parameter represents the public key that is used
 
   * `kty`: Identifies the cryptographic algorithm family used with the key, such as "EC" for Elliptic Curve.
 
-  * use: The "use" (public key use) parameter identifies the intended use of the public key such as "sig" for signature.
+  * `use`: Identifies the intended use of the public key, such as "sig" for signature.
 
   * crv : The "crv" (Curve) parameter represents the elliptic curve-type and the hash-type such as "secp256k1" represents curve-type `secp256k1` and the hash-type `SHA-256`. 
 
