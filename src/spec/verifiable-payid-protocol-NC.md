@@ -103,7 +103,7 @@ This specification defines one of the extensions of the Basic PayID protocol [PA
    This protocol enables non-custodial service providers to provide non-custodial PayID service while preserving the existing trust assumptions between themselves and their users. More specifically, this protocol allows a PayID owner to digitally sign a PayID response using a local application/device with their PayID private key (which never leaves their device). This signed PayID response can then be securely transferred to the non-custodial PayID service provider's server who can then send this as a response to a PayID query along with PayID owner's "identity" information. PayID clients can use this information to verify if a PayID response is signed by the PayID owner, and then decide wheteher to proceed with any particular transaction.  
 
 # Self-Sovereign Verifiable PayID Protocol Specification
-  The Verifiable PayID protocol is designed along the same design principles as [PAYID-PROTOCOL][].
+  The Self-Sovereign Verifiable PayID protocol is designed along the same design principles as [PAYID-PROTOCOL][].
 
 ## PaymentInformation Resource as JSON Web Signatures
   The PayID Protocol [PAYID-PROTOCOL] defines a Payment Account(s) Information Resource that contains information about a particular PayID. This document further refines this definition to allow this information to be digitally signed, and then represented as a JSON Web Signature (JWS) [RFC7515] using JWS JSON Serialization.
