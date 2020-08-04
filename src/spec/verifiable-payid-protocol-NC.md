@@ -44,10 +44,9 @@ normative:
     RFC5280:
     RFC6979:
     RFC7515:
+    RFC7517:
     RFC7519:
     RFC7797:
-    
-    RFC7517:
     PAYID-URI:
       title: "The 'payid' URI Scheme"
       target: https://tbd.example.com/
