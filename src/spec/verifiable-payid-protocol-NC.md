@@ -90,7 +90,7 @@ This specification defines one of the extensions of the Basic PayID protocol [PA
    * PayID client: the endpoint that initiates PayID protocol/sending side of the transaction.
    * PayID server: the endpoint that returns payment account(s) address information in response to a PayID protocol request (non-custodial wallets, exchanges, etc).
    * PayID owner: individual or entity receiving a transaction. 
-   * Digital Signture: As defined in [RFC4949][].
+   * Digital Signature: As defined in [RFC4949][].
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC2119][] and [RFC9174][].
 
@@ -137,7 +137,7 @@ The `name` Header Parameter identifies the type of signature. It is a new OPTION
 The `alg` (algorithm) Header Parameter identifies the cryptographic algorithm used to secure the JWS. This is a required field as described in [RFC7515][]. We RECOMMEND using "ES256K" which is Elliptic Curve Digital Signature Algorithm (ECDSA) using secp256k1 curve-type and SHA-256 hash-type as defined in IANA JSON Web Signature and Encryption Header Parameters Registry.
 
 #### typ
-The `typ` (type) Header Parameter is used by JWS applications to declare the media type of the complete JWS. This is an optional field as described in [RFC7515][].
+The `typ` (type) Header Parameter is used by JWS applications to declare the media type of the complete JWS as described in [RFC7515][]. If used, the value of `typ` field SHOULD be set to "JOSE+JSON".
 
 #### b64
 The `b64` (base64url-encode) Header Parameter is an extension to JWS specification that determines how a payload is represented in the JWS and the JWS signing input. When the "b64" value is `false`, the payload is represented simply as the JWS Payload value with no encoding; otherwise, it is represented as ASCII(BASE64URL(JWS Payload)). This is an optional field as described in [RFC7797][].
@@ -187,7 +187,7 @@ The `payId` field is a required field. The value of `payId` field is the PayID U
 #### PayIDAddress
 The `PayIDAddress` is a required field. The value of `PayIDAddress` field is a JSON object with the following keys: 
 
-  * "expTime": This is an optionl field and follows the same structure as described for "exp" field in [RFC7519][]. If used, the value of `expTime` SHOULD be set to the maximum time upto which the payment address in the `address` field is valid.
+  * "expTime": This is an optional field and follows the same structure as described for "exp" field in [RFC7519][]. If used, the value of `expTime` SHOULD be set to the maximum time upto which the payment address in the `address` field is valid.
 
   * "paymentNetwork": The value of the `paymentNetwork` is the value of payment-network string as specified in the client request's `Accept` header.
 
