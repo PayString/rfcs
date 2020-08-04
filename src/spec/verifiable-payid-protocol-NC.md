@@ -139,7 +139,7 @@ The `alg` (algorithm) Header Parameter identifies the cryptographic algorithm us
 The `typ` (type) Header Parameter is used by JWS applications to declare the media type of the complete JWS. This is an optional field as described in [RFC7515][].
 
 #### b64
-The "b64" (base64url-encode) Header Parameter is an extension to JWS specification that determines how a payload is represented in the JWS and the JWS signing input. When the "b64" value is `false`, the payload is represented simply as the JWS Payload value with no encoding; otherwise, it is represented as ASCII(BASE64URL(JWS Payload)). This is an optional field as described in [RFC7797][].
+The `b64` (base64url-encode) Header Parameter is an extension to JWS specification that determines how a payload is represented in the JWS and the JWS signing input. When the "b64" value is `false`, the payload is represented simply as the JWS Payload value with no encoding; otherwise, it is represented as ASCII(BASE64URL(JWS Payload)). This is an optional field as described in [RFC7797][].
 
 #### crit
 The "crit" (critical) Header Parameter indicates that extensions to JWS specification are being used that MUST be understood and processed. This is a required field to be used with "b64" parameter as described in [RFC7797][].
