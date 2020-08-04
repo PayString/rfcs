@@ -112,7 +112,7 @@ This specification defines one of the extensions of the Basic PayID protocol [PA
 ### JOSE Protected Header
   For JWS, the members of the JSON object represented by the JOSE Header describe the cryptographic operations applied to the JWS Protected header and the JWS payload and optionally additional properties of the JWS.
 
-  For a complete list of members of this object, refer to [RFC7519][] and [RFC7515][]. Following is an example of a JWT object representing JOSE header parameters for JWS JSON Serialization syntax.
+  For a complete list of members of this object, refer to [RFC7515][]. Following is an example of a JWT object representing JOSE header parameters for JWS JSON Serialization syntax.
 
     {
            "name": "identityKey",
