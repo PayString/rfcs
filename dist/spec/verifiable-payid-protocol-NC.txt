@@ -132,7 +132,7 @@ Internet-Draft     Verifiable PayID Protocol Extension         July 2020
    o  PayID server: the endpoint that returns payment account(s)
       information in response to a PayID protocol request.
 
-   o  PayID owner: individual or entity receiving the transaction/owner
+   o  PayID owner: individual or entity receiving a transaction.
       of the PayID[PAYID-URI].
 
    o  Digital Signture: As defined in [RFC4949].
