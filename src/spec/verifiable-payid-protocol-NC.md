@@ -358,13 +358,13 @@ Implementations SHOULD use a secure communication channel to transfer these reso
 # Security Considerations
   This security considerations section only considers PayID clients and servers bound to implementations as defined in this document.
 
-  The security guarantees mentioned in [PAYID-PROTOCOL][] apply to this protocol. In this section, we discuss a security model for the Verifiable PayID protocol for non-custodial service providers.
+  The security guarantees mentioned in [PAYID-PROTOCOL][] apply to this protocol. In this section, we discuss the security model for Self-Sovereign Verifiable PayID protocol for non-custodial service providers.
 
 ## Security Model for Non-Custodial PayID Service Providers
 
   In the current security model, non-custodial wallets do not store their customers’ keys.  Instead, wallet customers hold their private keys on their own device(s). There is a no trust requirement between the service provided by a non-custodial wallets and its customers. Because customers in this scenario hold the private keys:
   * Wallets are not liable for any consequences coming from the loss, compromise or theft of customers' private keys.
-  * The Non-custodial wallets do not require their customers to trust their servers in case wallets servers go malicious or are compromised.
+  * The non-custodial wallets do not require their customers to trust their servers in case wallets servers go malicious or are compromised.
 
   This extension of Basic PayID protocol preserves this trust model. Rather than requiring the PayID server to provide accurate PayID response for their customers, the PayID owners can generate these signed mappings with their own PayID private key locally on their app/device. The sender of the payment (PayID client wallet’s customer) can easily verify these signatures out-of-band with the receiver (i.e., PayID owner). This eliminates any risk of the non-custodial PayID server wallet losing its private keys, going malicious, getting hacked, or becoming otherwise compromised in a way that customers might lose funds.
 
