@@ -78,7 +78,7 @@ informative:
 
 --- abstract
 
-This specification defines one of the extensions of the Basic PayID protocol [PAYID-PROTOCOL][] that aims to enable trust minimized PayID service with applications in non-custodial settings. More specifically, this extension of Basic PayID protocol eliminates the trust requirement between the PayID owner and their PayID service provider by allowing PayID server operators (such as wallets/exchanges) to send payment account(s) address information associated with a PayID [PAYID-URI][] that is digitally signed with the PayID private key of the PayID owner along with PayID owner's `identity` information and other meta-data needed to verify the signature.
+This specification defines one of the extensions of the Basic PayID protocol [PAYID-PROTOCOL][] that aims to enable trust-minimized PayID service. Specifically, this extension of Basic PayID protocol eliminates the trust requirement between the PayID owner and their PayID service provider by allowing PayID server operators (such as wallets/exchanges) to send payment account(s) address information associated with a PayID [PAYID-URI][] that is digitally signed with the PayID private key of the PayID owner along with PayID owner's `identity` information and other meta-data needed to verify the signature.  As a result, Self-Sovereign Verifiable PayID enables PayID service providers to match the security model of applications such as non-custodial digital wallets.
 
 --- middle
 
