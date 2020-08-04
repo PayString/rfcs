@@ -4,7 +4,8 @@ module.exports = function(grunt) {
     "src/spec/payid-uri.md",
     "src/spec/payid-discovery.md",
     "src/spec/payid-protocol.md",
-    "src/spec/verifiable-payid-protocol.md"
+    "src/spec/verifiable-payid-protocol.md",
+    "src/spec/verifiable-payid-protocol-NC.md"
   ]
 
   // Project configuration.
