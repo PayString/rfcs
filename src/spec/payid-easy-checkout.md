@@ -105,10 +105,10 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 The PayID Easy Checkout Protocol is a minimal protocol that allows a recipient (e.g., an online merchant or a charity) to
 request a payment from a payer using only the payer's PayID as defined in [PAYID-URI][]. Implementations
-of the protocol require little to no server-side engineering efforts, while creating a seamless and uniform
+of this protocol require little to no server-side engineering efforts, while creating a seamless and uniform
 user experience for payers.
 
-The main focus of the Protocol is on PayID Easy Checkout Discovery, which defines how a PayID Easy Checkout Client can 
+The main focus of the protocol is on PayID Easy Checkout Discovery, which defines how a PayID Easy Checkout Client can 
 use a PayID to retrieve a PayID Easy Checkout URL which represents a resource that the payer's digital wallet can use to initiate 
 a payment to the merchant. 
 
@@ -133,7 +133,7 @@ be used to complete a payment.
 
 Recipients who wish to initiate an Easy Checkout flow MUST query the sender's PayID Discovery Server to 
 obtain a PayID Easy Checkout URL. PayID Discovery Servers that wish to enable PayID Easy
-Checkout MUST include a JRD Link conforming to the definition in the [JRD section](#payid-easy-checkout-jrds) of this paper 
+Checkout MUST include a JRD Link conforming to the definition in the [JRD section](#payid-easy-checkout-jrds) of this document
 in all PayID Easy Checkout Discovery responses.
 
 Recipients SHOULD implement fallback measures to complete a checkout flow if a payer's wallet does not support PayID Easy Checkout.
