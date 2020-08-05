@@ -358,7 +358,7 @@ is given to the payer to the invoice.
 In order to accomplish this, a merchant could provide a unique PayID containing the invoice identifier 
 for each PayID Easy Checkout transaction. In this example, the merchant would first associate a payment address with the
 invoice ID, and would then redirect the payer to their wallet with the `receiverPayId` query parameter set to `pay-1045464$merchant.com`.
-When the merchant PayID Discovery Server receives a query for the address associated with that PayID, they could return the previously
+When the merchant PayID Server receives a query for the address associated with that PayID, they could return the previously
 stored payment address. When the merchant receives a payment to that address, they can then associate the layer 1 payment
 with the invoice.
 
