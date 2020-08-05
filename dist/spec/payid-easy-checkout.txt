@@ -563,11 +563,11 @@ Internet-Draft   Draft 1 - PayID Easy Checkout Protocol      August 2020
 
 
    payer to their wallet with the "receiverPayId" query parameter set to
-   "pay-1045464$merchant.com".  When the merchant PayID Discovery Server
-   receives a query for the address associated with that PayID, they
-   could return the previously stored payment address.  When the
-   merchant receives a payment to that address, they can then associate
-   the layer 1 payment with the invoice.
+   "pay-1045464$merchant.com".  When the merchant PayID Server receives
+   a query for the address associated with that PayID, they could return
+   the previously stored payment address.  When the merchant receives a
+   payment to that address, they can then associate the layer 1 payment
+   with the invoice.
 
 8.2.4.  Redirect Payer to Their Wallet
 

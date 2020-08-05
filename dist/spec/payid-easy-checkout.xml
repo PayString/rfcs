@@ -424,7 +424,7 @@ is given to the payer to the invoice.</t>
 <t>In order to accomplish this, a merchant could provide a unique PayID containing the invoice identifier 
 for each PayID Easy Checkout transaction. In this example, the merchant would first associate a payment address with the
 invoice ID, and would then redirect the payer to their wallet with the <spanx style="verb">receiverPayId</spanx> query parameter set to <spanx style="verb">pay-1045464$merchant.com</spanx>.
-When the merchant PayID Discovery Server receives a query for the address associated with that PayID, they could return the previously
+When the merchant PayID Server receives a query for the address associated with that PayID, they could return the previously
 stored payment address. When the merchant receives a payment to that address, they can then associate the layer 1 payment
 with the invoice.</t>
 
@@ -509,7 +509,7 @@ the "Thank You" page of the merchant.</t>
   </back>
 
 <!-- ##markdown-source:
-H4sIAAwqK18AA81ce3PbxrX/H59iR24iKyUpS1Ycm3cyvRrJSdRakqtH3YzH
+H4sIAH8qK18AA81ce3PbxrX/H59iR24iKyUpS1Ycm3cyvRrJSdRakqtH3YzH
 U4HAktwIxLJYQDQT57v3PHYXCxCgH7lzp565jYjH7nmf3zl7cIfDYZToVOWz
 sajK6fB5FJWqzORYnBbxtBQHYihex+uzU/EyNmtxMpfJva5K8brQpU50FqU6
 yeMFPL+M1yodSnhqmNinhkv3VBKXcqaL9ViYMo2ipRqLt3BnIIwuykJODfy1
@@ -634,15 +634,15 @@ HONG1wzW7WSQTEadJtdY4sWpc84fadn1CDorGRq882u7w0iEE2dJXBnu2PeF
 FKpf/Tc44YRJDUl9N4inRUqseDXNDXPLSSf0OQBhF0soUh3BGzPuUunN2RhH
 b1CV24MYrGBxoB8sbRB+58uN9rrEtpbAnAXnhsHqoZlEXhldsgiLrU8KIR6n
 Wu7rkw0nA1f5R44YgveISsLKwAbEtnzqytDP4t41TqnvNsK04XB5B8sMrT80
-Ki+ISXQ81GCmB4LZrbAGsTPa1km9JTrGU0eg6763jkXobJcbO/IBT+aydWRK
-XXC3LRTYSGySF9DRsPfaJ9x2cW7zbMMeW77uuzGB+WGUdmdq3CjCLW5IBVyz
-RL7OCnO7G5pzXkPNkrRzIMUfj1l8NdhYzNmBaRqCRSaWOFwiDCB1b8GmwkYi
-9JUYPHPC941LQNGxHymyiwQFITzTUQu26+Hbs7qS95zYLwxMQ+HcKR1E9W6U
-1rr6IQ1eHaigj1enBTg4fggXDOZOg04OZyrrMiBQHNKF/JLWYCvUiZ9FbsiW
-E74t1a1I7UeK9D1iIRY6xaazOybzM3lW93SYb6JwpDJ1k7SNjgcrI9DWIGxK
-WdjLsqzb9tbzsGqjOTnWViMo7LRxJcp1JstwK7+Qpb7RpIf6ZKHKZt/a6aZC
-yWSUi/HEhbt8blHO9qMmhPdO2Qhz1NYl5BdA0tYcVIgyW9pzZkFGZPEb2VYb
-wbUZHEX/AXBujk7ISQAA
+Ki+ISXQ81GCGZWGBl90AKw87mW1d09ufYzd1ZLmee+swhE50uZ0jH/A8LltH
+ptQF99hCMY3EJlEBHQ0rrz3BbRfnNrs2rLDl4b4HExgdxmZ3ksbtIdzihgTP
+lUrkq6swo7tROecr1CJJO8dQ/KGYRVWDjcWc9k1T/RaPWOJwiTBs1B0FmwAb
+6c/XX/DMCd83Lu1Ex36QyC4SlIHwTEcF2K6Cb8/q+t1zYr8rMA2Fc390ENW7
+UTLr6oI0eHVQgj5ZnRbg1vj5WzCOOw36N5yfrKOAQHE0F7JKWkOsUCd+Arkh
+W07ztkC3IrWfJtJXiIVY6BRbze5wzE/iWd3TEb6JwkHK1M3PNvocrIxAW4Ow
+FWXBLsuybtZbz8NajabjWFuNULDTRpMo15ksw638Qpb6RmseqpKFKpvdaqeb
+CiWTUQbGcxbu7blFOcePmsDdO2UjuFEzl/BeAERb008htmxpz5kFGZFFbWRb
+bdzWZnAU/QcN9BOMvkkAAA==
 
 -->
 
