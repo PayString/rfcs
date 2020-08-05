@@ -93,11 +93,11 @@ initiate a payment from a payer using only the payer's PayID.
 This protocol can be referred to as the `PayID Easy Checkout Protocol`. It uses the following terminology:
    
 * PayID Easy Checkout Client: A client that queries a PayID Discovery Server using the PayID Discovery Protocol as defined in [PAYID-DISCOVERY][] and that assembles a PayID Easy Checkout URL.
-* PayID Discovery Server: the endpoint that returns a PayID Discovery JRD conforming to the PayID Discovery Protocol as defined in [PAYID-DISCOVERY][].
-* Recipient: Individual or entity receiving a payment (e.g., e-commerce merchant, charity).
-* Payer: Individual or entity originating a payment to a `recipient`.
+* PayID Discovery Server: An endpoint that returns a PayID Discovery JRD conforming to the PayID Discovery Protocol as defined in [PAYID-DISCOVERY][].
+* Recipient: An individual or entity receiving a payment (e.g., e-commerce merchant, charity).
+* Payer: An individual or entity originating a payment to a `recipient`.
 * Wallet: A device or application that holds funds (may be a non-custodial wallet).
-* PayID Easy Checkout URL: The URL that is the result of the PayID Easy Checkout protocol; can be used to redirect a client to a wallet corresponding to a particular PayID as defined in [PAYID-URI][].
+* PayID Easy Checkout URL: A URL that is the result of the PayID Easy Checkout protocol; can be used to redirect a client to a wallet corresponding to a particular PayID as defined in [PAYID-URI][].
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC2119][] and [RFC9174][].
 
