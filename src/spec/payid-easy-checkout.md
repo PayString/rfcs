@@ -90,7 +90,7 @@ initiate a payment from a payer using only the payer's PayID.
 
 # Terminology
 
-This protocol can be referred to as the `PayId Easy Checkout Protocol`. It uses the following terminology:
+This protocol can be referred to as the `PayID Easy Checkout Protocol`. It uses the following terminology:
    
 * PayID Easy Checkout Client: A client that queries a PayID Discovery Server using the PayID Discovery Protocol as defined in [PAYID-DISCOVERY][] and that assembles a PayID Easy Checkout URL.
 * PayID Discovery Server: the endpoint that returns a PayID Discovery JRD conforming to the PayID Discovery Protocol as defined in [PAYID-DISCOVERY][].
