@@ -52,6 +52,7 @@ normative:
     RFC2818:
     RFC3986:
     RFC6265:
+    RFC7033:
     RFC7231:
     RFC7413:
     RFC6570:
@@ -216,7 +217,7 @@ For example:
 
 # PayID Easy Checkout JRDs
 This section defines the PayID Easy Checkout Link, which conforms to section 4.4 of the
-Webfinger RFC.  In order for a PayID Discovery Server to enable PayID Easy Checkout, a PayID Discovery query to the server
+[Webfinger RFC][RFC7033].  In order for a PayID Discovery Server to enable PayID Easy Checkout, a PayID Discovery query to the server
 MUST return a JRD containing a PayID Easy Checkout Link.
 
 The Link MUST include the Link Relation Type defined in [PayID Easy Checkout URL](#iana-considerations) in the object's 'rel' field.

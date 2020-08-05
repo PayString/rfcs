@@ -409,7 +409,7 @@
 
   <meta name="dct.creator" content="Kramer, N., Fuelling, D., and I. Simpson" />
   <meta name="dct.identifier" content="urn:ietf:id:payid-easy-checkout-protocol" />
-  <meta name="dct.issued" scheme="ISO8601" content="2020-08-03" />
+  <meta name="dct.issued" scheme="ISO8601" content="2020-08-05" />
   <meta name="dct.abstract" content="This specification formalizes how a payment recipient, such as a merchant or a non-profit, can automatically initiate a payment from a payer using only the payer&#x27;s PayID. " />
   <meta name="description" content="This specification formalizes how a payment recipient, such as a merchant or a non-profit, can automatically initiate a payment from a payer using only the payer&#x27;s PayID. " />
 
@@ -433,12 +433,12 @@
 <td class="right">I. Simpson</td>
 </tr>
 <tr>
-<td class="left">Expires: February 4, 2021</td>
+<td class="left">Expires: February 6, 2021</td>
 <td class="right">Ripple</td>
 </tr>
 <tr>
 <td class="left"></td>
-<td class="right">August 03, 2020</td>
+<td class="right">August 05, 2020</td>
 </tr>
 
     	
@@ -456,7 +456,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on February 4, 2021.</p>
+<p>This Internet-Draft will expire on February 6, 2021.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2020 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -529,23 +529,23 @@
   <h1 id="rfc.section.1">
 <a href="#rfc.section.1">1.</a> <a href="#terminology" id="terminology">Terminology</a>
 </h1>
-<p id="rfc.section.1.p.1">This protocol can be referred to as the <samp>PayId Easy Checkout Protocol</samp>. It uses the following terminology:</p>
+<p id="rfc.section.1.p.1">This protocol can be referred to as the <samp>PayID Easy Checkout Protocol</samp>. It uses the following terminology:</p>
 <p></p>
 
 <ul>
 <li>PayID Easy Checkout Client: A client that queries a PayID Discovery Server using the PayID Discovery Protocol as defined in <a href="#PAYID-DISCOVERY" class="xref">[PAYID-DISCOVERY]</a> and that assembles a PayID Easy Checkout URL.</li>
-<li>PayID Discovery Server: the endpoint that returns a PayID Discovery JRD conforming to the PayID Discovery Protocol as defined in <a href="#PAYID-DISCOVERY" class="xref">[PAYID-DISCOVERY]</a>.</li>
-<li>Recipient: Individual or entity receiving a payment (e.g., e-commerce merchant, charity).</li>
-<li>Payer: Individual or entity originating a payment to a <samp>recipient</samp>.</li>
+<li>PayID Discovery Server: An endpoint that returns a PayID Discovery JRD conforming to the PayID Discovery Protocol as defined in <a href="#PAYID-DISCOVERY" class="xref">[PAYID-DISCOVERY]</a>.</li>
+<li>Recipient: An individual or entity receiving a payment (e.g., e-commerce merchant, charity).</li>
+<li>Payer: An individual or entity originating a payment to a <samp>recipient</samp>.</li>
 <li>Wallet: A device or application that holds funds (may be a non-custodial wallet).</li>
-<li>PayID Easy Checkout URL: The URL that is the result of the PayID Easy Checkout protocol; can be used to redirect a client to a wallet corresponding to a particular PayID as defined in <a href="#PAYID-URI" class="xref">[PAYID-URI]</a>.</li>
+<li>PayID Easy Checkout URL: A URL that is the result of the PayID Easy Checkout protocol; can be used to redirect a client to a wallet corresponding to a particular PayID as defined in <a href="#PAYID-URI" class="xref">[PAYID-URI]</a>.</li>
 </ul>
 <p id="rfc.section.1.p.3">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <a href="#RFC2119" class="xref">[RFC2119]</a> and [RFC9174][].</p>
 <h1 id="rfc.section.2">
 <a href="#rfc.section.2">2.</a> <a href="#introduction" id="introduction">Introduction</a>
 </h1>
-<p id="rfc.section.2.p.1">The PayID Easy Checkout Protocol is a minimal protocol that allows a recipient (e.g., an online merchant or a charity) to request a payment from a payer using only the payer's PayID as defined in <a href="#PAYID-URI" class="xref">[PAYID-URI]</a>. Implementations of the protocol require little to no server-side engineering efforts, while creating a seamless and uniform user experience for payers.</p>
-<p id="rfc.section.2.p.2">The main focus of the Protocol is on PayID Easy Checkout Discovery, which defines how a PayID Easy Checkout Client can use a PayID to retrieve a PayID Easy Checkout URL which represents a resource that the payer's digital wallet can use to initiate a payment to the merchant.</p>
+<p id="rfc.section.2.p.1">The PayID Easy Checkout Protocol is a minimal protocol that allows a recipient (e.g., an online merchant or a charity) to request a payment from a payer using only the payer's PayID as defined in <a href="#PAYID-URI" class="xref">[PAYID-URI]</a>. Implementations of this protocol require little to no server-side engineering efforts, while creating a seamless and uniform user experience for payers.</p>
+<p id="rfc.section.2.p.2">The main focus of the protocol is on PayID Easy Checkout Discovery, which defines how a PayID Easy Checkout Client can use a PayID to retrieve a PayID Easy Checkout URL which represents a resource that the payer's digital wallet can use to initiate a payment to the merchant.</p>
 <p id="rfc.section.2.p.3">Though the <a href="#appendix" class="xref">Section 8</a> of this specification provides an example usage of a PayID Easy Checkout URL using Web Redirects, supplemental RFCs are needed to define the different ways in which a PayID client can utilize a PayID Easy Checkout URL.</p>
 <h1 id="rfc.section.3">
 <a href="#rfc.section.3">3.</a> <a href="#payid-easy-checkout-protocol" id="payid-easy-checkout-protocol">PayID Easy Checkout Protocol</a>
@@ -562,7 +562,7 @@
 <a href="#rfc.section.3.1">3.1.</a> <a href="#payid-easy-checkout-discovery" id="payid-easy-checkout-discovery">PayID Easy Checkout Discovery</a>
 </h1>
 <p id="rfc.section.3.1.p.1">PayID Easy Checkout Discovery extends <a href="#PAYID-DISCOVERY" class="xref">[PAYID-DISCOVERY]</a> by defining a new link in the PayID metadata JRD returned by a PayID Discovery query. This link, defined in the <a href="#payid-easy-checkout-jrds" class="xref">JRD section</a> of this specification, includes the PayID Easy Checkout URL representing a resource on the wallet which can be used to complete a payment.</p>
-<p id="rfc.section.3.1.p.2">Recipients who wish to initiate an Easy Checkout flow MUST query the sender's PayID Discovery Server to obtain a PayID Easy Checkout URL. PayID Discovery Servers that wish to enable PayID Easy Checkout MUST include a JRD Link conforming to the definition in the <a href="#payid-easy-checkout-jrds" class="xref">JRD section</a> of this paper in all PayID Easy Checkout Discovery responses.</p>
+<p id="rfc.section.3.1.p.2">Recipients who wish to initiate an Easy Checkout flow MUST query the sender's PayID Discovery Server to obtain a PayID Easy Checkout URL. PayID Discovery Servers that wish to enable PayID Easy Checkout MUST include a JRD Link conforming to the definition in the <a href="#payid-easy-checkout-jrds" class="xref">JRD section</a> of this document in all PayID Easy Checkout Discovery responses.</p>
 <p id="rfc.section.3.1.p.3">Recipients SHOULD implement fallback measures to complete a checkout flow if a payer's wallet does not support PayID Easy Checkout.</p>
 <p id="rfc.section.3.1.p.4">The following steps describe how a PayID Easy Checkout Client can query a PayID Discovery Server to obtain a PayID Easy Checkout URL.</p>
 <h1 id="rfc.section.3.1.1">
@@ -657,7 +657,7 @@ Output:   https://wallet.com/checkout?amount=100000&amp;receiverPayId=payid%2Apa
 <h1 id="rfc.section.4">
 <a href="#rfc.section.4">4.</a> <a href="#payid-easy-checkout-jrds" id="payid-easy-checkout-jrds">PayID Easy Checkout JRDs</a>
 </h1>
-<p id="rfc.section.4.p.1">This section defines the PayID Easy Checkout Link, which conforms to section 4.4 of the Webfinger RFC.  In order for a PayID Discovery Server to enable PayID Easy Checkout, a PayID Discovery query to the server MUST return a JRD containing a PayID Easy Checkout Link.</p>
+<p id="rfc.section.4.p.1">This section defines the PayID Easy Checkout Link, which conforms to section 4.4 of the <a href="#RFC7033" class="xref">Webfinger RFC</a>.  In order for a PayID Discovery Server to enable PayID Easy Checkout, a PayID Discovery query to the server MUST return a JRD containing a PayID Easy Checkout Link.</p>
 <p id="rfc.section.4.p.2">The Link MUST include the Link Relation Type defined in <a href="#iana-considerations" class="xref">PayID Easy Checkout URL</a> in the object's 'rel' field.  The Link MUST also include a PayID Easy Checkout URL in the 'href' field of the link.</p>
 <pre>
 * 'rel': `https://payid.org/ns/payid-easy-checkout-uri/1.0`
@@ -684,12 +684,12 @@ Output:   https://wallet.com/checkout?amount=100000&amp;receiverPayId=payid%2Apa
 <h1 id="rfc.section.5.2">
 <a href="#rfc.section.5.2">5.2.</a> <a href="#access-control" id="access-control">Access Control</a>
 </h1>
-<p id="rfc.section.5.2.p.1">As with all web resources, access to the PayID Discovery resource could require authentication. See section 6 of [RFC7033][] for Access Control considerations.</p>
+<p id="rfc.section.5.2.p.1">As with all web resources, access to the PayID Discovery resource could require authentication. See section 6 of <a href="#RFC7033" class="xref">[RFC7033]</a> for Access Control considerations.</p>
 <p id="rfc.section.5.2.p.2">Furthermore, it is RECOMMENDED that PayID Discovery Servers only expose PayID Easy Checkout URLs which resolve to a protected resource.</p>
 <h1 id="rfc.section.6">
 <a href="#rfc.section.6">6.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a>
 </h1>
-<p id="rfc.section.6.p.1">## New Link Relation Types This document defines the following Link relation type per [RFC7033][].  See section 3 for examples of each type of Link.</p>
+<p id="rfc.section.6.p.1">## New Link Relation Types This document defines the following Link relation type per <a href="#RFC7033" class="xref">[RFC7033]</a>.  See section 3 for examples of each type of Link.</p>
 <p id="rfc.section.6.p.2">### PayID Easy Checkout URL</p>
 <pre>
 * Relation Type ('rel'): `https://payid.org/ns/payid-easy-checkout-uri/1.0`
@@ -814,6 +814,11 @@ Host: wallet.com
 <td class="reference"><b id="RFC6570">[RFC6570]</b></td>
 <td class="top">
 <a>Gregorio, J.</a>, <a>Fielding, R.</a>, <a>Hadley, M.</a>, <a>Nottingham, M.</a> and <a>D. Orchard</a>, "<a href="https://tools.ietf.org/html/rfc6570">URI Template</a>", RFC 6570, DOI 10.17487/RFC6570, March 2012.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC7033">[RFC7033]</b></td>
+<td class="top">
+<a>Jones, P.</a>, <a>Salgueiro, G.</a>, <a>Jones, M.</a> and <a>J. Smarr</a>, "<a href="https://tools.ietf.org/html/rfc7033">WebFinger</a>", RFC 7033, DOI 10.17487/RFC7033, September 2013.</td>
 </tr>
 <tr>
 <td class="reference"><b id="RFC7231">[RFC7231]</b></td>
