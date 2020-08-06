@@ -347,13 +347,13 @@ to display a "Thank You" page, and replaces `{nextUrl}` with `https://merchant.c
 Merchants and non-profits will often need to correlate discrete layer-1 payments to an invoice or transaction entity
 in the merchants' native systems. The merchant in this example may have an invoice tracking system, on which an invoice
 gets created for the goods that the sender is buying, for example an invoice with a unique identifier of `1045464`. A common practice for correlating
-layer 1 payments to a specific transaction or invoice is to accept payments on a different layer-1 address for each invoice
+layer-1 payments to a specific transaction or invoice is to accept payments on a different layer-1 address for each invoice
 so that the merchant can listen for payments into that address and correlate the payment to the invoice.  However, because
 the PayID Easy Checkout URL only provides the receiver's PayID, there is currently no way to associate the address that
 is given to the sender to the invoice.
 
-In order to accomplish this, a merchant could provide a unique PayID containing the invoice identifier 
-for each PayID Easy Checkout transaction. In this example, the merchant would first associate a payment address with the
+In order to accomplish this, a merchant could provide a unique PayID associated with an invoice, for example a PayID 
+containing the invoice identifier, for each PayID Easy Checkout transaction. In this example, the merchant would first associate a payment address with the
 invoice ID, and would then redirect the sender to their wallet with the `receiverPayId` query parameter set to `pay-1045464$merchant.com`.
 When the merchant PayID Server receives a query for the address associated with that PayID, they could return the previously
 stored payment address. When the merchant receives a payment to that address, they can then associate the layer 1 payment
