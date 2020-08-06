@@ -5,7 +5,7 @@
 Network Working Group                                        A. Malhotra
 Internet-Draft                                               D. Schwartz
 Intended status: Standards Track                                  Ripple
-Expires: January 8, 2021                                   July 07, 2020
+Expires: February 7, 2021                                August 06, 2020
 
 
                              PayID Protocol
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on January 8, 2021.
+   This Internet-Draft will expire on February 7, 2021.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021                [Page 1]
+Malhotra & Schwartz     Expires February 7, 2021                [Page 1]
 
-Internet-Draft               PayID Protocol                    July 2020
+Internet-Draft               PayID Protocol                  August 2020
 
 
    (https://trustee.ietf.org/license-info) in effect on the date of
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021                [Page 2]
+Malhotra & Schwartz     Expires February 7, 2021                [Page 2]
 
-Internet-Draft               PayID Protocol                    July 2020
+Internet-Draft               PayID Protocol                  August 2020
 
 
    10. Content Negotiation . . . . . . . . . . . . . . . . . . . . .  16
@@ -165,9 +165,9 @@ Internet-Draft               PayID Protocol                    July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021                [Page 3]
+Malhotra & Schwartz     Expires February 7, 2021                [Page 3]
 
-Internet-Draft               PayID Protocol                    July 2020
+Internet-Draft               PayID Protocol                  August 2020
 
 
 2.  Introduction
@@ -221,9 +221,9 @@ Internet-Draft               PayID Protocol                    July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021                [Page 4]
+Malhotra & Schwartz     Expires February 7, 2021                [Page 4]
 
-Internet-Draft               PayID Protocol                    July 2020
+Internet-Draft               PayID Protocol                  August 2020
 
 
    parties from the start.  PayID is built on the most successful
@@ -277,9 +277,9 @@ Internet-Draft               PayID Protocol                    July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021                [Page 5]
+Malhotra & Schwartz     Expires February 7, 2021                [Page 5]
 
-Internet-Draft               PayID Protocol                    July 2020
+Internet-Draft               PayID Protocol                  August 2020
 
 
 4.1.  HTTP Method
@@ -333,9 +333,9 @@ Internet-Draft               PayID Protocol                    July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021                [Page 6]
+Malhotra & Schwartz     Expires February 7, 2021                [Page 6]
 
-Internet-Draft               PayID Protocol                    July 2020
+Internet-Draft               PayID Protocol                  August 2020
 
 
    o  environment: The value of environment as specified in the client
@@ -389,9 +389,9 @@ Internet-Draft               PayID Protocol                    July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021                [Page 7]
+Malhotra & Schwartz     Expires February 7, 2021                [Page 7]
 
-Internet-Draft               PayID Protocol                    July 2020
+Internet-Draft               PayID Protocol                  August 2020
 
 
    The "memo" string is an OPTIONAL field in the response.
@@ -445,9 +445,9 @@ Internet-Draft               PayID Protocol                    July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021                [Page 8]
+Malhotra & Schwartz     Expires February 7, 2021                [Page 8]
 
-Internet-Draft               PayID Protocol                    July 2020
+Internet-Draft               PayID Protocol                  August 2020
 
 
    o  Accept: application/xrpl-mainnet+json
@@ -501,9 +501,9 @@ Internet-Draft               PayID Protocol                    July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021                [Page 9]
+Malhotra & Schwartz     Expires February 7, 2021                [Page 9]
 
-Internet-Draft               PayID Protocol                    July 2020
+Internet-Draft               PayID Protocol                  August 2020
 
 
 5.1.2.  Header Content-Length
@@ -557,9 +557,9 @@ Internet-Draft               PayID Protocol                    July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021               [Page 10]
+Malhotra & Schwartz     Expires February 7, 2021               [Page 10]
 
-Internet-Draft               PayID Protocol                    July 2020
+Internet-Draft               PayID Protocol                  August 2020
 
 
 6.  Extensibility
@@ -613,9 +613,9 @@ Internet-Draft               PayID Protocol                    July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021               [Page 11]
+Malhotra & Schwartz     Expires February 7, 2021               [Page 11]
 
-Internet-Draft               PayID Protocol                    July 2020
+Internet-Draft               PayID Protocol                  August 2020
 
 
 PayID client                                         PayID server
@@ -669,9 +669,9 @@ PayID client                                         PayID server
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021               [Page 12]
+Malhotra & Schwartz     Expires February 7, 2021               [Page 12]
 
-Internet-Draft               PayID Protocol                    July 2020
+Internet-Draft               PayID Protocol                  August 2020
 
 
 8.  Example Use of Basic PayID Protocol
@@ -725,9 +725,9 @@ Internet-Draft               PayID Protocol                    July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021               [Page 13]
+Malhotra & Schwartz     Expires February 7, 2021               [Page 13]
 
-Internet-Draft               PayID Protocol                    July 2020
+Internet-Draft               PayID Protocol                  August 2020
 
 
  HTTP/1.1 200 OK
@@ -781,9 +781,9 @@ Internet-Draft               PayID Protocol                    July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021               [Page 14]
+Malhotra & Schwartz     Expires February 7, 2021               [Page 14]
 
-Internet-Draft               PayID Protocol                    July 2020
+Internet-Draft               PayID Protocol                  August 2020
 
 
  HTTP/1.1 200 OK
@@ -837,9 +837,9 @@ Internet-Draft               PayID Protocol                    July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021               [Page 15]
+Malhotra & Schwartz     Expires February 7, 2021               [Page 15]
 
-Internet-Draft               PayID Protocol                    July 2020
+Internet-Draft               PayID Protocol                  August 2020
 
 
 9.2.  Client Error Responses
@@ -893,9 +893,9 @@ Internet-Draft               PayID Protocol                    July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021               [Page 16]
+Malhotra & Schwartz     Expires February 7, 2021               [Page 16]
 
-Internet-Draft               PayID Protocol                    July 2020
+Internet-Draft               PayID Protocol                  August 2020
 
 
 11.  Versioning(TODO)
@@ -949,9 +949,9 @@ Internet-Draft               PayID Protocol                    July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021               [Page 17]
+Malhotra & Schwartz     Expires February 7, 2021               [Page 17]
 
-Internet-Draft               PayID Protocol                    July 2020
+Internet-Draft               PayID Protocol                  August 2020
 
 
    o  On-path attacker: An on-path attacker can eavesdrop, inject, spoof
@@ -1005,9 +1005,9 @@ Internet-Draft               PayID Protocol                    July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021               [Page 18]
+Malhotra & Schwartz     Expires February 7, 2021               [Page 18]
 
-Internet-Draft               PayID Protocol                    July 2020
+Internet-Draft               PayID Protocol                  August 2020
 
 
    risks.  The easy access to payment account information via PayID
@@ -1061,9 +1061,9 @@ Internet-Draft               PayID Protocol                    July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021               [Page 19]
+Malhotra & Schwartz     Expires February 7, 2021               [Page 19]
 
-Internet-Draft               PayID Protocol                    July 2020
+Internet-Draft               PayID Protocol                  August 2020
 
 
 13.4.  In the PayID Server
@@ -1117,9 +1117,9 @@ Internet-Draft               PayID Protocol                    July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021               [Page 20]
+Malhotra & Schwartz     Expires February 7, 2021               [Page 20]
 
-Internet-Draft               PayID Protocol                    July 2020
+Internet-Draft               PayID Protocol                  August 2020
 
 
    to be more than HTTP tunnel, but it is at the cost of opening up
@@ -1173,9 +1173,9 @@ Internet-Draft               PayID Protocol                    July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021               [Page 21]
+Malhotra & Schwartz     Expires February 7, 2021               [Page 21]
 
-Internet-Draft               PayID Protocol                    July 2020
+Internet-Draft               PayID Protocol                  August 2020
 
 
         +-------------+--------------------------+---------------+
@@ -1229,9 +1229,9 @@ Internet-Draft               PayID Protocol                    July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021               [Page 22]
+Malhotra & Schwartz     Expires February 7, 2021               [Page 22]
 
-Internet-Draft               PayID Protocol                    July 2020
+Internet-Draft               PayID Protocol                  August 2020
 
 
    File extension(s): This document uses the mime type to refer to
@@ -1285,9 +1285,9 @@ Internet-Draft               PayID Protocol                    July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021               [Page 23]
+Malhotra & Schwartz     Expires February 7, 2021               [Page 23]
 
-Internet-Draft               PayID Protocol                    July 2020
+Internet-Draft               PayID Protocol                  August 2020
 
 
    [RFC7258]  Farrell, S. and H. Tschofenig, "Pervasive Monitoring Is an
@@ -1341,4 +1341,4 @@ Authors' Addresses
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021               [Page 24]
+Malhotra & Schwartz     Expires February 7, 2021               [Page 24]
