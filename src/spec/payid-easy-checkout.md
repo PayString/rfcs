@@ -85,7 +85,7 @@ This specification is a draft proposal, and is part of the [PayID Protocol](http
  
 --- abstract
 This specification formalizes how a payment recipient, such as a merchant or a non-profit, can automatically 
-initiate a payment from a payer using only the payer's PayID. 
+initiate a payment from a sender using only the sender's PayID. 
 
 --- middle
 
@@ -96,7 +96,7 @@ This protocol can be referred to as the `PayID Easy Checkout Protocol`. It uses 
 * PayID Easy Checkout Client: A client that assembles a PayID Easy Checkout URL using information obtained from PayID Discovery Server via [PAYID-DISCOVERY][].
 * PayID Discovery Server: An endpoint that returns a PayID Discovery JRD conforming to [PAYID-DISCOVERY][].
 * Recipient: An individual or entity receiving a payment (e.g., e-commerce merchant, charity).
-* Payer: An individual or entity originating a payment to a `recipient`.
+* Sender: An individual or entity originating a payment to a `recipient`.
 * Wallet: A device or application that holds funds (may be a non-custodial wallet).
 * PayID Easy Checkout URL: A URL that is the result of this protocol; can be used to redirect a client to a wallet corresponding to a particular PayID as defined in [PAYID-URI][].
 
@@ -105,9 +105,9 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 # Introduction
 
 The PayID Easy Checkout Protocol allows a recipient (e.g., an online merchant or a charity) to
-request a payment from a payer using only the payer's PayID as defined in [PAYID-URI][]. Implementations
+request a payment from a sender using only the sender's [PayID][PAYID-URI]. Implementations
 of this protocol require little to no server-side engineering effort, while creating a seamless and uniform
-user experience for payers.
+user experience for senders.
 
 The main focus of the protocol is on PayID Easy Checkout Discovery, which defines how a PayID Easy Checkout Client can 
 retrieve a PayID Easy Checkout URL and use it to initiate 
@@ -119,7 +119,7 @@ client can utilize a PayID Easy Checkout URL.
 
 # PayID Easy Checkout Protocol
 The PayID Easy Checkout Protocol can be used to initiate an end-to-end checkout flow between a payment recipient, such
-as an online merchant, and a payer.
+as an online merchant, and a sender.
 
 The protocol is comprised of two parts:
 
@@ -129,7 +129,7 @@ The protocol is comprised of two parts:
 ## PayID Easy Checkout Discovery
 PayID Easy Checkout Discovery extends [PAYID-DISCOVERY][] by defining a new link relation in the PayID metadata JRD
 returned by a PayID Discovery query. This link relation, defined in the [JRD](#payid-easy-checkout-jrds) section
-of this specification, includes the URL on the payer's wallet that can
+of this specification, includes the URL on the sender's wallet that can
 be used to initiate a payment.
 
 Recipients who wish to initiate an Easy Checkout flow MUST first query the sender's PayID Discovery Server to 
@@ -137,7 +137,7 @@ obtain a PayID Easy Checkout URL. Therefore, PayID Discovery Servers that wish t
 Checkout MUST include an Easy Checkout JRD Link 
 in all PayID Easy Checkout Discovery responses.
 
-Recipients SHOULD implement fallback measures to complete a checkout flow if a payer's wallet does not support PayID Easy Checkout.
+Recipients SHOULD implement fallback measures to complete a checkout flow if a sender's wallet does not support PayID Easy Checkout.
 
 The following steps describe how a PayID Easy Checkout Client can query a PayID Discovery Server to obtain a PayID Easy Checkout URL.
 
@@ -174,20 +174,20 @@ PayID Easy Checkout Discovery is considered to be complete.
 
 ## PayID Easy Checkout URL Assembly
 A PayID Easy Checkout URL represents the resource on a wallet that can
-be used by a payer to complete a payment. However, before directing a payer to their wallet, the recipient
+be used by a sender to complete a payment. However, before directing a sender to their wallet, the recipient
 MUST append all of the query parameters defined in the [following section](#payid-easy-checkout-url-query-parameters).
 
 Once a PayID Easy Checkout URL is assembled, PayID Easy Checkout is considered to be complete.
 
 ### PayID Easy Checkout URL Query Parameters
 This specification defines several query parameter names and corresponding datatypes which MUST be added to the
-PayID Easy Checkout URL before redirecting a payer to their wallet. The PayID Easy Checkout URL SHOULD be parsed 
+PayID Easy Checkout URL before redirecting a sender to their wallet. The PayID Easy Checkout URL SHOULD be parsed 
 by the wallet in order to retrieve any values set by the recipient. It is RECOMMENDED that wallets use these 
 values to pre-populate a payment transaction.
     
 | Name           | Type             | Description                                                          |
 |----------------|------------------|----------------------------------------------------------------------|
-| amount         | integer          | The amount that should be sent by the payer to the recipient.        |
+| amount         | integer          | The amount that should be sent by the sender to the recipient.        |
 | receiverPayId  | string           | The [PAYID-URI][] of the receiver.                           |
 | assetCode      | string           | The currency code that denominates the amount as defined in [PAYID-PROTOCOL][].|
 | assetScale     | short            | Defines how many units make up one regular unit of the assetCode.     |
@@ -239,7 +239,7 @@ The security considerations for PayID Easy Checkout Discovery are discussed in
 section 6 of [PAYID-DISCOVERY][].
 
 ## PayID Easy Checkout Redirection URI Manipulation
-When a payer uses the resource located at the PayID Easy Checkout URL, an attacker could manipulate
+When a sender uses the resource located at the PayID Easy Checkout URL, an attacker could manipulate
 the data encoded in the URL to trick the sender into sending a payment to a different PayID than was originally
 requested, or manipulate other parts of PayID Easy Checkout data to trick the sender. 
 
@@ -271,13 +271,13 @@ which resolve to a protected resource (e.g., by logging into a wallet) before al
 # Appendix
 
 ## Motivation
-The PayID Easy Checkout Protocol aims to enable a consistent user experience for payers paying for goods
+The PayID Easy Checkout Protocol aims to enable a consistent user experience for senders paying for goods
 or services by standardizing the interaction between merchants/non-profits and customer/donor wallets.
 Given the ability to assign arbitrary metadata to a PayID as defined in [PayID-Discovery][], there is an opportunity
-to standardize the set of interactions between merchant and payer, specifically the process by which a merchant
-directs a payer to their digital wallet to complete a payment.
+to standardize the set of interactions between merchant and sender, specifically the process by which a merchant
+directs a sender to their digital wallet to complete a payment.
 The intention of this protocol is to enable an improved paying experience by reducing the number
-of steps a payer must take to complete a transaction.
+of steps a sender must take to complete a transaction.
 
 PayID Easy Checkout also limits the engineering effort needed to implement the protocol. 
 Clients wishing to adopt this pattern should only need to implement UI-level changes in order to make the flow function 
@@ -285,27 +285,27 @@ as intended, which may aid in expanding overall adoption, further enhancing the 
 
 ### Design Goals
 
-#### Minimal effort for the Payer
+#### Minimal effort for the Sender
 
-In order for a payer to checkout using the PayID Easy Checkout protocol, the payer only needs to provide a merchant
+In order for a sender to checkout using the PayID Easy Checkout protocol, the sender only needs to provide a merchant
 with their PayID Easy Checkout enabled PayID.
 
 #### No New Server-Side Software
 
 Apart from a PayID Discovery compliant PayID Discovery Server, The PayID Easy Checkout Protocol does not require server-side 
-software to be run by either the payer or merchant for a payment. The PayID Discovery Server is capable of providing details 
-of where to send the payer via the PayID Discovery Protocol. Assuming the wallet used by the payer has implemented 
-support in their UI for the PayID Easy Checkout Protocol, the payer can be redirected to their wallet 
+software to be run by either the sender or merchant for a payment. The PayID Discovery Server is capable of providing details 
+of where to send the sender via the PayID Discovery Protocol. Assuming the wallet used by the sender has implemented 
+support in their UI for the PayID Easy Checkout Protocol, the sender can be redirected to their wallet 
 to complete their transaction.
 
 ## Example Usage
-This section shows a non-normative example of PayID Easy Checkout between a hypothetical merchant (recipient) and payer. The merchant
-accepts payments using the PayID pay$merchant.example.com, and the payer controls the PayID alice$wallet.example.com.
+This section shows a non-normative example of PayID Easy Checkout between a hypothetical merchant (recipient) and sender. The merchant
+accepts payments using the PayID pay$merchant.example.com, and the sender controls the PayID alice$wallet.example.com.
 
 ### PayID Easy Checkout Initiation
-In this example, the payer might place some items in an online shopping cart on the merchant's web-site, then choose
-to checkout.  The merchant would then render a form asking for the payer's PayID, as well as a "Checkout with PayID"
-button.  Once the payer inputs their PayID `alice$wallet.example.com` and clicks the "Checkout with PayID" button, the merchant
+In this example, the sender might place some items in an online shopping cart on the merchant's web-site, then choose
+to checkout.  The merchant would then render a form asking for the sender's PayID, as well as a "Checkout with PayID"
+button.  Once the sender inputs their PayID `alice$wallet.example.com` and clicks the "Checkout with PayID" button, the merchant
 begins the PayID Easy Checkout flow.
 
 ### PayID Easy Checkout Wallet Discovery
@@ -318,7 +318,7 @@ The HTTP request in this example would look like this:
     GET /.well-known/webfinger?resource=payid%3Aalice%24wallet.example.com
     Host: wallet.example.com
     
-If the payer's PayID Discovery Server has enabled PayID Easy Checkout in their wallet, the server would respond with something like this:
+If the sender's PayID Discovery Server has enabled PayID Easy Checkout in their wallet, the server would respond with something like this:
      
      HTTP/1.1 200 OK
      Access-Control-Allow-Origin: *
@@ -340,36 +340,36 @@ The merchant UI would parse the PayID Discovery response and iterate over the 'l
 the Relation Type of "https://payid.org/ns/payid-easy-checkout-uri/1.0". The merchant UI would then add all of the query
 parameters defined in [PayID Easy Checkout URL Query Parameters](#payid-easy-checkout-url-query-parameters) to the URL included in the JRD Link. 
 One query parameter of note is the "nextUrl" parameter, which allows the merchant to supply a redirect or callback URL 
-for the sender's wallet to call once the payer has confirmed the payment. In this example, the merchant would like 
+for the sender's wallet to call once the sender has confirmed the payment. In this example, the merchant would like 
 to display a "Thank You" page, and replaces `{nextUrl}` with `https://merchant.com/thankyou`.
 
 #### Correlating a Payment to an Invoice
 Merchants and non-profits will often need to correlate discrete layer-1 payments to an invoice or transaction entity
 in the merchants' native systems. The merchant in this example may have an invoice tracking system, on which an invoice
-gets created for the goods that the payer is buying, for example an invoice with a unique identifier of `1045464`. A common practice for correlating
+gets created for the goods that the sender is buying, for example an invoice with a unique identifier of `1045464`. A common practice for correlating
 layer 1 payments to a specific transaction or invoice is to accept payments on a different layer-1 address for each invoice
 so that the merchant can listen for payments into that address and correlate the payment to the invoice.  However, because
 the PayID Easy Checkout URL only provides the receiver's PayID, there is currently no way to associate the address that
-is given to the payer to the invoice.
+is given to the sender to the invoice.
 
 In order to accomplish this, a merchant could provide a unique PayID containing the invoice identifier 
 for each PayID Easy Checkout transaction. In this example, the merchant would first associate a payment address with the
-invoice ID, and would then redirect the payer to their wallet with the `receiverPayId` query parameter set to `pay-1045464$merchant.com`.
+invoice ID, and would then redirect the sender to their wallet with the `receiverPayId` query parameter set to `pay-1045464$merchant.com`.
 When the merchant PayID Server receives a query for the address associated with that PayID, they could return the previously
 stored payment address. When the merchant receives a payment to that address, they can then associate the layer 1 payment
 with the invoice.
 
-### Redirect Payer to Their Wallet
-Once the merchant UI populates the required query parameters in the URL template, the merchant UI redirects the payer to 
-the Redirect URL so that the payer can confirm the payment.
+### Redirect Sender to Their Wallet
+Once the merchant UI populates the required query parameters in the URL template, the merchant UI redirects the sender to 
+the Redirect URL so that the sender can confirm the payment.
 
-### Payer Confirms Payment
-After the payer clicks the "Pay with PayID" button the merchant's UI, and the merchant performs the previous steps,
-the payer will be redirected to the Redirect URL, which is a front end resource of the wallet. The wallet UI can
+### Sender Confirms Payment
+After the sender clicks the "Pay with PayID" button the merchant's UI, and the merchant performs the previous steps,
+the sender will be redirected to the Redirect URL, which is a front end resource of the wallet. The wallet UI can
 read the query parameters from the Redirect URL and render a confirmation page or modal with all of the required fields
 pre-populated.
 
-Once the payer confirms the payment, the wallet would perform a PayID address lookup on the "receiverPayId" query
+Once the sender confirms the payment, the wallet would perform a PayID address lookup on the "receiverPayId" query
 parameter to get the payment address of the merchant and submit a transaction to the underlying ledger or payment system.
 The merchant can then redirect the user back to the URL specified in the "nextUrl" query parameter, which will display
 the "Thank You" page of the merchant.
