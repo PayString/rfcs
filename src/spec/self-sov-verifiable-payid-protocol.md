@@ -128,8 +128,8 @@ While Self-Sovereign Verifiable PayID can be used in any context, its most immed
                 "use": "sig",
                 "crv": "secp256k1", 
                 "x"  : "0", 
-                "y"  : "0",
-            },
+                "y"  : "0"
+            }
     }
 
 #### name
@@ -243,17 +243,17 @@ For each `payment-network` and `environment` that the PayID owner has a payment 
                       "use": "sig",
                       "crv": "secp256k1", 
                       "x": "b8w36l6eCf7GyD5fvXp0Xj7ugdFuvYYcnmb1VRjBl5g=", 
-                      "y": "Tp8RPAf4dWkd+K/BApSW/Ey5UJs53NOPJRqDNZzItPc=",
-                  },
+                      "y": "Tp8RPAf4dWkd+K/BApSW/Ey5UJs53NOPJRqDNZzItPc="
+                  }
                 },
-                "signature": "{base64Signature}",
+                "signature": "{base64Signature}"
               }
-              ]
+              ],
             "payload": {
                 "exp" : 34874613475,
                 "payId": "bob$wallet.com",
                 "payIdAddress": {
-                  "expTime":
+                  "expTime": 34874613475,
                   "paymentNetwork": "XRPL",
                   "environment": "TESTNET",
                   "addressDetailsType": "CryptoAddressDetails",
@@ -332,12 +332,12 @@ Implementations SHOULD use a secure communication channel to transfer these reso
                       "use": "sig",
                       "crv": "secp256k1", 
                       "x": "b8w36l6eCf7GyD5fvXp0Xj7ugdFuvYYcnmb1VRjBl5g=", 
-                      "y": "Tp8RPAf4dWkd+K/BApSW/Ey5UJs53NOPJRqDNZzItPc=",
-                  },
+                      "y": "Tp8RPAf4dWkd+K/BApSW/Ey5UJs53NOPJRqDNZzItPc="
+                  }
                 },
-                "signature": "base64Signature",
+                "signature": "base64Signature"
               }
-              ]
+              ],
             "payload": {
                 "exp" : 1234574940,
                 "payId": "bob$wallet.com",
