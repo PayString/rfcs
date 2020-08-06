@@ -5,7 +5,7 @@
 Network Working Group                                        A. Malhotra
 Internet-Draft                                               D. Schwartz
 Intended status: Standards Track                                  Ripple
-Expires: January 8, 2021                                   July 07, 2020
+Expires: February 7, 2021                                August 06, 2020
 
 
                        Verifiable PayID Protocol
@@ -53,9 +53,9 @@ Status of This Memo
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021                [Page 1]
+Malhotra & Schwartz     Expires February 7, 2021                [Page 1]
 
-Internet-Draft          Verifiable PayID Protocol              July 2020
+Internet-Draft          Verifiable PayID Protocol            August 2020
 
 
    Internet-Drafts are working documents of the Internet Engineering
@@ -68,7 +68,7 @@ Internet-Draft          Verifiable PayID Protocol              July 2020
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on January 8, 2021.
+   This Internet-Draft will expire on February 7, 2021.
 
 Copyright Notice
 
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021                [Page 2]
+Malhotra & Schwartz     Expires February 7, 2021                [Page 2]
 
-Internet-Draft          Verifiable PayID Protocol              July 2020
+Internet-Draft          Verifiable PayID Protocol            August 2020
 
 
        5.2.1.  Preparing the payment account(s) information message    9
@@ -165,9 +165,9 @@ Internet-Draft          Verifiable PayID Protocol              July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021                [Page 3]
+Malhotra & Schwartz     Expires February 7, 2021                [Page 3]
 
-Internet-Draft          Verifiable PayID Protocol              July 2020
+Internet-Draft          Verifiable PayID Protocol            August 2020
 
 
    o  PayID server: the endpoint that returns payment account(s)
@@ -221,9 +221,9 @@ Internet-Draft          Verifiable PayID Protocol              July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021                [Page 4]
+Malhotra & Schwartz     Expires February 7, 2021                [Page 4]
 
-Internet-Draft          Verifiable PayID Protocol              July 2020
+Internet-Draft          Verifiable PayID Protocol            August 2020
 
 
        prove this misbehaviour to third-parties and potentially hold the
@@ -277,9 +277,9 @@ Internet-Draft          Verifiable PayID Protocol              July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021                [Page 5]
+Malhotra & Schwartz     Expires February 7, 2021                [Page 5]
 
-Internet-Draft          Verifiable PayID Protocol              July 2020
+Internet-Draft          Verifiable PayID Protocol            August 2020
 
 
    parameter "payment-setup-details" with an optional payload in JSON
@@ -333,9 +333,9 @@ Internet-Draft          Verifiable PayID Protocol              July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021                [Page 6]
+Malhotra & Schwartz     Expires February 7, 2021                [Page 6]
 
-Internet-Draft          Verifiable PayID Protocol              July 2020
+Internet-Draft          Verifiable PayID Protocol            August 2020
 
 
 3.2.3.  SignatureWrapper
@@ -389,9 +389,9 @@ Internet-Draft          Verifiable PayID Protocol              July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021                [Page 7]
+Malhotra & Schwartz     Expires February 7, 2021                [Page 7]
 
-Internet-Draft          Verifiable PayID Protocol              July 2020
+Internet-Draft          Verifiable PayID Protocol            August 2020
 
 
    +---------------+--------------------------------------------------+
@@ -445,9 +445,9 @@ Internet-Draft          Verifiable PayID Protocol              July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021                [Page 8]
+Malhotra & Schwartz     Expires February 7, 2021                [Page 8]
 
-Internet-Draft          Verifiable PayID Protocol              July 2020
+Internet-Draft          Verifiable PayID Protocol            August 2020
 
 
       to trust their servers in case wallet's servers go malicious or
@@ -501,9 +501,9 @@ Sender  PayID client                                             PayID server   
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021                [Page 9]
+Malhotra & Schwartz     Expires February 7, 2021                [Page 9]
 
-Internet-Draft          Verifiable PayID Protocol              July 2020
+Internet-Draft          Verifiable PayID Protocol            August 2020
 
 
    o  Optionally set "memo" to any additional information.
@@ -557,9 +557,9 @@ Internet-Draft          Verifiable PayID Protocol              July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021               [Page 10]
+Malhotra & Schwartz     Expires February 7, 2021               [Page 10]
 
-Internet-Draft          Verifiable PayID Protocol              July 2020
+Internet-Draft          Verifiable PayID Protocol            August 2020
 
 
    All the verification steps MUST pass.  The PayID client proceeds to
@@ -613,9 +613,9 @@ Internet-Draft          Verifiable PayID Protocol              July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021               [Page 11]
+Malhotra & Schwartz     Expires February 7, 2021               [Page 11]
 
-Internet-Draft          Verifiable PayID Protocol              July 2020
+Internet-Draft          Verifiable PayID Protocol            August 2020
 
 
    +----------------------------+--------------------------------------+
@@ -669,9 +669,9 @@ Internet-Draft          Verifiable PayID Protocol              July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021               [Page 12]
+Malhotra & Schwartz     Expires February 7, 2021               [Page 12]
 
-Internet-Draft          Verifiable PayID Protocol              July 2020
+Internet-Draft          Verifiable PayID Protocol            August 2020
 
 
    hashes" and support a PayID format like
@@ -725,9 +725,9 @@ Internet-Draft          Verifiable PayID Protocol              July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021               [Page 13]
+Malhotra & Schwartz     Expires February 7, 2021               [Page 13]
 
-Internet-Draft          Verifiable PayID Protocol              July 2020
+Internet-Draft          Verifiable PayID Protocol            August 2020
 
 
    Bob's PayID (say, "bob$receiver.example.com") into the wallet UI to
@@ -781,9 +781,9 @@ Internet-Draft          Verifiable PayID Protocol              July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021               [Page 14]
+Malhotra & Schwartz     Expires February 7, 2021               [Page 14]
 
-Internet-Draft          Verifiable PayID Protocol              July 2020
+Internet-Draft          Verifiable PayID Protocol            August 2020
 
 
  HTTP/1.1 200 OK
@@ -837,9 +837,9 @@ Internet-Draft          Verifiable PayID Protocol              July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021               [Page 15]
+Malhotra & Schwartz     Expires February 7, 2021               [Page 15]
 
-Internet-Draft          Verifiable PayID Protocol              July 2020
+Internet-Draft          Verifiable PayID Protocol            August 2020
 
 
 7.2.  Verifiable PayID Protocol by a Non-Custodial Wallet as PayID
@@ -893,9 +893,9 @@ Internet-Draft          Verifiable PayID Protocol              July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021               [Page 16]
+Malhotra & Schwartz     Expires February 7, 2021               [Page 16]
 
-Internet-Draft          Verifiable PayID Protocol              July 2020
+Internet-Draft          Verifiable PayID Protocol            August 2020
 
 
    The security guarantees mentioned in [PAYID-PROTOCOL] applies to the
@@ -949,9 +949,9 @@ Internet-Draft          Verifiable PayID Protocol              July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021               [Page 17]
+Malhotra & Schwartz     Expires February 7, 2021               [Page 17]
 
-Internet-Draft          Verifiable PayID Protocol              July 2020
+Internet-Draft          Verifiable PayID Protocol            August 2020
 
 
    1.  The payment succeeds, the sender is debited, and the PayID owner/
@@ -1005,9 +1005,9 @@ Internet-Draft          Verifiable PayID Protocol              July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021               [Page 18]
+Malhotra & Schwartz     Expires February 7, 2021               [Page 18]
 
-Internet-Draft          Verifiable PayID Protocol              July 2020
+Internet-Draft          Verifiable PayID Protocol            August 2020
 
 
       wallet.  This may lead to indirection of funds by the PayID client
@@ -1061,9 +1061,9 @@ Internet-Draft          Verifiable PayID Protocol              July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021               [Page 19]
+Malhotra & Schwartz     Expires February 7, 2021               [Page 19]
 
-Internet-Draft          Verifiable PayID Protocol              July 2020
+Internet-Draft          Verifiable PayID Protocol            August 2020
 
 
       "PaymentInformation", that is, the "PayID --> Payment Address"
@@ -1117,9 +1117,9 @@ Internet-Draft          Verifiable PayID Protocol              July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021               [Page 20]
+Malhotra & Schwartz     Expires February 7, 2021               [Page 20]
 
-Internet-Draft          Verifiable PayID Protocol              July 2020
+Internet-Draft          Verifiable PayID Protocol            August 2020
 
 
 12.  References
@@ -1173,9 +1173,9 @@ Internet-Draft          Verifiable PayID Protocol              July 2020
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021               [Page 21]
+Malhotra & Schwartz     Expires February 7, 2021               [Page 21]
 
-Internet-Draft          Verifiable PayID Protocol              July 2020
+Internet-Draft          Verifiable PayID Protocol            August 2020
 
 
    [RFC8422]  Nir, Y., Josefsson, S., and M. Pegourie-Gonnard, "Elliptic
@@ -1229,4 +1229,4 @@ Authors' Addresses
 
 
 
-Malhotra & Schwartz      Expires January 8, 2021               [Page 22]
+Malhotra & Schwartz     Expires February 7, 2021               [Page 22]
