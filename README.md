@@ -6,12 +6,18 @@
 
 ### List of RFCs
 
+#### PayID Core
 - [PayID Whitepaper](https://payid.org/whitepaper.pdf)
 - [The 'payid' URI Scheme](https://github.com/payid-org/rfcs/blob/master/dist/spec/payid-uri.txt)
 - [PayID Discovery](https://github.com/payid-org/rfcs/blob/master/dist/spec/payid-discovery.txt)
 - [PayID Protocol](https://github.com/payid-org/rfcs/blob/master/dist/spec/payid-protocol.txt)
+
+#### Verifiable PayID
 - [Verifiable PayID Protocol](https://github.com/payid-org/rfcs/blob/master/dist/spec/verifiable-payid-protocol.txt)
 - [Self-Sovereign Verifiable PayID](https://github.com/payid-org/rfcs/blob/master/dist/spec/self-sov-verifiable-payid-protocol.txt)
+
+#### PayID Commerce
+- [PayID Easy Checkout](https://github.com/payid-org/rfcs/blob/master/dist/spec/payid-easy-checkout.txt)
 
 The source code for each spec is in [src/spec](https://github.com/payid-org/rfcs/tree/master/src/spec).
 
