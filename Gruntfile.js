@@ -5,6 +5,7 @@ module.exports = function(grunt) {
     "src/spec/payid-discovery.md",
     "src/spec/payid-protocol.md",
     "src/spec/verifiable-payid-protocol.md",
+    "src/spec/payid-easy-checkout.md",
     "src/spec/self-sov-verifiable-payid-protocol.md"
   ]
 

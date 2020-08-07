@@ -1,0 +1,927 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head profile="http://www.w3.org/2006/03/hcard http://dublincore.org/documents/2008/08/04/dc-html/">
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+
+  <title>Draft 1 - PayID Easy Checkout Protocol</title>
+
+  <style type="text/css" title="Xml2Rfc (sans serif)">
+  /*<![CDATA[*/
+	  a {
+	  text-decoration: none;
+	  }
+      /* info code from SantaKlauss at http://www.madaboutstyle.com/tooltip2.html */
+      a.info {
+          /* This is the key. */
+          position: relative;
+          z-index: 24;
+          text-decoration: none;
+      }
+      a.info:hover {
+          z-index: 25;
+          color: #FFF; background-color: #900;
+      }
+      a.info span { display: none; }
+      a.info:hover span.info {
+          /* The span will display just on :hover state. */
+          display: block;
+          position: absolute;
+          font-size: smaller;
+          top: 2em; left: -5em; width: 15em;
+          padding: 2px; border: 1px solid #333;
+          color: #900; background-color: #EEE;
+          text-align: left;
+      }
+	  a.smpl {
+	  color: black;
+	  }
+	  a:hover {
+	  text-decoration: underline;
+	  }
+	  a:active {
+	  text-decoration: underline;
+	  }
+	  address {
+	  margin-top: 1em;
+	  margin-left: 2em;
+	  font-style: normal;
+	  }
+	  body {
+	  color: black;
+	  font-family: verdana, helvetica, arial, sans-serif;
+	  font-size: 10pt;
+	  max-width: 55em;
+	  
+	  }
+	  cite {
+	  font-style: normal;
+	  }
+	  dd {
+	  margin-right: 2em;
+	  }
+	  dl {
+	  margin-left: 2em;
+	  }
+	
+	  ul.empty {
+	  list-style-type: none;
+	  }
+	  ul.empty li {
+	  margin-top: .5em;
+	  }
+	  dl p {
+	  margin-left: 0em;
+	  }
+	  dt {
+	  margin-top: .5em;
+	  }
+	  h1 {
+	  font-size: 14pt;
+	  line-height: 21pt;
+	  page-break-after: avoid;
+	  }
+	  h1.np {
+	  page-break-before: always;
+	  }
+	  h1 a {
+	  color: #333333;
+	  }
+	  h2 {
+	  font-size: 12pt;
+	  line-height: 15pt;
+	  page-break-after: avoid;
+	  }
+	  h3, h4, h5, h6 {
+	  font-size: 10pt;
+	  page-break-after: avoid;
+	  }
+	  h2 a, h3 a, h4 a, h5 a, h6 a {
+	  color: black;
+	  }
+	  img {
+	  margin-left: 3em;
+	  }
+	  li {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  ol {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  ol p {
+	  margin-left: 0em;
+	  }
+	  p {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  pre {
+	  margin-left: 3em;
+	  background-color: lightyellow;
+	  padding: .25em;
+	  }
+	  pre.text2 {
+	  border-style: dotted;
+	  border-width: 1px;
+	  background-color: #f0f0f0;
+	  width: 69em;
+	  }
+	  pre.inline {
+	  background-color: white;
+	  padding: 0em;
+	  }
+	  pre.text {
+	  border-style: dotted;
+	  border-width: 1px;
+	  background-color: #f8f8f8;
+	  width: 69em;
+	  }
+	  pre.drawing {
+	  border-style: solid;
+	  border-width: 1px;
+	  background-color: #f8f8f8;
+	  padding: 2em;
+	  }
+	  table {
+	  margin-left: 2em;
+	  }
+	  table.tt {
+	  vertical-align: top;
+	  }
+	  table.full {
+	  border-style: outset;
+	  border-width: 1px;
+	  }
+	  table.headers {
+	  border-style: outset;
+	  border-width: 1px;
+	  }
+	  table.tt td {
+	  vertical-align: top;
+	  }
+	  table.full td {
+	  border-style: inset;
+	  border-width: 1px;
+	  }
+	  table.tt th {
+	  vertical-align: top;
+	  }
+	  table.full th {
+	  border-style: inset;
+	  border-width: 1px;
+	  }
+	  table.headers th {
+	  border-style: none none inset none;
+	  border-width: 1px;
+	  }
+	  table.left {
+	  margin-right: auto;
+	  }
+	  table.right {
+	  margin-left: auto;
+	  }
+	  table.center {
+	  margin-left: auto;
+	  margin-right: auto;
+	  }
+	  caption {
+	  caption-side: bottom;
+	  font-weight: bold;
+	  font-size: 9pt;
+	  margin-top: .5em;
+	  }
+	
+	  table.header {
+	  border-spacing: 1px;
+	  width: 95%;
+	  font-size: 10pt;
+	  color: white;
+	  }
+	  td.top {
+	  vertical-align: top;
+	  }
+	  td.topnowrap {
+	  vertical-align: top;
+	  white-space: nowrap; 
+	  }
+	  table.header td {
+	  background-color: gray;
+	  width: 50%;
+	  }
+	  table.header a {
+	  color: white;
+	  }
+	  td.reference {
+	  vertical-align: top;
+	  white-space: nowrap;
+	  padding-right: 1em;
+	  }
+	  thead {
+	  display:table-header-group;
+	  }
+	  ul.toc, ul.toc ul {
+	  list-style: none;
+	  margin-left: 1.5em;
+	  margin-right: 0em;
+	  padding-left: 0em;
+	  }
+	  ul.toc li {
+	  line-height: 150%;
+	  font-weight: bold;
+	  font-size: 10pt;
+	  margin-left: 0em;
+	  margin-right: 0em;
+	  }
+	  ul.toc li li {
+	  line-height: normal;
+	  font-weight: normal;
+	  font-size: 9pt;
+	  margin-left: 0em;
+	  margin-right: 0em;
+	  }
+	  li.excluded {
+	  font-size: 0pt;
+	  }
+	  ul p {
+	  margin-left: 0em;
+	  }
+	
+	  .comment {
+	  background-color: yellow;
+	  }
+	  .center {
+	  text-align: center;
+	  }
+	  .error {
+	  color: red;
+	  font-style: italic;
+	  font-weight: bold;
+	  }
+	  .figure {
+	  font-weight: bold;
+	  text-align: center;
+	  font-size: 9pt;
+	  }
+	  .filename {
+	  color: #333333;
+	  font-weight: bold;
+	  font-size: 12pt;
+	  line-height: 21pt;
+	  text-align: center;
+	  }
+	  .fn {
+	  font-weight: bold;
+	  }
+	  .hidden {
+	  display: none;
+	  }
+	  .left {
+	  text-align: left;
+	  }
+	  .right {
+	  text-align: right;
+	  }
+	  .title {
+	  color: #990000;
+	  font-size: 18pt;
+	  line-height: 18pt;
+	  font-weight: bold;
+	  text-align: center;
+	  margin-top: 36pt;
+	  }
+	  .vcardline {
+	  display: block;
+	  }
+	  .warning {
+	  font-size: 14pt;
+	  background-color: yellow;
+	  }
+	
+	
+	  @media print {
+	  .noprint {
+		display: none;
+	  }
+	
+	  a {
+		color: black;
+		text-decoration: none;
+	  }
+	
+	  table.header {
+		width: 90%;
+	  }
+	
+	  td.header {
+		width: 50%;
+		color: black;
+		background-color: white;
+		vertical-align: top;
+		font-size: 12pt;
+	  }
+	
+	  ul.toc a::after {
+		content: leader('.') target-counter(attr(href), page);
+	  }
+	
+	  ul.ind li li a {
+		content: target-counter(attr(href), page);
+	  }
+	
+	  .print2col {
+		column-count: 2;
+		-moz-column-count: 2;
+		column-fill: auto;
+	  }
+	  }
+	
+	  @page {
+	  @top-left {
+		   content: "Internet-Draft"; 
+	  } 
+	  @top-right {
+		   content: "December 2010"; 
+	  } 
+	  @top-center {
+		   content: "Abbreviated Title";
+	  } 
+	  @bottom-left {
+		   content: "Doe"; 
+	  } 
+	  @bottom-center {
+		   content: "Expires June 2011"; 
+	  } 
+	  @bottom-right {
+		   content: "[Page " counter(page) "]"; 
+	  } 
+	  }
+	
+	  @page:first { 
+		@top-left {
+		  content: normal;
+		}
+		@top-right {
+		  content: normal;
+		}
+		@top-center {
+		  content: normal;
+		}
+	  }
+  /*]]>*/
+  </style>
+
+  <link href="#rfc.toc" rel="Contents">
+<link href="#rfc.section.1" rel="Chapter" title="1 Terminology">
+<link href="#rfc.section.2" rel="Chapter" title="2 Introduction">
+<link href="#rfc.section.3" rel="Chapter" title="3 PayID Easy Checkout Protocol">
+<link href="#rfc.section.3.1" rel="Chapter" title="3.1 PayID Easy Checkout Discovery">
+<link href="#rfc.section.3.1.1" rel="Chapter" title="3.1.1 Step 1: Assemble PayID Easy Checkout Discovery URL">
+<link href="#rfc.section.3.1.2" rel="Chapter" title="3.1.2 Step 2: Query PayID Easy Checkout Discovery URL">
+<link href="#rfc.section.3.1.3" rel="Chapter" title="3.1.3 Step 3: Parse PayID Easy Checkout Metadata">
+<link href="#rfc.section.3.2" rel="Chapter" title="3.2 PayID Easy Checkout URL Assembly">
+<link href="#rfc.section.3.2.1" rel="Chapter" title="3.2.1 PayID Easy Checkout URL Query Parameters">
+<link href="#rfc.section.4" rel="Chapter" title="4 PayID Easy Checkout JRDs">
+<link href="#rfc.section.5" rel="Chapter" title="5 Security Considerations">
+<link href="#rfc.section.5.1" rel="Chapter" title="5.1 PayID Easy Checkout Redirection URI Manipulation">
+<link href="#rfc.section.5.2" rel="Chapter" title="5.2 Access Control">
+<link href="#rfc.section.6" rel="Chapter" title="6 IANA Considerations">
+<link href="#rfc.section.7" rel="Chapter" title="7 Acknowledgments">
+<link href="#rfc.section.8" rel="Chapter" title="8 Appendix">
+<link href="#rfc.section.8.1" rel="Chapter" title="8.1 Motivation">
+<link href="#rfc.section.8.1.1" rel="Chapter" title="8.1.1 Design Goals">
+<link href="#rfc.section.8.2" rel="Chapter" title="8.2 Example Usage">
+<link href="#rfc.section.8.2.1" rel="Chapter" title="8.2.1 PayID Easy Checkout Initiation">
+<link href="#rfc.section.8.2.2" rel="Chapter" title="8.2.2 PayID Easy Checkout Wallet Discovery">
+<link href="#rfc.section.8.2.3" rel="Chapter" title="8.2.3 Assemble PayID Easy Checkout URL with Query Parameters">
+<link href="#rfc.section.8.2.4" rel="Chapter" title="8.2.4 Redirect Sender to Their Wallet">
+<link href="#rfc.section.8.2.5" rel="Chapter" title="8.2.5 Sender Confirms Payment">
+<link href="#rfc.references" rel="Chapter" title="9 References">
+<link href="#rfc.references.1" rel="Chapter" title="9.1 Normative References">
+<link href="#rfc.references.2" rel="Chapter" title="9.2 Informative References">
+<link href="#rfc.authors" rel="Chapter">
+
+
+  <meta name="generator" content="xml2rfc version 2.46.0 - https://tools.ietf.org/tools/xml2rfc" />
+  <link rel="schema.dct" href="http://purl.org/dc/terms/" />
+
+  <meta name="dct.creator" content="Kramer, N., Fuelling, D., and I. Simpson" />
+  <meta name="dct.identifier" content="urn:ietf:id:payid-easy-checkout-protocol" />
+  <meta name="dct.issued" scheme="ISO8601" content="2020-08-06" />
+  <meta name="dct.abstract" content="This specification formalizes how a payment recipient, such as a merchant or a non-profit, can automatically initiate a payment from a sender using only the sender&#x27;s PayID. " />
+  <meta name="description" content="This specification formalizes how a payment recipient, such as a merchant or a non-profit, can automatically initiate a payment from a sender using only the sender&#x27;s PayID. " />
+
+</head>
+
+<body>
+
+  <table class="header">
+    <tbody>
+    
+    	<tr>
+<td class="left">Network Working Group</td>
+<td class="right">N. Kramer</td>
+</tr>
+<tr>
+<td class="left">Internet-Draft</td>
+<td class="right">D. Fuelling</td>
+</tr>
+<tr>
+<td class="left">Intended status: Standards Track</td>
+<td class="right">I. Simpson</td>
+</tr>
+<tr>
+<td class="left">Expires: February 7, 2021</td>
+<td class="right">Ripple</td>
+</tr>
+<tr>
+<td class="left"></td>
+<td class="right">August 06, 2020</td>
+</tr>
+
+    	
+    </tbody>
+  </table>
+
+  <p class="title">Draft 1 - PayID Easy Checkout Protocol<br />
+  <span class="filename">payid-easy-checkout-protocol</span></p>
+  
+  <h1 id="rfc.abstract"><a href="#rfc.abstract">Abstract</a></h1>
+<p>This specification formalizes how a payment recipient, such as a merchant or a non-profit, can automatically initiate a payment from a sender using only the sender's PayID.</p>
+<h1><a>Feedback</a></h1>
+<p>This specification is a draft proposal, and is part of the <a href="https://payid.org/">PayID Protocol</a> initiative. Feedback related to this document should be sent in the form of a Github issue at: https://github.com/payid-org/rfcs/issues.</p>
+<h1 id="rfc.status"><a href="#rfc.status">Status of This Memo</a></h1>
+<p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
+<p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
+<p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
+<p>This Internet-Draft will expire on February 7, 2021.</p>
+<h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
+<p>Copyright (c) 2020 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
+<p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
+
+  
+  <hr class="noprint" />
+  <h1 class="np" id="rfc.toc"><a href="#rfc.toc">Table of Contents</a></h1>
+  <ul class="toc">
+
+  	<li>1.   <a href="#rfc.section.1">Terminology</a>
+</li>
+<li>2.   <a href="#rfc.section.2">Introduction</a>
+</li>
+<li>3.   <a href="#rfc.section.3">PayID Easy Checkout Protocol</a>
+</li>
+<ul><li>3.1.   <a href="#rfc.section.3.1">PayID Easy Checkout Discovery</a>
+</li>
+<ul><li>3.1.1.   <a href="#rfc.section.3.1.1">Step 1: Assemble PayID Easy Checkout Discovery URL</a>
+</li>
+<li>3.1.2.   <a href="#rfc.section.3.1.2">Step 2: Query PayID Easy Checkout Discovery URL</a>
+</li>
+<li>3.1.3.   <a href="#rfc.section.3.1.3">Step 3: Parse PayID Easy Checkout Metadata</a>
+</li>
+</ul><li>3.2.   <a href="#rfc.section.3.2">PayID Easy Checkout URL Assembly</a>
+</li>
+<ul><li>3.2.1.   <a href="#rfc.section.3.2.1">PayID Easy Checkout URL Query Parameters</a>
+</li>
+</ul></ul><li>4.   <a href="#rfc.section.4">PayID Easy Checkout JRDs</a>
+</li>
+<li>5.   <a href="#rfc.section.5">Security Considerations</a>
+</li>
+<ul><li>5.1.   <a href="#rfc.section.5.1">PayID Easy Checkout Redirection URI Manipulation</a>
+</li>
+<li>5.2.   <a href="#rfc.section.5.2">Access Control</a>
+</li>
+</ul><li>6.   <a href="#rfc.section.6">IANA Considerations</a>
+</li>
+<li>7.   <a href="#rfc.section.7">Acknowledgments</a>
+</li>
+<li>8.   <a href="#rfc.section.8">Appendix</a>
+</li>
+<ul><li>8.1.   <a href="#rfc.section.8.1">Motivation</a>
+</li>
+<ul><li>8.1.1.   <a href="#rfc.section.8.1.1">Design Goals</a>
+</li>
+</ul><li>8.2.   <a href="#rfc.section.8.2">Example Usage</a>
+</li>
+<ul><li>8.2.1.   <a href="#rfc.section.8.2.1">PayID Easy Checkout Initiation</a>
+</li>
+<li>8.2.2.   <a href="#rfc.section.8.2.2">PayID Easy Checkout Wallet Discovery</a>
+</li>
+<li>8.2.3.   <a href="#rfc.section.8.2.3">Assemble PayID Easy Checkout URL with Query Parameters</a>
+</li>
+<li>8.2.4.   <a href="#rfc.section.8.2.4">Redirect Sender to Their Wallet</a>
+</li>
+<li>8.2.5.   <a href="#rfc.section.8.2.5">Sender Confirms Payment</a>
+</li>
+</ul></ul><li>9.   <a href="#rfc.references">References</a>
+</li>
+<ul><li>9.1.   <a href="#rfc.references.1">Normative References</a>
+</li>
+<li>9.2.   <a href="#rfc.references.2">Informative References</a>
+</li>
+</ul><li><a href="#rfc.authors">Authors' Addresses</a>
+</li>
+
+
+  </ul>
+
+  <h1 id="rfc.section.1">
+<a href="#rfc.section.1">1.</a> <a href="#terminology" id="terminology">Terminology</a>
+</h1>
+<p id="rfc.section.1.p.1">This protocol can be referred to as the <samp>PayID Easy Checkout Protocol</samp>. It uses the following terminology:</p>
+<p></p>
+
+<ul>
+<li>PayID Easy Checkout Client: A client that assembles a PayID Easy Checkout URL using information obtained from PayID Discovery Server via <a href="#PAYID-DISCOVERY" class="xref">[PAYID-DISCOVERY]</a>.</li>
+<li>PayID Discovery Server: An endpoint that returns a PayID Discovery JRD conforming to <a href="#PAYID-DISCOVERY" class="xref">[PAYID-DISCOVERY]</a>.</li>
+<li>Recipient: An individual or entity receiving a payment (e.g., e-commerce merchant, charity).</li>
+<li>Sender: An individual or entity originating a payment to a <samp>recipient</samp>.</li>
+<li>Wallet: A device or application that holds funds (may be a non-custodial wallet).</li>
+<li>PayID Easy Checkout URL: A URL that is the result of this protocol; can be used to redirect a client to a wallet corresponding to a particular PayID as defined in <a href="#PAYID-URI" class="xref">[PAYID-URI]</a>.</li>
+</ul>
+<p id="rfc.section.1.p.3">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <a href="#RFC2119" class="xref">[RFC2119]</a> and [RFC9174][].</p>
+<h1 id="rfc.section.2">
+<a href="#rfc.section.2">2.</a> <a href="#introduction" id="introduction">Introduction</a>
+</h1>
+<p id="rfc.section.2.p.1">The PayID Easy Checkout Protocol allows a recipient (e.g., an online merchant or a charity) to request a payment from a sender using only the sender's <a href="#PAYID-URI" class="xref">PayID</a>. Implementations of this protocol require little to no server-side engineering effort, while creating a seamless and uniform user experience for senders.</p>
+<p id="rfc.section.2.p.2">The main focus of the protocol is on PayID Easy Checkout Discovery, which defines how a PayID Easy Checkout Client can retrieve a PayID Easy Checkout URL and use it to initiate a payment to the merchant.</p>
+<p id="rfc.section.2.p.3">Though the <a href="#appendix" class="xref">Section 8</a> of this specification provides an example usage of this protocol using Web Redirects, supplemental RFCs are needed to define any different ways in which a PayID client can utilize a PayID Easy Checkout URL.</p>
+<h1 id="rfc.section.3">
+<a href="#rfc.section.3">3.</a> <a href="#payid-easy-checkout-protocol" id="payid-easy-checkout-protocol">PayID Easy Checkout Protocol</a>
+</h1>
+<p id="rfc.section.3.p.1">The PayID Easy Checkout Protocol can be used to initiate an end-to-end checkout flow between a payment recipient, such as an online merchant, and a sender.</p>
+<p id="rfc.section.3.p.2">The protocol is comprised of two parts:</p>
+<p></p>
+
+<ol>
+<li>PayID Easy Checkout Discovery</li>
+<li>PayID Easy Checkout URL Assembly</li>
+</ol>
+<h1 id="rfc.section.3.1">
+<a href="#rfc.section.3.1">3.1.</a> <a href="#payid-easy-checkout-discovery" id="payid-easy-checkout-discovery">PayID Easy Checkout Discovery</a>
+</h1>
+<p id="rfc.section.3.1.p.1">PayID Easy Checkout Discovery extends <a href="#PAYID-DISCOVERY" class="xref">[PAYID-DISCOVERY]</a> by defining a new link relation in the PayID metadata JRD returned by a PayID Discovery query. This link relation, defined in the <a href="#payid-easy-checkout-jrds" class="xref">JRD</a> section of this specification, includes the URL on the sender's wallet that can be used to initiate a payment.</p>
+<p id="rfc.section.3.1.p.2">Recipients who wish to initiate an Easy Checkout flow MUST first query the sender's PayID Discovery Server to obtain a PayID Easy Checkout URL. Therefore, PayID Discovery Servers that wish to enable PayID Easy Checkout MUST include an Easy Checkout JRD Link in all PayID Easy Checkout Discovery responses.</p>
+<p id="rfc.section.3.1.p.3">Recipients SHOULD implement fallback measures to complete a checkout flow if a sender's wallet does not support PayID Easy Checkout.</p>
+<p id="rfc.section.3.1.p.4">The following steps describe how a PayID Easy Checkout Client can query a PayID Discovery Server to obtain a PayID Easy Checkout URL.</p>
+<h1 id="rfc.section.3.1.1">
+<a href="#rfc.section.3.1.1">3.1.1.</a> <a href="#step-1-assemble-payid-easy-checkout-discovery-url" id="step-1-assemble-payid-easy-checkout-discovery-url">Step 1: Assemble PayID Easy Checkout Discovery URL</a>
+</h1>
+<p id="rfc.section.3.1.1.p.1">The process of assembling a PayID Discovery URL is defined in section 4.1.1 of <a href="#PAYID-DISCOVERY" class="xref">[PAYID-DISCOVERY]</a>.</p>
+<h1 id="rfc.section.3.1.2">
+<a href="#rfc.section.3.1.2">3.1.2.</a> <a href="#step-2-query-payid-easy-checkout-discovery-url" id="step-2-query-payid-easy-checkout-discovery-url">Step 2: Query PayID Easy Checkout Discovery URL</a>
+</h1>
+<p id="rfc.section.3.1.2.p.1">The process of querying the PayID Discovery URL is defined in section 4.1.2 of <a href="#PAYID-DISCOVERY" class="xref">[PAYID-DISCOVERY]</a>.</p>
+<p id="rfc.section.3.1.2.p.2">Clients SHOULD implement fallback measures to complete checkout if the PayID Easy Checkout Discovery query fails.</p>
+<h1 id="rfc.section.3.1.3">
+<a href="#rfc.section.3.1.3">3.1.3.</a> <a href="#step-3-parse-payid-easy-checkout-metadata" id="step-3-parse-payid-easy-checkout-metadata">Step 3: Parse PayID Easy Checkout Metadata</a>
+</h1>
+<p id="rfc.section.3.1.3.p.1">If PayID Easy Checkout is supported, a PayID Discovery server MUST respond to discovery requests with an HTTP status code of <samp>200</samp> and a JSON payload containing a JRD with an Easy Checkout link relation.</p>
+<p id="rfc.section.3.1.3.p.2">For example, a PayID Discovery Server might respond to a PayID Discovery query with the following payload:</p>
+<pre>
+ {
+    "subject": "payid:alice$wallet.com",
+    "links": [
+        {
+            "rel" : "https://payid.org/ns/payid-easy-checkout-uri/1.0",
+            "href": "https://wallet.com/checkout"
+        }
+    ]
+ }
+</pre>
+<p id="rfc.section.3.1.3.p.3">A PayID Easy Checkout client MUST parse this response to find the PayID Easy Checkout Link.  If the JRD returned from the PayID Discovery query does not contain a PayID Easy Checkout Link in its 'links' collection, PayID Easy Checkout is considered to have failed.</p>
+<p id="rfc.section.3.1.3.p.4">However, if a PayID Easy Checkout URL can been obtained from the PayID Easy Checkout Link, PayID Easy Checkout Discovery is considered to be complete.</p>
+<h1 id="rfc.section.3.2">
+<a href="#rfc.section.3.2">3.2.</a> <a href="#payid-easy-checkout-url-assembly" id="payid-easy-checkout-url-assembly">PayID Easy Checkout URL Assembly</a>
+</h1>
+<p id="rfc.section.3.2.p.1">A PayID Easy Checkout URL represents the resource on a wallet that can be used by a sender to complete a payment. However, before directing a sender to their wallet, the recipient MUST append all of the query parameters defined in the <a href="#payid-easy-checkout-url-query-parameters" class="xref">following section</a>.</p>
+<p id="rfc.section.3.2.p.2">Once a PayID Easy Checkout URL is assembled, PayID Easy Checkout is considered to be complete.</p>
+<h1 id="rfc.section.3.2.1">
+<a href="#rfc.section.3.2.1">3.2.1.</a> <a href="#payid-easy-checkout-url-query-parameters" id="payid-easy-checkout-url-query-parameters">PayID Easy Checkout URL Query Parameters</a>
+</h1>
+<p id="rfc.section.3.2.1.p.1">This specification defines several query parameter names and corresponding datatypes which MUST be added to the PayID Easy Checkout URL before redirecting a sender to their wallet. The PayID Easy Checkout URL SHOULD be parsed by the wallet in order to retrieve any values set by the recipient. It is RECOMMENDED that wallets use these values to pre-populate a payment transaction.</p>
+<table cellpadding="3" cellspacing="0" class="tt full center">
+<thead><tr>
+<th class="left">Name</th>
+<th class="left">Type</th>
+<th class="left">Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="left">amount</td>
+<td class="left">integer</td>
+<td class="left">The amount that should be sent by the sender to the recipient.</td>
+</tr>
+<tr>
+<td class="left">receiverPayId</td>
+<td class="left">string</td>
+<td class="left">The <a href="#PAYID-URI" class="xref">[PAYID-URI]</a> of the receiver.</td>
+</tr>
+<tr>
+<td class="left">assetCode</td>
+<td class="left">string</td>
+<td class="left">The currency code that denominates the amount as defined in <a href="#PAYID-PROTOCOL" class="xref">[PAYID-PROTOCOL]</a>.</td>
+</tr>
+<tr>
+<td class="left">assetScale</td>
+<td class="left">short</td>
+<td class="left">Defines how many units make up one regular unit of the assetCode.</td>
+</tr>
+<tr>
+<td class="left">paymentNetwork</td>
+<td class="left">string</td>
+<td class="left">The payment network, as defined in <a href="#PAYID-PROTOCOL" class="xref">[PAYID-PROTOCOL]</a>, that the sender should use to send a payment.</td>
+</tr>
+<tr>
+<td class="left">nextUrl</td>
+<td class="left">HTTP Url string</td>
+<td class="left">A URL that the sender's wallet can navigate a sender to after the sender completes a payment.</td>
+</tr>
+</tbody>
+</table>
+<p id="rfc.section.3.2.1.p.2">When adding values into a URI 'query' part as defined by <a href="#RFC3986" class="xref">[RFC3986]</a>, values with characters outside the character set allowed by query parameters in <a href="#RFC3986" class="xref">[RFC3986]</a> MUST be percent or otherwise encoded.</p>
+<p id="rfc.section.3.2.1.p.3">Protocols MAY define additional query parameter names and syntax rules, but MUST NOT change the meaning of the variables specified in this document.</p>
+<p id="rfc.section.3.2.1.p.4">For example:</p>
+<pre>
+Input:    alice$wallet.com
+          amount=10
+          receiverPayId=pay$merchant.com
+          assetCode=XRP
+          assetScale=6
+          network=XRPL
+          nextUrl=https://merchant.com/thankyou
+PayID Easy Checkout URL: https://wallet.com/checkout
+Output:   https://wallet.com/checkout?amount=100000&amp;receiverPayId=payid%2Apay%24merchant.com&amp;assetCode=XRP&amp;assetScale=6&amp;paymentNetwork=XRPL&amp;nextUrl=https%3A%2F%2Fmerchant.com%2Fthankyou
+</pre>
+<h1 id="rfc.section.4">
+<a href="#rfc.section.4">4.</a> <a href="#payid-easy-checkout-jrds" id="payid-easy-checkout-jrds">PayID Easy Checkout JRDs</a>
+</h1>
+<p id="rfc.section.4.p.1">This section defines the PayID Easy Checkout Link Relation, which conforms to section 4.4 of <a href="#RFC7033" class="xref">Webfinger</a>.</p>
+<p id="rfc.section.4.p.2">The Link MUST include the Link Relation Type defined in <a href="#iana-considerations" class="xref">PayID Easy Checkout URL</a> in the object's 'rel' field.  The Link MUST also include a PayID Easy Checkout URL in the 'href' field of the link.</p>
+<pre>
+* 'rel': `https://payid.org/ns/payid-easy-checkout-uri/1.0`
+* 'href': {A PayID Easy Checkout URL}
+</pre>
+<p id="rfc.section.4.p.3">The following is an example of a PayID Easy Checkout Link:</p>
+<pre>
+{
+    "rel": "https://payid.org/ns/payid-easy-checkout-uri/1.0",
+    "href": "https://wallet.com/checkout"
+}
+</pre>
+<h1 id="rfc.section.5">
+<a href="#rfc.section.5">5.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a>
+</h1>
+<p id="rfc.section.5.p.1">Various security considerations should be taken into account for PayID Easy Checkout.</p>
+<p id="rfc.section.5.p.2">The security considerations for PayID Easy Checkout Discovery are discussed in section 6 of <a href="#PAYID-DISCOVERY" class="xref">[PAYID-DISCOVERY]</a>.</p>
+<h1 id="rfc.section.5.1">
+<a href="#rfc.section.5.1">5.1.</a> <a href="#payid-easy-checkout-redirection-uri-manipulation" id="payid-easy-checkout-redirection-uri-manipulation">PayID Easy Checkout Redirection URI Manipulation</a>
+</h1>
+<p id="rfc.section.5.1.p.1">When a sender uses the resource located at the PayID Easy Checkout URL, an attacker could manipulate the data encoded in the URL to trick the sender into sending a payment to a different PayID than was originally requested, or manipulate other parts of PayID Easy Checkout data to trick the sender.</p>
+<p id="rfc.section.5.1.p.2">Additionally, if an attacker gains access to the merchant application, an attacker could replace the PayID Easy Checkout URL to execute a phishing or other attack.</p>
+<h1 id="rfc.section.5.2">
+<a href="#rfc.section.5.2">5.2.</a> <a href="#access-control" id="access-control">Access Control</a>
+</h1>
+<p id="rfc.section.5.2.p.1">As with all web resources, access to the PayID Discovery resource could require authentication. See section 6 of <a href="#RFC7033" class="xref">[RFC7033]</a> for Access Control considerations.</p>
+<p id="rfc.section.5.2.p.2">Furthermore, it is RECOMMENDED that PayID Discovery Servers only expose PayID Easy Checkout URLs which resolve to a protected resource (e.g., by logging into a wallet) before allowing access.</p>
+<h1 id="rfc.section.6">
+<a href="#rfc.section.6">6.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a>
+</h1>
+<p id="rfc.section.6.p.1">## New Link Relation Types This document defines the following Link relation type per <a href="#RFC7033" class="xref">[RFC7033]</a>.  See section 3 for examples of each type of Link.</p>
+<p id="rfc.section.6.p.2">### PayID Easy Checkout URL</p>
+<pre>
+* Relation Type ('rel'): `https://payid.org/ns/payid-easy-checkout-uri/1.0`
+* Media Type: `application/jrd+json`
+* Description: PayID Easy Checkout URL, version 1.0
+</pre>
+<h1 id="rfc.section.7">
+<a href="#rfc.section.7">7.</a> <a href="#acknowledgments" id="acknowledgments">Acknowledgments</a>
+</h1>
+<h1 id="rfc.section.8">
+<a href="#rfc.section.8">8.</a> <a href="#appendix" id="appendix">Appendix</a>
+</h1>
+<h1 id="rfc.section.8.1">
+<a href="#rfc.section.8.1">8.1.</a> <a href="#motivation" id="motivation">Motivation</a>
+</h1>
+<p id="rfc.section.8.1.p.1">The PayID Easy Checkout Protocol aims to enable a consistent user experience for senders paying for goods or services by standardizing the interaction between merchants/non-profits and customer/donor wallets.  Given the ability to assign arbitrary metadata to a PayID as defined in <a href="#PAYID-DISCOVERY" class="xref">[PAYID-DISCOVERY]</a>, there is an opportunity to standardize the set of interactions between merchant and sender, specifically the process by which a merchant directs a sender to their digital wallet to complete a payment.  The intention of this protocol is to enable an improved paying experience by reducing the number of steps a sender must take to complete a transaction.</p>
+<p id="rfc.section.8.1.p.2">PayID Easy Checkout also limits the engineering effort needed to implement the protocol.  Clients wishing to adopt this pattern should only need to implement UI-level changes in order to make the flow function as intended, which may aid in expanding overall adoption, further enhancing the protocol's user experience benefits.</p>
+<h1 id="rfc.section.8.1.1">
+<a href="#rfc.section.8.1.1">8.1.1.</a> <a href="#design-goals" id="design-goals">Design Goals</a>
+</h1>
+<h1 id="rfc.section.8.1.1.1">
+<a href="#rfc.section.8.1.1.1">8.1.1.1.</a> <a href="#minimal-effort-for-the-sender" id="minimal-effort-for-the-sender">Minimal effort for the Sender</a>
+</h1>
+<p id="rfc.section.8.1.1.1.p.1">In order for a sender to checkout using the PayID Easy Checkout protocol, the sender only needs to provide a merchant with their PayID Easy Checkout enabled PayID.</p>
+<h1 id="rfc.section.8.1.1.2">
+<a href="#rfc.section.8.1.1.2">8.1.1.2.</a> <a href="#no-new-server-side-software" id="no-new-server-side-software">No New Server-Side Software</a>
+</h1>
+<p id="rfc.section.8.1.1.2.p.1">Apart from a PayID Discovery compliant PayID Discovery Server, The PayID Easy Checkout Protocol does not require server-side software to be run by either the sender or merchant for a payment. The PayID Discovery Server is capable of providing details of where to send the sender via the PayID Discovery Protocol. Assuming the wallet used by the sender has implemented support in their UI for the PayID Easy Checkout Protocol, the sender can be redirected to their wallet to complete their transaction.</p>
+<h1 id="rfc.section.8.2">
+<a href="#rfc.section.8.2">8.2.</a> <a href="#example-usage" id="example-usage">Example Usage</a>
+</h1>
+<p id="rfc.section.8.2.p.1">This section shows a non-normative example of PayID Easy Checkout between a hypothetical merchant (recipient) and sender. The merchant accepts payments using the PayID pay$merchant.example.com, and the sender controls the PayID alice$wallet.example.com.</p>
+<h1 id="rfc.section.8.2.1">
+<a href="#rfc.section.8.2.1">8.2.1.</a> <a href="#payid-easy-checkout-initiation" id="payid-easy-checkout-initiation">PayID Easy Checkout Initiation</a>
+</h1>
+<p id="rfc.section.8.2.1.p.1">In this example, the sender might place some items in an online shopping cart on the merchant's web-site, then choose to checkout.  The merchant would then render a form asking for the sender's PayID, as well as a "Checkout with PayID" button.  Once the sender inputs their PayID <samp>alice$wallet.example.com</samp> and clicks the "Checkout with PayID" button, the merchant begins the PayID Easy Checkout flow.</p>
+<h1 id="rfc.section.8.2.2">
+<a href="#rfc.section.8.2.2">8.2.2.</a> <a href="#payid-easy-checkout-wallet-discovery" id="payid-easy-checkout-wallet-discovery">PayID Easy Checkout Wallet Discovery</a>
+</h1>
+<p id="rfc.section.8.2.2.p.1">The merchant UI would first assemble the PayID Easy Checkout URL as defined in <a href="#payid-easy-checkout-discovery" class="xref">PayID Easy Checkout Discovery</a>, yielding the URL <samp>https://wallet.example.com/.well-known/webfinger?resource=payid%3Aalice%24wallet.example.com</samp>.  The merchant UI would then <a href="#step-2-query-payid-easy-checkout-discovery-url" class="xref">query the assembled URL</a>.</p>
+<p id="rfc.section.8.2.2.p.2">The HTTP request in this example would look like this:</p>
+<pre>
+GET /.well-known/webfinger?resource=payid%3Aalice%24wallet.example.com
+Host: wallet.example.com
+</pre>
+<p id="rfc.section.8.2.2.p.3">If the sender's PayID Discovery Server has enabled PayID Easy Checkout in their wallet, the server would respond with something like this:</p>
+<pre>
+ HTTP/1.1 200 OK
+ Access-Control-Allow-Origin: *
+ Content-Type: application/jrd+json
+
+ {
+   "subject" : "payid:alice$wallet.example.com",
+   "links" :
+   [
+     {  
+       "rel": "https://payid.org/ns/payid-easy-checkout-uri/1.0",
+       "template": "https://wallet.example.com/checkout"
+     }
+   ]
+ }
+</pre>
+<h1 id="rfc.section.8.2.3">
+<a href="#rfc.section.8.2.3">8.2.3.</a> <a href="#assemble-payid-easy-checkout-url-with-query-parameters" id="assemble-payid-easy-checkout-url-with-query-parameters">Assemble PayID Easy Checkout URL with Query Parameters</a>
+</h1>
+<p id="rfc.section.8.2.3.p.1">The merchant UI would parse the PayID Discovery response and iterate over the 'links' collection to find the link with the Relation Type of "https://payid.org/ns/payid-easy-checkout-uri/1.0". The merchant UI would then add all of the query parameters defined in <a href="#payid-easy-checkout-url-query-parameters" class="xref">PayID Easy Checkout URL Query Parameters</a> to the URL included in the JRD Link.  One query parameter of note is the "nextUrl" parameter, which allows the merchant to supply a redirect or callback URL for the sender's wallet to call once the sender has confirmed the payment. In this example, the merchant would like to display a "Thank You" page, and replaces <samp>{nextUrl}</samp> with <samp>https://merchant.com/thankyou</samp>.</p>
+<h1 id="rfc.section.8.2.3.1">
+<a href="#rfc.section.8.2.3.1">8.2.3.1.</a> <a href="#correlating-a-payment-to-an-invoice" id="correlating-a-payment-to-an-invoice">Correlating a Payment to an Invoice</a>
+</h1>
+<p id="rfc.section.8.2.3.1.p.1">Merchants and non-profits will often need to correlate discrete layer-1 payments to an invoice or transaction entity in the merchants' native systems. The merchant in this example may have an invoice tracking system, on which an invoice gets created for the goods that the sender is buying, for example an invoice with a unique identifier of <samp>1045464</samp>. A common practice for correlating layer-1 payments to a specific transaction or invoice is to accept payments on a different layer-1 address for each invoice so that the merchant can listen for payments into that address and correlate the payment to the invoice.  However, because the PayID Easy Checkout URL only provides the receiver's PayID, there is currently no way to associate the address that is given to the sender to the invoice.</p>
+<p id="rfc.section.8.2.3.1.p.2">In order to accomplish this, a merchant could provide a unique PayID associated with an invoice, for example a PayID containing the invoice identifier, for each PayID Easy Checkout transaction. In this example, the merchant would first associate a payment address with the invoice ID, and would then redirect the sender to their wallet with the <samp>receiverPayId</samp> query parameter set to <samp>pay-1045464$merchant.com</samp>.  When the merchant PayID Server receives a query for the address associated with that PayID, they could return the previously stored payment address. When the merchant receives a payment to that address, they can then associate the layer 1 payment with the invoice.</p>
+<h1 id="rfc.section.8.2.4">
+<a href="#rfc.section.8.2.4">8.2.4.</a> <a href="#redirect-sender-to-their-wallet" id="redirect-sender-to-their-wallet">Redirect Sender to Their Wallet</a>
+</h1>
+<p id="rfc.section.8.2.4.p.1">Once the merchant UI populates the required query parameters in the URL template, the merchant UI redirects the sender to the Redirect URL so that the sender can confirm the payment.</p>
+<h1 id="rfc.section.8.2.5">
+<a href="#rfc.section.8.2.5">8.2.5.</a> <a href="#sender-confirms-payment" id="sender-confirms-payment">Sender Confirms Payment</a>
+</h1>
+<p id="rfc.section.8.2.5.p.1">After the sender clicks the "Pay with PayID" button the merchant's UI, and the merchant performs the previous steps, the sender will be redirected to the Redirect URL, which is a front end resource of the wallet. The wallet UI can read the query parameters from the Redirect URL and render a confirmation page or modal with all of the required fields pre-populated.</p>
+<p id="rfc.section.8.2.5.p.2">Once the sender confirms the payment, the wallet would perform a PayID address lookup on the "receiverPayId" query parameter to get the payment address of the merchant and submit a transaction to the underlying ledger or payment system.  The merchant can then redirect the user back to the URL specified in the "nextUrl" query parameter, which will display the "Thank You" page of the merchant.</p>
+<h1 id="rfc.references">
+<a href="#rfc.references">9.</a> References</h1>
+<h1 id="rfc.references.1">
+<a href="#rfc.references.1">9.1.</a> Normative References</h1>
+<table><tbody>
+<tr>
+<td class="reference"><b id="PAYID-DISCOVERY">[PAYID-DISCOVERY]</b></td>
+<td class="top">
+<a>Fuelling, D.</a>, "<a>PayID Discovery</a>", n.d..</td>
+</tr>
+<tr>
+<td class="reference"><b id="PAYID-PROTOCOL">[PAYID-PROTOCOL]</b></td>
+<td class="top">
+<a>Schwartz, D.</a>, "<a>PayID Protocol</a>", n.d..</td>
+</tr>
+<tr>
+<td class="reference"><b id="PAYID-URI">[PAYID-URI]</b></td>
+<td class="top">
+<a>Fuelling, D.</a>, "<a href="https://tbd.example.com/">The 'payid' URI Scheme</a>", n.d..</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC2119">[RFC2119]</b></td>
+<td class="top">
+<a>Bradner, S.</a>, "<a href="https://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC2818">[RFC2818]</b></td>
+<td class="top">
+<a>Rescorla, E.</a>, "<a href="https://tools.ietf.org/html/rfc2818">HTTP Over TLS</a>", RFC 2818, DOI 10.17487/RFC2818, May 2000.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC3986">[RFC3986]</b></td>
+<td class="top">
+<a>Berners-Lee, T.</a>, <a>Fielding, R.</a> and <a>L. Masinter</a>, "<a href="https://tools.ietf.org/html/rfc3986">Uniform Resource Identifier (URI): Generic Syntax</a>", STD 66, RFC 3986, DOI 10.17487/RFC3986, January 2005.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC6265">[RFC6265]</b></td>
+<td class="top">
+<a>Barth, A.</a>, "<a href="https://tools.ietf.org/html/rfc6265">HTTP State Management Mechanism</a>", RFC 6265, DOI 10.17487/RFC6265, April 2011.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC6570">[RFC6570]</b></td>
+<td class="top">
+<a>Gregorio, J.</a>, <a>Fielding, R.</a>, <a>Hadley, M.</a>, <a>Nottingham, M.</a> and <a>D. Orchard</a>, "<a href="https://tools.ietf.org/html/rfc6570">URI Template</a>", RFC 6570, DOI 10.17487/RFC6570, March 2012.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC7033">[RFC7033]</b></td>
+<td class="top">
+<a>Jones, P.</a>, <a>Salgueiro, G.</a>, <a>Jones, M.</a> and <a>J. Smarr</a>, "<a href="https://tools.ietf.org/html/rfc7033">WebFinger</a>", RFC 7033, DOI 10.17487/RFC7033, September 2013.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC7231">[RFC7231]</b></td>
+<td class="top">
+<a>Fielding, R.</a> and <a>J. Reschke</a>, "<a href="https://tools.ietf.org/html/rfc7231">Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content</a>", RFC 7231, DOI 10.17487/RFC7231, June 2014.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC7413">[RFC7413]</b></td>
+<td class="top">
+<a>Cheng, Y.</a>, <a>Chu, J.</a>, <a>Radhakrishnan, S.</a> and <a>A. Jain</a>, "<a href="https://tools.ietf.org/html/rfc7413">TCP Fast Open</a>", RFC 7413, DOI 10.17487/RFC7413, December 2014.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8446">[RFC8446]</b></td>
+<td class="top">
+<a>Rescorla, E.</a>, "<a href="https://tools.ietf.org/html/rfc8446">The Transport Layer Security (TLS) Protocol Version 1.3</a>", RFC 8446, DOI 10.17487/RFC8446, August 2018.</td>
+</tr>
+</tbody></table>
+<h1 id="rfc.references.2">
+<a href="#rfc.references.2">9.2.</a> Informative References</h1>
+<table><tbody><tr>
+<td class="reference"><b id="RFC5988">[RFC5988]</b></td>
+<td class="top">
+<a>Nottingham, M.</a>, "<a href="https://tools.ietf.org/html/rfc5988">Web Linking</a>", RFC 5988, DOI 10.17487/RFC5988, October 2010.</td>
+</tr></tbody></table>
+<h1 id="rfc.authors"><a href="#rfc.authors">Authors' Addresses</a></h1>
+<div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Noah Kramer</span> 
+	  <span class="n hidden">
+		<span class="family-name">Kramer</span>
+	  </span>
+	</span>
+	<span class="org vcardline">Ripple</span>
+	<span class="adr">
+	  <span class="vcardline">315 Montgomery Street</span>
+
+	  <span class="vcardline">
+		<span class="locality">San Francisco</span>,  
+		<span class="region">CA</span> 
+		<span class="code">94104</span>
+	  </span>
+	  <span class="country-name vcardline">US</span>
+	</span>
+	<span class="vcardline">Phone: -----------------</span>
+
+<span class="vcardline">EMail: <a href="mailto:nkramer@ripple.com">nkramer@ripple.com</a></span>
+
+<span class="vcardline">URI: <a href="https://www.ripple.com">https://www.ripple.com</a></span>
+
+  </address>
+</div><div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">David Fuelling</span> 
+	  <span class="n hidden">
+		<span class="family-name">Fuelling</span>
+	  </span>
+	</span>
+	<span class="org vcardline">Ripple</span>
+	<span class="adr">
+	  <span class="vcardline">315 Montgomery Street</span>
+
+	  <span class="vcardline">
+		<span class="locality">San Francisco</span>,  
+		<span class="region">CA</span> 
+		<span class="code">94104</span>
+	  </span>
+	  <span class="country-name vcardline">US</span>
+	</span>
+	<span class="vcardline">Phone: -----------------</span>
+
+<span class="vcardline">EMail: <a href="mailto:fuelling@ripple.com">fuelling@ripple.com</a></span>
+
+<span class="vcardline">URI: <a href="https://www.ripple.com">https://www.ripple.com</a></span>
+
+  </address>
+</div><div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Ian Simpson</span> 
+	  <span class="n hidden">
+		<span class="family-name">Simpson</span>
+	  </span>
+	</span>
+	<span class="org vcardline">Ripple</span>
+	<span class="adr">
+	  <span class="vcardline">315 Montgomery Street</span>
+
+	  <span class="vcardline">
+		<span class="locality">San Francisco</span>,  
+		<span class="region">CA</span> 
+		<span class="code">94104</span>
+	  </span>
+	  <span class="country-name vcardline">US</span>
+	</span>
+	<span class="vcardline">Phone: -----------------</span>
+
+<span class="vcardline">EMail: <a href="mailto:isimpson@ripple.com">isimpson@ripple.com</a></span>
+
+<span class="vcardline">URI: <a href="https://www.ripple.com">https://www.ripple.com</a></span>
+
+  </address>
+</div>
+
+</body>
+</html>
