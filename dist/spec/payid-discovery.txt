@@ -4,8 +4,8 @@
 
 Network Working Group                                        D. Fuelling
 Internet-Draft                                                    Ripple
-Intended status: Standards Track                           July 07, 2020
-Expires: January 8, 2021
+Intended status: Standards Track                           July 17, 2020
+Expires: January 18, 2021
 
 
                             PayID Discovery
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on January 8, 2021.
+   This Internet-Draft will expire on January 18, 2021.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Fuelling                 Expires January 8, 2021                [Page 1]
+Fuelling                Expires January 18, 2021                [Page 1]
 
 Internet-Draft               PayID Discovery                   July 2020
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Fuelling                 Expires January 8, 2021                [Page 2]
+Fuelling                Expires January 18, 2021                [Page 2]
 
 Internet-Draft               PayID Discovery                   July 2020
 
@@ -165,7 +165,7 @@ Internet-Draft               PayID Discovery                   July 2020
 
 
 
-Fuelling                 Expires January 8, 2021                [Page 3]
+Fuelling                Expires January 18, 2021                [Page 3]
 
 Internet-Draft               PayID Discovery                   July 2020
 
@@ -221,7 +221,7 @@ Internet-Draft               PayID Discovery                   July 2020
 
 
 
-Fuelling                 Expires January 8, 2021                [Page 4]
+Fuelling                Expires January 18, 2021                [Page 4]
 
 Internet-Draft               PayID Discovery                   July 2020
 
@@ -277,7 +277,7 @@ Internet-Draft               PayID Discovery                   July 2020
 
 
 
-Fuelling                 Expires January 8, 2021                [Page 5]
+Fuelling                Expires January 18, 2021                [Page 5]
 
 Internet-Draft               PayID Discovery                   July 2020
 
@@ -333,7 +333,7 @@ Internet-Draft               PayID Discovery                   July 2020
 
 
 
-Fuelling                 Expires January 8, 2021                [Page 6]
+Fuelling                Expires January 18, 2021                [Page 6]
 
 Internet-Draft               PayID Discovery                   July 2020
 
@@ -389,7 +389,7 @@ Internet-Draft               PayID Discovery                   July 2020
 
 
 
-Fuelling                 Expires January 8, 2021                [Page 7]
+Fuelling                Expires January 18, 2021                [Page 7]
 
 Internet-Draft               PayID Discovery                   July 2020
 
@@ -445,7 +445,7 @@ Internet-Draft               PayID Discovery                   July 2020
 
 
 
-Fuelling                 Expires January 8, 2021                [Page 8]
+Fuelling                Expires January 18, 2021                [Page 8]
 
 Internet-Draft               PayID Discovery                   July 2020
 
@@ -501,7 +501,7 @@ PAYID-URI-Template =  *( uri-char / variable )
 
 
 
-Fuelling                 Expires January 8, 2021                [Page 9]
+Fuelling                Expires January 18, 2021                [Page 9]
 
 Internet-Draft               PayID Discovery                   July 2020
 
@@ -557,7 +557,7 @@ Internet-Draft               PayID Discovery                   July 2020
 
 
 
-Fuelling                 Expires January 8, 2021               [Page 10]
+Fuelling                Expires January 18, 2021               [Page 10]
 
 Internet-Draft               PayID Discovery                   July 2020
 
@@ -613,7 +613,7 @@ Internet-Draft               PayID Discovery                   July 2020
 
 
 
-Fuelling                 Expires January 8, 2021               [Page 11]
+Fuelling                Expires January 18, 2021               [Page 11]
 
 Internet-Draft               PayID Discovery                   July 2020
 
@@ -669,7 +669,7 @@ Internet-Draft               PayID Discovery                   July 2020
 
 
 
-Fuelling                 Expires January 8, 2021               [Page 12]
+Fuelling                Expires January 18, 2021               [Page 12]
 
 Internet-Draft               PayID Discovery                   July 2020
 
@@ -725,7 +725,7 @@ Internet-Draft               PayID Discovery                   July 2020
 
 
 
-Fuelling                 Expires January 8, 2021               [Page 13]
+Fuelling                Expires January 18, 2021               [Page 13]
 
 Internet-Draft               PayID Discovery                   July 2020
 
@@ -781,4 +781,4 @@ Author's Address
 
 
 
-Fuelling                 Expires January 8, 2021               [Page 14]
+Fuelling                Expires January 18, 2021               [Page 14]
