@@ -56,3 +56,6 @@ To watch edits to RFC source files and auto-generate output when changes are sav
 First, write a Pull Request that adds the markdown file for the spec in the [src/spec](https://github.com/payid-org/rfcs/tree/master/src/spec) folder.
 
 Then, add that file to the [Gruntfile](https://github.com/payid-org/rfcs/tree/master/Gruntfile.js) list of RFCs. That way the spec output can be generated for your proposal.
+## Legal
+
+**This code is not authorised for download in Australia. Any persons located in Australia are expressly prohibited from downloading, using, reproducing or distributing the code.** This code is not owned by, or associated with, NPP Australia Limited, and has no sponsorship, affiliation or other connection with the “Pay ID” service operated by NPP Australia Limited in Australia.
